@@ -9,7 +9,8 @@ const DrawerLayout = tw.div`drawer drawer-mobile `;
 const DrawerContentWrapper = tw.div`drawer-content relative w-full max-h-screen flex flex-col justify-between overflow-x-auto overflow-y-auto invisible-scroll`;
 const PageContent = tw.div`flex flex-col justify-between w-full h-full gap-10 overflow-y-auto invisible-scroll bg-base-200`;
 const SidebarToggler = tw.input`drawer-toggle`;
-const Layout = () => {
+
+const Layout = ({ children }) => {
 	return (
 		<DrawerLayout>
 			<SidebarToggler id="sidebar-toggle" type="checkbox" />
@@ -18,6 +19,7 @@ const Layout = () => {
 				<Navbar />
 				<PageContent>
 					<Outlet />
+					{children}
 				</PageContent>
 				<AudioPlayer />
 			</DrawerContentWrapper>

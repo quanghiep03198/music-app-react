@@ -28,7 +28,7 @@ const TrackActions = ({ audioRef }) => {
 				<InputRange inputRef={volumeInputRef} max={100} handleChange={adjustVolume} labelRef={inputId} />
 			</VolumeController>
 			<Swap swapOff={<BsHeart />} swapOn={<BsHeartFill className="text-accent" />} />
-			<Link to="/nextup">
+			<Link to="/queue">
 				<HiOutlineQueueList />
 			</Link>
 		</ActionsGroup>

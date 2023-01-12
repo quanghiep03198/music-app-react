@@ -12,10 +12,12 @@ const Dropdown = ({
 }) => {
 	return (
 		<DropdownWrapper className={`${verticalPosition} ${horizontalPostion}`}>
-			<label tabIndex={0} class={`${buttonStyle}`}>
+			<label tabIndex={0} className={`${buttonStyle}`}>
 				{dropdownButtonElement}
 			</label>
-			<div className="dropdown-content w-fit">{children}</div>
+			<div tabIndex={0} className="dropdown-content w-fit">
+				{children}
+			</div>
 		</DropdownWrapper>
 	);
 };

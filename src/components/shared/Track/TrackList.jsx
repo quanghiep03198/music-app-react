@@ -2,27 +2,24 @@ import { useFetchTracksQuery } from "@/app/redux/api/trackApi";
 import Loading from "../Atoms/Loading";
 import TrackCard from "./TrackCard";
 import tw from "tailwind-styled-components";
+import TrackCardSkeleton from "./TrackCardSkeleton";
 
-export const StyledTracksList = tw.table`border-separate border-spacing-x-0 border-spacing-y-1 w-full`;
+export const StyledTracksList = tw.table`table border-separate border-spacing-x-0 border-spacing-y-1 w-full`;
 
 const TrackList = () => {
-	const { data, isFetching, isError } = useFetchTracksQuery({ skip: 0, limit: 5 });
-
+	const { data, isFetching, isError, isSuccess } = useFetchTracksQuery({ skip: 0, limit: 5 });
+	const preloadData = [1, 2, 3, 4, 5];
 	return (
-		<StyledTracksList className="">
-			<tbody>
-				{isFetching && (
-					<tr align="center">
-						<td colSpan={6} align="center" className="">
-							<Loading />
-						</td>
-					</tr>
-				)}
-				{Array.isArray(data) &&
-					data.map((track, index) => (
-						<TrackCard key={track._id} className="rounded-xl" track={track} index={index + 1} />
-					))}
-			</tbody>
+		<StyledTracksList>
+			{isFetching &&
+				preloadData.map((item) => {
+					return <TrackCardSkeleton key={item} />;
+				})}
+			{isSuccess &&
+				Array.isArray(data) &&
+				data.map((track, index) => {
+					return <TrackCard key={track._id} className="rounded-xl" track={track} index={index + 1} />;
+				})}
 		</StyledTracksList>
 	);
 };

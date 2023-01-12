@@ -1,9 +1,9 @@
 import React from "react";
 
-export const MenuItem = ({ children, tw, callback }) => {
+export const MenuItem = ({ children, tw, handleClick }) => {
 	return (
-		<li className={`${tw}`} onClick={callback}>
-			<p>{children}</p>
+		<li className={`${tw}`} onClick={handleClick}>
+			<p className="truncate break-words">{children}</p>
 		</li>
 	);
 };

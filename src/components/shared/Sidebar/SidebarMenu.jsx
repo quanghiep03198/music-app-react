@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, MenuItem } from "../Atoms/Menu";
-import { BsHouse, BsCloudUpload } from "react-icons/bs";
+import { BsHouse, BsCloudUpload, BsHeart } from "react-icons/bs";
 import { BiHeart, BiLibrary } from "react-icons/bi";
 import { Link } from "react-router-dom";
 const SidebarMenu = () => {
@@ -14,7 +14,7 @@ const SidebarMenu = () => {
 			</Link>
 			<Link to="/liked-tracks">
 				<MenuItem>
-					<BiHeart className="text-xl" />
+					<BsHeart className="text-xl" />
 					Liked tracks
 				</MenuItem>
 			</Link>

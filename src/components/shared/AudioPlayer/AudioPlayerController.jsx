@@ -47,7 +47,11 @@ const AudioPlayerController = ({ audioRef }) => {
 	const getCurrentDuration = () => {
 		audioRef.current.currentTime = inputRangeProcessRef.current.value;
 	};
-
+	const handleOnEnded = () => {
+		// if loop -> replay
+		// if queue -> change to next song
+		// if no track in queue -> reset
+	};
 	return (
 		<AudioControllerWrapper>
 			{/* audio range process */}
@@ -91,7 +95,7 @@ const AudioPlayerController = ({ audioRef }) => {
 				/>
 			</div>
 
-			<audio src={currentTrack?.trackSrc} className="invisible fixed" ref={audioRef}></audio>
+			<audio src={currentTrack?.trackSrc} className="invisible fixed" onEnded={handleOnEnded} ref={audioRef}></audio>
 		</AudioControllerWrapper>
 	);
 };
