@@ -6,20 +6,7 @@ export const AppContext = createContext();
 const AppProvider = ({ children }) => {
 	const [currentTrack, setCurrentTrack] = useState();
 	const [playState, setPlayState] = useState(false);
-	const tracksInQueue = useSelector((state) => state.queue);
-	// console.log(data);
-	useEffect(() => {
-		if (Array.isArray(tracksInQueue) && tracksInQueue.length >= 1) setCurrentTrack(tracksInQueue[0]);
-		else {
-			instance
-				.get(import.meta.env.VITE_BASE_URL + "/track?skip=0&limit=1")
-				.then((data) => {
-					console.log(data);
-					setCurrentTrack(data);
-				})
-				.catch((err) => console.log(err));
-		}
-	}, []);
+
 	return (
 		<AppContext.Provider value={{ playState, setPlayState, currentTrack, setCurrentTrack }}>
 			{children}

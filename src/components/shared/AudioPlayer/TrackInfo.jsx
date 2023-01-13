@@ -1,17 +1,37 @@
+import { useFetchTracksQuery } from "@/app/redux/api/trackApi";
 import { AppContext } from "@/components/context/AppProvider";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import tw from "tailwind-styled-components";
+import { TextSkeleton, ThumbnailSkeleton } from "../Track/TrackCardSkeleton";
+
+const TrackInfoWrapper = tw.div`flex basis-1/4 items-center gap-4 sm:flex-1 md:flex-1`;
+const Thumbnail = tw.img`h-16 w-16 sm:h-12 sm:w-12 rounded-md`;
+const Title = tw.h5`truncate font-semibold text-base-content`;
 
 const TrackInfo = () => {
-	const { currentTrack } = useContext(AppContext);
+	const { currentTrack, setCurrentTrack } = useContext(AppContext);
+	const { data, isFetching } = useFetchTracksQuery({ skip: 0, limit: 1 });
 
-	return (
-		<div className="flex basis-1/4 items-center gap-4 sm:flex-1 md:flex-1">
-			<img src={currentTrack?.thumbnail} className="h-16 w-16 sm:h-12 sm:w-12" />
+	useEffect(() => {
+		if (!currentTrack) setCurrentTrack(data);
+	}, []);
+
+	return isFetching ? (
+		<TrackInfoWrapper>
+			<ThumbnailSkeleton />
+			<div className="flex flex-col gap-2">
+				<TextSkeleton />
+				<TextSkeleton />
+			</div>
+		</TrackInfoWrapper>
+	) : (
+		<TrackInfoWrapper>
+			<Thumbnail src={currentTrack?.thumbnail} />
 			<div>
-				<h5 className="truncate font-semibold text-base-content">{currentTrack?.title}</h5>
+				<Title>{currentTrack?.title}</Title>
 				<p>{Array.isArray(currentTrack?.artists) && currentTrack.artists.map((artist) => artist.name).join(", ")}</p>
 			</div>
-		</div>
+		</TrackInfoWrapper>
 	);
 };
 
