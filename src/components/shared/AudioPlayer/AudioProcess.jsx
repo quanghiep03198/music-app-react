@@ -5,14 +5,15 @@ import InputRange from "../Atomics/InputRange";
 import { useSelector } from "react-redux";
 const AudioProcess = ({ audioRef }) => {
 	const { playState } = useContext(AppContext);
-	const currentTrack = useSelector((state) => state.queue.nowPlaying);
+	const { currentTrack } = useContext(AppContext);
 	const [currentTime, setCurrentTime] = useState(0);
 	const inputRangeProcessRef = useRef(null);
 
 	const [intervalState, setIntervalState] = useState();
 
 	useEffect(() => {
-		playState && audioRef ? audioRef.current.play() : audioRef.current.pause();
+		console.log(currentTrack);
+		// playState && audioRef ? audioRef.current.play() : audioRef.current.pause();
 		inputRangeProcessRef.current.value = audioRef.current.currentTime;
 		if (playState && audioRef.current) {
 			const currentInterval = setInterval(() => {

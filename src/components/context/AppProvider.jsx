@@ -13,7 +13,10 @@ const AppProvider = ({ children }) => {
 		else {
 			instance
 				.get(import.meta.env.VITE_BASE_URL + "/track?skip=0&limit=1")
-				.then((data) => setCurrentTrack(data))
+				.then((data) => {
+					console.log(data);
+					setCurrentTrack(data);
+				})
 				.catch((err) => console.log(err));
 		}
 	}, []);

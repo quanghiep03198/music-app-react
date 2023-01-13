@@ -47,7 +47,7 @@ const TrackCard = ({ index, track }) => {
 		}
 	}, [currentTrack, playState]);
 
-	const playTrack = (track) => {
+	const togglePlay = (track) => {
 		setIsPlaying(!isPlaying);
 		setPlayState(!isPlaying);
 		setCurrentTrack(track);
@@ -68,7 +68,7 @@ const TrackCard = ({ index, track }) => {
 				<div className="relative text-center">
 					<SoundWave track={track} isPlaying={isPlaying && playState} />
 					{!isPlaying && <TrackIndex>{index}</TrackIndex>}
-					<PlayButton onClick={() => playTrack(track)}>{isPlaying ? <BsPauseFill /> : <BsPlayFill />}</PlayButton>
+					<PlayButton onClick={() => togglePlay(track)}>{isPlaying ? <BsPauseFill /> : <BsPlayFill />}</PlayButton>
 				</div>
 			</TrackCardCell>
 			<TrackCardCell colSpan={2}>
@@ -80,7 +80,7 @@ const TrackCard = ({ index, track }) => {
 					</div>
 				</div>
 			</TrackCardCell>
-			<TrackCardCell>{track.album?.title ?? ""}</TrackCardCell>
+			<TrackCardCell className="sm:hidden">{track.album?.title ?? ""}</TrackCardCell>
 			<TrackCardCell className="sm:hidden">
 				<div className="flex items-center gap-2">
 					<BsPlayFill /> {formatNumber(track.listen)}
