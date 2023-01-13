@@ -2,8 +2,8 @@ import React, { useEffect, useId, useRef } from "react";
 import { BsHeart, BsHeartFill, BsVolumeUp } from "react-icons/bs";
 import { HiOutlineQueueList } from "react-icons/hi2";
 import { Link } from "react-router-dom";
-import InputRange from "../Atoms/InputRange";
-import Swap from "../Atoms/Swap";
+import InputRange from "../Atomics/InputRange";
+import Swap from "../Atomics/Swap";
 import tw from "tailwind-styled-components";
 
 const ActionsGroup = tw.div`flex justify-end items-center gap-5 order-2 xl:order-3 xxl:order-3`;

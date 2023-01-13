@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Avatar from "../Atoms/Avatar";
-import Dropdown from "../Atoms/Dropdown";
-import { Menu, MenuItem } from "../Atoms/Menu";
+import Avatar from "../Atomics/Avatar";
+import Dropdown from "../Atomics/Dropdown";
+import { Menu, MenuItem } from "../Atomics/Menu";
 import { HiLogout } from "react-icons/hi";
 const UserController = ({ user }) => {
 	return (

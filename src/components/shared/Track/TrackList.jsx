@@ -1,5 +1,5 @@
 import { useFetchTracksQuery } from "@/app/redux/api/trackApi";
-import Loading from "../Atoms/Loading";
+import Loading from "../Atomics/Loading";
 import TrackCard from "./TrackCard";
 import tw from "tailwind-styled-components";
 import TrackCardSkeleton from "./TrackCardSkeleton";

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import tw from "tailwind-styled-components";
-import { Menu, MenuItem } from "../Atoms/Menu";
+import { Menu, MenuItem } from "../Atomics/Menu";
 import Logo from "/images/logo.png";
 import SidebarMenu from "./SidebarMenu";
 

@@ -12,8 +12,8 @@ import {
 	BsSkipForwardFill,
 } from "react-icons/bs";
 import { TbRepeat } from "react-icons/tb";
-import InputRange from "../Atoms/InputRange";
-import Swap from "../Atoms/Swap";
+import InputRange from "../Atomics/InputRange";
+import Swap from "../Atomics/Swap";
 
 const AudioControllerWrapper = tw.div`flex flex-col gap-5 justify-center items-center flex-1 `;
 const AudioButton = tw.button`btn btn-ghost hover:bg-transparent text-2xl`;

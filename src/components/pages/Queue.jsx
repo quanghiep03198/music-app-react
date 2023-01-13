@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { AppContext } from "../context/AppProvider";
 import ErrorBoundary from "../customs/ErrorBoundary";
-import Loading from "../shared/Atoms/Loading";
+import Loading from "../shared/Atomics/Loading";
 import TrackCard, { TrackCardRow } from "../shared/Track/TrackCard";
 import { StyledTracksList } from "../shared/Track/TrackList";
 import { PageContent } from "./Home";

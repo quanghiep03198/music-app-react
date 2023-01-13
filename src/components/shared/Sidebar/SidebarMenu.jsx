@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, MenuItem } from "../Atoms/Menu";
+import { Menu, MenuItem } from "../Atomics/Menu";
 import { BsHouse, BsCloudUpload, BsHeart } from "react-icons/bs";
 import { BiHeart, BiLibrary } from "react-icons/bi";
 import { Link } from "react-router-dom";

@@ -13,12 +13,12 @@ import {
 	BsThreeDots,
 } from "react-icons/bs";
 import tw from "tailwind-styled-components";
-import Swap from "@/components/shared/Atoms/Swap";
+import Swap from "@/components/shared/Atomics/Swap";
 import SoundWave from "./SoundWave";
 import { AppContext } from "@/components/context/AppProvider";
 import formatNumber from "@/utils/formatNumber";
-import Dropdown from "../Atoms/Dropdown";
-import { Menu, MenuItem } from "../Atoms/Menu";
+import Dropdown from "../Atomics/Dropdown";
+import { Menu, MenuItem } from "../Atomics/Menu";
 import { addToQueue, removeFromQueue } from "@/app/redux/slice/queueSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { HiOutlineMinus } from "react-icons/hi2";
