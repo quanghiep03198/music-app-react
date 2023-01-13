@@ -8,11 +8,11 @@ export const StyledTracksList = tw.table`table border-separate border-spacing-x-
 
 const TrackList = () => {
 	const { data, isFetching, isError, isSuccess } = useFetchTracksQuery({ skip: 0, limit: 5 });
-	const preloadData = [1, 2, 3, 4, 5];
+
 	return (
 		<StyledTracksList>
 			{isFetching &&
-				preloadData.map((item) => {
+				[1, 2, 3, 4, 5].map((item) => {
 					return <TrackCardSkeleton key={item} />;
 				})}
 			{isSuccess &&

@@ -30,8 +30,8 @@ const Queue = () => {
 					</tr>
 					{Array.isArray(tracksInQueue) &&
 						tracksInQueue
-							.filter((track) => track._id !== currentTrack._id)
-							.map((track, index) => <TrackCard key={track._id} track={track} index={index + 2} />)}
+							.filter((track) => track?._id !== currentTrack._id)
+							.map((track, index) => <TrackCard key={track?._id} track={track} index={index + 2} />)}
 				</StyledTracksList>
 			</PageContent>
 		</ErrorBoundary>

@@ -9,9 +9,10 @@ const Dropdown = ({
 	buttonStyle,
 	verticalPosition = "dropdown-bottom",
 	horizontalPostion = "dropdown-end",
+	gap = 4,
 }) => {
 	return (
-		<DropdownWrapper className={`${verticalPosition} ${horizontalPostion}`}>
+		<DropdownWrapper className={`${verticalPosition} ${horizontalPostion} py-${gap}`}>
 			<label tabIndex={0} className={`${buttonStyle}`}>
 				{dropdownButtonElement}
 			</label>

@@ -59,14 +59,14 @@
 		@apply top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 	}
 	:target {
-		@apply text-accent;
+		@apply text-success;
 	}
 	/* input range */
 	.range-container {
 		@apply relative flex w-full items-center;
 	}
 	.range-progress {
-		@apply absolute top-0 z-[1] block h-1 rounded-[0.2rem] bg-accent;
+		@apply absolute top-0 z-[1] block h-1 rounded-[0.2rem] bg-success;
 	}
 
 	.range-container:hover > .my-range::-webkit-slider-thumb {
@@ -76,7 +76,7 @@
 		@apply z-[2] h-1 w-[-webkit-fill-available] appearance-none rounded-sm border-none bg-zinc-600/30 outline-none duration-[all_ease_500];
 	}
 	.my-range::-webkit-slider-thumb {
-		@apply h-3 w-3 appearance-none rounded-full bg-accent opacity-0 outline-none duration-300;
+		@apply h-3 w-3 appearance-none rounded-full bg-success opacity-0 outline-none duration-300;
 	}
 	.my-range::-webkit-slider-thumb:hover {
 		@apply opacity-100 shadow-[0_0_0.25rem_0.5rem_rgba(31,178,166,0.3)];
@@ -100,7 +100,7 @@
 		@apply w-3;
 	}
 	.scroll::-webkit-scrollbar-thumb {
-		@apply bg-accent;
+		@apply bg-success;
 	}
 
 	/* heading text */
@@ -117,16 +117,16 @@
 		@apply basis-1/4 text-base-content sm:tab-xs md:tab-md lg:tab-md xl:tab-lg xxl:tab-lg;
 	}
 	.tab-bordered.tab-active {
-		@apply border-accent font-medium text-accent;
+		@apply border-success font-medium text-success;
 	}
 	.tab-lifted.tab-active {
-		@apply font-medium text-accent;
+		@apply font-medium text-success;
 	}
 	.tabs-boxed.tab-active {
-		@apply btn-accent btn text-accent;
+		@apply btn-success btn text-success;
 	}
-	.radio-accent {
-		@apply checked:border-accent checked:bg-accent checked:outline-accent;
+	.radio-success {
+		@apply checked:border-success checked:bg-success checked:outline-success;
 	}
 
 	.tooltip {
@@ -138,13 +138,13 @@
 	}
 
 	.loader-sm {
-		@apply pointer-events-none h-6 w-6 animate-spin rounded-full border-[3px] border-transparent  border-t-accent;
+		@apply pointer-events-none h-6 w-6 animate-spin rounded-full border-[3px] border-transparent  border-t-success;
 	}
 	.loader-md {
-		@apply pointer-events-none h-10 w-10 animate-spin rounded-full border-[3px] border-transparent border-t-accent;
+		@apply pointer-events-none h-10 w-10 animate-spin rounded-full border-[3px] border-transparent border-t-success;
 	}
 	.loader-lg {
-		@apply pointer-events-none h-14 w-14 animate-spin rounded-full border-[4px] border-transparent border-t-accent;
+		@apply pointer-events-none h-14 w-14 animate-spin rounded-full border-[4px] border-transparent border-t-success;
 	}
 	/* swiper */
 	.swiper-button-next,
@@ -157,14 +157,14 @@
 	}
 	.swiper-button-next > i,
 	.swiper-button-prev > i {
-		@apply btn-accent btn-sm btn-circle btn h-full w-full text-2xl font-medium;
+		@apply btn-success btn-sm btn-circle btn h-full w-full text-2xl font-medium;
 	}
 
 	.menu > li {
 		@apply rounded-lg text-base-content/80 hover:text-base-content;
 	}
 	.menu > li:acitve {
-		@apply text-accent;
+		@apply text-success;
 	}
 	.menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):focus),
 	.menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):hover) {
@@ -245,7 +245,7 @@
 		@apply flex h-12 w-full items-end justify-center gap-1 sm:h-10;
 	}
 	.sound-wave div {
-		@apply h-[10%] w-[3px] animate-jumping bg-accent sm:w-[2px];
+		@apply h-[10%] w-[3px] animate-jumping bg-success sm:w-[2px];
 	}
 	.scroll {
 		@apply: w-1;

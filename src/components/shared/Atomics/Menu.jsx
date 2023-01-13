@@ -10,6 +10,6 @@ export const MenuItem = ({ children, tw, handleClick }) => {
 
 export const Menu = ({ children, horizontal, tw }) => {
 	return (
-		<ul className={`menu rounded-box p-1 ${horizontal ? "menu-horizontal" : "menu-vertical"} ${tw}`}>{children}</ul>
+		<ul className={`hover-bordered menu  p-1 ${horizontal ? "menu-horizontal" : "menu-vertical"} ${tw}`}>{children}</ul>
 	);
 };

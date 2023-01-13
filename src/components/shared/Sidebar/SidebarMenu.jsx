@@ -7,7 +7,7 @@ const SidebarMenu = () => {
 	return (
 		<Menu horizontal={false} tw={"min-w-[320px] text-lg"}>
 			{/* #each */}
-			<Link to="/" className="">
+			<Link to="/">
 				<MenuItem>
 					<BsHouse className="text-xl" /> Home
 				</MenuItem>

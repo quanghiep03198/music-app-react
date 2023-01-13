@@ -1,6 +1,7 @@
 import timer from "@/utils/timer";
 import React, { useContext, useEffect, useState } from "react";
 import {
+	BsClock,
 	BsHeart,
 	BsPause,
 	BsPauseFill,
@@ -25,7 +26,7 @@ import { HiOutlineMinus } from "react-icons/hi2";
 
 export const TrackCardRow = tw.tr`group hover:bg-zinc-400/10 hover:duration-300 rounded-row`;
 export const TrackCardCell = tw.td`p-2`;
-const PlayButton = tw.button`btn btn-circle btn-accent hidden group-hover:inline-flex text-xl `;
+const PlayButton = tw.button`btn btn-circle btn-success hidden group-hover:inline-flex text-xl `;
 const TrackIndex = tw.span`group-hover:hidden w-full`;
 
 const TrackCard = ({ index, track }) => {
@@ -46,7 +47,6 @@ const TrackCard = ({ index, track }) => {
 		}
 	}, [currentTrack, playState]);
 
-	console.log(track.title, isInQueue);
 	const playTrack = (track) => {
 		setIsPlaying(!isPlaying);
 		setPlayState(!isPlaying);
@@ -81,8 +81,16 @@ const TrackCard = ({ index, track }) => {
 				</div>
 			</TrackCardCell>
 			<TrackCardCell>{track.album?.title ?? ""}</TrackCardCell>
-			<TrackCardCell className="sm:hidden">{formatNumber(track.listen)}</TrackCardCell>
-			<TrackCardCell className="sm:hidden">{timer(track.duration)}</TrackCardCell>
+			<TrackCardCell className="sm:hidden">
+				<div className="flex items-center gap-2">
+					<BsPlayFill /> {formatNumber(track.listen)}
+				</div>
+			</TrackCardCell>
+			<TrackCardCell className="sm:hidden">
+				<div className="flex items-center gap-2">
+					<BsClock /> {timer(track.duration)}
+				</div>
+			</TrackCardCell>
 			<TrackCardCell>
 				<Dropdown dropdownButtonElement={<BsThreeDots />}>
 					<Menu tw="bg-base-300">

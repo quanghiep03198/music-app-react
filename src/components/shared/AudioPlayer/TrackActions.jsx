@@ -29,7 +29,7 @@ const TrackActions = ({ audioRef }) => {
 			</VolumeController>
 			<Swap swapOff={<BsHeart />} swapOn={<BsHeartFill className="text-accent" />} />
 			<Link to="/queue">
-				<HiOutlineQueueList />
+				<HiOutlineQueueList className="text-xl" />
 			</Link>
 		</ActionsGroup>
 	);

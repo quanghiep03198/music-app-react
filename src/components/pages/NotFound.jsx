@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const NotFound = () => {
 	return <Navigate to="/" replace />;
