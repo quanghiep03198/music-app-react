@@ -12,7 +12,7 @@ const AppProvider = ({ children }) => {
 		if (Array.isArray(tracksInQueue) && tracksInQueue.length >= 1) setCurrentTrack(tracksInQueue[0]);
 		else {
 			instance
-				.get(import.meta.env.BASE_URL + "/track?skip=0&limit=1")
+				.get(import.meta.env.VITE_BASE_URL + "/track?skip=0&limit=1")
 				.then((data) => setCurrentTrack(data))
 				.catch((err) => console.log(err));
 		}
