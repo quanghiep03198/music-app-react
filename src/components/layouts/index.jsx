@@ -1,5 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import AudioPlayer from "../shared/AudioPlayer";
 import Navbar from "../shared/Navbar";
@@ -11,15 +10,10 @@ const PageContent = tw.div`flex flex-col justify-between w-full h-full gap-10 ov
 const SidebarToggler = tw.input`drawer-toggle`;
 
 const Layout = () => {
-	const { pathname } = useLocation();
-	useEffect(() => {
-		console.log(pathname);
-	}, [pathname]);
 	return (
 		<DrawerLayout>
 			<SidebarToggler id="sidebar-toggle" type="checkbox" />
 			<DrawerContentWrapper>
-				{/* ${headerComponent} */}
 				<Navbar />
 				<PageContent>
 					<Outlet />

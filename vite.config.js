@@ -5,6 +5,7 @@ import alias from "@rollup/plugin-alias";
 import path, { resolve } from "path";
 const rootDir = resolve(__dirname);
 export default defineConfig({
+	base: "/",
 	plugins: [
 		react(),
 		alias({

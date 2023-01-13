@@ -1,9 +1,8 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import tw from "tailwind-styled-components";
-import { Menu, MenuItem } from "../Atomics/Menu";
-import Logo from "/images/logo.png";
+import { Menu } from "../Atomics/Menu";
 import SidebarMenu from "./SidebarMenu";
+import Logo from "/images/logo.png";
 
 const DrawerSidebar = tw.aside`drawer-side`;
 const DrawerOverlay = tw.label`drawer-overlay`;

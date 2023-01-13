@@ -11,12 +11,11 @@ const TrackList = () => {
 
 	return (
 		<StyledTracksList>
-			{isFetching &&
-				[1, 2, 3, 4, 5].map((item) => {
+			{isError &&
+				[(1, 2, 3, 4, 5)].map((item) => {
 					return <TrackCardSkeleton key={item} />;
 				})}
-			{isSuccess &&
-				Array.isArray(data) &&
+			{Array.isArray(data) &&
 				data.map((track, index) => {
 					return <TrackCard key={track._id} className="rounded-xl" track={track} index={index + 1} />;
 				})}

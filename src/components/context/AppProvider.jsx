@@ -1,18 +1,21 @@
 import instance from "@/app/axios/instance";
-import { addToQueue } from "@/app/redux/slice/queueSlice";
 import { createContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const AppContext = createContext();
 const AppProvider = ({ children }) => {
 	const [currentTrack, setCurrentTrack] = useState();
 	const [playState, setPlayState] = useState(false);
-
+	const tracksInQueue = useSelector((state) => state.queue);
+	// console.log(data);
 	useEffect(() => {
-		(async () => {
-			const [track] = await instance.get(import.meta.env.VITE_BASE_URL + "/track?limit=1");
-			setCurrentTrack(track);
-		})();
+		if (Array.isArray(tracksInQueue) && tracksInQueue.length >= 1) setCurrentTrack(tracksInQueue[0]);
+		else {
+			instance
+				.get(import.meta.env.BASE_URL + "/track?skip=0&limit=1")
+				.then((data) => setCurrentTrack(data))
+				.catch((err) => console.log(err));
+		}
 	}, []);
 	return (
 		<AppContext.Provider value={{ playState, setPlayState, currentTrack, setCurrentTrack }}>
