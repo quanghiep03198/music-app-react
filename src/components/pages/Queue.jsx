@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { AppContext } from "../context/AppProvider";
 import ErrorBoundary from "../customs/ErrorBoundary";
-import Loading from "../shared/Atomics/Loading";
-import TrackCard, { TrackCardRow } from "../shared/Track/TrackCard";
+import TrackCard from "../shared/Track/TrackCard";
 import { StyledTracksList } from "../shared/Track/TrackList";
 import { PageContent } from "./Home";
 
@@ -18,20 +17,12 @@ const Queue = () => {
 				<StyledTracksList>
 					<tr>
 						<td colSpan={6}>
-							<h1 className="text-2xl font-semibold">Now Playing</h1>
-						</td>
-					</tr>
-					<TrackCard track={currentTrack} index={1} />
-					{/* next up */}
-					<tr>
-						<td colSpan={6}>
 							<h1 className="text-2xl font-semibold">Next Up</h1>
 						</td>
 					</tr>
 					{Array.isArray(tracksInQueue) &&
-						tracksInQueue
-							.filter((track) => track?._id !== currentTrack._id)
-							.map((track, index) => <TrackCard key={track?._id} track={track} index={index + 2} />)}
+						tracksInQueue.length > 0 &&
+						tracksInQueue.map((track, index) => <TrackCard key={track?._id} track={track} index={index + 1} />)}
 				</StyledTracksList>
 			</PageContent>
 		</ErrorBoundary>
