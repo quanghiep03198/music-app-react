@@ -1,11 +1,10 @@
-import React, { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 import { BsHeart, BsHeartFill, BsVolumeUp } from "react-icons/bs";
 import { HiOutlineQueueList } from "react-icons/hi2";
 import { Link } from "react-router-dom";
+import tw from "tailwind-styled-components";
 import InputRange from "../Atomics/InputRange";
 import Swap from "../Atomics/Swap";
-import tw from "tailwind-styled-components";
-
 const ActionsGroup = tw.div`flex justify-end items-center gap-5 basis-1/4 sm:flex-none md:flex-none`;
 const VolumeController = tw.div`flex justify-end items-center self-center gap-2 sm:hidden md:hidden`;
 
