@@ -1,9 +1,8 @@
 import { AppContext } from "@/components/context/AppProvider";
-import { useContext, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useContext, useEffect, useRef, useState } from "react";
 import tw from "tailwind-styled-components";
 import AudioButtonGroup from "./AudioButtonGroup";
-import AudioProcess from "./AudioProcess";
+import AudioSeekBar from "./AudioSeekBar";
 import TrackActions from "./TrackActions";
 import TrackInfo from "./TrackInfo";
 
@@ -14,16 +13,20 @@ const Audio = tw.audio`fixed invisible`;
 const AudioPlayer = () => {
 	const audioRef = useRef(null);
 	const { playState, currentTrack } = useContext(AppContext);
+
+	const [loopState, setLoopState] = useState(false);
+
 	useEffect(() => {
 		playState ? audioRef.current.play() : audioRef.current.pause();
 	}, [playState, currentTrack]);
+
 	return (
 		<AudioPlayerWrapper>
 			<TrackInfo />
 			<AudioControllerWrapper>
-				<Audio src={currentTrack?.trackSrc} ref={audioRef} />
-				<AudioProcess audioRef={audioRef} />
-				<AudioButtonGroup />
+				<Audio src={currentTrack?.trackSrc} ref={audioRef} loop={loopState} />
+				<AudioSeekBar audioRef={audioRef} />
+				<AudioButtonGroup handleLoopStateChange={setLoopState} loopState={loopState} />
 			</AudioControllerWrapper>
 			<TrackActions audioRef={audioRef} />
 		</AudioPlayerWrapper>
