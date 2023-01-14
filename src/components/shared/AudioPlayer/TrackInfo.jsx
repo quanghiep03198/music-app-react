@@ -1,9 +1,6 @@
-import { useFetchTracksQuery } from "@/app/redux/api/trackApi";
-import store from "@/app/redux/store";
 import { AppContext } from "@/components/context/AppProvider";
-import React, { useContext, useEffect } from "react";
+import { useContext } from "react";
 import tw from "tailwind-styled-components";
-import { TextSkeleton, ThumbnailSkeleton } from "../Track/TrackCardSkeleton";
 
 const TrackInfoWrapper = tw.div`flex basis-1/4 items-center gap-4 sm:flex-1 md:flex-1`;
 const Thumbnail = tw.img`h-16 w-16 sm:h-12 sm:w-12 rounded-md`;
