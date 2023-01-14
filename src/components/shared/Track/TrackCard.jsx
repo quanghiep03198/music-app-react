@@ -32,6 +32,8 @@ const TrackIndex = tw.span`group-hover:hidden w-full`;
 const TrackCard = ({ index, track }) => {
 	const { playState, setPlayState, setCurrentTrack, currentTrack } = useContext(AppContext);
 	const [isPlaying, setIsPlaying] = useState(false);
+	const [isCurrentTrack, setIsCurrentTrack] = useState(false);
+
 	const [isInQueue, setIsInQueue] = useState();
 
 	const dispatch = useDispatch();
@@ -40,11 +42,9 @@ const TrackCard = ({ index, track }) => {
 	useEffect(() => {
 		const isExisted = tracksInQueue.find((item) => item._id === track._id) !== undefined;
 		setIsInQueue(isExisted);
-		if (currentTrack?._id !== track?._id) {
-			setIsPlaying(false);
-		} else {
-			setIsPlaying(playState);
-		}
+		let isCurrentTrack = currentTrack?._id === track?._id;
+		setIsPlaying(isCurrentTrack && playState);
+		setIsCurrentTrack(isCurrentTrack);
 	}, [currentTrack, playState]);
 
 	const togglePlay = (track) => {
@@ -63,7 +63,7 @@ const TrackCard = ({ index, track }) => {
 	};
 
 	return (
-		<TrackCardRow>
+		<TrackCardRow className={isCurrentTrack && "bg-zinc-400/10"}>
 			<TrackCardCell className="w-20">
 				<div className="relative text-center">
 					<SoundWave track={track} isPlaying={isPlaying && playState} />
@@ -75,20 +75,20 @@ const TrackCard = ({ index, track }) => {
 				<div className="flex items-center gap-2">
 					<img src={track?.thumbnail} className="h-14 w-14 rounded-md" />
 					<div>
-						<h5>{track.title}</h5>
-						<p>{track.artists.map((artist) => artist.name).join(", ")}</p>
+						<h5>{track?.title}</h5>
+						<p>{Array.isArray(track.artists) && track.artists.map((artist) => artist.name).join(", ")}</p>
 					</div>
 				</div>
 			</TrackCardCell>
 			<TrackCardCell className="sm:hidden">{track.album?.title ?? ""}</TrackCardCell>
 			<TrackCardCell className="sm:hidden">
 				<div className="flex items-center gap-2">
-					<BsPlayFill /> {formatNumber(track.listen)}
+					<BsPlayFill /> {formatNumber(track?.listen)}
 				</div>
 			</TrackCardCell>
 			<TrackCardCell className="sm:hidden">
 				<div className="flex items-center gap-2">
-					<BsClock /> {timer(track.duration)}
+					<BsClock /> {timer(track?.duration)}
 				</div>
 			</TrackCardCell>
 			<TrackCardCell>
