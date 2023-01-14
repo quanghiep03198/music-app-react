@@ -33,12 +33,7 @@ const AudioButtonGroup = () => {
 	};
 	return (
 		<div className="flex items-center">
-			<Swap
-				swapOn={<BsShuffle className="text-accent" />}
-				swapOff={<BsShuffle className="text-base-content" />}
-				tw="text-xl btn btn-ghost hover:bg-transparent w-fit"
-				checked={isShuffle}
-			/>
+			<Swap swapOn={<BsShuffle className="text-success" />} swapOff={<BsShuffle />} tw="text-xl w-fit" />
 			<AudioButton onClick={changeToPreviousTrack}>
 				<BsSkipBackwardFill />
 			</AudioButton>
@@ -53,9 +48,9 @@ const AudioButtonGroup = () => {
 				<BsSkipForwardFill />
 			</AudioButton>
 			<Swap
-				swapOn={<RepeatIcon className=" text-accent" />}
+				swapOn={<RepeatIcon className="text-success" />}
 				swapOff={<RepeatIcon className="text-base-content" />}
-				tw="btn btn-ghost text-xl hover:bg-transparent w-fit"
+				tw="text-xl w-fit"
 			/>
 		</div>
 	);

@@ -1,4 +1,5 @@
 import { useFetchTracksQuery } from "@/app/redux/api/trackApi";
+import store from "@/app/redux/store";
 import { AppContext } from "@/components/context/AppProvider";
 import React, { useContext, useEffect } from "react";
 import tw from "tailwind-styled-components";
@@ -9,22 +10,9 @@ const Thumbnail = tw.img`h-16 w-16 sm:h-12 sm:w-12 rounded-md`;
 const Title = tw.h5`truncate font-semibold text-base-content`;
 
 const TrackInfo = () => {
-	const { currentTrack, setCurrentTrack } = useContext(AppContext);
-	const { data, isFetching } = useFetchTracksQuery({ skip: 0, limit: 1 });
+	const { currentTrack } = useContext(AppContext);
 
-	useEffect(() => {
-		if (!currentTrack) setCurrentTrack(data);
-	}, []);
-
-	return isFetching ? (
-		<TrackInfoWrapper>
-			<ThumbnailSkeleton />
-			<div className="flex flex-col gap-2">
-				<TextSkeleton />
-				<TextSkeleton />
-			</div>
-		</TrackInfoWrapper>
-	) : (
+	return (
 		<TrackInfoWrapper>
 			<Thumbnail src={currentTrack?.thumbnail} />
 			<div>

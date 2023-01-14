@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import tw from "tailwind-styled-components";
+import AppProvider from "../context/AppProvider";
 import AudioPlayer from "../shared/AudioPlayer";
 import Navbar from "../shared/Navbar";
 import Sidebar from "../shared/Sidebar";
@@ -11,17 +12,19 @@ const SidebarToggler = tw.input`drawer-toggle`;
 
 const Layout = () => {
 	return (
-		<DrawerLayout>
-			<SidebarToggler id="sidebar-toggle" type="checkbox" />
-			<DrawerContentWrapper>
-				<Navbar />
-				<PageContent>
-					<Outlet />
-				</PageContent>
-				<AudioPlayer />
-			</DrawerContentWrapper>
-			<Sidebar />
-		</DrawerLayout>
+		<AppProvider>
+			<DrawerLayout>
+				<SidebarToggler id="sidebar-toggle" type="checkbox" />
+				<DrawerContentWrapper>
+					<Navbar />
+					<PageContent>
+						<Outlet />
+					</PageContent>
+					<AudioPlayer />
+				</DrawerContentWrapper>
+				<Sidebar />
+			</DrawerLayout>
+		</AppProvider>
 	);
 };
 
