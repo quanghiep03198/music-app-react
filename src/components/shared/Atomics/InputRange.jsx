@@ -16,8 +16,8 @@ const InputRange = ({ max = 100, step = 1, handleChange, inputRef, labelRef = "#
 	};
 
 	return (
-		<div className="range-container self-center">
-			<div className="range-progress" ref={rangeProcessRef}></div>
+		<div className="range-container group self-center">
+			<div className="range-progress group-hover:bg-success" ref={rangeProcessRef}></div>
 			<input
 				id={labelRef}
 				type="range"
