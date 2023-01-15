@@ -1,7 +1,6 @@
-import { addToQueue } from "@/app/redux/slice/queueSlice";
-import store from "@/app/redux/store";
+import { setCurrentTrack } from "@/app/redux/slice/queueSlice";
 import { AppContext } from "@/components/context/AppProvider";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useState } from "react";
 import { BsPauseCircle, BsPlayCircle, BsShuffle, BsSkipBackwardFill, BsSkipForwardFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-styled-components";
@@ -10,13 +9,13 @@ const AudioButton = tw.button`btn btn-ghost hover:bg-transparent text-2xl w-fit`
 const RepeatIcon = tw.i`bi bi-repeat`;
 
 const AudioButtonGroup = ({ handleLoopStateChange, loopState }) => {
-	const { playState, setPlayState, setCurrentTrack, currentTrack } = useContext(AppContext);
+	const { playState, setPlayState } = useContext(AppContext);
 
-	const queue = useSelector((state) => state.queue);
+	const { nextup } = useSelector((state) => state.queue);
 	const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 	const [shuffleState, setShuffleState] = useState(false);
-	// const [loopState, setLoopState] = useState(false);
 
+	const dispatch = useDispatch();
 	// play/pause
 	const togglePlay = (e) => {
 		setPlayState(e.target.checked);
@@ -35,18 +34,18 @@ const AudioButtonGroup = ({ handleLoopStateChange, loopState }) => {
 	const changeTrack = (increasedValue) => {
 		let newIndex;
 		if (shuffleState) {
-			newIndex = Math.floor(Math.random() * queue.length);
-			let currentIndex = queue.findIndex((track) => track._id === currentTrack._id);
+			newIndex = Math.floor(Math.random() * nextup.length);
+			let currentIndex = nextup.findIndex((track) => track._id === currentTrack._id);
 			while (currentIndex === newIndex) {
-				newIndex = Math.floor(Math.random() * queue.length);
+				newIndex = Math.floor(Math.random() * nextup.length);
 			}
 		} else {
 			newIndex = currentTrackIndex + increasedValue;
-			if (newIndex < 0) newIndex = queue.length - 1;
-			if (newIndex > queue.length - 1) newIndex = 0;
+			if (newIndex < 0) newIndex = nextup.length - 1;
+			if (newIndex > nextup.length - 1) newIndex = 0;
 		}
 		setCurrentTrackIndex(newIndex);
-		setCurrentTrack(queue[newIndex]);
+		dispatch(setCurrentTrack(nextup[newIndex]));
 		setPlayState(true);
 	};
 	return (

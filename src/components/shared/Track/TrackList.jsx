@@ -1,15 +1,21 @@
 import { useFetchTracksQuery } from "@/app/redux/api/trackApi";
-import { AppContext } from "@/components/context/AppProvider";
-import { useContext, useLayoutEffect } from "react";
+import { setCurrentTrack } from "@/app/redux/slice/queueSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-styled-components";
 import TrackCard from "./TrackCard";
-import TrackCardSkeleton from "./TrackCardSkeleton";
 
 export const StyledTracksList = tw.table`table border-separate border-spacing-x-0 border-spacing-y-1 w-full`;
 
 const TrackList = () => {
 	const { data } = useFetchTracksQuery({ skip: 0, limit: 5 });
-
+	const { currentTrack } = useSelector((state) => state.queue);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		if (!currentTrack || currentTrack === null) {
+			if (Array.isArray(data)) dispatch(setCurrentTrack(data[0]));
+		}
+	}, []);
 	return (
 		<StyledTracksList>
 			{Array.isArray(data) &&

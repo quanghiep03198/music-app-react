@@ -1,11 +1,12 @@
 import { AppContext } from "@/components/context/AppProvider";
 import timer from "@/utils/timer";
 import { useContext, useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import InputRange from "../Atomics/InputRange";
 
 const AudioSeekBar = ({ audioRef }) => {
 	const { playState } = useContext(AppContext);
-	const { currentTrack } = useContext(AppContext);
+	const { currentTrack } = useSelector((state) => state.queue);
 	const [currentTime, setCurrentTime] = useState(0);
 	const inputRangeProcessRef = useRef(null);
 

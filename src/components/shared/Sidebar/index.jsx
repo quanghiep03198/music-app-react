@@ -6,7 +6,7 @@ import Logo from "/images/logo.png";
 
 const DrawerSidebar = tw.aside`drawer-side`;
 const DrawerOverlay = tw.label`drawer-overlay`;
-const DrawerSideWrapper = tw.div`p-2 bg-neutral w-fit`;
+const DrawerSideWrapper = tw.div`p-2 bg-base-300 w-fit`;
 const LogoImage = tw.img`max-w-[240px] h-[120px] object-contain -translate-x-2`;
 import { memo, useEffect, useRef } from "react";
 
