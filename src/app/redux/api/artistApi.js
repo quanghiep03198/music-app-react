@@ -6,12 +6,12 @@ const artistApi = createApi({
 	refetchOnReconnect: true,
 	refetchOnMountOrArgChange: true,
 	baseQuery: fetchBaseQuery({
-		baseUrl: import.meta.env.BASE_URL,
+		baseUrl: import.meta.env.VITE_BASE_URL,
 	}),
 	endpoints: (builder) => {
 		return {
 			fetchArtists: builder.query({
-				query: () => `/artist`,
+				query: ({ skip, limit }) => `/artist`,
 				providesTags: ["Artists"],
 			}),
 		};

@@ -7,7 +7,7 @@ import PageNavigator from "./PageNavigator";
 import SearchBox from "./SearchBox";
 import UserController from "./UserController";
 
-const NavbarWrapper = tw.nav`navbar justify-between items-center p-5 bg-base-200`;
+const NavbarWrapper = tw.nav`navbar justify-between items-center p-5 bg-base-300/70`;
 const Navbar = () => {
 	const user = useSelector((state) => {
 		return state.user;
@@ -19,13 +19,13 @@ const Navbar = () => {
 				<SearchBox />
 			</div>
 			<div className="flex items-center gap-4">
-				<label htmlFor="sidebar-toggle" className="hidden sm:inline-flex btn btn-circle">
+				<label htmlFor="sidebar-toggle" className="btn-circle btn hidden sm:inline-flex">
 					<BsList />
 				</label>
 				{user !== null ? (
 					<UserController />
 				) : (
-					<Link to="/login" className="btn btn-circle text-xl">
+					<Link to="/login" className="btn-circle btn text-xl">
 						<BsPerson aria-hidden />
 					</Link>
 				)}

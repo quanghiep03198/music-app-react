@@ -1,5 +1,7 @@
 import React, { Suspense } from "react";
 import tw from "tailwind-styled-components";
+import ArtistSlide from "../shared/Artist/ArtistSlide";
+import Loading from "../shared/Atomics/Loading";
 import TrackCardSkeleton from "../shared/Track/TrackCardSkeleton";
 import { StyledTracksList } from "../shared/Track/TrackList";
 const TrackList = React.lazy(() => import("../shared/Track/TrackList"));
@@ -18,6 +20,9 @@ const HomePage = () => {
 				}
 			>
 				<TrackList />
+			</Suspense>
+			<Suspense fallback={<Loading />}>
+				<ArtistSlide />
 			</Suspense>
 		</PageContent>
 	);

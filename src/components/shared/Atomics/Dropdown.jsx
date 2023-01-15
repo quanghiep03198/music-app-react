@@ -9,7 +9,7 @@ const Dropdown = ({
 	buttonStyle,
 	verticalPosition = "dropdown-bottom",
 	horizontalPostion = "dropdown-end",
-	gap = 4,
+	gap = 6,
 }) => {
 	return (
 		<DropdownWrapper className={`${verticalPosition} ${horizontalPostion} py-${gap}`}>

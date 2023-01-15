@@ -60,7 +60,7 @@
 		@apply relative flex w-full items-center;
 	}
 	.range-progress {
-		@apply absolute top-0 z-[1] block h-1 rounded-[0.2rem] bg-success;
+		@apply absolute top-0 z-[1] block h-1 rounded-[0.2rem] bg-base-content;
 	}
 
 	.range-container:hover > .my-range::-webkit-slider-thumb {

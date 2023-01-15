@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const playlistApi = createApi({
-	reducerPath: "Artists",
+	reducerPath: "playlists",
 	tagTypes: ["Playlists", "UserPlaylists"],
 	refetchOnReconnect: true,
 	refetchOnMountOrArgChange: true,
 	baseQuery: fetchBaseQuery({
-		baseUrl: import.meta.env.BASE_URL,
+		baseUrl: import.meta.env.VITE_BASE_URL,
 		prepareHeaders: (headers, { getState }) => {
 			const token = getState().auth.token;
 			if (token) headers.set("token", token);
@@ -34,15 +34,23 @@ const playlistApi = createApi({
 				invalidatesTags: ["UserPlaylists", "Playlists"],
 			}),
 			updateUserPlaylist: builder.mutation({
-				query: (id) => {
+				query: (id, payload) => {
 					return {
-						url: `/playlist`,
+						url: `/playlist/${id}`,
+						method: "PATCH",
+						body: payload,
 					};
 				},
+				invalidatesTags: ["UserPlaylists"],
 			}),
 		};
 	},
 });
 
-export const { useFetchArtistsQuery } = playlistApi;
+export const {
+	useFetchAllPlaylistQuery,
+	useFetchUserPlaylistsQuery,
+	useAddToPlaylistMutation,
+	useUpdateUserPlaylistMutation,
+} = playlistApi;
 export default playlistApi;

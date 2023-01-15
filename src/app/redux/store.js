@@ -19,7 +19,7 @@ const store = configureStore({
 			serializableCheck: {
 				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, KEY_PREFIX],
 			},
-		}).concat([trackApi.middleware, artistApi.middleware, playlistApi.middleware]),
+		}).concat([trackApi.middleware, playlistApi.middleware, artistApi.middleware]),
 	devTools: import.meta.env.VITE_NODE_ENV === "development",
 });
 
