@@ -3,7 +3,9 @@ import React from "react";
 export const MenuItem = ({ children, tw, handleClick }) => {
 	return (
 		<li className={`${tw}`} onClick={handleClick}>
-			<a className="truncate break-words">{children}</a>
+			<p role="listitem" className="truncate break-words">
+				{children}
+			</p>
 		</li>
 	);
 };

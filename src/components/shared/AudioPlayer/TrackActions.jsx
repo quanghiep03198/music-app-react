@@ -1,36 +1,40 @@
-import { useEffect, useId, useRef } from "react";
+import ErrorBoundary from "@/components/customs/ErrorBoundary";
+import { useEffect, useId, useState } from "react";
 import { BsHeart, BsHeartFill, BsVolumeUp } from "react-icons/bs";
 import { HiOutlineQueueList } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import tw from "tailwind-styled-components";
-import InputRange from "../Atomics/InputRange";
+import Range from "../Atomics/Range";
 import Swap from "../Atomics/Swap";
 const ActionsGroup = tw.div`flex justify-end items-center gap-5 basis-1/4 sm:flex-none md:flex-none`;
 const VolumeController = tw.div`flex justify-end items-center self-center gap-2 sm:hidden md:hidden`;
 
 const TrackActions = ({ audioRef }) => {
-	const volumeInputRef = useRef(null);
+	const [volume, setVolume] = useState(0);
 	const inputId = useId();
 	useEffect(() => {
-		volumeInputRef.current.value = audioRef.current.volume * 100;
-	}, []);
+		setVolume(audioRef.current.volume);
+	}, [audioRef]);
 
-	const adjustVolume = () => {
-		audioRef.current.volume = volumeInputRef.current.value / 100;
+	const adjustVolume = (e) => {
+		setVolume(e.target.value);
+		audioRef.current.volume = e.target.value;
 	};
 	return (
-		<ActionsGroup>
-			<VolumeController>
-				<label htmlFor="volume" className="text-xl" id={inputId}>
-					<BsVolumeUp />
-				</label>
-				<InputRange inputRef={volumeInputRef} max={100} handleChange={adjustVolume} labelRef={inputId} />
-			</VolumeController>
-			<Swap swapOff={<BsHeart />} swapOn={<BsHeartFill className="text-accent" />} />
-			<Link to="/queue">
-				<HiOutlineQueueList className="text-xl" />
-			</Link>
-		</ActionsGroup>
+		<ErrorBoundary>
+			<ActionsGroup>
+				<VolumeController>
+					<label htmlFor="volume-range" className="text-xl" id={inputId}>
+						<BsVolumeUp />
+					</label>
+					<Range value={volume} step={0.01} max={1} onChange={adjustVolume} id="volume-range" />
+				</VolumeController>
+				<Swap swapOff={<BsHeart />} swapOn={<BsHeartFill className="text-accent" />} />
+				<Link to="/queue">
+					<HiOutlineQueueList className="text-xl" />
+				</Link>
+			</ActionsGroup>
+		</ErrorBoundary>
 	);
 };
 

@@ -1,47 +1,42 @@
 import { AppContext } from "@/components/context/AppProvider";
+import ErrorBoundary from "@/components/customs/ErrorBoundary";
 import timer from "@/utils/timer";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import InputRange from "../Atomics/InputRange";
-
+import Range from "../Atomics/Range";
 const AudioSeekBar = ({ audioRef }) => {
-	const { playState } = useContext(AppContext);
-	const { currentTrack } = useSelector((state) => state.queue);
+	const [intervalState, setIntervalState] = useState(0);
 	const [currentTime, setCurrentTime] = useState(0);
-	const inputRangeProcessRef = useRef(null);
-
-	const [intervalState, setIntervalState] = useState();
+	const { currentTrack } = useSelector((state) => state.queue);
+	const { playState } = useContext(AppContext);
 
 	useEffect(() => {
-		inputRangeProcessRef.current.value = audioRef.current.currentTime;
-		if (playState && audioRef.current) {
-			const currentInterval = setInterval(() => {
-				setCurrentTime(audioRef.current.currentTime);
-				inputRangeProcessRef.current.value = audioRef.current.currentTime;
-			}, 1);
-			setIntervalState(currentInterval);
-		} else {
-			clearInterval(intervalState);
+		if (audioRef) {
+			console.log(audioRef);
+			if (playState) {
+				const currentInterval = setInterval(() => {
+					setCurrentTime(audioRef.current.currentTime);
+				}, 1);
+				setIntervalState(currentInterval);
+			} else {
+				clearInterval(intervalState);
+			}
 		}
-	}, [playState, currentTrack]);
+	}, [playState, currentTrack, audioRef]);
 
-	const getCurrentDuration = () => {
-		audioRef.current.currentTime = inputRangeProcessRef.current.value;
-		setCurrentTime(audioRef.current.currentTime);
+	const getCurrentDuration = (e) => {
+		audioRef.current.currentTime = e.target.value;
+		setCurrentTime(e.target.value);
 	};
 
 	return (
-		<div className="flex min-w-full items-center justify-center gap-3 ">
-			<span>{timer(currentTime)}</span>
-			<InputRange
-				step={1}
-				className="w-[-webkit-fill-available]"
-				inputRef={inputRangeProcessRef}
-				max={currentTrack?.duration}
-				handleChange={getCurrentDuration}
-			/>
-			<span>{currentTrack?.duration ? timer(currentTrack?.duration) : timer(0)}</span>
-		</div>
+		<ErrorBoundary>
+			<div className="flex min-w-full items-center justify-center gap-3 ">
+				<span>{timer(currentTime)}</span>
+				<Range type={"range"} value={currentTime} max={currentTrack.duration} onChange={getCurrentDuration} />
+				<span>{currentTrack?.duration ? timer(currentTrack?.duration) : timer(0)}</span>
+			</div>
+		</ErrorBoundary>
 	);
 };
 

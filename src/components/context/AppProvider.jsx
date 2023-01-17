@@ -1,25 +1,14 @@
-import instance from "@/app/axios/instance";
-import { createContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { createContext, useState } from "react";
 
 export const AppContext = createContext();
 const AppProvider = ({ children }) => {
-	const [currentTrack, setCurrentTrack] = useState();
 	const [playState, setPlayState] = useState(false);
-	useEffect(() => {
-		if (!currentTrack)
-			instance
-				.get("/track")
-				.then((data) => setCurrentTrack(data))
-				.catch((err) => console.log(err));
-	}, []);
+
 	return (
 		<AppContext.Provider
 			value={{
 				playState,
 				setPlayState,
-				currentTrack,
-				setCurrentTrack,
 			}}
 		>
 			{children}

@@ -1,29 +1,18 @@
-import React, { Suspense } from "react";
 import tw from "tailwind-styled-components";
+import ErrorBoundary from "../customs/ErrorBoundary";
 import ArtistSlide from "../shared/Artist/ArtistSlide";
-import Loading from "../shared/Atomics/Loading";
-import TrackCardSkeleton from "../shared/Track/TrackCardSkeleton";
-import { StyledTracksList } from "../shared/Track/TrackList";
-const TrackList = React.lazy(() => import("../shared/Track/TrackList"));
+import TrackList from "../shared/Track/TrackList";
 
 export const PageContent = tw.div`flex flex-col gap-10 items-stretch p-3`;
 const HomePage = () => {
 	return (
 		<PageContent>
-			<Suspense
-				fallback={
-					<StyledTracksList>
-						{[1, 2, 3, 4, 5].map((item) => (
-							<TrackCardSkeleton key={item} />
-						))}
-					</StyledTracksList>
-				}
-			>
+			<ErrorBoundary>
+				<h1 className="text-2xl font-semibold first-letter:uppercase">most popular</h1>
 				<TrackList />
-			</Suspense>
-			<Suspense fallback={<Loading />}>
+				<h1 className="text-2xl font-semibold first-letter:uppercase">artists you also like</h1>
 				<ArtistSlide />
-			</Suspense>
+			</ErrorBoundary>
 		</PageContent>
 	);
 };

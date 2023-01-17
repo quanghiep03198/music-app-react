@@ -1,7 +1,7 @@
 import React from "react";
 
-const Loading = () => {
-	return <div className="loader-sm"></div>;
+const Loading = ({ size }) => {
+	return <div className={`loading ${size}`}></div>;
 };
 
 export default Loading;
