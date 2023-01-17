@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import Range from "../Atomics/Range";
 import Swap from "../Atomics/Swap";
-const ActionsGroup = tw.div`flex justify-end items-center gap-5 basis-1/4 sm:flex-none md:flex-none`;
-const VolumeController = tw.div`flex justify-end items-center self-center gap-2 sm:hidden md:hidden`;
+const ActionsGroup = tw.div`flex justify-end items-center gap-3 basis-1/4 sm:flex-none md:flex-none `;
+const VolumeController = tw.div`flex items-center self-center gap-2 sm:hidden md:hidden`;
 
 const TrackActions = ({ audioRef }) => {
 	const [volume, setVolume] = useState(0);
