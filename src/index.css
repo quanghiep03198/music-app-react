@@ -145,27 +145,12 @@
 	}
 	/*#endregion */
 
-	/*#region swiper */
-	.swiper-button-next,
-	.swiper-button-prev {
-		@apply !h-10 !w-10 after:hidden;
-	}
-	.swiper-button-next,
-	.swiper-rtl .swiper-button-next {
-		@apply left-auto after:right-10;
-	}
-	.swiper-button-next > i,
-	.swiper-button-prev > i {
-		@apply btn-success btn-sm btn-circle btn h-full w-full text-2xl font-medium;
-	}
-	/*#endregion */
-
 	/*#region menu */
 	.menu > li {
 		@apply rounded-lg text-base-content/80 hover:text-base-content;
 	}
-	.menu > li:acitve {
-		@apply text-success;
+	.menu > li:focus:active {
+		@apply bg-base-content/10 text-success;
 	}
 	.menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):focus),
 	.menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):hover) {
