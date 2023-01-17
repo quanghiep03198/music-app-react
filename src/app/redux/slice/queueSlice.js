@@ -1,40 +1,25 @@
-import instance from "@/app/axios/instance";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-const fetchRelatedTrackThunkAction = createAsyncThunk(
-	"queue/fetch_related_tracks",
-	async (genre, { rejectWithValue }) => {
-		try {
-			return await instance.get(`/track/related/${genre}`);
-		} catch (error) {
-			rejectWithValue([]);
-		}
-	},
-);
+import { createSlice } from "@reduxjs/toolkit";
+
 const queueSlice = createSlice({
 	name: "queue",
-	initialState: { currentTrack: null, nextup: [] },
+	initialState: { currentTrack: null, nextup: null },
 	reducers: {
 		setCurrentTrack: (state, action) => {
 			state.currentTrack = action.payload;
+			return state;
 		},
 		setCurrentPlaylist: (state, action) => {
 			state.nextup = action.payload;
-			state.currentTrack = [action.payload];
+			// state.currentTrack = [action.payload];
 		},
 		addToQueue: (state, action) => {
-			state.nextup = [action.payload, ...state.nextup];
+			state.nextup = [action.payload, [...state.nextup]];
 		},
 		removeFromQueue: (state, action) => {
-			return state.filter((track) => track._id !== action.payload._id);
+			state.nextup = state.nextup.filter((track) => track._id !== action.payload._id);
 		},
-	},
-	extraReducers: (builder) => {
-		builder.addCase(fetchRelatedTrackThunkAction.fulfilled, (state, action) => {
-			state.nextup = action.payload;
-		});
 	},
 });
 
-export { fetchRelatedTrackThunkAction };
 export const { addToQueue, removeFromQueue, setCurrentTrack, setCurrentPlaylist } = queueSlice.actions;
 export default queueSlice;
