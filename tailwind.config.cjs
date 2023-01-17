@@ -1,6 +1,10 @@
+const plugin = require("tailwindcss/plugin");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+	important: true,
+	mode: "jit",
 	theme: {
 		daisyui: {
 			themes: [
@@ -83,5 +87,18 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [require("daisyui"), require("prettier-plugin-tailwindcss")],
+	plugins: [
+		require("daisyui"),
+		require("prettier-plugin-tailwindcss"),
+		plugin(function ({ matchUtilities, theme }) {
+			matchUtilities(
+				{
+					tab: (value) => ({
+						tabSize: value,
+					}),
+				},
+				{ values: theme("tabSize") },
+			);
+		}),
+	],
 };
