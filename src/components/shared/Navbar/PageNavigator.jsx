@@ -2,20 +2,21 @@ import React from "react";
 import Tooltip from "../Atomics/Tooltip";
 import tw from "tailwind-styled-components";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
+import Button from "../Atomics/Button";
 const PageNavigatorWrapper = tw.div`flex items-center gap-3 sm:hidden`;
 
 const PageNavigator = () => {
 	return (
 		<PageNavigatorWrapper>
-			<Tooltip dataTip={"Go back"} position="bottom">
-				<button className="text-2xl text-base-content/50 hover:text-base-content" onClick={history.go(-1)}>
+			<Tooltip dataTip={"Go back"} position="tooltip-bottom">
+				<Button ghost="true" circle="true" size="btn-sm" className="text-2xl" onClick={history.go(-1)}>
 					<BsArrowLeftShort />
-				</button>
+				</Button>
 			</Tooltip>
-			<Tooltip dataTip={"Go forward"} position="bottom">
-				<button className="text-2xl text-base-content/50 hover:text-base-content" onClick={history.go(1)}>
+			<Tooltip dataTip={"Go forward"} position="tooltip-bottom">
+				<Button ghost="true" circle="true" size="btn-sm" className="text-2xl" onClick={history.go(1)}>
 					<BsArrowRightShort />
-				</button>
+				</Button>
 			</Tooltip>
 		</PageNavigatorWrapper>
 	);
