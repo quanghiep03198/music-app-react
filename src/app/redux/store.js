@@ -3,6 +3,7 @@ import artistApi from "./api/artistApi";
 import playlistApi from "./api/playlistApi";
 import trackApi from "./api/trackApi";
 import rootReducer from "./rootReducer";
+
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, KEY_PREFIX } from "redux-persist";
@@ -20,7 +21,7 @@ const store = configureStore({
 				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, KEY_PREFIX],
 			},
 		}).concat([trackApi.middleware, playlistApi.middleware, artistApi.middleware]),
-	devTools: import.meta.env.VITE_NODE_ENV === "development",
+	// devTools: import.meta.env.VITE_NODE_ENV === "development",
 });
 
 export const persistor = persistStore(store);
