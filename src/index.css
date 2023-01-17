@@ -1,5 +1,9 @@
 @import url("https://cdn.jsdelivr.net/npm/daisyui@2.46.1/dist/full.css");
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+/* @import url("swiper/css");
+@import url("swiper/css/navigation");
+@import url("swiper/css/pagination"); */
+@config "../tailwind.config.cjs";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -42,7 +46,7 @@
 	.scroll::-webkit-scrollbar-thumb {
 		@apply bg-success;
 	}
-	/*#endregion  */
+	/*#endregion */
 
 	/*#region heading text */
 	.heading-text {
@@ -52,35 +56,52 @@
 	.heading-text::before {
 		@apply block w-1/3 border-b [content:""];
 	}
-	/*#endregion  */
+	/*#endregion */
 }
 @layer components {
 	/*#region input range */
-	.range-container {
-		@apply relative flex w-full items-center;
-	}
-	.range-progress {
-		@apply absolute top-0 z-[1] block h-1 rounded-[0.2rem] bg-base-content;
+
+	input[type="range"] {
+		@apply relative
+				h-1
+				w-[-webkit-fill-available]
+				appearance-none
+				rounded-sm
+				border-none 
+				bg-gradient-to-r 
+				from-base-content 
+				to-base-content 
+				bg-no-repeat
+				outline-none
+				duration-[all_ease_500] 
+				hover:from-success
+				hover:to-success
+				[&::-webkit-slider-thumb]:hover:opacity-100
+				[&::-webkit-slider-thumb]:hover:shadow-[0_0_0.25rem_0.5rem_rgba(31,178,166,0.3)];
 	}
 
-	.range-container:hover > .my-range::-webkit-slider-thumb {
+	input[type="range"]::-webkit-slider-thumb {
+		@apply top-0 z-[1] h-3 w-3 appearance-none rounded-full bg-success opacity-0 outline-none duration-300;
+	}
+
+	input[type="range"]::-webkit-slider-thumb:hover {
 		@apply opacity-100 shadow-[0_0_0.25rem_0.5rem_rgba(31,178,166,0.3)];
 	}
-	.my-range {
-		@apply z-[2] h-1 w-[-webkit-fill-available] appearance-none rounded-sm border-none bg-zinc-600/30 outline-none duration-[all_ease_500];
+
+	input[type="range"]::-webkit-slider-thumb:hover {
+		@apply relative top-0 opacity-100 shadow-[0_0_0.25rem_0.5rem_rgba(31,178,166,0.3)];
 	}
-	.my-range::-webkit-slider-thumb {
-		@apply h-3 w-3 appearance-none rounded-full bg-success opacity-0 outline-none duration-300;
+
+	input[type="range"]::-webkit-slider-runnable-track:hover + input[type="range"]::-webkit-slider-thumb {
+		@apply relative top-0 opacity-100 shadow-[0_0_0.25rem_0.5rem_rgba(31,178,166,0.3)];
 	}
-	.my-range::-webkit-slider-thumb:hover {
+	input[type="range"]:active:-webkit-slider-thumb:hover {
 		@apply opacity-100 shadow-[0_0_0.25rem_0.5rem_rgba(31,178,166,0.3)];
 	}
-	.my-range:active:-webkit-slider-thumb:hover {
-		@apply opacity-100 shadow-[0_0_0.25rem_0.5rem_rgba(31,178,166,0.3)];
-	}
+
 	/*#endregion */
 
-	/*#region tab  */
+	/*#region tab */
 	.tab {
 		@apply basis-1/4 text-base-content sm:tab-xs md:tab-md lg:tab-md xl:tab-lg xxl:tab-lg;
 	}
@@ -93,7 +114,7 @@
 	.tabs-boxed.tab-active {
 		@apply btn-success btn text-success;
 	}
-	/*#endregion  */
+	/*#endregion */
 
 	.radio-success {
 		@apply checked:border-success checked:bg-success checked:outline-success;
@@ -114,7 +135,7 @@
 
 	/*#region loading */
 	.loader-sm {
-		@apply pointer-events-none h-6 w-6 animate-spin rounded-full border-[3px] border-transparent  border-t-success;
+		@apply pointer-events-none h-6 w-6 animate-spin rounded-full border-[3px] border-transparent border-t-success;
 	}
 	.loader-md {
 		@apply pointer-events-none h-10 w-10 animate-spin rounded-full border-[3px] border-transparent border-t-success;
@@ -139,7 +160,7 @@
 	}
 	/*#endregion */
 
-	/*#region menu  */
+	/*#region menu */
 	.menu > li {
 		@apply rounded-lg text-base-content/80 hover:text-base-content;
 	}
@@ -157,7 +178,7 @@
 	.menu-item-active {
 		@apply bg-base-content/10 font-medium text-base-content;
 	}
-	/*#endregion  */
+	/*#endregion */
 
 	/*#region form control */
 	.form-control > .input,
@@ -172,7 +193,7 @@
 	.error-message {
 		@apply text-base;
 	}
-	/*#endregion  */
+	/*#endregion */
 
 	.dropdown > .custom-select {
 		@apply input-bordered input inline-flex w-[-webkit-fill-available] items-center justify-between bg-transparent;
@@ -186,22 +207,25 @@
 		@apply flex
 				items-center
 				rounded-lg
+				p-1
 				hover:bg-zinc-400/10
 				hover:duration-300 
-				[&:nth-child(1)]:basis-1/12
-				sm:[&:nth-child(1)]:basis-1/6
-				[&:nth-child(2)]:basis-full
-				[&:nth-child(3)]:basis-1/4
-				sm:[&:nth-child(3)]:hidden
-				md:[&:nth-child(3)]:hidden
-				[&:nth-child(4)]:basis-1/4
-				sm:[&:nth-child(4)]:hidden
-				md:[&:nth-child(4)]:hidden
-				[&:nth-child(5)]:basis-1/4
-				sm:[&:nth-child(5)]:hidden
-				md:[&:nth-child(5)]:hidden;
+				[&>*:nth-child(1)]:basis-1/12
+				sm:[&>*:nth-child(1)]:basis-1/6
+				[&>*:nth-child(2)]:basis-1/2
+				sm:[&>*:nth-child(2)]:basis-full
+				[&>*:nth-child(3)]:basis-1/4
+				sm:[&>*:nth-child(3)]:hidden
+				md:[&>*:nth-child(3)]:hidden
+				[&>*:nth-child(4)]:basis-1/4
+				sm:[&>*:nth-child(4)]:hidden
+				md:[&>*:nth-child(4)]:hidden
+				[&>*:nth-child(5)]:basis-1/4
+				sm:[&>*:nth-child(5)]:hidden
+				md:[&>*:nth-child(5)]:hidden
+				[&>*:nth-child(6)]:basis-1/12;
 	}
-	/*#endregion  */
+	/*#endregion */
 
 	/*#region sound wave */
 	.sound-wave {
@@ -221,5 +245,5 @@
 	.sound-wave div {
 		@apply h-[10%] w-[3px] animate-jumping bg-success sm:w-[2px];
 	}
-	/*#endregion  */
+	/*#endregion */
 }
