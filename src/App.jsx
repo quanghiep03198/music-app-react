@@ -1,21 +1,22 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./components/layouts";
-import Artist from "./components/pages/Artist";
-import HomePage from "./components/pages/Home";
-import Library from "./components/pages/Library";
-import Login from "./components/pages/Login";
-import NotFound from "./components/pages/NotFound";
-import Playlist from "./components/pages/Playlist";
-import Queue from "./components/pages/Queue";
-import Register from "./components/pages/Register";
-import ResetPassword from "./components/pages/ResetPassword";
+import { lazy } from "react";
+const Artist = lazy(() => import("./components/pages/Artist"));
+const HomePage = lazy(() => import("./components/pages/Home"));
+const Library = lazy(() => import("./components/pages/Library"));
+const Login = lazy(() => import("./components/pages/Login"));
+const NotFound = lazy(() => import("./components/pages/NotFound"));
+const Playlist = lazy(() => import("./components/pages/Playlist"));
+const Queue = lazy(() => import("./components/pages/Queue"));
+const Register = lazy(() => import("./components/pages/Register"));
+const ResetPassword = lazy(() => import("./components/pages/ResetPassword"));
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<Layout />}>
-					<Route index element={<HomePage />} />
+					<Route index element={<HomePage />} loader />
 					<Route path="/playlist/:id" element={<Playlist />} />
 					<Route path="/artist/:id" element={<Artist />} />
 					<Route path="/library" element={<Library />} />
@@ -24,7 +25,7 @@ function App() {
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/reset-password" element={<ResetPassword />} />
-				<Route path="*" element={<Navigate to="/" replace />} />
+				<Route path="*" element={<NotFound />} />
 			</Routes>
 		</BrowserRouter>
 	);
