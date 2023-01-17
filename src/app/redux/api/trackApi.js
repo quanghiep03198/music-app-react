@@ -18,7 +18,6 @@ const trackApi = createApi({
 			}),
 			fetchRelatedTracks: builder.query({
 				query: ({ genre, skip, limit }) => {
-					console.log(genre, skip, limit);
 					return `/track/related/${genre}?skip=${skip}&limit=${limit}`;
 				},
 				providesTags: ["RelatedTracks"],

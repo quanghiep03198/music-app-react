@@ -8,7 +8,7 @@ const playlistApi = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: import.meta.env.VITE_BASE_URL,
 		prepareHeaders: (headers, { getState }) => {
-			const token = getState().auth.token;
+			const token = getState().auth?.token;
 			if (token) headers.set("token", token);
 			return headers;
 		},
@@ -20,7 +20,7 @@ const playlistApi = createApi({
 				providesTags: ["UserPlaylists"],
 			}),
 			fetchAllPlaylist: builder.query({
-				query: (limit) => `/playlist?limit=${limit}`,
+				query: ({ skip = 0, limit }) => `/playlist?skip=${skip}&limit=${limit}`,
 				providesTags: ["Playlists"],
 			}),
 			addToPlaylist: builder.mutation({

@@ -4,6 +4,7 @@ import playlistApi from "./api/playlistApi";
 import trackApi from "./api/trackApi";
 import queueSlice from "./slice/queueSlice";
 import userSlice from "./slice/userSlice";
+import albumApi from "./api/albumApi";
 
 const rootReducer = combineReducers({
 	tracks: trackApi.reducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
 	artists: artistApi.reducer,
 	user: userSlice.reducer,
 	queue: queueSlice.reducer,
+	album: albumApi.reducer,
 });
 
 export default rootReducer;
