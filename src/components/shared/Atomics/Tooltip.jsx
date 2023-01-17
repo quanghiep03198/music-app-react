@@ -5,7 +5,7 @@ const StyledTooltip = tw.div`tooltip`;
 
 const Tooltip = ({ position, dataTip, children }) => {
 	return (
-		<StyledTooltip className={`tooltip-${position}`} data-tip={dataTip}>
+		<StyledTooltip className={`${position}`} data-tip={dataTip}>
 			{children}
 		</StyledTooltip>
 	);
