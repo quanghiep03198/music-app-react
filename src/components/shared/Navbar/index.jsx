@@ -1,7 +1,8 @@
-import React from "react";
-import { BsList, BsPerson, BsPower } from "react-icons/bs";
+import { AppContext } from "@/components/context/AppProvider";
+import { useContext } from "react";
+import { BsList, BsPerson } from "react-icons/bs";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useMatches } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import PageNavigator from "./PageNavigator";
 import SearchBox from "./SearchBox";
@@ -12,6 +13,7 @@ const Navbar = () => {
 	const user = useSelector((state) => {
 		return state.user;
 	});
+
 	return (
 		<NavbarWrapper>
 			<div className="flex items-center gap-4">
@@ -19,15 +21,15 @@ const Navbar = () => {
 				<SearchBox />
 			</div>
 			<div className="flex items-center gap-4">
-				<label htmlFor="sidebar-toggle" className="btn-circle btn hidden sm:inline-flex">
+				<label htmlFor="sidebar-toggle" className="btn-circle btn hidden sm:btn-sm">
 					<BsList />
 				</label>
 				{user !== null ? (
 					<UserController />
 				) : (
-					<Link to="/login" className="btn-circle btn text-xl">
+					<NavLink to="/login" className="btn-circle btn text-xl sm:btn-sm">
 						<BsPerson aria-hidden />
-					</Link>
+					</NavLink>
 				)}
 			</div>
 		</NavbarWrapper>

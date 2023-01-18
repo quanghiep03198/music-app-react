@@ -7,13 +7,13 @@ import { BsClock, BsHeart, BsPauseFill, BsPlayFill, BsPlusLg, BsThreeDots } from
 import { HiOutlineMinus } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-styled-components";
-import Dropdown from "../Atomics/Dropdown";
+import Button from "../Atomics/Button";
+import { Dropdown, DropdownContent } from "../Atomics/Dropdown";
 import { Menu, MenuItem } from "../Atomics/Menu";
 import SoundWave from "./SoundWave";
-
+import { memo } from "react";
 export const StyledTrackCard = tw.div`group track-card p-1`;
 
-const PlayButton = tw.button`btn btn-ghost btn-circle hover:bg-transparent hidden group-hover:inline-flex text-xl`;
 const TrackIndex = tw.span`group-hover:hidden w-full`;
 
 const TrackCard = ({ index, track }) => {
@@ -55,53 +55,65 @@ const TrackCard = ({ index, track }) => {
 
 	return (
 		<StyledTrackCard className={isCurrentTrack && "bg-zinc-400/20"}>
-			<div className="basis-1/12 sm:basis-1/6">
+			<div>
 				<div className="relative text-center">
 					<SoundWave track={track} isPlaying={isPlaying && playState} />
 					{!isPlaying && <TrackIndex>{index}</TrackIndex>}
-					<PlayButton onClick={() => togglePlay(track)}>{isPlaying ? <BsPauseFill /> : <BsPlayFill />}</PlayButton>
+					<Button
+						shape="circle"
+						color="success"
+						className="hidden text-xl group-hover:inline-flex sm:btn-sm"
+						onClick={() => togglePlay(track)}
+					>
+						{isPlaying ? <BsPauseFill /> : <BsPlayFill />}
+					</Button>
 				</div>
 			</div>
-			<div className="basis-1/2 sm:basis-full">
+			<div>
 				<div className="flex items-center gap-2">
-					<img src={track?.thumbnail} className="h-14 w-14 rounded-md" loading="lazy" />
+					<img src={track?.thumbnail} className="h-14 w-14 rounded-md sm:h-12 sm:w-12" loading="lazy" />
 					<div>
 						<h5 className="truncate">{track?.title}</h5>
 						<p>{Array.isArray(track.artists) && track.artists.map((artist) => artist.name).join(", ")}</p>
 					</div>
 				</div>
 			</div>
-			<div className="basis-1/4 sm:hidden">{track.album?.title ?? ""}</div>
-			<div className="basis-1/4 sm:hidden">
+			<div>{track.album?.title ?? ""}</div>
+			<div>
 				<div className="flex items-center gap-2">
 					<BsPlayFill /> {formatNumber(track?.listen)}
 				</div>
 			</div>
-			<div className="basis-1/4 sm:hidden">
+			<div>
 				<div className="flex items-center gap-2">
 					<BsClock /> {timer(track?.duration)}
 				</div>
 			</div>
-			<div className="basis-1/12 ">
-				<Dropdown dropdownButtonElement={<BsThreeDots />} gap={6}>
-					<Menu tw="bg-base-300 rounded-lg">
-						<MenuItem>
-							<BsHeart /> Save to your library
-						</MenuItem>
-						{isInQueue ? (
-							<MenuItem handleClick={handleRemoveFromQueue}>
-								<HiOutlineMinus /> Remove from queue
+			<div>
+				<Dropdown gap={6} position="bottom-end">
+					<Button role="none" size="sm" shape="square" color="transparent" tabIndex={0}>
+						<BsThreeDots />
+					</Button>
+					<DropdownContent tabIndex={0}>
+						<Menu tw="bg-base-300 rounded-lg">
+							<MenuItem>
+								<BsHeart /> Save to your library
 							</MenuItem>
-						) : (
-							<MenuItem handleClick={handleAddToQueue}>
-								<BsPlusLg /> Add to queue
-							</MenuItem>
-						)}
-					</Menu>
+							{isInQueue ? (
+								<MenuItem handleClick={handleRemoveFromQueue}>
+									<HiOutlineMinus /> Remove from queue
+								</MenuItem>
+							) : (
+								<MenuItem handleClick={handleAddToQueue}>
+									<BsPlusLg /> Add to queue
+								</MenuItem>
+							)}
+						</Menu>
+					</DropdownContent>
 				</Dropdown>
 			</div>
 		</StyledTrackCard>
 	);
 };
 
-export default TrackCard;
+export default memo(TrackCard);

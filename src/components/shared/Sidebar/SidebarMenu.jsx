@@ -1,32 +1,51 @@
-import React from "react";
+import { AppContext } from "@/components/context/AppProvider";
+import { useContext } from "react";
+import { BiLibrary } from "react-icons/bi";
+import { BsHeart, BsHouse, BsSearch } from "react-icons/bs";
+import { NavLink, useLocation } from "react-router-dom";
 import { Menu, MenuItem } from "../Atomics/Menu";
-import { BsHouse, BsCloudUpload, BsHeart } from "react-icons/bs";
-import { BiHeart, BiLibrary } from "react-icons/bi";
-import { Link } from "react-router-dom";
+
 const SidebarMenu = () => {
 	return (
 		<Menu horizontal={false} tw={"min-w-[320px] text-lg"}>
 			{/* #each */}
-			<Link to="/">
+			<NavLink
+				to="/"
+				end
+				accessKey=""
+				className={({ isActive }) => {
+					return isActive ? "text-success" : "text-base-content";
+				}}
+			>
 				<MenuItem>
 					<BsHouse className="text-xl" /> Home
 				</MenuItem>
-			</Link>
-			<Link to="/liked-tracks">
+			</NavLink>
+
+			<NavLink
+				to="/liked-tracks"
+				end
+				className={({ isActive }) => {
+					return isActive ? "text-success" : "text-base-content";
+				}}
+			>
 				<MenuItem>
 					<BsHeart className="text-xl" />
 					Liked tracks
 				</MenuItem>
-			</Link>
-			<Link to="/library">
+			</NavLink>
+			<NavLink
+				to="/library"
+				end
+				className={({ isActive }) => {
+					return isActive ? "text-success" : "text-base-content";
+				}}
+			>
 				<MenuItem>
 					<BiLibrary className="text-xl" />
 					Library
 				</MenuItem>
-			</Link>
-			<MenuItem>
-				<BsCloudUpload className="text-xl" /> Upload
-			</MenuItem>
+			</NavLink>
 		</Menu>
 	);
 };

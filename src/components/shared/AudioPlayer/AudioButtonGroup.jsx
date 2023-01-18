@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { BsPauseCircle, BsPlayCircle, BsShuffle, BsSkipBackwardFill, BsSkipForwardFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-styled-components";
+import Button from "../Atomics/Button";
 import Swap from "../Atomics/Swap";
 const AudioButton = tw.button`btn btn-ghost hover:bg-transparent text-2xl w-fit`;
 const RepeatIcon = tw.i`bi bi-repeat`;
@@ -57,9 +58,9 @@ const AudioButtonGroup = ({ handleLoopStateChange, loopState }) => {
 				checked={shuffleState}
 				onHandleChange={handleToggleShuffle}
 			/>
-			<AudioButton onClick={() => changeTrack(-1)}>
+			<Button color="transparent" className="text-2xl" onClick={() => changeTrack(-1)}>
 				<BsSkipBackwardFill />
-			</AudioButton>
+			</Button>
 			<Swap
 				swapOff={<BsPlayCircle />}
 				swapOn={<BsPauseCircle />}
@@ -67,9 +68,9 @@ const AudioButtonGroup = ({ handleLoopStateChange, loopState }) => {
 				checked={playState}
 				onHandleChange={togglePlay}
 			/>
-			<AudioButton onClick={() => changeTrack(1)}>
+			<Button color="transparent" className="text-2xl" onClick={() => changeTrack(1)}>
 				<BsSkipForwardFill />
-			</AudioButton>
+			</Button>
 			<Swap
 				swapOn={<RepeatIcon className="text-success" />}
 				swapOff={<RepeatIcon className="text-base-content" />}

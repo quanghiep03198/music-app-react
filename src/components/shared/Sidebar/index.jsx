@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import tw from "tailwind-styled-components";
-import { Menu } from "../Atomics/Menu";
+import { Menu, MenuItem } from "../Atomics/Menu";
 import SidebarMenu from "./SidebarMenu";
 import Logo from "/images/logo.png";
 
@@ -9,13 +9,14 @@ const DrawerOverlay = tw.label`drawer-overlay`;
 const DrawerSideWrapper = tw.div`p-2 bg-base-300 w-fit`;
 const LogoImage = tw.img`max-w-[240px] h-[120px] object-contain -translate-x-2`;
 import { memo, useEffect, useRef } from "react";
+import { BsCloudUpload } from "react-icons/bs";
 
 const Sidebar = () => {
 	const overlayRef = useRef(null);
-	const location = useLocation();
+	// const location = useLocation();
 	useEffect(() => {
 		overlayRef.current.click();
-	}, [location]);
+	}, []);
 
 	return (
 		<DrawerSidebar>
@@ -24,9 +25,13 @@ const Sidebar = () => {
 				<Link to="/">
 					<LogoImage src={Logo} alt="" />
 				</Link>
-				<SidebarMenu />
+				{<SidebarMenu />}
 				<div className="divider"></div>
-				<Menu>{/* user playlists */}</Menu>
+				<Menu>
+					{/* <MenuItem>
+						<BsCloudUpload className="text-xl" /> Upload
+					</MenuItem> */}
+				</Menu>
 			</DrawerSideWrapper>
 		</DrawerSidebar>
 	);

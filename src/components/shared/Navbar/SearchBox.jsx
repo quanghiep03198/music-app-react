@@ -1,23 +1,22 @@
-import React, { useId } from "react";
+import { useId } from "react";
 import { BsSearch } from "react-icons/bs";
-import tw from "tailwind-styled-components";
-const Form = tw.form`sm:hidden md:hidden`;
-const SearchBoxWrapper = tw.div`flex justify-start items-center px-3 py-1 border border-base-content/50 rounded-full text-base-content  w-[-webkit-fill-available] min-w-[24rem]`;
-const SearchInput = tw.input`input input-sm bg-transparent focus:outline-none w-[-webkit-fill-available] text-base-content`;
+import Button from "../Atomics/Button";
+
 const SearchBox = () => {
 	const id = useId();
+
 	return (
-		<Form>
-			<SearchBoxWrapper className="">
-				<label htmlFor={id}>
-					<BsSearch />
-				</label>
-				<SearchInput type="search" placeholder="Find a track, artist, album . . ." />
-				<button className="hidden" type="submit" id={id}>
-					<BsSearch />
-				</button>
-			</SearchBoxWrapper>
-		</Form>
+		<form className="flex items-center gap-1 rounded-full border border-neutral bg-base-200 px-2 ">
+			<Button type="button" shape="circle" size="sm" color="transparent" className="text-lg">
+				<BsSearch />
+			</Button>
+			<input
+				type="search"
+				className={`input input-sm rounded-full bg-transparent focus:outline-none`}
+				id={id}
+				placeholder="Search ..."
+			/>
+		</form>
 	);
 };
 

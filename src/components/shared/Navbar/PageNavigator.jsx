@@ -9,12 +9,12 @@ const PageNavigator = () => {
 	return (
 		<PageNavigatorWrapper>
 			<Tooltip dataTip={"Go back"} position="tooltip-bottom">
-				<Button ghost="true" circle="true" size="btn-sm" className="text-2xl" onClick={history.go(-1)}>
+				<Button color="ghost" shape="circle" size="sm" className="text-2xl" onClick={history.go(-1)}>
 					<BsArrowLeftShort />
 				</Button>
 			</Tooltip>
 			<Tooltip dataTip={"Go forward"} position="tooltip-bottom">
-				<Button ghost="true" circle="true" size="btn-sm" className="text-2xl" onClick={history.go(1)}>
+				<Button color="ghost" shape="circle" size="sm" className="text-2xl" onClick={history.go(1)}>
 					<BsArrowRightShort />
 				</Button>
 			</Tooltip>
