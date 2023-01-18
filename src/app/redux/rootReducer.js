@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
 	artists: artistApi.reducer,
 	user: userSlice.reducer,
 	queue: queueSlice.reducer,
-	album: albumApi.reducer,
+	albums: albumApi.reducer,
 });
 
 export default rootReducer;

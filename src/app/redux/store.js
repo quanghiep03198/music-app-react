@@ -25,7 +25,7 @@ const store = configureStore({
 				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, KEY_PREFIX],
 			},
 		}).concat([trackApi.middleware, playlistApi.middleware, artistApi.middleware, albumApi.middleware]),
-	devTools: currentEnv.toLowerCase() == "development",
+	devTools: currentEnv.toLowerCase() === "development",
 });
 
 export const persistor = persistStore(store);

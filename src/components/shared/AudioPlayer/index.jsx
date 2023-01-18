@@ -19,7 +19,6 @@ const AudioPlayer = () => {
 	const [loopState, setLoopState] = useState(false);
 
 	useEffect(() => {
-		console.log(playState);
 		playState ? audioRef.current.play() : audioRef.current.pause();
 	}, [playState, currentTrack]);
 

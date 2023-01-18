@@ -1,17 +1,23 @@
 import tw from "tailwind-styled-components";
 import ErrorBoundary from "../customs/ErrorBoundary";
+import AlbumList from "../shared/Album/AlbumList";
 import ArtistSlide from "../shared/Artist/ArtistSlide";
 import TrackList from "../shared/Track/TrackList";
 
+export const SectionTitle = tw.h1`text-2xl font-semibold first-letter:uppercase`;
 export const PageContent = tw.div`flex flex-col gap-10 items-stretch p-3`;
 const HomePage = () => {
 	return (
 		<PageContent>
 			<ErrorBoundary>
-				<h1 className="text-2xl font-semibold first-letter:uppercase">most popular</h1>
+				<SectionTitle>most popular</SectionTitle>
 				<TrackList />
-				<h1 className="text-2xl font-semibold first-letter:uppercase">artists you also like</h1>
+
+				<SectionTitle>artists you also like</SectionTitle>
 				<ArtistSlide />
+
+				<SectionTitle>artists you also like</SectionTitle>
+				<AlbumList />
 			</ErrorBoundary>
 		</PageContent>
 	);
