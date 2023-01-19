@@ -6,6 +6,7 @@ import store, { persistor } from "./app/redux/store";
 import "./index.css";
 import App from "./App";
 import React from "react";
+import AppProvider from "./components/context/AppProvider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<Provider store={store}>
@@ -13,6 +14,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 			<App />
 		</PersistGate>
 	</Provider>,
-	// <React.StrictMode>
-	// </React.StrictMode>,
 );

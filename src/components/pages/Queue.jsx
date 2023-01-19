@@ -1,9 +1,10 @@
 // import { fetchRelatedTrackThunkAction } from "@/app/redux/slice/queueSlice";
 import { useFetchRelatedTracksQuery } from "@/app/redux/api/trackApi";
 import { setCurrentPlaylist } from "@/app/redux/slice/queueSlice";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorBoundary from "../customs/ErrorBoundary";
+import Loading from "../shared/Atomics/Loading";
 import TrackCard from "../shared/Track/TrackCard";
 import { StyledTracksList } from "../shared/Track/TrackList";
 import { PageContent } from "./Home";
@@ -21,16 +22,18 @@ const Queue = () => {
 	}, []);
 	return (
 		<ErrorBoundary>
-			<PageContent>
-				{/* now playing track */}
-				<StyledTracksList>
-					<h1 className="text-2xl font-semibold">Next Up</h1>
+			<Suspense fallback={<Loading />}>
+				<PageContent>
+					{/* now playing track */}
+					<StyledTracksList>
+						<h1 className="text-2xl font-semibold">Next Up</h1>
 
-					{Array.isArray(nextup) &&
-						nextup.length > 0 &&
-						nextup.map((track, index) => <TrackCard key={track?._id} track={track} index={index + 1} />)}
-				</StyledTracksList>
-			</PageContent>
+						{Array.isArray(nextup) &&
+							nextup.length > 0 &&
+							nextup.map((track, index) => <TrackCard key={track?._id} track={track} index={index + 1} />)}
+					</StyledTracksList>
+				</PageContent>
+			</Suspense>
 		</ErrorBoundary>
 	);
 };

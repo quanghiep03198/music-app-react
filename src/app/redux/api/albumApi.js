@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
 const albumApi = createApi({
 	tagTypes: ["Albums", "UserAlbums"],
-	refetchOnReconnect: true,
+	// refetchOnReconnect: true,
 	refetchOnMountOrArgChange: true,
 	reducerPath: "albums",
 	baseQuery: fetchBaseQuery({

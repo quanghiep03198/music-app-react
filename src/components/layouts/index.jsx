@@ -1,5 +1,5 @@
-import { Suspense, useEffect, useState } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import AppProvider from "../context/AppProvider";
 import ErrorBoundary from "../customs/ErrorBoundary";
@@ -15,21 +15,23 @@ const SidebarToggler = tw.input`drawer-toggle`;
 
 const Layout = () => {
 	return (
-		<AppProvider>
+		<ErrorBoundary>
 			<DrawerLayout data-theme="dracula">
 				<SidebarToggler id="sidebar-toggle" type="checkbox" />
 				<DrawerContentWrapper>
 					<Navbar />
-					<PageContent>
-						<Suspense fallback={<Loading size="loading-md" />}>
-							<Outlet />
-						</Suspense>
-					</PageContent>
-					<AudioPlayer />
+					<AppProvider>
+						<PageContent>
+							<Suspense fallback={<Loading />}>
+								<Outlet />
+							</Suspense>
+						</PageContent>
+						<AudioPlayer />
+					</AppProvider>
 				</DrawerContentWrapper>
 				<Sidebar />
 			</DrawerLayout>
-		</AppProvider>
+		</ErrorBoundary>
 	);
 };
 

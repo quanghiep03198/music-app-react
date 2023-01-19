@@ -13,10 +13,10 @@ import { BsCloudUpload } from "react-icons/bs";
 
 const Sidebar = () => {
 	const overlayRef = useRef(null);
-	// const location = useLocation();
+	const { pathname } = useLocation();
 	useEffect(() => {
 		overlayRef.current.click();
-	}, []);
+	}, [pathname]);
 
 	return (
 		<DrawerSidebar>

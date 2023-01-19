@@ -1,11 +1,13 @@
 import { useFetchUserPlaylistsQuery } from "@/app/redux/api/playlistApi";
-import PlaylistCard from "./PlaylistCard";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useRef } from "react";
+import { lazy, Suspense, useRef } from "react";
 import { Navigation } from "swiper";
 import Button from "../Atomics/Button";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import swiperBreakpoints from "@/config/swiperBreakpoint.config";
+import CardSkeleton from "../Skeletons/Card";
+
+const PlaylistCard = lazy(() => import("./PlaylistCard"));
 
 const PlaylistSlider = () => {
 	console.log(import.meta.env.VITE_ADMIN_ID);
@@ -27,7 +29,9 @@ const PlaylistSlider = () => {
 				{Array.isArray(data) &&
 					data.map((playlist) => (
 						<SwiperSlide key={playlist?._id}>
-							<PlaylistCard playlist={playlist} />
+							<Suspense fallback={<CardSkeleton />}>
+								<PlaylistCard playlist={playlist} />
+							</Suspense>
 						</SwiperSlide>
 					))}
 			</Swiper>

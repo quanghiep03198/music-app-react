@@ -5,11 +5,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-	/* --p: rgba(31, 178, 166, 1); */
-	/* --b1: */
-	--tooltip-color: rgba(31, 178, 166, 1);
-}
 @layer base {
 }
 @layer utilities {
@@ -138,14 +133,17 @@
 	/*endregion */
 
 	/*#region loading */
-	.loader-sm {
-		@apply pointer-events-none h-6 w-6 animate-spin rounded-full border-[3px] border-transparent border-t-success;
+	.loading {
+		@apply pointer-events-none animate-spin rounded-full border-transparent border-t-success border-r-success;
 	}
-	.loader-md {
-		@apply pointer-events-none h-10 w-10 animate-spin rounded-full border-[3px] border-transparent border-t-success;
+	.loading-sm {
+		@apply h-6 w-6  border-[3px];
 	}
-	.loader-lg {
-		@apply pointer-events-none h-14 w-14 animate-spin rounded-full border-[4px] border-transparent border-t-success;
+	.loading-md {
+		@apply h-10 w-10  border-4;
+	}
+	.loading-lg {
+		@apply h-14 w-14  border-4;
 	}
 	/*#endregion */
 

@@ -1,29 +1,30 @@
 import tw from "tailwind-styled-components";
 import ErrorBoundary from "../customs/ErrorBoundary";
+import TrackList from "../shared/Track/TrackList";
+
 import AlbumSlider from "../shared/Album/AlbumSlider";
 import ArtistSlider from "../shared/Artist/ArtistSlider";
 import PlaylistSlider from "../shared/Playlist/PlaylistSlider";
-import TrackList from "../shared/Track/TrackList";
 
-export const SectionTitle = tw.h1`text-2xl font-semibold first-letter:uppercase`;
+export const Typography = tw.h1`text-2xl font-semibold first-letter:uppercase`;
 export const PageContent = tw.div`flex flex-col gap-10 items-stretch`;
 const HomePage = () => {
 	return (
-		<PageContent>
-			<ErrorBoundary>
-				<SectionTitle>most popular</SectionTitle>
+		<ErrorBoundary>
+			<PageContent>
+				<Typography>most popular</Typography>
 				<TrackList />
 
-				<SectionTitle className="!normal-case">Bass Station mixes</SectionTitle>
+				<Typography className="!normal-case">Bass Station mixes</Typography>
 				<PlaylistSlider />
 
-				<SectionTitle>artists you also like</SectionTitle>
+				<Typography>artists you also like</Typography>
 				<ArtistSlider />
 
-				<SectionTitle>new albums</SectionTitle>
+				<Typography>new albums</Typography>
 				<AlbumSlider />
-			</ErrorBoundary>
-		</PageContent>
+			</PageContent>
+		</ErrorBoundary>
 	);
 };
 

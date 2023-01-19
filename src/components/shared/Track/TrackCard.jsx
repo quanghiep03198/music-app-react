@@ -11,8 +11,7 @@ import Button from "../Atomics/Button";
 import { Dropdown, DropdownContent } from "../Atomics/Dropdown";
 import { Menu, MenuItem } from "../Atomics/Menu";
 import SoundWave from "./SoundWave";
-import { memo } from "react";
-export const StyledTrackCard = tw.div`group track-card p-1`;
+export const StyledTrackCard = tw.div`group track-card p-1 gap-2`;
 
 const TrackIndex = tw.span`group-hover:hidden w-full`;
 
@@ -116,4 +115,4 @@ const TrackCard = ({ index, track }) => {
 	);
 };
 
-export default memo(TrackCard);
+export default TrackCard;

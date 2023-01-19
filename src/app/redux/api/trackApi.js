@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const trackApi = createApi({
 	reducerPath: "tracks",
 	tagTypes: ["Tracks", "RelatedTracks", "LikedTracks"],
-	refetchOnReconnect: true,
+	refetchOnMountOrArgChange: true,
 	baseQuery: fetchBaseQuery({
 		baseUrl: import.meta.env.VITE_BASE_URL,
 	}),
@@ -16,10 +16,10 @@ const trackApi = createApi({
 				providesTags: ["Tracks"],
 			}),
 			fetchRelatedTracks: builder.query({
-				refetchOnMountOrArgChange: true,
 				query: ({ genre, skip, limit }) => {
 					return `/track/related/${genre}?skip=${skip}&limit=${limit}`;
 				},
+
 				providesTags: ["RelatedTracks"],
 			}),
 			uploadTracks: builder.mutation({

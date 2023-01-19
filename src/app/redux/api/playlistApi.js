@@ -3,7 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const playlistApi = createApi({
 	reducerPath: "playlists",
 	tagTypes: ["Playlists", "UserPlaylists"],
-	refetchOnReconnect: true,
+
+	refetchOnMountOrArgChange: true,
 	baseQuery: fetchBaseQuery({
 		baseUrl: import.meta.env.VITE_BASE_URL,
 		prepareHeaders: (headers, { getState }) => {
@@ -15,7 +16,6 @@ const playlistApi = createApi({
 	endpoints: (builder) => {
 		return {
 			fetchUserPlaylists: builder.query({
-				refetchOnMountOrArgChange: true,
 				query: ({ userId, skip, limit }) => `/playlist/created-by/${userId}?skip=${skip}&limit=${limit}`,
 				providesTags: ["UserPlaylists"],
 			}),

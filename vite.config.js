@@ -5,26 +5,17 @@ import alias from "@rollup/plugin-alias";
 import path, { resolve } from "path";
 const rootDir = resolve(__dirname);
 export default defineConfig({
-	base: "/",
-	plugins: [
-		react(),
-		alias({
-			entries: [
-				{
-					find: "@",
-					replacement: resolve(rootDir, "src"),
-				},
-			],
-		}),
-	],
 	resolve: {
-		alias: {
-			"@/*": path.resolve(__dirname, "./src/"),
-		},
+		alias: [
+			{
+				find: "@",
+				replacement: path.resolve(__dirname, "src"),
+			},
+		],
 	},
+	plugins: [react()],
 
 	server: {
-		port: 9898,
-		hmr: { overlay: false },
+		port: 3000,
 	},
 });
