@@ -1,4 +1,4 @@
-import { AppContext } from "@/components/context/AppProvider";
+import { AppContext } from "@/context/AppProvider";
 import { useContext } from "react";
 import { BsList, BsPerson } from "react-icons/bs";
 import { useSelector } from "react-redux";
@@ -21,8 +21,8 @@ const Navbar = () => {
 				<SearchBox />
 			</div>
 			<div className="flex items-center gap-4">
-				<label htmlFor="sidebar-toggle" className="btn-circle btn hidden sm:btn-sm">
-					<BsList />
+				<label htmlFor="sidebar-toggle" className="btn-circle btn hidden sm:inline-flex sm:btn-sm">
+					<BsList aria-hidden />
 				</label>
 				{user !== null ? (
 					<UserController />

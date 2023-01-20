@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const trackApi = createApi({
 	reducerPath: "tracks",
 	tagTypes: ["Tracks", "RelatedTracks", "LikedTracks"],
-	refetchOnMountOrArgChange: true,
+	// refetchOnMountOrArgChange: true,
 	baseQuery: fetchBaseQuery({
 		baseUrl: import.meta.env.VITE_BASE_URL,
 	}),

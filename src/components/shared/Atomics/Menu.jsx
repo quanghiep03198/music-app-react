@@ -1,17 +1,19 @@
 import React from "react";
-
-export const MenuItem = ({ children, tw, handleClick }) => {
+import tw from "tailwind-styled-components";
+export const MenuItem = ({ children, onClick }) => {
 	return (
-		<li className={`${tw}`} onClick={handleClick}>
-			<p role="listitem" className="truncate break-words">
-				{children}
-			</p>
+		<li oncClick={onClick} className="truncate">
+			<a role="menuitem">{children}</a>
 		</li>
 	);
 };
-
-export const Menu = ({ children, horizontal, tw }) => {
-	return (
-		<ul className={`hover-bordered menu  p-1 ${horizontal ? "menu-horizontal" : "menu-vertical"} ${tw}`}>{children}</ul>
-	);
-};
+export const Menu = tw.ul`menu p-1 ${(props) => {
+	switch (props.direction) {
+		case "vertical":
+			return "vertical-menu";
+		case "horizontal":
+			return "horizontal-menu";
+		default:
+			return "vertical-menu";
+	}
+}}`;

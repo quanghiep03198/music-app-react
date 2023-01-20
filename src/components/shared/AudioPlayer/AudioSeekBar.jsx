@@ -1,9 +1,10 @@
-import { AppContext } from "@/components/context/AppProvider";
+import { AppContext } from "@/context/AppProvider";
 import ErrorBoundary from "@/components/customs/ErrorBoundary";
 import timer from "@/utils/timer";
 import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Range from "../Atomics/Range";
+
 const AudioSeekBar = ({ audioRef }) => {
 	const [intervalState, setIntervalState] = useState(0);
 	const [currentTime, setCurrentTime] = useState(0);

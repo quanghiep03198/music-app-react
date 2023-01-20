@@ -4,7 +4,7 @@ const playlistApi = createApi({
 	reducerPath: "playlists",
 	tagTypes: ["Playlists", "UserPlaylists"],
 
-	refetchOnMountOrArgChange: true,
+	// refetchOnMountOrArgChange: true,
 	baseQuery: fetchBaseQuery({
 		baseUrl: import.meta.env.VITE_BASE_URL,
 		prepareHeaders: (headers, { getState }) => {
@@ -22,6 +22,9 @@ const playlistApi = createApi({
 			fetchAllPlaylist: builder.query({
 				query: ({ skip = 0, limit }) => `/playlist?skip=${skip}&limit=${limit}`,
 				providesTags: ["Playlists"],
+			}),
+			fetchSinglePlaylist: builder.query({
+				query: (id) => `/playlist/${id}`,
 			}),
 			addToPlaylist: builder.mutation({
 				query: (id, payload) => {
@@ -48,6 +51,7 @@ const playlistApi = createApi({
 });
 
 export const {
+	useFetchSinglePlaylistQuery,
 	useFetchAllPlaylistQuery,
 	useFetchUserPlaylistsQuery,
 	useAddToPlaylistMutation,

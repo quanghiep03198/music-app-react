@@ -1,4 +1,4 @@
-import { AppContext } from "@/components/context/AppProvider";
+import { AppContext } from "@/context/AppProvider";
 import "@/index.css";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";

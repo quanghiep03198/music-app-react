@@ -148,24 +148,12 @@
 	/*#endregion */
 
 	/*#region menu */
-	.menu > li {
-		@apply rounded-lg text-base-content/80 hover:text-base-content;
-	}
-	.menu > li:focus:active {
-		@apply bg-base-content/10 text-success;
-	}
-	.menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):focus),
-	.menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):hover) {
-		@apply text-base-content;
-	}
-	.menu :where(li:not(.menu-title):not(:empty)) > :where(:not(ul).active),
-	.menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):active) {
-		@apply bg-success text-base-300;
-	}
 
-	.menu-item-active {
-		@apply bg-base-content/10 font-medium text-base-content;
-	}
+	/* .menu :where(li:not(.menu-title):not(:empty)) > :where(:not(ul).active),
+	.menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):active) {
+		@apply bg-success !text-base-300;
+	} */
+
 	/*#endregion */
 
 	/*#region form control */

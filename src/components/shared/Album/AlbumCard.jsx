@@ -2,11 +2,12 @@ import React from "react";
 import { BsPlayFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import Button from "../Atomics/Button";
+import { Card, CardBody, Figure } from "../Atomics/Card";
 
 const AlbumCard = ({ album }) => {
 	return (
-		<div className="group card w-full bg-base-300 p-4 shadow-xl hover:bg-neutral">
-			<div className="mask-square relative rounded-lg">
+		<Card>
+			<Figure shape="square">
 				<img
 					src={album?.image}
 					loading="lazy"
@@ -22,16 +23,16 @@ const AlbumCard = ({ album }) => {
 				>
 					<BsPlayFill />
 				</Button>
-			</div>
-			<div className="card-body px-0 py-4">
+			</Figure>
+			<CardBody>
 				<Link to={`/album/${album?._id}`} className="card-title hover:link sm:text-base">
 					{album?.title}
 				</Link>
-				<Link to={`/artist/${album.artist?._id}`} className="text-base-content/50 hover:link">
+				<Link to={`/artist/${album.artist?._id}`} className="text-base-content/50 hover:link sm:text-sm">
 					{album.artist?.name}
 				</Link>
-			</div>
-		</div>
+			</CardBody>
+		</Card>
 	);
 };
 

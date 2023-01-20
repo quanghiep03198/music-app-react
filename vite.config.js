@@ -1,9 +1,8 @@
-import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import alias from "@rollup/plugin-alias";
+import { defineConfig } from "vite";
 
-import path, { resolve } from "path";
-const rootDir = resolve(__dirname);
+import path from "path";
+
 export default defineConfig({
 	resolve: {
 		alias: [
@@ -16,6 +15,6 @@ export default defineConfig({
 	plugins: [react()],
 
 	server: {
-		port: 3000,
+		port: 4563,
 	},
 });

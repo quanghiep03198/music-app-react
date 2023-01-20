@@ -10,24 +10,14 @@ import TrackCard from "./TrackCard";
 
 export const StyledTracksList = tw.div`flex flex-col gap-2 w-full`;
 
-const TrackList = () => {
-	const { data } = useFetchTracksQuery({ skip: 0, limit: 5 });
-	const { currentTrack } = useSelector((state) => state.queue);
-	const dispatch = useDispatch();
-	useEffect(() => {
-		if (!currentTrack || currentTrack === null) {
-			if (Array.isArray(data)) dispatch(setCurrentTrack(data[0]));
-		}
-	}, []);
+const TrackList = ({ data }) => {
 	return (
-		<ErrorBoundary>
-			<StyledTracksList>
-				{Array.isArray(data) &&
-					data.map((track, index) => {
-						return <TrackCard key={track._id} className="rounded-xl" track={track} index={index + 1} />;
-					})}
-			</StyledTracksList>
-		</ErrorBoundary>
+		<StyledTracksList>
+			{Array.isArray(data) &&
+				data.map((track, index) => {
+					return <TrackCard key={track._id} className="rounded-xl" track={track} index={index + 1} />;
+				})}
+		</StyledTracksList>
 	);
 };
 export default TrackList;

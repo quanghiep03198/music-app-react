@@ -1,5 +1,5 @@
 import { setCurrentTrack } from "@/app/redux/slice/queueSlice";
-import { AppContext } from "@/components/context/AppProvider";
+import { AppContext } from "@/context/AppProvider";
 import { useContext, useState } from "react";
 import { BsPauseCircle, BsPlayCircle, BsShuffle, BsSkipBackwardFill, BsSkipForwardFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -56,7 +56,7 @@ const AudioButtonGroup = ({ handleLoopStateChange, loopState }) => {
 				swapOff={<BsShuffle />}
 				tw="text-xl w-fit"
 				checked={shuffleState}
-				onHandleChange={handleToggleShuffle}
+				onChange={handleToggleShuffle}
 			/>
 			<Button color="transparent" className="text-2xl" onClick={() => changeTrack(-1)}>
 				<BsSkipBackwardFill />
@@ -66,7 +66,7 @@ const AudioButtonGroup = ({ handleLoopStateChange, loopState }) => {
 				swapOn={<BsPauseCircle />}
 				tw="swap-rotate btn btn-ghost btn-circle hover:bg-transparent text-4xl w-fit"
 				checked={playState}
-				onHandleChange={togglePlay}
+				onChange={togglePlay}
 			/>
 			<Button color="transparent" className="text-2xl" onClick={() => changeTrack(1)}>
 				<BsSkipForwardFill />
@@ -76,7 +76,7 @@ const AudioButtonGroup = ({ handleLoopStateChange, loopState }) => {
 				swapOff={<RepeatIcon className="text-base-content" />}
 				tw="text-xl w-fit"
 				checked={loopState}
-				onHandleChange={toggleLoop}
+				onChange={toggleLoop}
 			/>
 		</div>
 	);

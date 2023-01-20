@@ -1,4 +1,4 @@
-import { AppContext } from "@/components/context/AppProvider";
+import { AppContext } from "@/context/AppProvider";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
 import tw from "tailwind-styled-components";

@@ -7,20 +7,25 @@ import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import swiperBreakpoints from "@/config/swiperBreakpoint.config";
 import CardSkeleton from "../Skeletons/Card";
 
-const PlaylistCard = lazy(() => import("./PlaylistCard"));
+// const PlaylistCard = lazy(() => import("./PlaylistCard"));
+import PlaylistCard from "./PlaylistCard";
 
 const PlaylistSlider = () => {
-	console.log(import.meta.env.VITE_ADMIN_ID);
 	const { data, isFetching, isLoading } = useFetchUserPlaylistsQuery({
 		userId: import.meta.env.VITE_ADMIN_ID,
 		skip: 0,
 		limit: 10,
 	});
-	console.log(data);
 	const swiperRef = useRef(null);
 	return (
 		<div className="relative">
 			<Swiper
+				navigation={{
+					prevEl: ".playlist-prev-button",
+					nextEl: ".playlist-next-button",
+				}}
+				speed={700}
+				slidesPerGroupSkip={1}
 				modules={[Navigation]}
 				breakpoints={swiperBreakpoints}
 				className="playlist-slide container "
@@ -29,34 +34,30 @@ const PlaylistSlider = () => {
 				{Array.isArray(data) &&
 					data.map((playlist) => (
 						<SwiperSlide key={playlist?._id}>
-							<Suspense fallback={<CardSkeleton />}>
-								<PlaylistCard playlist={playlist} />
-							</Suspense>
+							{/* <Suspense fallback={<CardSkeleton />}> */}
+							<PlaylistCard playlist={playlist} />
+							{/* </Suspense> */}
 						</SwiperSlide>
 					))}
 			</Swiper>
-			{data && data.length > 5 && (
-				<Button
-					shape="circle"
-					color="success"
-					size="sm"
-					className="absolute top-1/2 left-0 z-[999] -translate-y-1/2 text-base"
-					onClick={() => swiperRef.current.swiper.slidePrev(500)}
-				>
-					<BsArrowLeft />
-				</Button>
-			)}
-			{data && data.length > 5 && (
-				<Button
-					shape="circle"
-					color="success"
-					size="sm"
-					className="absolute top-1/2 right-0 z-[999] -translate-y-1/2 text-base"
-					onClick={() => swiperRef.current.swiper.slideNext(500)}
-				>
-					<BsArrowRight />
-				</Button>
-			)}
+
+			<Button
+				shape="circle"
+				color="success"
+				size="sm"
+				className="playlist-prev-button absolute top-1/2 left-0 z-[999] -translate-y-1/2 text-base"
+			>
+				<BsArrowLeft />
+			</Button>
+
+			<Button
+				shape="circle"
+				color="success"
+				size="sm"
+				className="playlist-next-button absolute top-1/2 right-0 z-[999] -translate-y-1/2 text-base"
+			>
+				<BsArrowRight />
+			</Button>
 		</div>
 	);
 };

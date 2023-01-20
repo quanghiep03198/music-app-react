@@ -1,15 +1,16 @@
 import { addToQueue, removeFromQueue, setCurrentTrack } from "@/app/redux/slice/queueSlice";
-import { AppContext } from "@/components/context/AppProvider";
+import { AppContext } from "@/context/AppProvider";
 import formatNumber from "@/utils/formatNumber";
 import timer from "@/utils/timer";
 import { useContext, useEffect, useState } from "react";
 import { BsClock, BsHeart, BsPauseFill, BsPlayFill, BsPlusLg, BsThreeDots } from "react-icons/bs";
 import { HiOutlineMinus } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import Button from "../Atomics/Button";
 import { Dropdown, DropdownContent } from "../Atomics/Dropdown";
-import { Menu, MenuItem } from "../Atomics/Menu";
+import Swap from "../Atomics/Swap";
 import SoundWave from "./SoundWave";
 export const StyledTrackCard = tw.div`group track-card p-1 gap-2`;
 
@@ -94,20 +95,26 @@ const TrackCard = ({ index, track }) => {
 						<BsThreeDots />
 					</Button>
 					<DropdownContent tabIndex={0}>
-						<Menu tw="bg-base-300 rounded-lg">
-							<MenuItem>
-								<BsHeart /> Save to your library
-							</MenuItem>
+						<ul className="menu rounded-lg bg-base-300">
+							<li>
+								<a role="button" className="truncate">
+									<BsHeart /> Save to your library
+								</a>
+							</li>
 							{isInQueue ? (
-								<MenuItem handleClick={handleRemoveFromQueue}>
-									<HiOutlineMinus /> Remove from queue
-								</MenuItem>
+								<li onClick={handleRemoveFromQueue}>
+									<a role="button" className="truncate">
+										<HiOutlineMinus /> Remove from queue
+									</a>
+								</li>
 							) : (
-								<MenuItem handleClick={handleAddToQueue}>
-									<BsPlusLg /> Add to queue
-								</MenuItem>
+								<li onClick={handleAddToQueue}>
+									<a role="button">
+										<BsPlusLg /> Add to queue
+									</a>
+								</li>
 							)}
-						</Menu>
+						</ul>
 					</DropdownContent>
 				</Dropdown>
 			</div>

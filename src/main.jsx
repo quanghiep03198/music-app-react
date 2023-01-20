@@ -3,15 +3,17 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "./app/redux/store";
 
-import "./index.css";
+import { StrictMode } from "react";
 import App from "./App";
-import React from "react";
-import AppProvider from "./components/context/AppProvider";
+import "./index.css";
+import ErrorBoundary from "./components/customs/ErrorBoundary";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<Provider store={store}>
-		<PersistGate loading={null} persistor={persistor}>
-			<App />
-		</PersistGate>
-	</Provider>,
+	<StrictMode>
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<App />
+			</PersistGate>
+		</Provider>
+	</StrictMode>,
 );

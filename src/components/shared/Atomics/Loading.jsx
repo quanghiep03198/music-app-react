@@ -8,7 +8,6 @@ const Loading = tw.div`loading ${(props) => {
 			return "loading-md";
 		case "lg":
 			return "loading-lg";
-
 		default:
 			return "loading-sm";
 	}

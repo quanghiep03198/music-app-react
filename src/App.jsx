@@ -1,45 +1,43 @@
-import { lazy } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { lazy, Suspense, useTransition } from "react";
+import { BrowserRouter, Route, Routes, useRoutes } from "react-router-dom";
 
 import ErrorBoundary from "./components/customs/ErrorBoundary";
 import Layout from "./components/layouts";
+import Loading from "./components/shared/Atomics/Loading";
 
-const LoginPage = lazy(() => import("./components/pages/Login"));
-const NotFound = lazy(() => import("./components/pages/NotFound"));
-const RegisterPage = lazy(() => import("./components/pages/Register"));
-const ResetPassword = lazy(() => import("./components/pages/ResetPassword"));
-const Search = lazy(() => import("./components/pages/Search"));
-const HomePage = lazy(() => import("./components/pages/Home"));
-const Artist = lazy(() => import("./components/pages/Artist"));
-const Library = lazy(() => import("./components/pages/Library"));
-const Playlist = lazy(() => import("./components/pages/Playlist"));
-const Queue = lazy(() => import("./components/pages/Queue"));
+import NotFound from "./pages/NotFound";
+const Search = lazy(() => import("./pages/Search"));
+const HomePage = lazy(() => import("./pages/Home"));
+const Artist = lazy(() => import("./pages/Artist"));
+const Library = lazy(() => import("./pages/Library"));
+const Playlist = lazy(() => import("./pages/Playlist"));
+const Queue = lazy(() => import("./pages/Queue"));
 
-// import HomePage from "./components/pages/Home";
-// import Library from "./components/pages/Library";
-// import Search from "./components/pages/Search";
-// import Queue from "./components/pages/Queue";
+const LoginPage = lazy(() => import("./pages/Login"));
+const RegisterPage = lazy(() => import("./pages/Register"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 
 function App() {
+	const [isPending, startTransition] = useTransition();
 	return (
-		<>
-			<BrowserRouter>
+		<BrowserRouter>
+			<Suspense fallback={<Loading />}>
 				<Routes>
 					<Route path="/" element={<Layout />}>
-						<Route index element={<HomePage />}></Route>
-						<Route path="/queue" element={<Queue />} />
-						<Route path="/library" element={<Library />}></Route>
-						<Route path="playlist/:id" element={<Playlist />} />
-						<Route path="artist/:id" element={<Artist />} />
-						<Route path="search" element={<Search />}></Route>
+						<Route index element={<HomePage />} errorElement={<Loading />} />
+						<Route path="/queue" element={<Queue />} errorElement={<Loading />} />
+						<Route path="/library" element={<Library />} errorElement={<Loading />} />
+						<Route path="/search" element={<Search />} errorElement={<Loading />} />
+						<Route path="/playlist/:id" element={<Playlist />} errorElement={<Loading />} />
+						<Route path="/artist/:id" element={<Artist />} errorElement={<Loading />} />
 					</Route>
 					<Route path="/login" element={<LoginPage />} />
 					<Route path="/register" element={<RegisterPage />} />
 					<Route path="/reset-password" element={<ResetPassword />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
-			</BrowserRouter>
-		</>
+			</Suspense>
+		</BrowserRouter>
 	);
 }
 

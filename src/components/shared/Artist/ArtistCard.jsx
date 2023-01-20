@@ -32,7 +32,7 @@ const ArtistCard = ({ artistData }) => {
 				<Link to={`/artist/${artistData._id}`}>
 					<CardTitle>{artistData.name}</CardTitle>
 				</Link>
-				<p>{artistData.desc ?? "Artist"}</p>
+				<p className="text-base-content/50 sm:text-sm">{artistData.desc ?? "Artist"}</p>
 			</CardBody>
 		</Card>
 	);

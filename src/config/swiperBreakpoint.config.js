@@ -1,7 +1,7 @@
 const swiperBreakpoints = {
 	375: {
 		slidesPerView: 2,
-		spaceBetween: 20,
+		spaceBetween: 36,
 		slidesPerGroup: 2,
 	},
 	600: {

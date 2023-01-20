@@ -22,7 +22,7 @@ const PlaylistCard = ({ playlist }) => {
 				<Link to={`/playlist/${playlist?._id}`} className="hover:link">
 					<CardTitle>{playlist?.title}</CardTitle>
 				</Link>
-				<p className="text-base-content">
+				<p className="text-base-content/50 sm:text-sm">
 					Created at: {playlist.createdAt && new Date(playlist.createdAt).toLocaleDateString()}
 				</p>
 			</CardBody>
