@@ -2,7 +2,7 @@ import React from "react";
 import tw from "tailwind-styled-components";
 export const MenuItem = ({ children, onClick }) => {
 	return (
-		<li oncClick={onClick} className="truncate">
+		<li onClick={onClick} className="truncate">
 			<a role="menuitem">{children}</a>
 		</li>
 	);

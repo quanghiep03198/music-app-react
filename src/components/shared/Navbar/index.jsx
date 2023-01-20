@@ -1,8 +1,6 @@
-import { AppContext } from "@/context/AppProvider";
-import { useContext } from "react";
 import { BsList, BsPerson } from "react-icons/bs";
 import { useSelector } from "react-redux";
-import { Link, NavLink, useMatches } from "react-router-dom";
+import { Link } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import PageNavigator from "./PageNavigator";
 import SearchBox from "./SearchBox";
@@ -27,9 +25,9 @@ const Navbar = () => {
 				{user !== null ? (
 					<UserController />
 				) : (
-					<NavLink to="/login" className="btn-circle btn text-xl sm:btn-sm">
+					<Link to="/login" className="btn-circle btn text-xl sm:btn-sm">
 						<BsPerson aria-hidden />
-					</NavLink>
+					</Link>
 				)}
 			</div>
 		</NavbarWrapper>

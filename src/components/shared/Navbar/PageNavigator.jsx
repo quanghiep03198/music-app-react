@@ -1,25 +1,32 @@
-import React from "react";
-import Tooltip from "../Atomics/Tooltip";
-import tw from "tailwind-styled-components";
-import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
-import Button from "../Atomics/Button";
-const PageNavigatorWrapper = tw.div`flex items-center gap-3 sm:hidden`;
+import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs"
+import Button from "../../customs/Atomics/Button"
+import Tooltip from "../../customs/Atomics/Tooltip"
 
 const PageNavigator = () => {
-	return (
-		<PageNavigatorWrapper>
-			<Tooltip dataTip={"Go back"} position="tooltip-bottom">
-				<Button color="ghost" shape="circle" size="sm" className="text-2xl" onClick={history.go(-1)}>
-					<BsArrowLeftShort />
-				</Button>
-			</Tooltip>
-			<Tooltip dataTip={"Go forward"} position="tooltip-bottom">
-				<Button color="ghost" shape="circle" size="sm" className="text-2xl" onClick={history.go(1)}>
-					<BsArrowRightShort />
-				</Button>
-			</Tooltip>
-		</PageNavigatorWrapper>
-	);
-};
+    return (
+        <div className="flex items-center gap-3 sm:hidden">
+            <Tooltip dataTip={"Go back"} position="tooltip-bottom">
+                <Button
+                    color="ghost"
+                    shape="circle"
+                    size="sm"
+                    className="text-2xl"
+                >
+                    <BsArrowLeftShort />
+                </Button>
+            </Tooltip>
+            <Tooltip dataTip={"Go forward"} position="tooltip-bottom">
+                <Button
+                    color="ghost"
+                    shape="circle"
+                    size="sm"
+                    className="text-2xl"
+                >
+                    <BsArrowRightShort />
+                </Button>
+            </Tooltip>
+        </div>
+    )
+}
 
-export default PageNavigator;
+export default PageNavigator
