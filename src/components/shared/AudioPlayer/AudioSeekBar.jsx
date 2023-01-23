@@ -12,17 +12,15 @@ const AudioSeekBar = ({ audioRef }) => {
     const { playState } = useContext(AppContext)
 
     useEffect(() => {
-        if (audioRef) {
-            if (playState) {
-                const currentInterval = setInterval(() => {
-                    setCurrentTime(audioRef.current.currentTime)
-                }, 1)
-                setIntervalState(currentInterval)
-            } else {
-                clearInterval(intervalState)
-            }
+        if (playState) {
+            const currentInterval = setInterval(() => {
+                setCurrentTime(audioRef.current.currentTime)
+            }, 1)
+            setIntervalState(currentInterval)
+        } else {
+            clearInterval(intervalState)
         }
-    }, [playState, currentTrack, audioRef])
+    }, [playState, currentTrack])
 
     const getCurrentDuration = (e) => {
         audioRef.current.currentTime = e.target.value
