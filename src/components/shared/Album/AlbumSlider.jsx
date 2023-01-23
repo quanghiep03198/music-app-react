@@ -9,16 +9,14 @@ import Button from "../../customs/Atomics/Button"
 import Loading from "../../customs/Atomics/Loading"
 import CardSkeleton from "../Skeletons/Card"
 
-// const AlbumCard = lazy(() => import("./AlbumCard"));
 import AlbumCard from "./AlbumCard"
 
 const AlbumSlider = () => {
-    const { data, isLoading, isFetching } = useFetchAlbumsQuery({
+    const { data, isFetching } = useFetchAlbumsQuery({
         skip: 0,
         limit: 10
     })
     const swiperRef = useRef()
-
     return (
         <div className="relative">
             <Swiper
@@ -30,14 +28,15 @@ const AlbumSlider = () => {
                 modules={[Navigation]}
                 breakpoints={swiperBreakpoints}
                 ref={swiperRef}
-                className="album-slide container"
+                className="album-slide container pb-10"
             >
+                {isFetching &&
+                    [1, 2, 3, 4, 5].map((item) => <CardSkeleton key={item} />)}
+
                 {Array.isArray(data) &&
                     data.map((album) => (
                         <SwiperSlide key={album?._id}>
-                            {/* <Suspense fallback={<CardSkeleton />}> */}
                             <AlbumCard album={album} />
-                            {/* </Suspense> */}
                         </SwiperSlide>
                     ))}
             </Swiper>
@@ -56,7 +55,6 @@ const AlbumSlider = () => {
                 color="success"
                 size="sm"
                 className="album-slide-next-btn absolute top-1/2 right-0 z-[999] -translate-y-1/2 text-base"
-                // ref={nextButtonRef}
             >
                 <BsArrowRight />
             </Button>
