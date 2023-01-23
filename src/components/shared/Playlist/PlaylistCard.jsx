@@ -11,13 +11,16 @@ const PlaylistCard = ({ playlist }) => {
     const { playState, setPlayState } = useContext(AppContext)
     const dispatch = useDispatch()
     const { currentPlaylist } = useSelector((state) => state.queue)
+
     const playThisPlaylist = (playlist) => {
         setPlayState(!playState)
-        dispatch(setCurrentPlaylist(playlist))
+        if (currentPlaylist !== playlist._id) {
+            dispatch(setCurrentPlaylist(playlist))
+        }
     }
     return (
         <Card>
-            <div className="group relative max-w-full">
+            <div className=" relative max-w-full">
                 <Link to={`/playlist/${playlist?._id}`}>
                     {Array.isArray(playlist.thumbnail) ? (
                         <div className="grid grid-cols-4">
