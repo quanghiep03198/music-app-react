@@ -14,6 +14,7 @@ import storage from "redux-persist/lib/storage"
 
 import albumApi from "./api/albumApi"
 import artistApi from "./api/artistApi"
+import genreApi from "./api/genreApi"
 import playlistApi from "./api/playlistApi"
 import trackApi from "./api/trackApi"
 import rootReducer from "./rootReducer"
@@ -45,7 +46,8 @@ const store = configureStore({
             trackApi.middleware,
             playlistApi.middleware,
             artistApi.middleware,
-            albumApi.middleware
+            albumApi.middleware,
+            genreApi.middleware
         ]),
     devTools: currentEnv.toLowerCase() === "development"
 })

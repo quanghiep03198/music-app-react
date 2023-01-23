@@ -21,9 +21,11 @@ const albumApi = createApi({
                 return `/albums?skip=${skip}&limit=${limit}`
             },
             providesTags: ["Albums"]
+        }),
+        fetchSingleAlbum: builder.query({
+            query: (id) => `/albums/${id}`
         })
     })
 })
-
-export const { useFetchAlbumsQuery } = albumApi
+export const { useFetchAlbumsQuery, useFetchSingleAlbumQuery } = albumApi
 export default albumApi
