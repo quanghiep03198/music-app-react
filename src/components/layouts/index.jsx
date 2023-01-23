@@ -1,9 +1,9 @@
-import { Suspense, useState, useTransition } from "react"
+import AppProvider from "@/context/AppProvider"
+import { Suspense } from "react"
 import { Outlet } from "react-router-dom"
 import tw from "tailwind-styled-components"
-import AppProvider from "../../context/AppProvider"
-import ErrorBoundary from "../customs/ErrorBoundary"
 import Loading from "../customs/Atomics/Loading"
+import ErrorBoundary from "../customs/ErrorBoundary"
 import AudioPlayer from "../shared/AudioPlayer"
 import Navbar from "../shared/Navbar"
 import Sidebar from "../shared/Sidebar"
@@ -20,21 +20,21 @@ const Layout = () => {
                 <SidebarToggler id="sidebar-toggle" type="checkbox" />
                 <ContentWrapper>
                     <Navbar />
+                    <AppProvider>
+                        <PageContent>
+                            <Suspense
+                                fallback={
+                                    <div className="flex items-center justify-center p-20">
+                                        <Loading />
+                                    </div>
+                                }
+                            >
+                                <Outlet />
+                            </Suspense>
+                        </PageContent>
 
-                    {/* <AppProvider></AppProvider> */}
-                    <PageContent>
-                        <Suspense
-                            fallback={
-                                <div className="flex items-center justify-center p-10">
-                                    <Loading />
-                                </div>
-                            }
-                        >
-                            <Outlet />
-                        </Suspense>
-                    </PageContent>
-
-                    <AudioPlayer />
+                        <AudioPlayer />
+                    </AppProvider>
                 </ContentWrapper>
 
                 <Sidebar />
