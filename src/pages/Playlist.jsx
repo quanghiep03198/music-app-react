@@ -28,7 +28,7 @@ const Playlist = () => {
                 <div className="hero place-content-start rounded-lg bg-gradient-to-r from-neutral to-transparent">
                     <div className="hero-content flex-row sm:flex-col md:flex-col xl:gap-6 xxl:gap-10">
                         <img
-                            src={data?.image}
+                            src={data?.thumbnail}
                             className="max-w-sm rounded-lg shadow-2xl"
                         />
                         <div className="sm:self-start">
@@ -41,7 +41,7 @@ const Playlist = () => {
                                 {data?.title}
                             </h1>
                             <p className="my-2 text-lg">
-                                {Array.isArray(data.tracks)
+                                {Array.isArray(data?.tracks)
                                     ? data?.tracks?.length
                                     : 0}{" "}
                                 tracks
@@ -65,7 +65,9 @@ const Playlist = () => {
                 </Button>
             </section>
 
-            {Array.isArray(data?.tracks) && <TrackList data={data?.tracks} />}
+            {Array.isArray(data?.tracks) && (
+                <TrackList data={data?.tracks || []} />
+            )}
         </ErrorBoundary>
     )
 }
