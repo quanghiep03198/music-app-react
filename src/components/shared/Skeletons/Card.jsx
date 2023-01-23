@@ -6,9 +6,9 @@ import {
     FigureSkeleton
 } from "../../customs/Atomics/Card"
 
-const CardSkeleton = () => (
+const CardSkeleton = ({ mask }) => (
     <Card>
-        <FigureSkeleton />
+        <FigureSkeleton mask={mask} />
         <CardBody>
             <CardTitleSkeleton />
             <CardTextSkeleton />
