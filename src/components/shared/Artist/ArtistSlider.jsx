@@ -29,7 +29,7 @@ const ArtistSlider = () => {
                 speed={700}
                 modules={[Navigation]}
                 breakpoints={swiperBreakpoints}
-                className="artists-slide container"
+                className="artists-slide container pb-10"
                 ref={swiperRef}
             >
                 {Array.isArray(data) &&

@@ -1,13 +1,11 @@
 import { useFetchUserPlaylistsQuery } from "@/app/redux/api/playlistApi"
-import { Swiper, SwiperSlide } from "swiper/react"
-import { lazy, Suspense, useRef } from "react"
-import { Navigation } from "swiper"
-import Button from "../../customs/Atomics/Button"
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import swiperBreakpoints from "@/config/swiperBreakpoint.config"
+import { useRef } from "react"
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
+import { Navigation } from "swiper"
+import { Swiper, SwiperSlide } from "swiper/react"
+import Button from "../../customs/Atomics/Button"
 import CardSkeleton from "../Skeletons/Card"
-
-// const PlaylistCard = lazy(() => import("./PlaylistCard"));
 import PlaylistCard from "./PlaylistCard"
 
 const PlaylistSlider = () => {
@@ -16,7 +14,9 @@ const PlaylistSlider = () => {
         skip: 0,
         limit: 10
     })
+
     const swiperRef = useRef(null)
+
     return (
         <div className="relative">
             <Swiper
@@ -28,15 +28,16 @@ const PlaylistSlider = () => {
                 slidesPerGroupSkip={1}
                 modules={[Navigation]}
                 breakpoints={swiperBreakpoints}
-                className="playlist-slide container "
+                className="playlist-slide container pb-10"
                 ref={swiperRef}
             >
+                {isFetching &&
+                    [1, 2, 3, 4, 5].map((item) => <CardSkeleton key={item} />)}
+
                 {Array.isArray(data) &&
                     data.map((playlist) => (
                         <SwiperSlide key={playlist?._id}>
-                            {/* <Suspense fallback={<CardSkeleton />}> */}
                             <PlaylistCard playlist={playlist} />
-                            {/* </Suspense> */}
                         </SwiperSlide>
                     ))}
             </Swiper>
