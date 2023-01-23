@@ -3,12 +3,14 @@ import {
     removeFromQueue,
     setCurrentTrack
 } from "@/app/redux/slice/queueSlice"
+import { Menu, MenuItem } from "@/components/customs/Atomics/Menu"
 import { AppContext } from "@/context/AppProvider"
 import formatNumber from "@/utils/formatNumber"
 import timer from "@/utils/timer"
 import { useContext, useEffect, useState } from "react"
 import {
     BsClock,
+    BsDownload,
     BsHeart,
     BsPauseFill,
     BsPlayFill,
@@ -17,11 +19,9 @@ import {
 } from "react-icons/bs"
 import { HiOutlineMinus } from "react-icons/hi2"
 import { useDispatch, useSelector } from "react-redux"
-import { useOutletContext } from "react-router-dom"
 import tw from "tailwind-styled-components"
 import Button from "../../customs/Atomics/Button"
 import { Dropdown, DropdownContent } from "../../customs/Atomics/Dropdown"
-import Swap from "../../customs/Atomics/Swap"
 import SoundWave from "./SoundWave"
 export const StyledTrackCard = tw.div`group track-card p-1 gap-2`
 
@@ -66,7 +66,7 @@ const TrackCard = ({ index, track }) => {
     }
 
     return (
-        <StyledTrackCard className={isCurrentTrack && "bg-zinc-400/20"}>
+        <StyledTrackCard className={isCurrentTrack && "bg-neutral"}>
             <div>
                 <div className="relative text-center">
                     <SoundWave
@@ -125,26 +125,35 @@ const TrackCard = ({ index, track }) => {
                         <BsThreeDots />
                     </Button>
                     <DropdownContent tabIndex={0}>
-                        <ul className="menu rounded-lg bg-base-300">
-                            <li>
+                        <Menu className="bg-base-300">
+                            <MenuItem>
                                 <a role="button" className="truncate">
                                     <BsHeart /> Save to your library
                                 </a>
-                            </li>
+                            </MenuItem>
+
                             {isInQueue ? (
-                                <li onClick={handleRemoveFromQueue}>
+                                <MenuItem onClick={handleRemoveFromQueue}>
                                     <a role="button" className="truncate">
                                         <HiOutlineMinus /> Remove from queue
                                     </a>
-                                </li>
+                                </MenuItem>
                             ) : (
-                                <li onClick={handleAddToQueue}>
+                                <MenuItem onClick={handleAddToQueue}>
                                     <a role="button">
                                         <BsPlusLg /> Add to queue
                                     </a>
-                                </li>
+                                </MenuItem>
                             )}
-                        </ul>
+                            <MenuItem>
+                                <a
+                                    href={track?.downloadUrl}
+                                    className="truncate"
+                                >
+                                    <BsDownload /> Download
+                                </a>
+                            </MenuItem>
+                        </Menu>
                     </DropdownContent>
                 </Dropdown>
             </div>
