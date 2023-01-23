@@ -28,32 +28,24 @@ const HomePage = () => {
         <>
             <section>
                 <Typography>most popular</Typography>
-                <Suspense fallback={<Loading />}>
-                    <TrackList data={data} />
-                </Suspense>
+                <TrackList data={data} />
             </section>
 
             <section>
                 <Typography className="!normal-case">
                     Bass Station mixes
                 </Typography>
-                <Suspense fallback={<Loading />}>
-                    <PlaylistSlider />
-                </Suspense>
+                <PlaylistSlider />
             </section>
 
             <section>
                 <Typography>artists you also like</Typography>
-                <Suspense fallback={<Loading />}>
-                    <ArtistSlider />
-                </Suspense>
+                <ArtistSlider />
             </section>
 
             <section>
                 <Typography>new albums</Typography>
-                <Suspense fallback={<Loading />}>
-                    <AlbumSlider />
-                </Suspense>
+                <AlbumSlider />
             </section>
         </>
     )
