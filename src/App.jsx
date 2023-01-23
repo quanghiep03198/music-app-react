@@ -1,10 +1,13 @@
 import { lazy, Suspense } from "react"
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { Slide, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
-import ErrorBoundary from "./components/customs/ErrorBoundary"
-import Layout from "./components/layouts"
+import { HiX } from "react-icons/hi"
 import Loading from "./components/customs/Atomics/Loading"
-import AppProvider from "./context/AppProvider"
+import ErrorBoundary from "./components/customs/ErrorBoundary"
+import LoadingScreen from "./components/customs/LoadingScreen"
+import Layout from "./components/layouts"
 
 const Search = lazy(() => import("./pages/Search"))
 const HomePage = lazy(() => import("./pages/Home"))
@@ -19,83 +22,92 @@ const ResetPassword = lazy(() => import("./pages/ResetPassword"))
 const NotFound = lazy(() => import("./pages/NotFound"))
 
 function App() {
+    const router = createBrowserRouter([
+        {
+            path: "/",
+            element: <Layout />,
+            errorElement: <LoadingScreen />,
+            children: [
+                { index: true, element: <HomePage /> },
+                { path: "/queue", element: <Queue /> },
+                { path: "/playlist/:id", element: <Playlist /> },
+                { path: "/library", element: <Library /> },
+                { path: "/artist/:id", element: <Artist /> },
+                { path: "/search", element: <Search /> }
+            ]
+        },
+        {
+            path: "/login",
+            element: (
+                <Suspense
+                    fallback={
+                        <div className="flex items-center justify-center p-20">
+                            <Loading />
+                        </div>
+                    }
+                >
+                    <LoginPage />
+                </Suspense>
+            )
+        },
+        {
+            path: "/register",
+            element: (
+                <Suspense
+                    fallback={
+                        <div className="flex items-center justify-center p-20">
+                            <Loading />
+                        </div>
+                    }
+                >
+                    <RegisterPage />
+                </Suspense>
+            )
+        },
+        {
+            path: "/reset-password",
+            element: (
+                <Suspense
+                    fallback={
+                        <div className="flex items-center justify-center p-20">
+                            <Loading />
+                        </div>
+                    }
+                >
+                    <ResetPassword />
+                </Suspense>
+            )
+        },
+        {
+            path: "*",
+            element: (
+                <Suspense
+                    fallback={
+                        <div className="flex items-center justify-center p-20">
+                            <Loading />
+                        </div>
+                    }
+                >
+                    <NotFound />
+                </Suspense>
+            )
+        }
+    ])
     return (
         <ErrorBoundary>
-            <Router>
-                <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <AppProvider>
-                                <Layout />
-                            </AppProvider>
-                        }
-                    >
-                        <Route
-                            index
-                            element={<HomePage />}
-                            errorElement={<Loading />}
-                        />
-                        <Route
-                            path="/queue"
-                            element={<Queue />}
-                            errorElement={<Loading />}
-                        />
-                        <Route
-                            path="/library"
-                            element={<Library />}
-                            errorElement={<Loading />}
-                        />
-                        <Route
-                            path="/search"
-                            element={<Search />}
-                            errorElement={<Loading />}
-                        />
-                        <Route
-                            path="/playlist/:id"
-                            element={<Playlist />}
-                            errorElement={<Loading />}
-                        />
-                        <Route
-                            path="/artist/:id"
-                            element={<Artist />}
-                            errorElement={<Loading />}
-                        />
-                    </Route>
-                    <Route
-                        path="login"
-                        element={
-                            <Suspense fallback={<Loading />}>
-                                <LoginPage />
-                            </Suspense>
-                        }
-                    />
-                    <Route
-                        path="/register"
-                        element={
-                            <Suspense fallback={<Loading />}>
-                                <RegisterPage />
-                            </Suspense>
-                        }
-                    />
-                    <Route
-                        path="/reset-password"
-                        element={
-                            <Suspense fallback={<Loading />}>
-                                <ResetPassword />
-                            </Suspense>
-                        }
-                    />
-                    <Route
-                        path="*"
-                        element={
-                            <Suspense fallback={<Loading />}>
-                                <NotFound />
-                            </Suspense>
-                        }
-                    />
-                </Routes>
-            </Router>
+            <RouterProvider router={router} />
+            <ToastContainer
+                hideProgressBar={true}
+                transition={Slide}
+                autoClose={1000}
+                limit={3}
+                toastClassName={() =>
+                    `bg-base-100 text-white flex justify-between items-center p-4 rounded-lg shadow-xl`
+                }
+                bodyClassName={() => "flex items-center text-base-content"}
+                position="top-center"
+                closeButton={<HiX className="font-bold text-base-content" />}
+            />
         </ErrorBoundary>
     )
 }
