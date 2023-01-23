@@ -11,8 +11,8 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import Button from "../../customs/Atomics/Button"
 import CardSkeleton from "../Skeletons/Card"
 
-// const ArtistCard = lazy(() => import("./ArtistCard"));
-import ArtistCard from "./ArtistCard"
+const ArtistCard = lazy(() => import("./ArtistCard"))
+// import ArtistCard from "./ArtistCard"
 
 const ArtistSlider = () => {
     const { data, isFetching } = useFetchArtistsQuery({ skip: 0, limit: 10 })
@@ -35,9 +35,9 @@ const ArtistSlider = () => {
                 {Array.isArray(data) &&
                     data.map((artist) => (
                         <SwiperSlide key={artist._id}>
-                            {/* <Suspense fallback={<CardSkeleton />}> */}
-                            <ArtistCard artistData={artist} />
-                            {/* </Suspense> */}
+                            <Suspense fallback={<CardSkeleton mask="circle" />}>
+                                <ArtistCard artistData={artist} />
+                            </Suspense>
                         </SwiperSlide>
                     ))}
             </Swiper>

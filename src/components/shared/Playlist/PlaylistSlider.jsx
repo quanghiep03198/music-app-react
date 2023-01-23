@@ -1,12 +1,12 @@
 import { useFetchUserPlaylistsQuery } from "@/app/redux/api/playlistApi"
 import swiperBreakpoints from "@/config/swiperBreakpoint.config"
-import { useRef } from "react"
+import { lazy, Suspense, useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 import Button from "../../customs/Atomics/Button"
 import CardSkeleton from "../Skeletons/Card"
-import PlaylistCard from "./PlaylistCard"
+const PlaylistCard = lazy(() => import("./PlaylistCard"))
 
 const PlaylistSlider = () => {
     const { data, isFetching, isLoading } = useFetchUserPlaylistsQuery({
@@ -31,13 +31,12 @@ const PlaylistSlider = () => {
                 className="playlist-slide container pb-10"
                 ref={swiperRef}
             >
-                {isFetching &&
-                    [1, 2, 3, 4, 5].map((item) => <CardSkeleton key={item} />)}
-
                 {Array.isArray(data) &&
                     data.map((playlist) => (
                         <SwiperSlide key={playlist?._id}>
-                            <PlaylistCard playlist={playlist} />
+                            <Suspense fallback={<CardSkeleton mask="square" />}>
+                                <PlaylistCard playlist={playlist} />
+                            </Suspense>
                         </SwiperSlide>
                     ))}
             </Swiper>

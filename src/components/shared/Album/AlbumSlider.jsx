@@ -9,7 +9,7 @@ import Button from "../../customs/Atomics/Button"
 import Loading from "../../customs/Atomics/Loading"
 import CardSkeleton from "../Skeletons/Card"
 
-import AlbumCard from "./AlbumCard"
+const AlbumCard = lazy(() => import("./AlbumCard"))
 
 const AlbumSlider = () => {
     const { data, isFetching } = useFetchAlbumsQuery({
@@ -30,13 +30,12 @@ const AlbumSlider = () => {
                 ref={swiperRef}
                 className="album-slide container pb-10"
             >
-                {isFetching &&
-                    [1, 2, 3, 4, 5].map((item) => <CardSkeleton key={item} />)}
-
                 {Array.isArray(data) &&
                     data.map((album) => (
                         <SwiperSlide key={album?._id}>
-                            <AlbumCard album={album} />
+                            <Suspense fallback={<CardSkeleton mask="square" />}>
+                                <AlbumCard album={album} />
+                            </Suspense>
                         </SwiperSlide>
                     ))}
             </Swiper>
