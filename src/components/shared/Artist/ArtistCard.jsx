@@ -4,8 +4,9 @@ import { Link } from "react-router-dom"
 import Swap from "../../customs/Atomics/Swap"
 import tw from "tailwind-styled-components"
 import { Card, CardBody, CardTitle, Figure } from "../../customs/Atomics/Card"
+import AlternativeLogo from "/images/alt-logo.png"
 
-const Overlay = tw.div`absolute top-0 right-0 left-0 bottom-0 flex h-full w-full items-center justify-center rounded-full bg-black/50 opacity-0 duration-300 group-hover:opacity-100`
+const Overlay = tw.div`absolute top-0 right-0 left-0 bottom-0 flex h-full w-full items-center justify-center bg-black/50 opacity-0 duration-300 group-hover:opacity-100`
 
 const ArtistCard = ({ artistData }) => {
     return (
@@ -24,7 +25,7 @@ const ArtistCard = ({ artistData }) => {
                     src={artistData?.avatar}
                     onError={({ currentTarget }) => {
                         currentTarget.onerror = null // prevents looping
-                        currentTarget.src = "/images/alt-logo.png"
+                        currentTarget.src = AlternativeLogo
                     }}
                     loading="lazy"
                 />

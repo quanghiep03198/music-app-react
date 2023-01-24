@@ -6,6 +6,7 @@ import { Link } from "react-router-dom"
 import tw from "tailwind-styled-components"
 import Range from "../../customs/Atomics/Range"
 import Swap from "../../customs/Atomics/Swap"
+import ToggleLikeTrackButton from "./ToggleLikeTrackButton"
 const ActionsGroup = tw.div`flex justify-end items-center gap-3 basis-1/4 sm:flex-none md:flex-none `
 const VolumeController = tw.div`flex items-center self-center gap-2 sm:hidden md:hidden`
 
@@ -39,10 +40,7 @@ const TrackActions = ({ audioRef }) => {
                         id="volume-range"
                     />
                 </VolumeController>
-                <Swap
-                    swapOff={<BsHeart />}
-                    swapOn={<BsHeartFill className="text-accent" />}
-                />
+                <ToggleLikeTrackButton />
                 <Link to="/queue">
                     <HiOutlineQueueList className="text-xl" />
                 </Link>

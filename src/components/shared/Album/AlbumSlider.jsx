@@ -34,7 +34,7 @@ const AlbumSlider = () => {
                     data.map((album) => (
                         <SwiperSlide key={album?._id}>
                             <Suspense fallback={<CardSkeleton mask="square" />}>
-                                <AlbumCard album={album} />
+                                <AlbumCard albumData={album} />
                             </Suspense>
                         </SwiperSlide>
                     ))}

@@ -1,4 +1,5 @@
 import AppProvider from "@/context/AppProvider"
+import { useState } from "react"
 import { Suspense } from "react"
 import { Outlet } from "react-router-dom"
 import tw from "tailwind-styled-components"
@@ -18,9 +19,9 @@ const Layout = () => {
         <ErrorBoundary>
             <LayoutWrapper data-theme="dracula">
                 <SidebarToggler id="sidebar-toggle" type="checkbox" />
-                <ContentWrapper>
-                    <Navbar />
-                    <AppProvider>
+                <AppProvider>
+                    <ContentWrapper>
+                        <Navbar />
                         <PageContent>
                             <Suspense
                                 fallback={
@@ -34,8 +35,8 @@ const Layout = () => {
                         </PageContent>
 
                         <AudioPlayer />
-                    </AppProvider>
-                </ContentWrapper>
+                    </ContentWrapper>
+                </AppProvider>
 
                 <Sidebar />
             </LayoutWrapper>

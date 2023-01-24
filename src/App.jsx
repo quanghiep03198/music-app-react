@@ -8,6 +8,7 @@ import Loading from "./components/customs/Atomics/Loading"
 import ErrorBoundary from "./components/customs/ErrorBoundary"
 import LoadingScreen from "./components/customs/LoadingScreen"
 import Layout from "./components/layouts"
+import AppProvider from "./context/AppProvider"
 
 const Search = lazy(() => import("./pages/Search"))
 const HomePage = lazy(() => import("./pages/Home"))

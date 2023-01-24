@@ -26,7 +26,7 @@ const HomePage = () => {
     }, [])
     return (
         <>
-            <section>
+            <section className="pb-10">
                 <Typography>most popular</Typography>
                 <TrackList data={data} />
             </section>

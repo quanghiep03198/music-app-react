@@ -10,8 +10,9 @@ import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import Button from "../../customs/Atomics/Button"
 import { Card, CardBody, Figure } from "../../customs/Atomics/Card"
-
-const AlbumCard = ({ album }) => {
+import DefaultAlbumThumbnail from "/images/default-album-image.png"
+const AlbumCard = ({ albumData }) => {
+    console.log(albumData)
     const { playState, setPlayState } = useContext(AppContext)
     const dispatch = useDispatch()
     const { currentPlaylist } = useSelector((state) => state.queue)
@@ -35,20 +36,20 @@ const AlbumCard = ({ album }) => {
         <Card>
             <Figure shape="square">
                 <img
-                    src={album?.image}
+                    src={albumData?.image}
                     loading="lazy"
                     onError={({ currentTarget }) => {
                         currentTarget.onerror = null // prevents looping
-                        currentTarget.src = "/images/default-album-image.png"
+                        currentTarget.src = DefaultAlbumThumbnail
                     }}
                 />
                 <Button
                     shape="circle"
                     color="success"
                     className="absolute bottom-2 right-2 translate-y-2 text-xl opacity-0 group-hover:translate-y-0 group-hover:opacity-100 sm:text-base sm:btn-sm"
-                    onClick={() => playThisAlbum(album)}
+                    onClick={() => playThisAlbum(albumData)}
                 >
-                    {playState && currentPlaylist === album?._id ? (
+                    {playState && currentPlaylist === albumData?._id ? (
                         <BsPauseFill />
                     ) : (
                         <BsPlayFill />
@@ -57,16 +58,16 @@ const AlbumCard = ({ album }) => {
             </Figure>
             <CardBody>
                 <Link
-                    to={`/album/${album?._id}`}
+                    to={`/album/${albumData?._id}`}
                     className="card-title hover:link sm:text-base"
                 >
-                    {album?.title}
+                    {albumData?.title}
                 </Link>
                 <Link
-                    to={`/artist/${album.artist?._id}`}
+                    to={`/artist/${albumData.artist?._id}`}
                     className="text-base-content/50 hover:link sm:text-sm"
                 >
-                    {album.artist?.name}
+                    {albumData.artist?.name}
                 </Link>
             </CardBody>
         </Card>

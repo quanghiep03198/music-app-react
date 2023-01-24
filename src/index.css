@@ -106,8 +106,17 @@
     /*#endregion  */
 
     /*#region tab */
-    .tab {
-        @apply basis-1/4 text-base-content sm:tab-xs md:tab-md lg:tab-md xl:tab-lg xxl:tab-lg;
+    .tabs {
+        @apply w-auto flex-nowrap;
+    }
+    .tabs-boxed {
+        @apply gap-2;
+    }
+    .tabs-boxed > .tab {
+        @apply btn-ghost btn;
+    }
+    .tab:where(:has(.tab-bordered, .tab-lifted)) {
+        @apply basis-1/4 text-base-content sm:tab-xs md:tab-md lg:tab-md xl:tab-md xxl:tab-lg;
     }
     .tab-bordered.tab-active {
         @apply border-success font-medium text-success;
@@ -115,8 +124,11 @@
     .tab-lifted.tab-active {
         @apply font-medium text-success;
     }
-    .tabs-boxed.tab-active {
-        @apply btn-success btn text-success;
+    .tabs-boxed > .tab {
+        @apply sm:tab-xs md:tab-md lg:tab-md xl:tab-md xxl:tab-lg;
+    }
+    .tabs-boxed > .tab-active {
+        @apply btn-success;
     }
     /*#endregion */
 
@@ -140,6 +152,9 @@
     /*#region loading */
     .loading {
         @apply pointer-events-none animate-spin rounded-full border-transparent border-t-success border-r-success;
+    }
+    .loading-xs {
+        @apply h-4 w-4  border-[3px];
     }
     .loading-sm {
         @apply h-6 w-6  border-[3px];

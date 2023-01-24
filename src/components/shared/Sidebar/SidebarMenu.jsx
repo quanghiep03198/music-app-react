@@ -1,6 +1,6 @@
 import { Menu, MenuItem } from "@/components/customs/Atomics/Menu"
 import { BiLibrary } from "react-icons/bi"
-import { BsHeart, BsHouse } from "react-icons/bs"
+import { BsHeart, BsHouse, BsSearch } from "react-icons/bs"
 import { NavLink } from "react-router-dom"
 
 const SidebarMenu = () => {
@@ -14,6 +14,16 @@ const SidebarMenu = () => {
                     }}
                 >
                     <BsHouse aria-hidden className="text-xl" /> Home
+                </NavLink>
+            </MenuItem>
+            <MenuItem>
+                <NavLink
+                    to="/search"
+                    className={({ isActive }) => {
+                        return isActive ? "text-success" : "text-base-content"
+                    }}
+                >
+                    <BsSearch aria-hidden className="text-xl" /> Search
                 </NavLink>
             </MenuItem>
 
