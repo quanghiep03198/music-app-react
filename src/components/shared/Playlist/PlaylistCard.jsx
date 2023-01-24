@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import Button from "../../customs/Atomics/Button"
 import { Card, CardBody, CardTitle, Figure } from "../../customs/Atomics/Card"
-
+import DefaultPlaylistThumbnail from "/images/default-album-image.png"
 const PlaylistCard = ({ playlist }) => {
     const { playState, setPlayState } = useContext(AppContext)
     const dispatch = useDispatch()
@@ -32,7 +32,7 @@ const PlaylistCard = ({ playlist }) => {
                         </div>
                     ) : (
                         <Figure>
-                            <img src={playlist?.thumbnail} alt="" />
+                            <img src={DefaultPlaylistThumbnail} alt="" />
                         </Figure>
                     )}
                 </Link>

@@ -8,10 +8,7 @@ const LoadingScreen = () => {
             <div className="hero-overlay bg-opacity-60"></div>
             <div className="hero-content text-center text-neutral-content">
                 <div className="mx-auto flex max-w-md  flex-col items-center justify-center">
-                    <img
-                        src="/images/logo.png"
-                        className="max-w-full object-cover"
-                    />
+                    <img src={Logo} className="max-w-full object-cover" />
                     <Loading size="md" />
                 </div>
             </div>
