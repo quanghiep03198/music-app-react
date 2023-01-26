@@ -23,7 +23,8 @@ const HomePage = () => {
         if (currentTrack === null) {
             if (Array.isArray(data)) dispatch(setCurrentTrack(data[0]))
         }
-    }, [])
+    })
+
     return (
         <>
             <section className="pb-10">

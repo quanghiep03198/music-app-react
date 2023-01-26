@@ -28,7 +28,7 @@ const SearchBox = () => {
                 setIsLoading(false)
                 setSearchResult(data)
                 if (e.target.value === "") setSearchResult(null)
-            }, 1000)
+            }, 300)
         } catch (error) {
             console.log(error.message)
         }

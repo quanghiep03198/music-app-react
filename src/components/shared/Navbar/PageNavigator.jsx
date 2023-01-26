@@ -7,9 +7,8 @@ const PageNavigator = () => {
     const navigate = useNavigate()
     return (
         <div className="flex items-center gap-3 sm:hidden">
-            <Tooltip dataTip={"Go back"} position="tooltip-bottom">
+            <Tooltip data-tip="Go back" position="bottom">
                 <Button
-                    color="ghost"
                     shape="circle"
                     size="sm"
                     className="text-2xl"
@@ -18,9 +17,8 @@ const PageNavigator = () => {
                     <BsArrowLeftShort />
                 </Button>
             </Tooltip>
-            <Tooltip dataTip={"Go forward"} position="tooltip-bottom">
+            <Tooltip data-tip="Go forward" position="bottom">
                 <Button
-                    color="ghost"
                     shape="circle"
                     size="sm"
                     className="text-2xl"
