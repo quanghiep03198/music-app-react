@@ -1,20 +1,32 @@
-import React from "react"
+import { logout } from "@/app/redux/slice/userSlice"
+import { BsPerson } from "react-icons/bs"
+import { HiLogout } from "react-icons/hi"
+import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import Avatar from "../../customs/Atomics/Avatar"
 import { Dropdown, DropdownContent } from "../../customs/Atomics/Dropdown"
 import { Menu, MenuItem } from "../../customs/Atomics/Menu"
-import { HiLogout } from "react-icons/hi"
+
 const UserController = ({ user }) => {
+    const dispatch = useDispatch()
+
     return (
-        <Dropdown>
-            <Avatar imageUrl={user.avatar} tabIndex={0} />
+        <Dropdown position="bottom-end">
+            <Avatar size="md" tabIndex={0} online={true}>
+                <img src={user?.avatar} />
+            </Avatar>
             <DropdownContent tabIndex={0}>
-                <Menu>
+                <Menu className="min-w-[240px] bg-base-300">
                     <MenuItem>
-                        <Link to="/account/:id">{user.username}</Link>
+                        <Link to="/account/:id">
+                            <BsPerson /> Account{" "}
+                            <span className="badge">{user?.username}</span>
+                        </Link>
                     </MenuItem>
-                    <MenuItem>
-                        <HiLogout /> Logout
+                    <MenuItem onClick={() => dispatch(logout())}>
+                        <a role="menuitem">
+                            <HiLogout /> Logout
+                        </a>
                     </MenuItem>
                 </Menu>
             </DropdownContent>
