@@ -4,9 +4,9 @@ import { PersistGate } from "redux-persist/integration/react"
 import store, { persistor } from "./app/redux/store"
 
 import { lazy, StrictMode, Suspense } from "react"
-const App = lazy(() => import("./App"))
-import "./index.css"
 import LoadingScreen from "./components/customs/LoadingScreen"
+import "./index.css"
+const App = lazy(() => import("./App"))
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <StrictMode>

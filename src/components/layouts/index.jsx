@@ -1,7 +1,10 @@
+import { fetchUserThunkAction } from "@/app/redux/slice/userSlice"
 import AppProvider from "@/context/AppProvider"
 import { useState } from "react"
+import { useEffect } from "react"
 import { Suspense } from "react"
-import { Outlet } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { Navigate, Outlet } from "react-router-dom"
 import tw from "tailwind-styled-components"
 import Loading from "../customs/Atomics/Loading"
 import ErrorBoundary from "../customs/ErrorBoundary"
@@ -15,6 +18,15 @@ const PageContent = tw.div`flex flex-col justify-between w-full h-full gap-10 ov
 const SidebarToggler = tw.input`drawer-toggle`
 
 const Layout = () => {
+    const dispatch = useDispatch()
+    const { accessToken, userInfo } = useSelector((state) => state.auth)
+
+    useEffect(() => {
+        ;(async () => {
+            await dispatch(fetchUserThunkAction())
+        })()
+    }, [accessToken])
+
     return (
         <ErrorBoundary>
             <LayoutWrapper data-theme="dracula">

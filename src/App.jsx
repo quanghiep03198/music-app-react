@@ -1,14 +1,14 @@
 import { lazy, Suspense } from "react"
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { Slide, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-
+import tw from "tailwind-styled-components"
 import { HiX } from "react-icons/hi"
 import Loading from "./components/customs/Atomics/Loading"
 import ErrorBoundary from "./components/customs/ErrorBoundary"
-import LoadingScreen from "./components/customs/LoadingScreen"
 import Layout from "./components/layouts"
-import AppProvider from "./context/AppProvider"
+import PrivateLayout from "./components/layouts/PrivateLayout"
+import LikedTrack from "./pages/LikedTrack"
 
 const Search = lazy(() => import("./pages/Search"))
 const HomePage = lazy(() => import("./pages/Home"))
@@ -22,81 +22,95 @@ const RegisterPage = lazy(() => import("./pages/Register"))
 const ResetPassword = lazy(() => import("./pages/ResetPassword"))
 const NotFound = lazy(() => import("./pages/NotFound"))
 
+const LoadingWrapper = tw.div`flex items-center justify-center p-20`
+
 function App() {
-    const router = createBrowserRouter([
-        {
-            path: "/",
-            element: <Layout />,
-            errorElement: <LoadingScreen />,
-            children: [
-                { index: true, element: <HomePage /> },
-                { path: "/queue", element: <Queue /> },
-                { path: "/playlist/:id", element: <Playlist /> },
-                { path: "/library", element: <Library /> },
-                { path: "/artist/:id", element: <Artist /> },
-                { path: "/search", element: <Search /> }
-            ]
-        },
-        {
-            path: "/login",
-            element: (
-                <Suspense
-                    fallback={
-                        <div className="flex items-center justify-center p-20">
-                            <Loading />
-                        </div>
-                    }
-                >
-                    <LoginPage />
-                </Suspense>
-            )
-        },
-        {
-            path: "/register",
-            element: (
-                <Suspense
-                    fallback={
-                        <div className="flex items-center justify-center p-20">
-                            <Loading />
-                        </div>
-                    }
-                >
-                    <RegisterPage />
-                </Suspense>
-            )
-        },
-        {
-            path: "/reset-password",
-            element: (
-                <Suspense
-                    fallback={
-                        <div className="flex items-center justify-center p-20">
-                            <Loading />
-                        </div>
-                    }
-                >
-                    <ResetPassword />
-                </Suspense>
-            )
-        },
-        {
-            path: "*",
-            element: (
-                <Suspense
-                    fallback={
-                        <div className="flex items-center justify-center p-20">
-                            <Loading />
-                        </div>
-                    }
-                >
-                    <NotFound />
-                </Suspense>
-            )
-        }
-    ])
     return (
         <ErrorBoundary>
-            <RouterProvider router={router} />
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Layout />}>
+                        <Route index element={<HomePage />} />
+                        <Route path="/queue" element={<Queue />} />
+                        <Route path="/search" element={<Search />} />
+                        <Route
+                            path="/liked-tracks"
+                            element={
+                                <PrivateLayout>
+                                    <LikedTrack />
+                                </PrivateLayout>
+                            }
+                        />
+                        <Route
+                            path="/library"
+                            element={
+                                <PrivateLayout>
+                                    <Library />
+                                </PrivateLayout>
+                            }
+                        />
+                        <Route path="/artist/:id" element={<Artist />} />
+                        <Route path="/playlist/:id" element={<Playlist />} />
+                    </Route>
+                    <Route
+                        path="/login"
+                        element={
+                            <Suspense
+                                fallback={
+                                    <LoadingWrapper>
+                                        <Loading />
+                                    </LoadingWrapper>
+                                }
+                            >
+                                <LoginPage />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/register"
+                        element={
+                            <Suspense
+                                fallback={
+                                    <LoadingWrapper>
+                                        <Loading />
+                                    </LoadingWrapper>
+                                }
+                            >
+                                <RegisterPage />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/reset-password"
+                        element={
+                            <Suspense
+                                fallback={
+                                    <LoadingWrapper>
+                                        <Loading />
+                                    </LoadingWrapper>
+                                }
+                            >
+                                <ResetPassword />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="*"
+                        element={
+                            <Suspense
+                                fallback={
+                                    <LoadingWrapper>
+                                        <Loading />
+                                    </LoadingWrapper>
+                                }
+                            >
+                                <NotFound />
+                            </Suspense>
+                        }
+                    />
+                </Routes>
+            </Router>
+
             <ToastContainer
                 hideProgressBar={true}
                 transition={Slide}

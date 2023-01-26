@@ -8,9 +8,7 @@ import UserController from "./UserController"
 
 const NavbarWrapper = tw.nav`navbar justify-between items-center p-5 bg-base-300/70`
 const Navbar = () => {
-    const user = useSelector((state) => {
-        return state.user
-    })
+    const { userInfo } = useSelector((state) => state.auth)
     const { pathname } = useLocation()
     return (
         <NavbarWrapper>
@@ -25,8 +23,8 @@ const Navbar = () => {
                 >
                     <BsList aria-hidden />
                 </label>
-                {user !== null ? (
-                    <UserController />
+                {userInfo !== null ? (
+                    <UserController user={userInfo} />
                 ) : (
                     <Link
                         to="/login"

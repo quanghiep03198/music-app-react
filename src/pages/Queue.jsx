@@ -17,11 +17,12 @@ const Queue = () => {
         limit: 10
     })
     const dispatch = useDispatch()
-    useEffect(() => {
-        if (!nextup || nextup.length === 0 || nextup[0] === null) {
-            dispatch(setCurrentPlaylist({ tracks: data }))
-        }
-    }, [])
+    // useEffect(() => {
+    //     console.log(data)
+    //     if (nextup.length === 0) {
+    //         dispatch(addToQueue(data))
+    //     }
+    // })
 
     return (
         <PageContent>

@@ -187,7 +187,7 @@
     }
 
     .error-message {
-        @apply text-base;
+        @apply font-medium text-error;
     }
     /*#endregion */
 
