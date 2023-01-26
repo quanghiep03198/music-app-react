@@ -2,6 +2,7 @@ import instance from "@/app/axios/instance"
 import Loading from "@/components/customs/Atomics/Loading"
 import { AppContext } from "@/context/AppProvider"
 import debounce from "@/utils/debounce"
+import { useEffect } from "react"
 import { useState } from "react"
 import { useRef } from "react"
 import { useContext, useId } from "react"
@@ -13,10 +14,17 @@ const SearchBox = () => {
     const id = useId()
     const navigate = useNavigate()
     const { setSearchResult } = useContext(AppContext)
+    const [searchValue, setSearchValue] = useState("")
     const typingTimeoutRef = useRef(null)
+
     const [isLoading, setIsLoading] = useState(false)
+    useEffect(() => {
+        if (searchValue === "") setSearchResult(null)
+    }, [searchValue])
+
     const handleSearch = (e) => {
         try {
+            setSearchValue(e.target.value)
             if (typingTimeoutRef.current) {
                 clearTimeout(typingTimeoutRef.current)
             }
@@ -59,6 +67,7 @@ const SearchBox = () => {
                 className={`input input-sm rounded-full bg-transparent focus:outline-none`}
                 id={id}
                 placeholder="Search ..."
+                value={searchValue}
                 onFocus={() => navigate("/search")}
                 onChange={(e) => handleSearch(e)}
             />
