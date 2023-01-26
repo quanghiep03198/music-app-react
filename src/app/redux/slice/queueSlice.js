@@ -9,11 +9,13 @@ const queueSlice = createSlice({
         },
         setCurrentPlaylist: (state, action) => {
             state.nextup = action.payload.tracks
-            state.currentPlaylist = action.payload._id
+            state.currentPlaylist = action.payload._id || "unknown"
             state.currentTrack = action.payload.tracks[0]
         },
         addToQueue: (state, action) => {
-            state.nextup = [action.payload, [...state.nextup]]
+            Array.isArray(action.payload)
+                ? (state.nextup = state.nextup.concat(action.payload))
+                : [action.payload, [...state.nextup]]
         },
         removeFromQueue: (state, action) => {
             state.nextup = state.nextup.filter(

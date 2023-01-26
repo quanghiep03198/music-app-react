@@ -1,8 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { addToQueue, setCurrentPlaylist } from "../slice/queueSlice"
+import store from "../store"
 
 const trackApi = createApi({
     reducerPath: "tracks",
-    tagTypes: ["Tracks", "RelatedTracks", "LikedTracks"],
+    tagTypes: ["Tracks", "LikedTracks"],
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
     baseQuery: fetchBaseQuery({
@@ -14,14 +16,27 @@ const trackApi = createApi({
                 query: ({ skip, limit }) => {
                     return `/tracks?skip=${skip}&limit=${limit}`
                 },
+                async onQueryStarted(args, { dispatch, queryFulfilled }) {
+                    try {
+                        const { data } = await queryFulfilled
+                        const { nextup } = store.getState().queue
+                        if (nextup.length === 0)
+                            dispatch(setCurrentPlaylist({ tracks: data }))
+                    } catch (error) {
+                        console.log(error.message)
+                    }
+                },
                 providesTags: ["Tracks"]
             }),
             fetchRelatedTracks: builder.query({
                 query: ({ genre, skip, limit }) => {
-                    return `/track/related/${genre}?skip=${skip}&limit=${limit}`
+                    return `/tracks/related/${genre}?skip=${skip}&limit=${limit}`
                 },
 
-                providesTags: ["RelatedTracks"]
+                // Refetch when the page arg changes
+                forceRefetch({ currentArg, previousArg }) {
+                    return currentArg !== previousArg
+                }
             }),
             uploadTracks: builder.mutation({
                 query: (payload) => {
