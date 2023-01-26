@@ -1,5 +1,3 @@
-import { Grid } from "@/components/customs/Atomics/Grid"
-import React from "react"
 import AlbumCard from "./AlbumCard"
 
 const AlbumList = ({ data }) => {
