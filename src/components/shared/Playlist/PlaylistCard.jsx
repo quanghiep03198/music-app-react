@@ -7,6 +7,7 @@ import { Link } from "react-router-dom"
 import Button from "../../customs/Atomics/Button"
 import { Card, CardBody, CardTitle, Figure } from "../../customs/Atomics/Card"
 import DefaultPlaylistThumbnail from "/images/default-album-image.png"
+
 const PlaylistCard = ({ playlist }) => {
     const { playState, setPlayState } = useContext(AppContext)
     const dispatch = useDispatch()
@@ -22,19 +23,15 @@ const PlaylistCard = ({ playlist }) => {
         <Card>
             <div className=" relative max-w-full">
                 <Link to={`/playlist/${playlist?._id}`}>
-                    {Array.isArray(playlist.thumbnail) ? (
-                        <div className="grid grid-cols-4">
-                            {playlist.thumbnail.map((thumbnail) => (
-                                <Figure>
-                                    <img src={thumbnail} loading="lazy" />
-                                </Figure>
-                            ))}
-                        </div>
-                    ) : (
-                        <Figure>
-                            <img src={DefaultPlaylistThumbnail} alt="" />
-                        </Figure>
-                    )}
+                    <Figure>
+                        <img
+                            src={
+                                playlist.thumbnail !== ""
+                                    ? playlist.thumbnail
+                                    : DefaultPlaylistThumbnail
+                            }
+                        />
+                    </Figure>
                 </Link>
                 <Button
                     shape="circle"
