@@ -63,10 +63,10 @@ const AlbumCard = ({ albumData }) => {
                     {albumData?.title}
                 </Link>
                 <Link
-                    to={`/artist/${albumData.artist?._id}`}
+                    to={`/artist/${albumData?.artist?._id}`}
                     className="text-base-content/50 hover:link sm:text-sm"
                 >
-                    {albumData.artist?.name}
+                    {albumData?.artist?.name}
                 </Link>
             </CardBody>
         </Card>
