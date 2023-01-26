@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
     playlists: playlistApi.reducer,
     artists: artistApi.reducer,
     genres: genreApi.reducer,
-    user: userSlice.reducer,
+    auth: userSlice.reducer,
     queue: queueSlice.reducer,
     albums: albumApi.reducer
 })

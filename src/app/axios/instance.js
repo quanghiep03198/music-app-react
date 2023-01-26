@@ -1,4 +1,8 @@
-import { setCurrentUser } from "@/app/redux/slice/userSlice"
+import {
+    fetchUserThunkAction,
+    refreshTokenThunkAction,
+    setCurrentUser
+} from "@/app/redux/slice/userSlice"
 import store from "@/app/redux/store"
 import axios from "axios"
 
@@ -20,7 +24,7 @@ instance.interceptors.request.use(
         ]
         if (skippingCheckTokenRoutes.indexOf(config.url) >= 0) return config
         /* Trước khi request xuống server gửi luôn access token trong headers để check */
-        const accessToken = instance.getAccessToken()
+        const { accessToken } = store.getState().auth
         if (accessToken) {
             config.headers.token = accessToken
             return config
@@ -47,17 +51,14 @@ instance.interceptors.response.use(
 
         /* ::::::::::: Refresh token ::::::::::: */
 
-        const userId = localStorage.getItem("auth")
-        if (data.status && data.statusCode === 401) {
-            const { accessToken } = await instance.get(
-                `/refresh-token/${userId}`
-            ) // create new access token
-            console.log("New access token :>> ", accessToken)
-            instance.setAccessToken(accessToken) // save access token in local storage
+        if (data.status && data.status === 401) {
+            console.log("Access token has expired!")
+            const newAccessToken = await store.dispatch(
+                refreshTokenThunkAction()
+            )
+            console.log("Refresh token:>>>", newAccessToken)
 
-            const user = await instance.get("/user") // get new user data
-            store.dispatch(setCurrentUser(user)) // storage in redux
-            return await instance.get(config.url) // get other data
+            return data
         }
         return data
     },
@@ -65,15 +66,5 @@ instance.interceptors.response.use(
         return Promise.reject(error)
     }
 )
-
-/* :::::::::::::: Save access token in localstorage :::::::::::::: */
-instance.setAccessToken = (accessToken) => {
-    if (accessToken) localStorage.setItem("accessToken", accessToken)
-}
-
-/* :::::::::::::: Get access token from localstorage :::::::::::::: */
-instance.getAccessToken = () => {
-    return localStorage.getItem("accessToken")
-}
 
 export default instance
