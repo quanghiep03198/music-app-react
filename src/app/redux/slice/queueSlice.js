@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const queueSlice = createSlice({
     name: "queue",
-    initialState: { currentTrack: null, currentPlaylist: null, nextup: null },
+    initialState: { currentTrack: null, currentPlaylist: null, nextup: [] },
     reducers: {
         setCurrentTrack: (state, action) => {
             state.currentTrack = action.payload

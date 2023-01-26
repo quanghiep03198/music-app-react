@@ -12,7 +12,6 @@ import Button from "../../customs/Atomics/Button"
 import { Card, CardBody, Figure } from "../../customs/Atomics/Card"
 import DefaultAlbumThumbnail from "/images/default-album-image.png"
 const AlbumCard = ({ albumData }) => {
-    console.log(albumData)
     const { playState, setPlayState } = useContext(AppContext)
     const dispatch = useDispatch()
     const { currentPlaylist } = useSelector((state) => state.queue)
