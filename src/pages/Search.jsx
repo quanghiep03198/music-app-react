@@ -3,7 +3,7 @@ import Tabs from "@/components/customs/Atomics/Tabs"
 import GenreList from "@/components/shared/Genre/GenreList"
 import TrackList from "@/components/shared/Track/TrackList"
 import { AppContext } from "@/context/AppProvider"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { Typography } from "./Home"
 
 import AlbumList from "@/components/shared/Album/AlbumList"
