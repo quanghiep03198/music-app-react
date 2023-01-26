@@ -1,3 +1,4 @@
+import { useState } from "react"
 import tw from "tailwind-styled-components"
 
 const Tab = tw.a`tab ${(props) => {
@@ -17,22 +18,32 @@ const Tab = tw.a`tab ${(props) => {
 export const TabPannel = tw.div`w-full h-full flex flex-col gap-10 ${(props) =>
     props.isActive ? "" : "hidden"}`
 
-const Tabs = ({ tabData, currentTabIndex, onChangeTab, tw }) => {
-    const changeTab = (tabIndex) => {
-        onChangeTab(tabIndex)
-    }
+const Tabs = ({ data, tabType }) => {
+    const [currentTabIndex, setCurrentTabIndex] = useState(1)
 
     return (
-        <div className={`tabs bg-transparent ${tw}`}>
-            {Array.isArray(tabData) &&
-                tabData.map((item, index) => (
-                    <Tab
-                        type={item.type}
-                        active={currentTabIndex === index + 1}
-                        onClick={() => changeTab(index + 1)}
-                    >
-                        {item.children}
-                    </Tab>
+        <div className="flex flex-col gap-10">
+            <div
+                className={`bg-transparent ${
+                    tabType === "boxed" ? "tabs tabs-boxed" : "tabs"
+                }`}
+            >
+                {Array.isArray(data) &&
+                    data.map((item, index) => (
+                        <Tab
+                            type={item.type}
+                            active={currentTabIndex === index + 1}
+                            onClick={() => setCurrentTabIndex(index + 1)}
+                        >
+                            {item.title}
+                        </Tab>
+                    ))}
+            </div>
+            {Array.isArray(data) &&
+                data.map((item, index) => (
+                    <TabPannel isActive={currentTabIndex === index + 1}>
+                        {item.pannelElement}
+                    </TabPannel>
                 ))}
         </div>
     )
