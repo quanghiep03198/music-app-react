@@ -48,15 +48,11 @@ const userSlice = createSlice({
             state.userInfo = action.payload
         })
         builder.addCase(loginThunkAction.fulfilled, (state, action) => {
-            state.authenticated = true
             state.authId = action.payload.id
             state.accessToken = action.payload.accessToken
         })
         builder.addCase(refreshTokenThunkAction.fulfilled, (state, action) => {
             state.accessToken = action.payload
-        })
-        builder.addCase(refreshTokenThunkAction.rejected, (state, action) => {
-            return initialState
         })
     }
 })

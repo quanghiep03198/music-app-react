@@ -1,8 +1,4 @@
-import {
-    fetchUserThunkAction,
-    refreshTokenThunkAction,
-    setCurrentUser
-} from "@/app/redux/slice/userSlice"
+import { refreshTokenThunkAction } from "@/app/redux/slice/userSlice"
 import store from "@/app/redux/store"
 import axios from "axios"
 
@@ -56,7 +52,7 @@ instance.interceptors.response.use(
             const newAccessToken = await store.dispatch(
                 refreshTokenThunkAction()
             )
-            console.log("Refresh token:>>>", newAccessToken)
+            console.log("Refresh token:>>>", newAccessToken.payload)
 
             return data
         }
