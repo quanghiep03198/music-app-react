@@ -49,8 +49,8 @@ const store = configureStore({
             artistApi.middleware,
             albumApi.middleware,
             genreApi.middleware
-        ]),
-    devTools: currentEnv.toLowerCase() === "development"
+        ])
+    // devTools: currentEnv.toLowerCase() === "development"
 })
 
 export const persistor = persistStore(store)
