@@ -1,63 +1,96 @@
 import { useFetchAllGenresQuery } from "@/app/redux/api/genreApi"
-import Tabs, { TabPannel } from "@/components/customs/Atomics/Tabs"
-import ArtistCard from "@/components/shared/Artist/ArtistCard"
+import Tabs from "@/components/customs/Atomics/Tabs"
 import GenreList from "@/components/shared/Genre/GenreList"
 import TrackList from "@/components/shared/Track/TrackList"
 import { AppContext } from "@/context/AppProvider"
-import { useState } from "react"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { Typography } from "./Home"
 
-import {
-    AllResultPannel,
-    TrackPannel,
-    ArtistPannel,
-    AlbumPannel,
-    PlaylistPannel
-} from "@/components/shared/Pannels"
-import { useEffect } from "react"
+import AlbumList from "@/components/shared/Album/AlbumList"
+import ArtistList from "@/components/shared/Artist/ArtistList"
+import PlaylistList from "@/components/shared/Playlist/PlaylistList"
 
 const Search = () => {
     const { data, isFetching } = useFetchAllGenresQuery()
     const { searchResult } = useContext(AppContext)
-    const [currentTabIndex, setCurrentTabIndex] = useState(1)
-    console.log(searchResult)
 
     return (
         <section>
             {searchResult ? (
                 <>
                     <Tabs
-                        tw="tabs-boxed mb-6"
-                        currentTabIndex={currentTabIndex}
-                        onChangeTab={setCurrentTabIndex}
-                        tabData={[
-                            { children: "All" },
-                            { children: "Tracks" },
-                            { children: "Artists" },
-                            { children: "Albums" },
-                            { children: "Playlists" }
+                        tabType="boxed"
+                        data={[
+                            {
+                                title: "All",
+                                pannelElement: (
+                                    <div>
+                                        {searchResult.tracks?.length > 0 && (
+                                            <section>
+                                                <Typography>Tracks</Typography>
+                                                <TrackList
+                                                    data={searchResult.tracks}
+                                                />
+                                            </section>
+                                        )}
+                                        {searchResult.artists?.length > 0 && (
+                                            <section>
+                                                <Typography>Artists</Typography>
+                                                <ArtistList
+                                                    data={searchResult.artists}
+                                                />
+                                            </section>
+                                        )}
+                                        {searchResult.albums?.length > 0 && (
+                                            <section>
+                                                <Typography>Albums</Typography>
+                                                <AlbumList
+                                                    data={searchResult.albums}
+                                                />
+                                            </section>
+                                        )}
+                                        {searchResult.playlists?.length > 0 && (
+                                            <section>
+                                                <Typography>
+                                                    Playlists
+                                                </Typography>
+                                                <PlaylistList
+                                                    data={
+                                                        searchResult.playlists
+                                                    }
+                                                />
+                                            </section>
+                                        )}
+                                    </div>
+                                )
+                            },
+                            {
+                                title: "Tracks",
+                                pannelElement: (
+                                    <TrackList data={searchResult.tracks} />
+                                )
+                            },
+                            {
+                                title: "Albums",
+                                pannelElement: (
+                                    <AlbumList data={searchResult.albums} />
+                                )
+                            },
+                            {
+                                title: "Aritsts",
+                                pannelElement: (
+                                    <ArtistList data={searchResult.artists} />
+                                )
+                            },
+                            {
+                                title: "Playlists",
+                                pannelElement: (
+                                    <PlaylistList
+                                        data={searchResult.playlists}
+                                    />
+                                )
+                            }
                         ]}
-                    />
-                    <AllResultPannel
-                        isActive={currentTabIndex === 1}
-                        data={searchResult}
-                    />
-                    <TrackPannel
-                        isActive={currentTabIndex === 2}
-                        tracks={searchResult?.tracks}
-                    />
-                    <ArtistPannel
-                        isActive={currentTabIndex === 3}
-                        artists={searchResult?.artists}
-                    />
-                    <AlbumPannel
-                        isActive={currentTabIndex === 4}
-                        albums={searchResult?.albums}
-                    />
-                    <PlaylistPannel
-                        isActive={currentTabIndex === 5}
-                        playlists={searchResult?.playlists}
                     />
                 </>
             ) : (
