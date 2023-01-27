@@ -1,4 +1,4 @@
-import { useFetchAlbumsQuery } from "@/app/redux/api/albumApi"
+import { useFetchAlbumsQuery } from "@/app/api/albumApi"
 import swiperBreakpoints from "@/config/swiperBreakpoint.config"
 import { lazy, Suspense, useId, useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"

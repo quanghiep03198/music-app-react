@@ -1,7 +1,7 @@
 import tw from "tailwind-styled-components"
 import TrackList from "../components/shared/Track/TrackList"
 
-import { useFetchTracksQuery } from "@/app/redux/api/trackApi"
+import { useFetchTracksQuery } from "@/app/api/trackApi"
 import AlbumSlider from "../components/shared/Album/AlbumSlider"
 import ArtistSlider from "../components/shared/Artist/ArtistSlider"
 import PlaylistSlider from "../components/shared/Playlist/PlaylistSlider"

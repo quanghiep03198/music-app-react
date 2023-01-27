@@ -1,5 +1,5 @@
-import { useFetchSinglePlaylistQuery } from "@/app/redux/api/playlistApi"
-import { setCurrentPlaylist } from "@/app/redux/slice/queueSlice"
+import { useFetchSinglePlaylistQuery } from "@/app/api/playlistApi"
+import { setCurrentPlaylist } from "@/app/slices/queueSlice"
 import { useContext } from "react"
 import {
     BsHeart,

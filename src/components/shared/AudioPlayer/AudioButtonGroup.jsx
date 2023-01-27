@@ -1,4 +1,4 @@
-import { setCurrentTrack } from "@/app/redux/slice/queueSlice"
+import { setCurrentTrack } from "@/app/slices/queueSlice"
 import { AppContext } from "@/context/AppProvider"
 import { useEffect } from "react"
 import { useContext, useState } from "react"

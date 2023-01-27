@@ -1,4 +1,4 @@
-import { useFetchUserPlaylistsQuery } from "@/app/redux/api/playlistApi"
+import { useFetchUserPlaylistsQuery } from "@/app/api/playlistApi"
 import swiperBreakpoints from "@/config/swiperBreakpoint.config"
 import { lazy, Suspense, useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"

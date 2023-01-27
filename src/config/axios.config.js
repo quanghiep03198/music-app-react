@@ -1,5 +1,5 @@
-import { refreshTokenThunkAction } from "@/app/redux/slice/userSlice"
-import store from "@/app/redux/store"
+import { refreshTokenThunkAction } from "@/app/slices/userSlice"
+import store from "@/app/store"
 import axios from "axios"
 
 // config base url for axios globally

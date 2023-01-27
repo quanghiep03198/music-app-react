@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client"
 import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
-import store, { persistor } from "./app/redux/store"
+import store, { persistor } from "./app/store"
 
 import { lazy, StrictMode, Suspense } from "react"
 import LoadingScreen from "./components/customs/LoadingScreen"

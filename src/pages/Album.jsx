@@ -1,4 +1,4 @@
-import { useFetchSingleAlbumQuery } from "@/app/redux/api/albumApi"
+import { useFetchSingleAlbumQuery } from "@/app/api/albumApi"
 import Button from "@/components/customs/Atomics/Button"
 import {
     Dropdown,

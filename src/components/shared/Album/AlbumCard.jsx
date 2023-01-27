@@ -1,4 +1,4 @@
-import { setCurrentPlaylist } from "@/app/redux/slice/queueSlice"
+import { setCurrentPlaylist } from "@/app/slices/queueSlice"
 import { AppContext } from "@/context/AppProvider"
 import axios from "axios"
 import { useContext } from "react"

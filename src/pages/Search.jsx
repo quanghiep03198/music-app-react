@@ -1,4 +1,4 @@
-import { useFetchAllGenresQuery } from "@/app/redux/api/genreApi"
+import { useFetchAllGenresQuery } from "@/app/api/genreApi"
 import Tabs from "@/components/customs/Atomics/Tabs"
 import GenreList from "@/components/shared/Genre/GenreList"
 import TrackList from "@/components/shared/Track/TrackList"

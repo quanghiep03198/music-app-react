@@ -2,7 +2,7 @@ import {
     addToQueue,
     removeFromQueue,
     setCurrentTrack
-} from "@/app/redux/slice/queueSlice"
+} from "@/app/slices/queueSlice"
 import { Menu, MenuItem } from "@/components/customs/Atomics/Menu"
 import { AppContext } from "@/context/AppProvider"
 import formatNumber from "@/utils/formatNumber"

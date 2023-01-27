@@ -1,6 +1,6 @@
 import Loading from "@/components/customs/Atomics/Loading"
 import { AppContext } from "@/context/AppProvider"
-import axios from "@/app/axios/axios.config"
+import axios from "@/config/axios.config"
 import { useContext, useEffect, useId, useRef, useState } from "react"
 import { BsSearch } from "react-icons/bs"
 import { useNavigate } from "react-router-dom"

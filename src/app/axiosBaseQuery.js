@@ -1,4 +1,4 @@
-import axios from "@/app/axios/axios.config"
+import axios from "@/config/axios.config"
 
 const axiosBaseQuery =
     () =>

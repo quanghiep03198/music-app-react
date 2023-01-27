@@ -18,11 +18,9 @@ import genreApi from "./api/genreApi"
 import playlistApi from "./api/playlistApi"
 import trackApi from "./api/trackApi"
 import rootReducer from "./rootReducer"
-import queueSlice from "./slice/queueSlice"
 
 const persistConfig = {
-    key: "redux",
-
+    key: "root",
     storage
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -50,8 +48,8 @@ const store = configureStore({
             artistApi.middleware,
             albumApi.middleware,
             genreApi.middleware
-        ])
-    // devTools: currentEnv.toLowerCase() === "development"
+        ]),
+    devTools: currentEnv.toLowerCase() === "development"
 })
 
 export const persistor = persistStore(store)

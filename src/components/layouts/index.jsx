@@ -1,4 +1,4 @@
-import { fetchUserThunkAction } from "@/app/redux/slice/userSlice"
+import { fetchUserThunkAction } from "@/app/slices/userSlice"
 import AppProvider from "@/context/AppProvider"
 import { useState } from "react"
 import { useEffect } from "react"

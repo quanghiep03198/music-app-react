@@ -6,7 +6,7 @@ import Logo from "/images/logo.png"
 import { useForm } from "react-hook-form"
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
 import { useDispatch } from "react-redux"
-import { loginThunkAction } from "@/app/redux/slice/userSlice"
+import { loginThunkAction } from "@/app/slices/userSlice"
 
 const LoginPage = () => {
     const {
