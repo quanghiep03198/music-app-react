@@ -9,6 +9,7 @@ import ErrorBoundary from "./components/customs/ErrorBoundary"
 import Layout from "./components/layouts"
 import PrivateLayout from "./components/layouts/PrivateLayout"
 import LikedTrack from "./pages/LikedTrack"
+import AlbumPage from "./pages/Album"
 
 const Search = lazy(() => import("./pages/Search"))
 const HomePage = lazy(() => import("./pages/Home"))
@@ -51,6 +52,7 @@ function App() {
                         />
                         <Route path="/artist/:id" element={<Artist />} />
                         <Route path="/playlist/:id" element={<Playlist />} />
+                        <Route path="/album/:id" element={<AlbumPage />} />
                     </Route>
                     <Route
                         path="/login"

@@ -1,33 +1,34 @@
-import { useFetchSinglePlaylistQuery } from "@/app/redux/api/playlistApi"
-import { setCurrentPlaylist } from "@/app/redux/slice/queueSlice"
+import { useFetchSingleAlbumQuery } from "@/app/redux/api/albumApi"
+import Button from "@/components/customs/Atomics/Button"
+import {
+    Dropdown,
+    DropdownContent
+} from "@/components/customs/Atomics/Dropdown"
+import { Menu, MenuItem } from "@/components/customs/Atomics/Menu"
+import ErrorBoundary from "@/components/customs/ErrorBoundary"
+import TrackList from "@/components/shared/Track/TrackList"
+import { AppContext } from "@/context/AppProvider"
+import timer from "@/utils/timer"
+import React from "react"
 import { useContext } from "react"
 import {
+    BsClock,
     BsHeart,
     BsPauseFill,
     BsPencil,
     BsPlayFill,
     BsThreeDots
 } from "react-icons/bs"
-import { useDispatch, useSelector } from "react-redux"
+
+import { MdPlaylistAdd } from "react-icons/md"
 import { Link, useParams } from "react-router-dom"
-import { AppContext } from "../context/AppProvider"
-import ErrorBoundary from "../components/customs/ErrorBoundary"
-import Button from "../components/customs/Atomics/Button"
-import TrackList from "../components/shared/Track/TrackList"
 import DefaultThumbnail from "/images/default-thumbnail.png"
-import {
-    Dropdown,
-    DropdownContent
-} from "@/components/customs/Atomics/Dropdown"
-import { Menu, MenuItem } from "@/components/customs/Atomics/Menu"
-import { Figure } from "@/components/customs/Atomics/Card"
-const Playlist = () => {
+
+const AlbumPage = () => {
     const { id } = useParams()
-    const { data, isFetching } = useFetchSinglePlaylistQuery(id)
+    const { data } = useFetchSingleAlbumQuery(id)
+    console.log("album:>>", data)
     const { playState, setPlayState } = useContext(AppContext)
-    const dispatch = useDispatch()
-    const { currentPlaylist } = useSelector((state) => state.queue)
-    console.log(data)
     const togglePlayPlaylist = () => {
         if (data._id && data._id !== currentPlaylist) {
             dispatch(setCurrentPlaylist(data))
@@ -37,44 +38,44 @@ const Playlist = () => {
     return (
         <ErrorBoundary>
             <section className="group relative">
-                <div className="hero glass place-content-start rounded-lg sm:place-content-center ">
+                <div className="hero glass place-content-start rounded-lg ">
                     <div className="hero-content flex-row sm:flex-col md:flex-col xl:gap-6 xxl:gap-10">
-                        <Figure mask="square">
-                            <img
-                                src={
-                                    data?.thumbnail !== ""
-                                        ? data?.thumbnail
-                                        : DefaultThumbnail
-                                }
-                                className="max-w-[240px] rounded-lg shadow-2xl "
-                            />
-                        </Figure>
+                        <img
+                            src={
+                                data?.album?.image !== ""
+                                    ? data?.album?.image
+                                    : DefaultThumbnail
+                            }
+                            className="max-w-[240px] rounded-lg shadow-2xl sm:max-w-[180px]"
+                        />
                         <div className="sm:self-start">
-                            <p className="first-letter:uppercase sm:text-sm">
-                                {data?.public
-                                    ? "public playlist"
-                                    : "private playlist"}
-                            </p>
                             <h1 className="text-5xl font-bold sm:text-2xl">
-                                {data?.title}
+                                {data?.album?.title}
                             </h1>
-                            <p className="my-2 text-lg sm:text-sm">
+                            <p className="my-2 flex items-center gap-4 text-lg sm:text-sm">
                                 {Array.isArray(data?.tracks)
                                     ? data?.tracks?.length
                                     : 0}{" "}
                                 tracks
                             </p>
                             <p className="my-4">
-                                Created by{" "}
-                                <Link className="font-bold text-base-content hover:link">
-                                    {data?.creator?.username}
+                                <Link className="font-semibold text-base-content hover:link">
+                                    {data?.album?.artist?.name}
                                 </Link>
+                            </p>
+                            <p className="text-base-content/50">
+                                Relased at{" "}
+                                <span className="font-semibold text-base-content">
+                                    {new Date(
+                                        data?.album?.releaseDate
+                                    ).toLocaleDateString()}
+                                </span>
                             </p>
                         </div>
                     </div>
                 </div>
                 <Dropdown
-                    className="absolute top-0 right-0"
+                    className="absolute top-1 right-1"
                     position="bottom-end"
                 >
                     <Button
@@ -88,12 +89,13 @@ const Playlist = () => {
                         <Menu>
                             <MenuItem>
                                 <a role="menuitem">
-                                    <BsPencil /> Edit Playlist
+                                    <BsHeart /> Save to your library
                                 </a>
                             </MenuItem>
                             <MenuItem>
                                 <a role="menuitem">
-                                    <BsHeart /> Save to your library
+                                    <MdPlaylistAdd className="text-xl" /> Add to
+                                    queue
                                 </a>
                             </MenuItem>
                         </Menu>
@@ -102,18 +104,17 @@ const Playlist = () => {
                 <Button
                     shape="circle"
                     color="success"
-                    className="absolute bottom-4 right-4 text-xl sm:right-2 sm:bottom-2"
+                    className="absolute bottom-4 right-4 text-xl"
                     onClick={togglePlayPlaylist}
                 >
                     {playState ? <BsPauseFill /> : <BsPlayFill />}
                 </Button>
             </section>
-
-            {Array.isArray(data?.tracks) && (
-                <TrackList data={data?.tracks || []} />
-            )}
+            <section>
+                <TrackList data={data?.tracks} />
+            </section>
         </ErrorBoundary>
     )
 }
 
-export default Playlist
+export default AlbumPage

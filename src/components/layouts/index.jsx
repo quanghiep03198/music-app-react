@@ -14,17 +14,18 @@ import Sidebar from "../shared/Sidebar"
 
 const LayoutWrapper = tw.div`drawer drawer-mobile `
 const ContentWrapper = tw.div`invisible-scroll drawer-content relative flex h-screen w-full flex-col justify-between overflow-x-auto overflow-y-auto`
-const PageContent = tw.div`flex flex-col justify-between w-full h-full gap-10 overflow-y-auto scroll bg-base-100 p-6 xxl:p-10`
+const PageContent = tw.div`flex flex-col justify-between w-full h-full gap-10 overflow-y-auto scroll bg-base-100 sm:p-2 p-6 xxl:p-10`
 const SidebarToggler = tw.input`drawer-toggle`
 
 const Layout = () => {
     const dispatch = useDispatch()
-    const { accessToken, userInfo } = useSelector((state) => state.auth)
+    const { accessToken } = useSelector((state) => state.auth)
 
     useEffect(() => {
-        ;(async () => {
+        const getUserInfo = async () => {
             await dispatch(fetchUserThunkAction())
-        })()
+        }
+        return () => getUserInfo()
     }, [accessToken])
 
     return (

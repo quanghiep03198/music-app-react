@@ -1,9 +1,7 @@
-import instance from "@/app/axios/instance"
-import { useFetchSingleAlbumQuery } from "@/app/redux/api/albumApi"
 import { setCurrentPlaylist } from "@/app/redux/slice/queueSlice"
 import { AppContext } from "@/context/AppProvider"
-import { useEffect } from "react"
-import { useContext, useState } from "react"
+import axios from "axios"
+import { useContext } from "react"
 import { BsPauseFill, BsPlayFill } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
@@ -11,6 +9,7 @@ import { toast } from "react-toastify"
 import Button from "../../customs/Atomics/Button"
 import { Card, CardBody, Figure } from "../../customs/Atomics/Card"
 import DefaultAlbumThumbnail from "/images/default-album-image.png"
+
 const AlbumCard = ({ albumData }) => {
     const { playState, setPlayState } = useContext(AppContext)
     const dispatch = useDispatch()
@@ -18,7 +17,7 @@ const AlbumCard = ({ albumData }) => {
 
     const playThisAlbum = async (album) => {
         if (album._id !== currentPlaylist) {
-            const { tracks } = await instance.get(`/albums/${album._id}`)
+            const { tracks } = await axios.get(`/albums/${album._id}`)
             // if album has no tracks -> show message then exit function
             if (!Array.isArray(tracks) || tracks.length === 0) {
                 toast.info("Album is updating!", { toastId: album._id })

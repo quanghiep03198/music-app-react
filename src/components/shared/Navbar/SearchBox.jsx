@@ -1,11 +1,7 @@
-import instance from "@/app/axios/instance"
 import Loading from "@/components/customs/Atomics/Loading"
 import { AppContext } from "@/context/AppProvider"
-import debounce from "@/utils/debounce"
-import { useEffect } from "react"
-import { useState } from "react"
-import { useRef } from "react"
-import { useContext, useId } from "react"
+import axios from "@/app/axios/axios.config"
+import { useContext, useEffect, useId, useRef, useState } from "react"
 import { BsSearch } from "react-icons/bs"
 import { useNavigate } from "react-router-dom"
 import Button from "../../customs/Atomics/Button"
@@ -30,7 +26,7 @@ const SearchBox = () => {
             }
             setIsLoading(true)
             typingTimeoutRef.current = setTimeout(async () => {
-                const data = await instance.post(`/search`, {
+                const data = await axios.post(`/search`, {
                     keyword: e.target.value
                 })
                 setIsLoading(false)

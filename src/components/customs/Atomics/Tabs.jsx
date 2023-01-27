@@ -41,7 +41,7 @@ const Tabs = ({ data, tabType }) => {
             </div>
             {Array.isArray(data) &&
                 data.map((item, index) => (
-                    <TabPannel isActive={currentTabIndex === index + 1}>
+                    <TabPannel isActive={`${currentTabIndex === index + 1}`}>
                         {item.pannelElement}
                     </TabPannel>
                 ))}

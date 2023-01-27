@@ -1,8 +1,4 @@
-import instance from "@/app/axios/instance"
-import { setCurrentTrack } from "@/app/redux/slice/queueSlice"
-import { useEffect } from "react"
-import { useLayoutEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import tw from "tailwind-styled-components"
 
 const TrackInfoWrapper = tw.div`flex basis-1/4 items-center gap-4 sm:flex-1 md:flex-1`
@@ -11,16 +7,6 @@ const Title = tw.h5`truncate font-semibold text-base-content`
 
 const TrackInfo = () => {
     const { currentTrack } = useSelector((state) => state.queue)
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        if (currentTrack === null) {
-            instance
-                .get("/tracks?limit=-1")
-                .then((track) => dispatch(setCurrentTrack(track)))
-                .catch((error) => console.log(error.message))
-        }
-    }, [])
 
     return (
         <TrackInfoWrapper>
