@@ -22,6 +22,5 @@ const albumApi = createApi({
         })
     })
 })
-console.log(albumApi.endpoints)
 export const { useFetchAlbumsQuery, useFetchSingleAlbumQuery } = albumApi
 export default albumApi
