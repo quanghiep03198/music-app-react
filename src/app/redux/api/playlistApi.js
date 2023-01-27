@@ -1,28 +1,25 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { createApi } from "@reduxjs/toolkit/query/react"
+import axiosBaseQuery from "../axiosBaseQuery"
 
 const playlistApi = createApi({
     reducerPath: "playlists",
     tagTypes: ["Playlists", "UserPlaylists"],
-    refetchOnReconnect: true,
-    refetchOnMountOrArgChange: true,
-    baseQuery: fetchBaseQuery({
-        baseUrl: import.meta.env.VITE_BASE_URL,
-        prepareHeaders: (headers, { getState }) => {
-            const token = getState().auth?.token
-            if (token) headers.set("token", token)
-            return headers
-        }
-    }),
+    keepUnusedDataFor: 5 * 60,
+    baseQuery: axiosBaseQuery(),
     endpoints: (builder) => {
         return {
             fetchUserPlaylists: builder.query({
-                query: ({ userId, skip, limit }) =>
-                    `/playlists/created-by/${userId}?skip=${skip}&limit=${limit}`,
+                query: ({ userId, skip, limit }) => ({
+                    url: `/playlists/created-by/${userId}?skip=${skip}&limit=${limit}`,
+                    method: "GET"
+                }),
                 providesTags: ["UserPlaylists"]
             }),
             fetchAllPlaylist: builder.query({
-                query: ({ skip = 0, limit }) =>
-                    `/playlists?skip=${skip}&limit=${limit}`,
+                query: ({ skip = 0, limit }) => ({
+                    url: `/playlists?skip=${skip}&limit=${limit}`,
+                    method: "GET"
+                }),
                 providesTags: ["Playlists"]
             }),
             fetchSinglePlaylist: builder.query({

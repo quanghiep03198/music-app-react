@@ -2,13 +2,10 @@ import { refreshTokenThunkAction } from "@/app/redux/slice/userSlice"
 import store from "@/app/redux/store"
 import axios from "axios"
 
-// config axios
-const instance = axios.create({
-    baseURL: import.meta.env.VITE_BASE_URL,
-    headers: { "Content-Type": "application/json" }
-})
-/* :::::::::::::: Xử  trước khi gửi request xuống server :::::::::::::: */
-instance.interceptors.request.use(
+// config base url for axios globally
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
+
+axios.interceptors.request.use(
     (config) => {
         /* Bỏ qua check access token với các routes nay */
         const skippingCheckTokenRoutes = [
@@ -19,7 +16,6 @@ instance.interceptors.request.use(
             "/reset-password"
         ]
         if (skippingCheckTokenRoutes.indexOf(config.url) >= 0) return config
-        /* Trước khi request xuống server gửi luôn access token trong headers để check */
         const { accessToken } = store.getState().auth
         if (accessToken) {
             config.headers.token = accessToken
@@ -32,8 +28,7 @@ instance.interceptors.request.use(
     }
 )
 
-/* :::::::::::::: Xử lý data sau khi nhận response :::::::::::::: */
-instance.interceptors.response.use(
+axios.interceptors.response.use(
     async (response) => {
         const { data, config } = response
         const skippingCheckTokenRoutes = [
@@ -45,16 +40,12 @@ instance.interceptors.response.use(
         ]
         if (skippingCheckTokenRoutes.indexOf(config.url) >= 0) return data
 
-        /* ::::::::::: Refresh token ::::::::::: */
-
         if (data.status && data.status === 401) {
-            console.log("Access token has expired!")
+            console.log("Access token expired!")
             const newAccessToken = await store.dispatch(
                 refreshTokenThunkAction()
             )
-            console.log("Refresh token:>>>", newAccessToken.payload)
-
-            return data
+            console.log("Refresh token:>>", newAccessToken.payload)
         }
         return data
     },
@@ -63,4 +54,4 @@ instance.interceptors.response.use(
     }
 )
 
-export default instance
+export default axios

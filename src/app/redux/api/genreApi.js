@@ -1,22 +1,19 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { createApi } from "@reduxjs/toolkit/query/react"
+import axiosBaseQuery from "../axiosBaseQuery"
 
 const genreApi = createApi({
     tagTypes: ["Genres"],
     reducerPath: "genres",
-    refetchOnReconnect: true,
-    refetchOnMountOrArgChange: true,
-
-    baseQuery: fetchBaseQuery({
-        baseUrl: import.meta.env.VITE_BASE_URL
-    }),
+    keepUnusedDataFor: 5 * 60,
+    baseQuery: axiosBaseQuery(),
     endpoints: (builder) => ({
         fetchAllGenres: builder.query({
-            query: () => "/genres",
+            query: () => ({ url: "/genres", method: "GET" }),
             providesTags: ["Genres"]
         }),
 
         fetchSingleGenre: builder.query({
-            query: (id) => `/genres/${id}`
+            query: (id) => ({ url: `/genres/${id}`, method: "GET" })
         })
     })
 })

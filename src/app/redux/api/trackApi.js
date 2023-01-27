@@ -1,20 +1,20 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { addToQueue, setCurrentPlaylist } from "../slice/queueSlice"
+import { createApi } from "@reduxjs/toolkit/query/react"
+import axiosBaseQuery from "../axiosBaseQuery"
+import { setCurrentPlaylist } from "../slice/queueSlice"
 import store from "../store"
 
 const trackApi = createApi({
     reducerPath: "tracks",
     tagTypes: ["Tracks", "LikedTracks"],
-    refetchOnMountOrArgChange: true,
-    refetchOnReconnect: true,
-    baseQuery: fetchBaseQuery({
-        baseUrl: import.meta.env.VITE_BASE_URL
-    }),
+    baseQuery: axiosBaseQuery(),
     endpoints: (builder) => {
         return {
             fetchTracks: builder.query({
                 query: ({ skip, limit }) => {
-                    return `/tracks?skip=${skip}&limit=${limit}`
+                    return {
+                        url: `/tracks?skip=${skip}&limit=${limit}`,
+                        method: "GET"
+                    }
                 },
                 async onQueryStarted(args, { dispatch, queryFulfilled }) {
                     try {
@@ -26,11 +26,15 @@ const trackApi = createApi({
                         console.log(error.message)
                     }
                 },
+                keepUnusedDataFor: 5 * 60,
                 providesTags: ["Tracks"]
             }),
             fetchRelatedTracks: builder.query({
                 query: ({ genre, skip, limit }) => {
-                    return `/tracks/related/${genre}?skip=${skip}&limit=${limit}`
+                    return {
+                        url: `/tracks/related/${genre}?skip=${skip}&limit=${limit}`,
+                        method: "GET"
+                    }
                 },
 
                 // Refetch when the page arg changes

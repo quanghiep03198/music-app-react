@@ -1,29 +1,25 @@
-import instance from "@/app/axios/instance"
+import axios from "@/app/axios/axios.config"
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import store from "../store"
 
 export const fetchUserThunkAction = createAsyncThunk(
     "user/fetchUser",
-    async () => {
-        const user = await instance.get("/user")
-        console.log(user)
-        return user
-    }
+    async () => await axios.get("/user")
 )
 
-export const loginThunkAction = createAsyncThunk("user/login", async (data) => {
-    return await instance.post("/login", data)
-})
+export const loginThunkAction = createAsyncThunk(
+    "user/login",
+    async (data) => await axios.post("/login", data)
+)
 
 export const refreshTokenThunkAction = createAsyncThunk(
     "user/refreshToken",
     async () => {
         const { authId } = store.getState().auth
         if (!authId) {
-            console.log("auth id:>>", authId)
-            return Promise.reject("Auth ID is invalid!")
+            return Promise.reject("Invalid auth ID!")
         }
-        return await instance.get(`/refresh-token/${authId}`)
+        return await axios.get(`/refresh-token/${authId}`)
     }
 )
 
@@ -36,9 +32,6 @@ const userSlice = createSlice({
     name: "auth",
     initialState: initialState,
     reducers: {
-        setCurrentUser: (state, action) => {
-            state.userInfo = action.payload
-        },
         logout: (state, action) => {
             return initialState
         }
@@ -57,5 +50,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { setCurrentUser, logout } = userSlice.actions
+export const { logout } = userSlice.actions
 export default userSlice

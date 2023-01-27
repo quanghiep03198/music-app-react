@@ -1,31 +1,27 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react"
+import { createApi } from "@reduxjs/toolkit/dist/query/react"
+import axiosBaseQuery from "../axiosBaseQuery"
 
 const albumApi = createApi({
     tagTypes: ["Albums", "UserAlbums"],
-    refetchOnReconnect: true,
-    refetchOnMountOrArgChange: true,
     reducerPath: "albums",
-    baseQuery: fetchBaseQuery({
-        baseUrl: import.meta.env.VITE_BASE_URL,
-        prepareHeaders: (headers, { getState }) => {
-            const token = getState().auth?.token
-            if (token) {
-                headers.set("token", token)
-            }
-            return headers
-        }
-    }),
+    keepUnusedDataFor: 5 * 60,
+    baseQuery: axiosBaseQuery(),
     endpoints: (builder) => ({
         fetchAlbums: builder.query({
-            query: ({ skip = 0, limit }) => {
-                return `/albums?skip=${skip}&limit=${limit}`
-            },
+            query: ({ skip = 0, limit }) => ({
+                url: `/albums?skip=${skip}&limit=${limit}`,
+                method: "GET"
+            }),
             providesTags: ["Albums"]
         }),
         fetchSingleAlbum: builder.query({
-            query: (id) => `/albums/${id}`
+            query: (id) => ({ url: `/albums/${id}`, method: "GET" }),
+            forceRefetch({ currentArg, previousArg }) {
+                return currentArg !== previousArg
+            }
         })
     })
 })
+console.log(albumApi.endpoints)
 export const { useFetchAlbumsQuery, useFetchSingleAlbumQuery } = albumApi
 export default albumApi

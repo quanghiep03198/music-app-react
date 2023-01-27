@@ -21,7 +21,8 @@ import rootReducer from "./rootReducer"
 import queueSlice from "./slice/queueSlice"
 
 const persistConfig = {
-    key: "root",
+    key: "redux",
+
     storage
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
