@@ -6,6 +6,7 @@ import store from "../store"
 const trackApi = createApi({
     reducerPath: "tracks",
     tagTypes: ["Tracks", "LikedTracks"],
+    refetchOnReconnect: true,
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => {
         return {
@@ -27,6 +28,10 @@ const trackApi = createApi({
                     }
                 },
                 keepUnusedDataFor: 5 * 60,
+                // Always merge incoming data to the cache entry
+                merge: (currentCache, newItems) => {
+                    currentCache.push(...newItems)
+                },
                 providesTags: ["Tracks"]
             }),
             fetchRelatedTracks: builder.query({

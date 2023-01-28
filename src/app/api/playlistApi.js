@@ -5,6 +5,7 @@ const playlistApi = createApi({
     reducerPath: "playlists",
     tagTypes: ["Playlists", "UserPlaylists"],
     keepUnusedDataFor: 5 * 60,
+    refetchOnReconnect: true,
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => {
         return {
@@ -15,7 +16,7 @@ const playlistApi = createApi({
                 }),
                 providesTags: ["UserPlaylists"]
             }),
-            fetchAllPlaylist: builder.query({
+            fetchPlaylists: builder.query({
                 query: ({ skip = 0, limit }) => ({
                     url: `/playlists?skip=${skip}&limit=${limit}`,
                     method: "GET"
@@ -51,7 +52,7 @@ const playlistApi = createApi({
 
 export const {
     useFetchSinglePlaylistQuery,
-    useFetchAllPlaylistQuery,
+    useFetchPlaylistsQuery,
     useFetchUserPlaylistsQuery,
     useAddToPlaylistMutation,
     useUpdateUserPlaylistMutation

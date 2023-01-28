@@ -4,7 +4,7 @@ import axiosBaseQuery from "../axiosBaseQuery"
 const artistApi = createApi({
     reducerPath: "artists",
     tagTypes: ["Artists"],
-    keepUnusedDataFor: 5 * 60,
+    refetchOnReconnect: true,
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => {
         return {
@@ -13,7 +13,7 @@ const artistApi = createApi({
                     url: `/artists?skip=${skip}&limit=${limit}`,
                     method: "GET"
                 }),
-
+                keepUnusedDataFor: 5 * 60,
                 providesTags: ["Artists"]
             })
         }

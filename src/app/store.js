@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit"
+import { setupListeners } from "@reduxjs/toolkit/dist/query"
 import {
     FLUSH,
     KEY_PREFIX,
@@ -51,6 +52,9 @@ const store = configureStore({
         ]),
     devTools: currentEnv.toLowerCase() === "development"
 })
+
+// option to use refetchOnMountedOrArgsChange
+setupListeners(store.dispatch)
 
 export const persistor = persistStore(store)
 export default store

@@ -5,6 +5,7 @@ const genreApi = createApi({
     tagTypes: ["Genres"],
     reducerPath: "genres",
     keepUnusedDataFor: 5 * 60,
+    refetchOnReconnect: true,
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => ({
         fetchAllGenres: builder.query({
