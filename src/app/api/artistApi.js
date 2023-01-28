@@ -6,7 +6,7 @@ const artistApi = createApi({
     tagTypes: ["Artists"],
     refetchOnReconnect: true,
     baseQuery: axiosBaseQuery(),
-    endpoints: (builder) => {
+    endpoints(builder) {
         return {
             fetchArtists: builder.query({
                 query(query) {
