@@ -1,4 +1,5 @@
 import { useFetchUserPlaylistsQuery } from "@/app/api/playlistApi"
+import { CardTextSkeleton } from "@/components/customs/Atomics/Card"
 import { Menu, MenuItem } from "@/components/customs/Atomics/Menu"
 import React from "react"
 import { BsPlus, BsPlusSquareDotted } from "react-icons/bs"
@@ -11,17 +12,18 @@ const UserPlaylists = () => {
         id: authId,
         query: { skip: 0, limit: 20 }
     })
-    console.log(data)
     return (
         <Menu>
-            <MenuItem>
-                <a role="menuitem">
-                    <BsPlusSquareDotted /> Create playlist
-                </a>
-            </MenuItem>
-            {/* <MenuItem>
-                <Link to={`/playlist${id}`}></Link>
-            </MenuItem> */}
+            {isFetching &&
+                [1, 2, 3].map((item) => <CardTextSkeleton key={item} />)}
+            {Array.isArray(data) &&
+                data.map((playlist) => (
+                    <MenuItem key={playlist?._id}>
+                        <Link to={`/playlist/${playlist?._id}`}>
+                            {playlist?.title}
+                        </Link>
+                    </MenuItem>
+                ))}
         </Menu>
     )
 }
