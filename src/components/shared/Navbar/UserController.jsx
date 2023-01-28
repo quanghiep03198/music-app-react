@@ -12,7 +12,7 @@ const UserController = ({ user }) => {
 
     return (
         <Dropdown position="bottom-end">
-            <Avatar size="md" tabIndex={0} online={true}>
+            <Avatar size="md" tabIndex={0} className="online">
                 <img src={user?.avatar} />
             </Avatar>
             <DropdownContent tabIndex={0}>

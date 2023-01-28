@@ -3,12 +3,16 @@ import {
     CardBody,
     CardTextSkeleton,
     CardTitleSkeleton,
-    FigureSkeleton
+    Figure,
+    SkeletonFigure,
+    SkeletonImage
 } from "../../customs/Atomics/Card"
 
 const CardSkeleton = ({ mask }) => (
-    <Card>
-        <FigureSkeleton mask={mask} />
+    <Card skeleton="true">
+        <SkeletonFigure mask={mask || "square"}>
+            <SkeletonImage />
+        </SkeletonFigure>
         <CardBody>
             <CardTitleSkeleton />
             <CardTextSkeleton />

@@ -1,7 +1,9 @@
 import { memo, useEffect, useRef } from "react"
+import { useSelector } from "react-redux"
 import { Link, useLocation } from "react-router-dom"
 import tw from "tailwind-styled-components"
 import SidebarMenu from "./SidebarMenu"
+import UserPlaylists from "./UserPlaylists"
 import Logo from "/images/logo.png"
 
 const DrawerSidebar = tw.aside`drawer-side`
@@ -15,7 +17,7 @@ const Sidebar = () => {
     useEffect(() => {
         overlayRef.current.click()
     }, [pathname])
-
+    const { userInfo } = useSelector((state) => state.auth)
     return (
         <DrawerSidebar>
             <DrawerOverlay htmlFor="sidebar-toggle" ref={overlayRef} />
@@ -26,6 +28,7 @@ const Sidebar = () => {
 
                 <SidebarMenu />
                 <div className="divider"></div>
+                {userInfo && <UserPlaylists />}
             </DrawerSideWrapper>
         </DrawerSidebar>
     )

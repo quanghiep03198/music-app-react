@@ -1,6 +1,10 @@
 import tw from "tailwind-styled-components"
 
-export const Card = tw.div`group card w-full bg-base-300 p-4 sm:p-2 shadow-xl hover:bg-neutral hover:cursor-grab`
+export const Card = tw.div`group card w-full p-4 sm:p-2 shadow-xl ${(props) =>
+    props.skeleton
+        ? "bg-base-200"
+        : "bg-base-300 hover:bg-neutral"} hover:cursor-grab`
+
 export const Figure = tw.figure`relative rounded-lg mask ${(props) => {
     switch (props.mask) {
         case "square":
@@ -20,9 +24,8 @@ export const Figure = tw.figure`relative rounded-lg mask ${(props) => {
 export const CardTitle = tw.h1`card-title sm:text-base truncate`
 export const CardBody = tw.div`card-body px-0 py-4`
 export const CardAction = tw.div`card-actions`
-export const FigureSkeleton = tw.div`mask w-full h-60 bg-neutral rounded-lg ${(
-    props
-) => {
+
+export const SkeletonFigure = tw.div`rounded-lg mask ${(props) => {
     switch (props.mask) {
         case "square":
             return "mask-square"
@@ -38,5 +41,6 @@ export const FigureSkeleton = tw.div`mask w-full h-60 bg-neutral rounded-lg ${(
             return "mask-square"
     }
 }}`
-export const CardTitleSkeleton = tw.h1`w-full h-2 rounded-full bg-neutral animate-pulse`
-export const CardTextSkeleton = tw.h1`w-1/2 h-2 rounded-full bg-neutral animate-pulse`
+export const SkeletonImage = tw.div`h-60 max-w-full animate-pulse bg-neutral`
+export const CardTitleSkeleton = tw.h1`w-24 h-2 rounded-full bg-neutral animate-pulse`
+export const CardTextSkeleton = tw.h1`w-24 h-2 rounded-full bg-neutral animate-pulse`

@@ -23,9 +23,6 @@ import tw from "tailwind-styled-components"
 import Button from "../../customs/Atomics/Button"
 import { Dropdown, DropdownContent } from "../../customs/Atomics/Dropdown"
 import SoundWave from "./SoundWave"
-export const StyledTrackCard = tw.div`group track-card p-1 gap-2`
-
-const TrackIndex = tw.span`group-hover:hidden w-full`
 
 const TrackCard = ({ index, track }) => {
     const { playState, setPlayState } = useContext(AppContext)
@@ -66,98 +63,93 @@ const TrackCard = ({ index, track }) => {
     }
 
     return (
-        <StyledTrackCard className={isCurrentTrack && "bg-neutral"}>
-            <div>
-                <div className="relative text-center">
-                    <SoundWave
-                        track={track}
-                        isPlaying={isPlaying && playState}
-                    />
-                    {!isPlaying && <TrackIndex>{index}</TrackIndex>}
-                    <Button
-                        shape="circle"
-                        color="success"
-                        className="hidden text-xl group-hover:inline-flex sm:btn-sm"
-                        onClick={() => togglePlay(track)}
-                    >
-                        {isPlaying ? <BsPauseFill /> : <BsPlayFill />}
-                    </Button>
-                </div>
+        <div
+            className={`track-card group gap-2 p-1 hover:bg-base-content/10 ${
+                isCurrentTrack && "group bg-neutral"
+            }`}
+        >
+            <div className="relative text-center">
+                <SoundWave track={track} isPlaying={isPlaying && playState} />
+                {!isPlaying && (
+                    <span className="w-full group-hover:hidden">{index}</span>
+                )}
+                <Button
+                    shape="circle"
+                    color="success"
+                    className="hidden text-xl group-hover:inline-flex sm:text-base sm:btn-sm"
+                    onClick={() => togglePlay(track)}
+                >
+                    {isPlaying ? <BsPauseFill /> : <BsPlayFill />}
+                </Button>
             </div>
-            <div>
-                <div className="flex items-center gap-2">
-                    <img
-                        src={track?.thumbnail}
-                        className="h-14 w-14 rounded-md sm:h-12 sm:w-12"
-                        loading="lazy"
-                    />
-                    <div>
-                        <h5 className="truncate">{track?.title}</h5>
-                        <p>
-                            {Array.isArray(track.artists) &&
-                                track.artists
-                                    .map((artist) => artist.name)
-                                    .join(", ")}
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div>{track.album?.title ?? ""}</div>
-            <div>
-                <div className="flex items-center gap-2">
-                    <BsPlayFill /> {formatNumber(track?.listen)}
-                </div>
-            </div>
-            <div>
-                <div className="flex items-center gap-2">
-                    <BsClock /> {timer(track?.duration)}
-                </div>
-            </div>
-            <div>
-                <Dropdown gap={6} position="bottom-end">
-                    <Button
-                        role="none"
-                        size="sm"
-                        shape="square"
-                        color="transparent"
-                        tabIndex={0}
-                    >
-                        <BsThreeDots />
-                    </Button>
-                    <DropdownContent tabIndex={0}>
-                        <Menu className="bg-base-300">
-                            <MenuItem>
-                                <a role="button" className="truncate">
-                                    <BsHeart /> Save to your library
-                                </a>
-                            </MenuItem>
 
-                            {isInQueue ? (
-                                <MenuItem onClick={handleRemoveFromQueue}>
-                                    <a role="button" className="truncate">
-                                        <HiOutlineMinus /> Remove from queue
-                                    </a>
-                                </MenuItem>
-                            ) : (
-                                <MenuItem onClick={handleAddToQueue}>
-                                    <a role="button">
-                                        <BsPlusLg /> Add to queue
-                                    </a>
-                                </MenuItem>
-                            )}
-                            <MenuItem>
-                                <a
-                                    href={track?.downloadUrl}
-                                    className="truncate"
-                                >
-                                    <BsDownload /> Download
+            <div className="flex items-center gap-2">
+                <img
+                    src={track?.thumbnail}
+                    className="h-14 w-14 rounded-md sm:h-12 sm:w-12"
+                    loading="lazy"
+                />
+                <div>
+                    <h5 className="truncate">{track?.title}</h5>
+                    <p>
+                        {Array.isArray(track.artists) &&
+                            track.artists
+                                .map((artist) => artist.name)
+                                .join(", ")}
+                    </p>
+                </div>
+            </div>
+
+            <span>{track.album?.title ?? ""}</span>
+
+            <time className="flex items-center gap-2">
+                <BsPlayFill /> {formatNumber(track?.listen)}
+            </time>
+
+            <div className="flex items-center gap-2">
+                <BsClock /> {timer(track?.duration)}
+            </div>
+
+            <Dropdown gap={6} position="bottom-end">
+                <Button
+                    role="none"
+                    size="sm"
+                    shape="square"
+                    color="transparent"
+                    tabIndex={0}
+                >
+                    <BsThreeDots />
+                </Button>
+                <DropdownContent tabIndex={0}>
+                    <Menu className="bg-base-300">
+                        <MenuItem>
+                            <a role="button" className="truncate">
+                                <BsHeart /> Save to your library
+                            </a>
+                        </MenuItem>
+
+                        {isInQueue ? (
+                            <MenuItem onClick={handleRemoveFromQueue}>
+                                <a role="button" className="truncate">
+                                    <HiOutlineMinus /> Remove from queue
                                 </a>
                             </MenuItem>
-                        </Menu>
-                    </DropdownContent>
-                </Dropdown>
-            </div>
-        </StyledTrackCard>
+                        ) : (
+                            <MenuItem onClick={handleAddToQueue}>
+                                <a role="button">
+                                    <BsPlusLg /> Add to queue
+                                </a>
+                            </MenuItem>
+                        )}
+                        <MenuItem>
+                            <a href={track?.downloadUrl} className="truncate">
+                                <BsDownload /> Download
+                            </a>
+                        </MenuItem>
+                    </Menu>
+                </DropdownContent>
+            </Dropdown>
+        </div>
     )
 }
 

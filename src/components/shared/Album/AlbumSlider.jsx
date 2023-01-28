@@ -1,13 +1,12 @@
 import { useFetchAlbumsQuery } from "@/app/api/albumApi"
 import swiperBreakpoints from "@/config/swiperBreakpoint.config"
-import { lazy, Suspense, useId, useRef } from "react"
+import { lazy, Suspense, useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 import Button from "../../customs/Atomics/Button"
 
-import Loading from "../../customs/Atomics/Loading"
-import CardSkeleton from "../Skeletons/Card"
+import CardSkeleton from "../Skeletons/SkeletonCard"
 
 const AlbumCard = lazy(() => import("./AlbumCard"))
 
@@ -30,6 +29,12 @@ const AlbumSlider = () => {
                 ref={swiperRef}
                 className="album-slide container pb-10"
             >
+                {isFetching &&
+                    [1, 2, 3, 4, 5].map((item) => (
+                        <SwiperSlide key={item}>
+                            <CardSkeleton />
+                        </SwiperSlide>
+                    ))}
                 {Array.isArray(data) &&
                     data.map((album) => (
                         <SwiperSlide key={album?._id}>

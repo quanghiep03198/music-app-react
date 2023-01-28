@@ -9,10 +9,9 @@ import "swiper/css/navigation"
 import "swiper/css/pagination"
 import { Swiper, SwiperSlide } from "swiper/react"
 import Button from "../../customs/Atomics/Button"
-import CardSkeleton from "../Skeletons/Card"
+import CardSkeleton from "../Skeletons/SkeletonCard"
 
-const ArtistCard = lazy(() => import("./ArtistCard"))
-// import ArtistCard from "./ArtistCard"
+import ArtistCard from "./ArtistCard"
 
 const ArtistSlider = () => {
     const { data, isFetching } = useFetchArtistsQuery({ skip: 0, limit: 10 })
@@ -32,12 +31,16 @@ const ArtistSlider = () => {
                 className="artists-slide container pb-10"
                 ref={swiperRef}
             >
+                {isFetching &&
+                    [1, 2, 3, 4, 5].map((item) => (
+                        <SwiperSlide key={item}>
+                            <CardSkeleton />
+                        </SwiperSlide>
+                    ))}
                 {Array.isArray(data) &&
                     data.map((artist) => (
                         <SwiperSlide key={artist._id}>
-                            <Suspense fallback={<CardSkeleton mask="circle" />}>
-                                <ArtistCard artistData={artist} />
-                            </Suspense>
+                            <ArtistCard artistData={artist} />
                         </SwiperSlide>
                     ))}
             </Swiper>

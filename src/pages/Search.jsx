@@ -11,7 +11,7 @@ import ArtistList from "@/components/shared/Artist/ArtistList"
 import PlaylistList from "@/components/shared/Playlist/PlaylistList"
 
 const Search = () => {
-    const { data, isFetching } = useFetchAllGenresQuery()
+    const { data, isFetching, isError } = useFetchAllGenresQuery(undefined)
     const { searchResult } = useContext(AppContext)
 
     return (
@@ -96,7 +96,10 @@ const Search = () => {
             ) : (
                 <>
                     <Typography>Discovery</Typography>
-                    <GenreList data={data} />
+                    <GenreList
+                        data={data}
+                        status={{ isFetching: isFetching, isError: isError }}
+                    />
                 </>
             )}
         </section>

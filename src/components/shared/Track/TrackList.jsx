@@ -1,18 +1,15 @@
-import { useFetchTracksQuery } from "@/app/api/trackApi"
-import { setCurrentTrack } from "@/app/slices/queueSlice"
-import ErrorBoundary from "@/components/customs/ErrorBoundary"
-import { lazy, Suspense, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import tw from "tailwind-styled-components"
-import TrackCardSkeleton from "./TrackCardSkeleton"
+import SkeletonTrackCard from "../Skeletons/SkelentonTrackCard"
 
 import TrackCard from "./TrackCard"
 
 export const StyledTracksList = tw.div`flex flex-col gap-2 w-full`
 
-const TrackList = ({ data }) => {
+const TrackList = ({ data, status }) => {
     return (
         <StyledTracksList>
+            {status.isFetching &&
+                [1, 2, 3, 4, 5].map((item) => <SkeletonTrackCard key={item} />)}
             {Array.isArray(data) &&
                 data.map((track, index) => {
                     return (

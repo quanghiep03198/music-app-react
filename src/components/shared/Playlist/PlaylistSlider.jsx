@@ -5,8 +5,8 @@ import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 import Button from "../../customs/Atomics/Button"
-import CardSkeleton from "../Skeletons/Card"
-const PlaylistCard = lazy(() => import("./PlaylistCard"))
+import CardSkeleton from "../Skeletons/SkeletonCard"
+import PlaylistCard from "./PlaylistCard"
 
 const PlaylistSlider = () => {
     const { data, isFetching, isLoading } = useFetchUserPlaylistsQuery({
@@ -31,12 +31,16 @@ const PlaylistSlider = () => {
                 className="playlist-slide container pb-10"
                 ref={swiperRef}
             >
+                {isFetching &&
+                    [1, 2, 3, 4, 5].map((item) => (
+                        <SwiperSlide key={item}>
+                            <CardSkeleton />
+                        </SwiperSlide>
+                    ))}
                 {Array.isArray(data) &&
                     data.map((playlist) => (
                         <SwiperSlide key={playlist?._id}>
-                            <Suspense fallback={<CardSkeleton mask="square" />}>
-                                <PlaylistCard playlist={playlist} />
-                            </Suspense>
+                            <PlaylistCard playlist={playlist} />
                         </SwiperSlide>
                     ))}
             </Swiper>

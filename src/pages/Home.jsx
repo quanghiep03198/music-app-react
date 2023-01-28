@@ -10,13 +10,16 @@ export const Typography = tw.h1`text-2xl font-semibold first-letter:uppercase mb
 export const PageContent = tw.div`flex flex-col gap-10 items-stretch`
 
 const HomePage = () => {
-    const { data } = useFetchTracksQuery({ skip: 0, limit: 5 })
+    const { data, isFetching, isError } = useFetchTracksQuery({
+        skip: 0,
+        limit: 5
+    })
 
     return (
         <>
             <section className="pb-10">
                 <Typography>most popular</Typography>
-                <TrackList data={data} />
+                <TrackList data={data} status={{ isFetching, isError }} />
             </section>
 
             <section>
