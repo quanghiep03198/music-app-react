@@ -9,10 +9,11 @@ const artistApi = createApi({
     endpoints: (builder) => {
         return {
             fetchArtists: builder.query({
-                query({ skip, limit }) {
+                query(query) {
                     return {
-                        url: `/artists?skip=${skip}&limit=${limit}`,
-                        method: "GET"
+                        url: `/artists`,
+                        method: "GET",
+                        query: query
                     }
                 },
                 keepUnusedDataFor: 5 * 60,

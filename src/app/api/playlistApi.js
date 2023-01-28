@@ -1,5 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react"
 import axiosBaseQuery from "../axiosBaseQuery"
+import qs from "qs"
 
 const playlistApi = createApi({
     reducerPath: "playlists",
@@ -10,24 +11,30 @@ const playlistApi = createApi({
     endpoints: (builder) => {
         return {
             fetchUserPlaylists: builder.query({
-                query: ({ userId, skip, limit }) => ({
-                    url: `/playlists/created-by/${userId}?skip=${skip}&limit=${limit}`,
-                    method: "GET"
-                }),
+                query({ id, query }) {
+                    console.log(qs.stringify(query))
+                    return {
+                        url: `/playlists/created-by/${id}`,
+                        method: "GET",
+                        query: qs.stringify(query)
+                    }
+                },
+
                 providesTags: ["UserPlaylists"]
             }),
             fetchPlaylists: builder.query({
-                query({ skip = 0, limit }) {
+                query(query) {
                     return {
-                        url: `/playlists?skip=${skip}&limit=${limit}`,
-                        method: "GET"
+                        url: `/playlists`,
+                        method: "GET",
+                        query: query
                     }
                 },
                 providesTags: ["Playlists"]
             }),
             fetchSinglePlaylist: builder.query({
                 query(id) {
-                    return { url: `/playlists/${id}`, method: "POST" }
+                    return { url: `/playlists/${id}`, method: "GET" }
                 }
             }),
             addToPlaylist: builder.mutation({
@@ -35,7 +42,7 @@ const playlistApi = createApi({
                     return {
                         url: `/playlists/${id}`,
                         method: "PATCH",
-                        body: payload
+                        data: payload
                     }
                 },
                 invalidatesTags: ["UserPlaylists", "Playlists"]
@@ -45,7 +52,7 @@ const playlistApi = createApi({
                     return {
                         url: `/playlists/${id}`,
                         method: "PATCH",
-                        body: payload
+                        data: payload
                     }
                 },
                 invalidatesTags: ["UserPlaylists"]

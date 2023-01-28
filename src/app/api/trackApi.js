@@ -11,10 +11,11 @@ const trackApi = createApi({
     endpoints: (builder) => {
         return {
             fetchTracks: builder.query({
-                query({ skip, limit }) {
+                query(query) {
                     return {
-                        url: `/tracks?skip=${skip}&limit=${limit}`,
-                        method: "GET"
+                        url: `/tracks`,
+                        method: "GET",
+                        query
                     }
                 },
                 async onQueryStarted(args, { dispatch, queryFulfilled }) {
@@ -31,10 +32,11 @@ const trackApi = createApi({
                 providesTags: ["Tracks"]
             }),
             fetchRelatedTracks: builder.query({
-                query({ genre, skip, limit }) {
+                query({ genre, query }) {
                     return {
-                        url: `/tracks/related/${genre}?skip=${skip}&limit=${limit}`,
-                        method: "GET"
+                        url: `/tracks/related/${genre}`,
+                        method: "GET",
+                        query
                     }
                 },
 

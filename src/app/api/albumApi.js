@@ -8,10 +8,11 @@ const albumApi = createApi({
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => ({
         fetchAlbums: builder.query({
-            query({ skip = 0, limit }) {
+            query(query) {
                 return {
-                    url: `/albums?skip=${skip}&limit=${limit}`,
-                    method: "GET"
+                    url: `/albums`,
+                    method: "GET",
+                    query: query
                 }
             },
             providesTags: ["Albums"]
