@@ -1,12 +1,12 @@
+import { fetchUserThunkAction, loginThunkAction } from "@/app/slices/userSlice"
 import Button from "@/components/customs/Atomics/Button"
-import { Link, Navigate, useNavigate } from "react-router-dom"
-import { FcGoogle } from "react-icons/fc"
-import { FaFacebookSquare } from "react-icons/fa"
-import Logo from "/images/logo.png"
-import { useForm } from "react-hook-form"
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
+import { useForm } from "react-hook-form"
+import { FaFacebookSquare } from "react-icons/fa"
+import { FcGoogle } from "react-icons/fc"
 import { useDispatch } from "react-redux"
-import { loginThunkAction } from "@/app/slices/userSlice"
+import { Link, useNavigate } from "react-router-dom"
+import Logo from "/images/logo.png"
 
 const LoginPage = () => {
     const {
@@ -16,15 +16,16 @@ const LoginPage = () => {
     } = useForm()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const onSubmit = async (data) => {
-        try {
-            const { payload } = await dispatch(loginThunkAction(data))
-            payload.id && payload.accessToken
-                ? navigate("/")
-                : navigate("/login")
-        } catch (error) {
-            console.log(error.message)
-        }
+    const onSubmit = (data) => {
+        dispatch(loginThunkAction(data))
+            .then(() => {
+                dispatch(fetchUserThunkAction())
+            })
+            .then(() => navigate("/"))
+            .catch((error) => {
+                console.log(error.message)
+                navigate("/login")
+            })
     }
 
     return (
