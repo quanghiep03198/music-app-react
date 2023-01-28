@@ -46,6 +46,7 @@ axios.interceptors.response.use(
                 refreshTokenThunkAction()
             )
             console.log("Refresh token:>>", newAccessToken.payload)
+            return axios.request(config)
         }
         return data
     },
