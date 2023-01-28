@@ -3,7 +3,7 @@ import qs from "qs"
 export default function axiosBaseQuery() {
     return async ({ url, method, data, query, params }) => {
         try {
-            query = query ? "?" + query : "" // return query string if query is not undefined
+            query = query ? "?" + qs.stringify(query) : "" // return query string if query is not undefined
             const response = await axios({
                 url: url + query, // fetch data with query
                 method,
