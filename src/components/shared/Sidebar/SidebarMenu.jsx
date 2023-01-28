@@ -1,9 +1,13 @@
 import { Menu, MenuItem } from "@/components/customs/Atomics/Menu"
 import { BiLibrary } from "react-icons/bi"
-import { BsHeart, BsHouse, BsSearch } from "react-icons/bs"
+import { BsHeart, BsHouse, BsPlusSquareDotted, BsSearch } from "react-icons/bs"
+import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
+import DefaultFeaturesMenu from "./DefaultFeaturesMenu"
+import FeaturesMenuWithAuthenticated from "./FeaturesMenuWithAuthenticated"
 
 const SidebarMenu = () => {
+    const { userInfo } = useSelector((state) => state.auth)
     return (
         <Menu className="min-w-[320px]">
             <MenuItem>
@@ -26,30 +30,11 @@ const SidebarMenu = () => {
                     <BsSearch aria-hidden className="text-xl" /> Search
                 </NavLink>
             </MenuItem>
-
-            <MenuItem>
-                <NavLink
-                    to="/liked-tracks"
-                    className={({ isActive }) => {
-                        return isActive ? "text-success" : "text-base-content"
-                    }}
-                >
-                    <BsHeart aria-hidden className="text-xl" />
-                    Liked tracks
-                </NavLink>
-            </MenuItem>
-
-            <MenuItem>
-                <NavLink
-                    to="/library"
-                    className={({ isActive }) => {
-                        return isActive ? "text-success" : "text-base-content"
-                    }}
-                >
-                    <BiLibrary aria-hidden className="text-xl" />
-                    Library
-                </NavLink>
-            </MenuItem>
+            {userInfo ? (
+                <FeaturesMenuWithAuthenticated />
+            ) : (
+                <DefaultFeaturesMenu />
+            )}
         </Menu>
     )
 }
