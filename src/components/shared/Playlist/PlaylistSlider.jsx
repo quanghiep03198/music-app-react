@@ -1,6 +1,6 @@
 import { useFetchUserPlaylistsQuery } from "@/app/api/playlistApi"
 import swiperBreakpoints from "@/config/swiperBreakpoint.config"
-import { lazy, Suspense, useRef } from "react"
+import { useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -9,10 +9,9 @@ import CardSkeleton from "../Skeletons/SkeletonCard"
 import PlaylistCard from "./PlaylistCard"
 
 const PlaylistSlider = () => {
-    const { data, isFetching, isLoading } = useFetchUserPlaylistsQuery({
-        userId: import.meta.env.VITE_ADMIN_ID,
-        skip: 0,
-        limit: 10
+    const { data, isFetching } = useFetchUserPlaylistsQuery({
+        id: import.meta.env.VITE_ADMIN_ID,
+        query: { skip: 0, limit: 10 }
     })
 
     const swiperRef = useRef(null)
