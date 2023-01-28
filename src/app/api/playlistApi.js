@@ -12,11 +12,10 @@ const playlistApi = createApi({
         return {
             fetchUserPlaylists: builder.query({
                 query({ id, query }) {
-                    console.log(qs.stringify(query))
                     return {
                         url: `/playlists/created-by/${id}`,
                         method: "GET",
-                        query: qs.stringify(query)
+                        query
                     }
                 },
 
@@ -56,6 +55,15 @@ const playlistApi = createApi({
                     }
                 },
                 invalidatesTags: ["UserPlaylists"]
+            }),
+            deleteUserPlaylist: builder.mutation({
+                query(id) {
+                    return {
+                        url: `/playlist/${id}`,
+                        method: "DELETE"
+                    }
+                },
+                invalidatesTags: ["UserPlaylists"]
             })
         }
     }
@@ -66,6 +74,7 @@ export const {
     useFetchPlaylistsQuery,
     useFetchUserPlaylistsQuery,
     useAddToPlaylistMutation,
-    useUpdateUserPlaylistMutation
+    useUpdateUserPlaylistMutation,
+    useDeleteUserPlaylistMutation
 } = playlistApi
 export default playlistApi
