@@ -87,7 +87,7 @@ const LoginPage = () => {
                                         </span>
                                     </label>
                                     <input
-                                        type="text"
+                                        type="password"
                                         placeholder="password"
                                         className="input-bordered input"
                                         {...register("password", {
