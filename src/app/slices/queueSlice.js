@@ -13,9 +13,9 @@ const queueSlice = createSlice({
             state.currentTrack = action.payload.tracks[0]
         },
         addToQueue: (state, action) => {
-            Array.isArray(action.payload)
-                ? (state.nextup = state.nextup.concat(action.payload))
-                : [action.payload, [...state.nextup]]
+            state.nextup = Array.isArray(action.payload)
+                ? state.nextup.concat(action.payload)
+                : [action.payload, ...state.nextup]
         },
         removeFromQueue: (state, action) => {
             state.nextup = state.nextup.filter(
