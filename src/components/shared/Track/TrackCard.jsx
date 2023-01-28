@@ -1,3 +1,4 @@
+import { useFetchTrackCollectionQuery } from "@/app/api/collectionApi"
 import {
     addToQueue,
     removeFromQueue,
@@ -5,13 +6,13 @@ import {
 } from "@/app/slices/queueSlice"
 import { Menu, MenuItem } from "@/components/customs/Atomics/Menu"
 import { AppContext } from "@/context/AppProvider"
-import formatNumber from "@/utils/formatNumber"
-import timer from "@/utils/timer"
+import { formatNumber, timer } from "@/utils/formatter"
 import { useContext, useEffect, useState } from "react"
 import {
     BsClock,
     BsDownload,
     BsHeart,
+    BsHeartFill,
     BsPauseFill,
     BsPlayFill,
     BsPlusLg,
@@ -19,7 +20,7 @@ import {
 } from "react-icons/bs"
 import { HiOutlineMinus } from "react-icons/hi2"
 import { useDispatch, useSelector } from "react-redux"
-import tw from "tailwind-styled-components"
+import { Link } from "react-router-dom"
 import Button from "../../customs/Atomics/Button"
 import { Dropdown, DropdownContent } from "../../customs/Atomics/Dropdown"
 import SoundWave from "./SoundWave"
@@ -27,7 +28,9 @@ import SoundWave from "./SoundWave"
 const TrackCard = ({ index, track }) => {
     const { playState, setPlayState } = useContext(AppContext)
     const [isPlaying, setIsPlaying] = useState(false)
+    const [isLiked, setIsLiked] = useState(false)
     const [isCurrentTrack, setIsCurrentTrack] = useState(false)
+    const likedTracks = useFetchTrackCollectionQuery(undefined)
 
     const [isInQueue, setIsInQueue] = useState()
 
@@ -35,6 +38,9 @@ const TrackCard = ({ index, track }) => {
     const { currentTrack, nextup } = useSelector((state) => state.queue)
 
     useEffect(() => {
+        setIsLiked(
+            likedTracks.data.findIndex((item) => item._id === track._id) >= 0
+        )
         let isExisted = false
         if (Array.isArray(nextup)) {
             isExisted =
@@ -90,12 +96,14 @@ const TrackCard = ({ index, track }) => {
                     loading="lazy"
                 />
                 <div>
-                    <h5 className="truncate">{track?.title}</h5>
-                    <p>
+                    <h6 className="truncate font-medium">{track?.title}</h6>
+                    <p className="text-base-content/50">
                         {Array.isArray(track.artists) &&
-                            track.artists
-                                .map((artist) => artist.name)
-                                .join(", ")}
+                            track.artists.map((artist) => (
+                                <Link to={`/artist/${artist?._id}`}>
+                                    {artist.name}
+                                </Link>
+                            ))}
                     </p>
                 </div>
             </div>
@@ -122,11 +130,21 @@ const TrackCard = ({ index, track }) => {
                 </Button>
                 <DropdownContent tabIndex={0}>
                     <Menu className="bg-base-300">
-                        <MenuItem>
-                            <a role="button" className="truncate">
-                                <BsHeart /> Save to your library
-                            </a>
-                        </MenuItem>
+                        {isLiked ? (
+                            <MenuItem>
+                                {" "}
+                                <a role="button" className="truncate">
+                                    <BsHeartFill className="text-success" />{" "}
+                                    Remove from your library
+                                </a>
+                            </MenuItem>
+                        ) : (
+                            <MenuItem>
+                                <a role="button" className="truncate">
+                                    <BsHeart /> Save to your library
+                                </a>
+                            </MenuItem>
+                        )}
 
                         {isInQueue ? (
                             <MenuItem onClick={handleRemoveFromQueue}>
