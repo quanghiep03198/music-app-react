@@ -1,6 +1,6 @@
-import { AppContext } from "@/context/AppProvider"
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
-import timer from "@/utils/timer"
+import { AppContext } from "@/context/AppProvider"
+import { timer } from "@/utils/formatter"
 import { useContext, useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import Range from "../../customs/Atomics/Range"
