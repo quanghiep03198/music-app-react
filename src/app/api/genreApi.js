@@ -9,12 +9,16 @@ const genreApi = createApi({
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => ({
         fetchAllGenres: builder.query({
-            query: () => ({ url: "/genres", method: "GET" }),
+            query() {
+                return { url: "/genres", method: "GET" }
+            },
             providesTags: ["Genres"]
         }),
 
         fetchSingleGenre: builder.query({
-            query: (id) => ({ url: `/genres/${id}`, method: "GET" })
+            query(id) {
+                return { url: `/genres/${id}`, method: "GET" }
+            }
         })
     })
 })

@@ -11,7 +11,7 @@ const trackApi = createApi({
     endpoints: (builder) => {
         return {
             fetchTracks: builder.query({
-                query: ({ skip, limit }) => {
+                query({ skip, limit }) {
                     return {
                         url: `/tracks?skip=${skip}&limit=${limit}`,
                         method: "GET"
@@ -28,14 +28,10 @@ const trackApi = createApi({
                     }
                 },
                 keepUnusedDataFor: 5 * 60,
-                // Always merge incoming data to the cache entry
-                merge: (currentCache, newItems) => {
-                    currentCache.push(...newItems)
-                },
                 providesTags: ["Tracks"]
             }),
             fetchRelatedTracks: builder.query({
-                query: ({ genre, skip, limit }) => {
+                query({ genre, skip, limit }) {
                     return {
                         url: `/tracks/related/${genre}?skip=${skip}&limit=${limit}`,
                         method: "GET"
@@ -48,7 +44,7 @@ const trackApi = createApi({
                 }
             }),
             uploadTracks: builder.mutation({
-                query: (payload) => {
+                query(payload) {
                     return {
                         url: "/track-upload",
                         method: "POST",

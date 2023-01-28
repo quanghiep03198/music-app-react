@@ -1,8 +1,7 @@
 import axios from "@/config/axios.config"
 
-const axiosBaseQuery =
-    () =>
-    async ({ url, method, data }) => {
+export default function axiosBaseQuery() {
+    return async ({ url, method, data }) => {
         try {
             const response = await axios({
                 url: url,
@@ -20,5 +19,4 @@ const axiosBaseQuery =
             }
         }
     }
-
-export default axiosBaseQuery
+}

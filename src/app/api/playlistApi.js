@@ -17,17 +17,21 @@ const playlistApi = createApi({
                 providesTags: ["UserPlaylists"]
             }),
             fetchPlaylists: builder.query({
-                query: ({ skip = 0, limit }) => ({
-                    url: `/playlists?skip=${skip}&limit=${limit}`,
-                    method: "GET"
-                }),
+                query({ skip = 0, limit }) {
+                    return {
+                        url: `/playlists?skip=${skip}&limit=${limit}`,
+                        method: "GET"
+                    }
+                },
                 providesTags: ["Playlists"]
             }),
             fetchSinglePlaylist: builder.query({
-                query: (id) => `/playlists/${id}`
+                query(id) {
+                    return { url: `/playlists/${id}`, method: "POST" }
+                }
             }),
             addToPlaylist: builder.mutation({
-                query: (id, payload) => {
+                query(id, payload) {
                     return {
                         url: `/playlists/${id}`,
                         method: "PATCH",
@@ -37,7 +41,7 @@ const playlistApi = createApi({
                 invalidatesTags: ["UserPlaylists", "Playlists"]
             }),
             updateUserPlaylist: builder.mutation({
-                query: (id, payload) => {
+                query(id, payload) {
                     return {
                         url: `/playlists/${id}`,
                         method: "PATCH",
