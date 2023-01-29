@@ -1,4 +1,4 @@
-import { useFetchUserPlaylistsQuery } from "@/app/api/playlistApi"
+import { useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
 import swiperBreakpoints from "@/config/swiperBreakpoint.config"
 import { useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
@@ -44,21 +44,11 @@ const PlaylistSlider = () => {
                     ))}
             </Swiper>
 
-            <Button
-                shape="circle"
-                color="success"
-                size="sm"
-                className="playlist-prev-button absolute top-1/2 left-0 z-[999] -translate-y-1/2 text-base"
-            >
+            <Button shape="circle" color="success" size="sm" className="playlist-prev-button absolute top-1/2 left-0 z-[999] -translate-y-1/2 text-base">
                 <BsArrowLeft />
             </Button>
 
-            <Button
-                shape="circle"
-                color="success"
-                size="sm"
-                className="playlist-next-button absolute top-1/2 right-0 z-[999] -translate-y-1/2 text-base"
-            >
+            <Button shape="circle" color="success" size="sm" className="playlist-next-button absolute top-1/2 right-0 z-[999] -translate-y-1/2 text-base">
                 <BsArrowRight />
             </Button>
         </div>

@@ -1,3 +1,5 @@
+import { useFetchUserDataQuery } from "@/app/services/authApi"
+import { useEffect } from "react"
 import { BsList, BsPerson } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { Link, useLocation } from "react-router-dom"
@@ -6,9 +8,11 @@ import PageNavigator from "./PageNavigator"
 import SearchBox from "./SearchBox"
 import UserController from "./UserController"
 
-const NavbarWrapper = tw.nav`navbar justify-between items-center p-5 bg-base-300/70`
+const NavbarWrapper = tw.nav`navbar justify-between items-center p-5 bg-base-100`
 const Navbar = () => {
-    const { userInfo } = useSelector((state) => state.auth)
+    const { authenticated } = useSelector((state) => state.auth)
+    const { data } = useFetchUserDataQuery(undefined, { skip: !authenticated })
+
     const { pathname } = useLocation()
     return (
         <NavbarWrapper>
@@ -17,19 +21,13 @@ const Navbar = () => {
                 {pathname === "/search" && <SearchBox />}
             </div>
             <div className="flex items-center gap-4">
-                <label
-                    htmlFor="sidebar-toggle"
-                    className="btn-circle btn hidden sm:inline-flex sm:btn-sm"
-                >
+                <label htmlFor="sidebar-toggle" className="btn-circle btn hidden sm:inline-flex sm:btn-sm">
                     <BsList aria-hidden />
                 </label>
-                {userInfo !== null ? (
-                    <UserController user={userInfo} />
+                {authenticated ? (
+                    <UserController user={data} />
                 ) : (
-                    <Link
-                        to="/login"
-                        className="btn-circle btn text-xl sm:btn-sm"
-                    >
+                    <Link to="/login" className="btn-circle btn text-xl sm:btn-sm">
                         <BsPerson aria-hidden />
                     </Link>
                 )}

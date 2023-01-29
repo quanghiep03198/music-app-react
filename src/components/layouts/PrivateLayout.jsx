@@ -4,12 +4,12 @@ import { Navigate } from "react-router-dom"
 import { toast } from "react-toastify"
 
 const PrivateLayout = ({ children }) => {
-    const { userInfo } = useSelector((state) => state.auth)
+    const { authenticated } = useSelector((state) => state.auth)
     useEffect(() => {
-        if (!userInfo) toast.info("You have to login first!")
+        if (!authenticated) toast.info("You have to login first!")
     }, [])
 
-    return userInfo ? children : <Navigate to={-1} replace={true} />
+    return authenticated ? children : <Navigate to={-1} replace={true} />
 }
 
 export default PrivateLayout

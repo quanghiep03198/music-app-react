@@ -11,22 +11,22 @@ const playlistApi = createApi({
     endpoints: (builder) => {
         return {
             fetchUserPlaylists: builder.query({
-                query({ id, query }) {
+                query({ id, params }) {
                     return {
                         url: `/playlists/created-by/${id}`,
                         method: "GET",
-                        query
+                        params
                     }
                 },
 
                 providesTags: ["UserPlaylists"]
             }),
             fetchPlaylists: builder.query({
-                query(query) {
+                query(params) {
                     return {
                         url: `/playlists`,
                         method: "GET",
-                        query: query
+                        params
                     }
                 },
                 providesTags: ["Playlists"]
@@ -47,11 +47,11 @@ const playlistApi = createApi({
                 invalidatesTags: ["UserPlaylists", "Playlists"]
             }),
             updateUserPlaylist: builder.mutation({
-                query(id, payload) {
+                query(id, data) {
                     return {
                         url: `/playlists/${id}`,
                         method: "PATCH",
-                        data: payload
+                        data
                     }
                 },
                 invalidatesTags: ["UserPlaylists"]

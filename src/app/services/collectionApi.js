@@ -6,7 +6,6 @@ const collectionApi = createApi({
     baseQuery: axiosBaseQuery(),
     reducerPath: "collections",
     refetchOnReconnect: true,
-    keepUnusedDataFor: 5 * 60,
     endpoints(builder) {
         return {
             fetchTrackCollection: builder.query({
@@ -16,6 +15,7 @@ const collectionApi = createApi({
                         method: "GET"
                     }
                 },
+                keepUnusedDataFor: 5 * 60,
                 providesTags: ["TrackCollection"]
             })
         }

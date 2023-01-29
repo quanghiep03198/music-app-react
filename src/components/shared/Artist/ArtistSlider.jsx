@@ -1,4 +1,4 @@
-import { useFetchArtistsQuery } from "@/app/api/artistApi"
+import { useFetchArtistsQuery } from "@/app/services/artistApi"
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
 import swiperBreakpoints from "@/config/swiperBreakpoint.config"
 import { lazy, Suspense, useRef } from "react"

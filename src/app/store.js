@@ -1,24 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/dist/query"
-import {
-    FLUSH,
-    KEY_PREFIX,
-    PAUSE,
-    PERSIST,
-    persistReducer,
-    persistStore,
-    PURGE,
-    REGISTER,
-    REHYDRATE
-} from "redux-persist"
+import { FLUSH, KEY_PREFIX, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 
-import albumApi from "./api/albumApi"
-import artistApi from "./api/artistApi"
-import collectionApi from "./api/collectionApi"
-import genreApi from "./api/genreApi"
-import playlistApi from "./api/playlistApi"
-import trackApi from "./api/trackApi"
+import albumApi from "./services/albumApi"
+import artistApi from "./services/artistApi"
+import authApi from "./services/authApi"
+import collectionApi from "./services/collectionApi"
+import genreApi from "./services/genreApi"
+import playlistApi from "./services/playlistApi"
+import trackApi from "./services/trackApi"
 import rootReducer from "./rootReducer"
 
 const persistConfig = {
@@ -34,15 +25,7 @@ const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: [
-                    FLUSH,
-                    REHYDRATE,
-                    PAUSE,
-                    PERSIST,
-                    PURGE,
-                    REGISTER,
-                    KEY_PREFIX
-                ]
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, KEY_PREFIX]
             }
         }).concat([
             trackApi.middleware,
@@ -50,7 +33,8 @@ const store = configureStore({
             artistApi.middleware,
             albumApi.middleware,
             genreApi.middleware,
-            collectionApi.middleware
+            collectionApi.middleware,
+            authApi.middleware
         ]),
     devTools: currentEnv.toLowerCase() === "development"
 })

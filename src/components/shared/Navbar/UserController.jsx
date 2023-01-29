@@ -1,4 +1,4 @@
-import { logout } from "@/app/slices/userSlice"
+import { logout } from "@/app/slices/authSlice"
 import { BsPerson } from "react-icons/bs"
 import { HiLogout } from "react-icons/hi"
 import { useDispatch } from "react-redux"
@@ -12,15 +12,17 @@ const UserController = ({ user }) => {
 
     return (
         <Dropdown position="bottom-end">
-            <Avatar size="md" tabIndex={0} className="online">
-                <img src={user?.avatar} />
-            </Avatar>
+            <button className="flex items-center gap-2" tabIndex={0}>
+                <Avatar size="xs">
+                    <img src={user?.avatar} className="ring-4 ring-neutral" />
+                </Avatar>{" "}
+                <span className="badge sm:hidden md:hidden">{user?.username}</span>
+            </button>
             <DropdownContent tabIndex={0}>
                 <Menu className="min-w-[240px] bg-base-300">
                     <MenuItem>
                         <Link to="/account/:id">
-                            <BsPerson /> Account{" "}
-                            <span className="badge">{user?.username}</span>
+                            <BsPerson /> Account <span className="badge hidden sm:inline-flex md:inline-flex">{user?.username}</span>
                         </Link>
                     </MenuItem>
                     <MenuItem onClick={() => dispatch(logout())}>

@@ -1,4 +1,4 @@
-import { useFetchUserPlaylistsQuery } from "@/app/api/playlistApi"
+import { useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
 import { CardTextSkeleton } from "@/components/customs/Atomics/Card"
 import { Menu, MenuItem } from "@/components/customs/Atomics/Menu"
 import React from "react"
@@ -14,14 +14,11 @@ const UserPlaylists = () => {
     })
     return (
         <Menu>
-            {isFetching &&
-                [1, 2, 3].map((item) => <CardTextSkeleton key={item} />)}
+            {isFetching && [1, 2, 3].map((item) => <CardTextSkeleton key={item} />)}
             {Array.isArray(data) &&
                 data.map((playlist) => (
                     <MenuItem key={playlist?._id}>
-                        <Link to={`/playlist/${playlist?._id}`}>
-                            {playlist?.title}
-                        </Link>
+                        <Link to={`/playlist/${playlist?._id}`}>{playlist?.title}</Link>
                     </MenuItem>
                 ))}
         </Menu>

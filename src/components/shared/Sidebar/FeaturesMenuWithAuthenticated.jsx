@@ -1,7 +1,7 @@
 import { MenuItem } from "@/components/customs/Atomics/Menu"
-import React, { Fragment } from "react"
+import { Fragment } from "react"
 import { BiLibrary } from "react-icons/bi"
-import { BsHeart, BsPlusSquareDotted } from "react-icons/bs"
+import { BsHeart, BsPlusSquareDotted, BsUpload } from "react-icons/bs"
 import { NavLink } from "react-router-dom"
 
 const FeaturesMenuWithAuthenticated = () => {
@@ -31,7 +31,12 @@ const FeaturesMenuWithAuthenticated = () => {
             </MenuItem>
             <MenuItem>
                 <a role="menuitem">
-                    <BsPlusSquareDotted /> Create playlist
+                    <BsUpload className="text-xl" /> Upload
+                </a>
+            </MenuItem>
+            <MenuItem>
+                <a role="menuitem">
+                    <BsPlusSquareDotted className="text-xl" /> Create playlist
                 </a>
             </MenuItem>
         </Fragment>

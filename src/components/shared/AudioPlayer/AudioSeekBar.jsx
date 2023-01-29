@@ -31,17 +31,8 @@ const AudioSeekBar = ({ audioRef }) => {
         <ErrorBoundary>
             <div className="flex min-w-full items-center justify-center gap-3 ">
                 <span>{timer(currentTime)}</span>
-                <Range
-                    type={"range"}
-                    value={currentTime}
-                    max={currentTrack?.duration}
-                    onChange={getCurrentDuration}
-                />
-                <span>
-                    {currentTrack?.duration
-                        ? timer(currentTrack?.duration)
-                        : timer(0)}
-                </span>
+                <Range type={"range"} value={currentTime} max={currentTrack?.duration} onChange={getCurrentDuration} />
+                <span>{currentTrack?.duration ? timer(currentTrack?.duration) : timer(0)}</span>
             </div>
         </ErrorBoundary>
     )

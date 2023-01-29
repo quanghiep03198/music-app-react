@@ -8,15 +8,15 @@ import Logo from "/images/logo.png"
 
 const DrawerSidebar = tw.aside`drawer-side`
 const DrawerOverlay = tw.label`drawer-overlay`
-const DrawerSideWrapper = tw.div`p-2 bg-base-300 w-fit`
+const DrawerSideWrapper = tw.div`p-2 bg-base-200 w-fit`
 const LogoImage = tw.img`max-w-[240px] h-[120px] object-contain -translate-x-2`
 
 const Sidebar = () => {
     const { pathname } = useLocation()
     const overlayRef = useRef()
-    useEffect(() => {
-        overlayRef.current.click()
-    }, [pathname])
+    // useEffect(() => {
+    //     overlayRef.current.click()
+    // }, [pathname])
     const { userInfo } = useSelector((state) => state.auth)
     return (
         <DrawerSidebar>

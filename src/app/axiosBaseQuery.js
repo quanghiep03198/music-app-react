@@ -1,14 +1,14 @@
 import axios from "@/config/axios.config"
-import qs from "qs"
+
+// custom base query with axios
 export default function axiosBaseQuery() {
-    return async ({ url, method, data, query, params }) => {
+    return async ({ url, method, data, params }) => {
         try {
-            query = query ? "?" + qs.stringify(query) : "" // return query string if query is not undefined
             const response = await axios({
-                url: url + query, // fetch data with query
+                url: url,
                 method,
                 data,
-                params
+                params // query string object
             })
             return { data: response }
         } catch (axiosError) {

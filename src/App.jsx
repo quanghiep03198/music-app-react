@@ -118,12 +118,10 @@ function App() {
                 transition={Slide}
                 autoClose={1000}
                 limit={3}
-                toastClassName={() =>
-                    `bg-base-100 text-white flex justify-between items-center p-4 rounded-lg shadow-xl`
-                }
+                toastClassName={() => `bg-base-100 text-white flex justify-between items-center p-4 rounded-lg shadow-xl relative font-medium`}
                 bodyClassName={() => "flex items-center text-base-content"}
-                position="top-center"
-                closeButton={<HiX className="font-bold text-base-content" />}
+                position="bottom-left"
+                closeButton={<HiX className="absolute top-1 right-1 font-bold text-base-content" />}
             />
         </ErrorBoundary>
     )

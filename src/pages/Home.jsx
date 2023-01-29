@@ -1,7 +1,7 @@
 import tw from "tailwind-styled-components"
 import TrackList from "../components/shared/Track/TrackList"
 
-import { useFetchTracksQuery } from "@/app/api/trackApi"
+import { useFetchTracksQuery } from "@/app/services/trackApi"
 import AlbumSlider from "../components/shared/Album/AlbumSlider"
 import ArtistSlider from "../components/shared/Artist/ArtistSlider"
 import PlaylistSlider from "../components/shared/Playlist/PlaylistSlider"
@@ -23,9 +23,7 @@ const HomePage = () => {
             </section>
 
             <section>
-                <Typography className="!normal-case">
-                    Bass Station mixes
-                </Typography>
+                <Typography className="!normal-case">Bass Station mixes</Typography>
                 <PlaylistSlider />
             </section>
 

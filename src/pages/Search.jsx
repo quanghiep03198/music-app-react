@@ -1,4 +1,4 @@
-import { useFetchAllGenresQuery } from "@/app/api/genreApi"
+import { useFetchAllGenresQuery } from "@/app/services/genreApi"
 import Tabs from "@/components/customs/Atomics/Tabs"
 import GenreList from "@/components/shared/Genre/GenreList"
 import TrackList from "@/components/shared/Track/TrackList"
@@ -28,37 +28,25 @@ const Search = () => {
                                         {searchResult.tracks?.length > 0 && (
                                             <section>
                                                 <Typography>Tracks</Typography>
-                                                <TrackList
-                                                    data={searchResult.tracks}
-                                                />
+                                                <TrackList data={searchResult.tracks} />
                                             </section>
                                         )}
                                         {searchResult.artists?.length > 0 && (
                                             <section>
                                                 <Typography>Artists</Typography>
-                                                <ArtistList
-                                                    data={searchResult.artists}
-                                                />
+                                                <ArtistList data={searchResult.artists} />
                                             </section>
                                         )}
                                         {searchResult.albums?.length > 0 && (
                                             <section>
                                                 <Typography>Albums</Typography>
-                                                <AlbumList
-                                                    data={searchResult.albums}
-                                                />
+                                                <AlbumList data={searchResult.albums} />
                                             </section>
                                         )}
                                         {searchResult.playlists?.length > 0 && (
                                             <section>
-                                                <Typography>
-                                                    Playlists
-                                                </Typography>
-                                                <PlaylistList
-                                                    data={
-                                                        searchResult.playlists
-                                                    }
-                                                />
+                                                <Typography>Playlists</Typography>
+                                                <PlaylistList data={searchResult.playlists} />
                                             </section>
                                         )}
                                     </div>
@@ -66,29 +54,19 @@ const Search = () => {
                             },
                             {
                                 title: "Tracks",
-                                pannelElement: (
-                                    <TrackList data={searchResult.tracks} />
-                                )
+                                pannelElement: <TrackList data={searchResult.tracks} />
                             },
                             {
                                 title: "Albums",
-                                pannelElement: (
-                                    <AlbumList data={searchResult.albums} />
-                                )
+                                pannelElement: <AlbumList data={searchResult.albums} />
                             },
                             {
                                 title: "Aritsts",
-                                pannelElement: (
-                                    <ArtistList data={searchResult.artists} />
-                                )
+                                pannelElement: <ArtistList data={searchResult.artists} />
                             },
                             {
                                 title: "Playlists",
-                                pannelElement: (
-                                    <PlaylistList
-                                        data={searchResult.playlists}
-                                    />
-                                )
+                                pannelElement: <PlaylistList data={searchResult.playlists} />
                             }
                         ]}
                     />
@@ -96,10 +74,7 @@ const Search = () => {
             ) : (
                 <>
                     <Typography>Discovery</Typography>
-                    <GenreList
-                        data={data}
-                        status={{ isFetching: isFetching, isError: isError }}
-                    />
+                    <GenreList data={data} status={{ isFetching: isFetching, isError: isError }} />
                 </>
             )}
         </section>

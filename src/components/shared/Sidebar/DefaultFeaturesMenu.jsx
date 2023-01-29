@@ -7,31 +7,19 @@ import { toast } from "react-toastify"
 const DefaultFeaturesMenu = () => {
     return (
         <Fragment>
-            <MenuItem
-                onClick={() =>
-                    toast.info("You have to signin to you this features")
-                }
-            >
+            <MenuItem onClick={() => toast.info("You have to signin to you this features")}>
                 <a role="menuitem">
                     <BiLibrary aria-hidden className="text-xl" />
                     Library
                 </a>
             </MenuItem>
-            <MenuItem
-                onClick={() =>
-                    toast.info("You have to signin to you this features")
-                }
-            >
+            <MenuItem onClick={() => toast.info("You have to signin to you this features")}>
                 <a role="menuitem">
                     <BsHeart aria-hidden className="text-xl" />
                     Liked tracks
                 </a>
             </MenuItem>
-            <MenuItem
-                onClick={() =>
-                    toast.info("You have to signin to you this features")
-                }
-            >
+            <MenuItem onClick={() => toast.info("You have to signin to you this features")}>
                 <a role="menuitem">
                     <BsPlusSquareDotted /> Create playlist
                 </a>

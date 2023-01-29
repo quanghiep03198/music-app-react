@@ -11,35 +11,35 @@ const trackApi = createApi({
     endpoints: (builder) => {
         return {
             fetchTracks: builder.query({
-                query(query) {
+                query(params) {
                     return {
                         url: `/tracks`,
                         method: "GET",
-                        query
+                        params
                     }
                 },
                 async onQueryStarted(args, { dispatch, queryFulfilled }) {
                     try {
                         const { data } = await queryFulfilled
                         const { nextup } = store.getState().queue
-                        if (nextup.length === 0)
-                            dispatch(setCurrentPlaylist({ tracks: data }))
+                        if (nextup.length === 0) dispatch(setCurrentPlaylist({ tracks: data }))
                     } catch (error) {
                         console.log(error.message)
                     }
                 },
+
                 keepUnusedDataFor: 5 * 60,
+                refetchOnMountOrArgChange: true,
                 providesTags: ["Tracks"]
             }),
             fetchRelatedTracks: builder.query({
-                query({ genre, query }) {
+                query({ genre, params }) {
                     return {
                         url: `/tracks/related/${genre}`,
                         method: "GET",
-                        query
+                        params
                     }
                 },
-
                 // Refetch when the page arg changes
                 forceRefetch({ currentArg, previousArg }) {
                     return currentArg !== previousArg
@@ -59,9 +59,5 @@ const trackApi = createApi({
     }
 })
 
-export const {
-    useFetchTracksQuery,
-    useUploadTracksMutation,
-    useFetchRelatedTracksQuery
-} = trackApi
+export const { useFetchTracksQuery, useUploadTracksMutation, useFetchRelatedTracksQuery } = trackApi
 export default trackApi

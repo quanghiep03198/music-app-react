@@ -1,12 +1,13 @@
 import { combineReducers } from "@reduxjs/toolkit"
-import artistApi from "./api/artistApi"
-import playlistApi from "./api/playlistApi"
-import trackApi from "./api/trackApi"
+import artistApi from "./services/artistApi"
+import playlistApi from "./services/playlistApi"
+import trackApi from "./services/trackApi"
 import queueSlice from "./slices/queueSlice"
-import userSlice from "./slices/userSlice"
-import albumApi from "./api/albumApi"
-import genreApi from "./api/genreApi"
-import collectionApi from "./api/collectionApi"
+import authSlice from "./slices/authSlice"
+import albumApi from "./services/albumApi"
+import genreApi from "./services/genreApi"
+import collectionApi from "./services/collectionApi"
+import authApi from "./services/authApi"
 
 const rootReducer = combineReducers({
     tracks: trackApi.reducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     artists: artistApi.reducer,
     collections: collectionApi.reducer,
     genres: genreApi.reducer,
-    auth: userSlice.reducer,
+    auth: authSlice.reducer,
+    [authApi.reducerPath]: authApi.reducer,
     queue: queueSlice.reducer,
     albums: albumApi.reducer
 })

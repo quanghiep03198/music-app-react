@@ -9,28 +9,23 @@ import { Card, CardBody, CardTitle, Figure } from "../../customs/Atomics/Card"
 import DefaultPlaylistThumbnail from "/images/default-album-image.png"
 
 const PlaylistCard = ({ playlist }) => {
-    const { playState, setPlayState } = useContext(AppContext)
     const dispatch = useDispatch()
+    const { playState, setPlayState } = useContext(AppContext)
     const { currentPlaylist } = useSelector((state) => state.queue)
 
     const playThisPlaylist = (playlist) => {
-        setPlayState(!playState)
         if (currentPlaylist !== playlist._id) {
             dispatch(setCurrentPlaylist(playlist))
+            return
         }
+        setPlayState(!playState)
     }
     return (
         <Card>
             <div className=" relative max-w-full">
                 <Link to={`/playlist/${playlist?._id}`}>
                     <Figure>
-                        <img
-                            src={
-                                playlist.thumbnail !== ""
-                                    ? playlist.thumbnail
-                                    : DefaultPlaylistThumbnail
-                            }
-                        />
+                        <img src={playlist.thumbnail !== "" ? playlist.thumbnail : DefaultPlaylistThumbnail} />
                     </Figure>
                 </Link>
                 <Button
@@ -39,22 +34,14 @@ const PlaylistCard = ({ playlist }) => {
                     className="sm:text-md absolute bottom-2 right-2 z-[999] translate-y-2 text-xl opacity-0 duration-300 group-hover:translate-y-0 group-hover:opacity-100 sm:btn-sm"
                     onClick={() => playThisPlaylist(playlist)}
                 >
-                    {playState && currentPlaylist === playlist._id ? (
-                        <BsPauseFill />
-                    ) : (
-                        <BsPlayFill />
-                    )}
+                    {playState && currentPlaylist === playlist._id ? <BsPauseFill /> : <BsPlayFill />}
                 </Button>
             </div>
             <CardBody>
                 <Link to={`/playlist/${playlist?._id}`} className="hover:link">
                     <CardTitle>{playlist?.title}</CardTitle>
                 </Link>
-                <p className="text-base-content/50 sm:text-sm">
-                    Created at:{" "}
-                    {playlist.createdAt &&
-                        new Date(playlist.createdAt).toLocaleDateString()}
-                </p>
+                <p className="text-base-content/50 sm:text-sm">Created at: {playlist.createdAt && new Date(playlist.createdAt).toLocaleDateString()}</p>
             </CardBody>
         </Card>
     )

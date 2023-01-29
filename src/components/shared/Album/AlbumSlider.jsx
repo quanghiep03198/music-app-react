@@ -1,4 +1,4 @@
-import { useFetchAlbumsQuery } from "@/app/api/albumApi"
+import { useFetchAlbumsQuery } from "@/app/services/albumApi"
 import swiperBreakpoints from "@/config/swiperBreakpoint.config"
 import { lazy, Suspense, useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
@@ -45,21 +45,11 @@ const AlbumSlider = () => {
                     ))}
             </Swiper>
 
-            <Button
-                shape="circle"
-                color="success"
-                size="sm"
-                className="album-slide-prev-btn absolute top-1/2 left-0 z-[999] -translate-y-1/2 text-base"
-            >
+            <Button shape="circle" color="success" size="sm" className="album-slide-prev-btn absolute top-1/2 left-0 z-[999] -translate-y-1/2 text-base">
                 <BsArrowLeft />
             </Button>
 
-            <Button
-                shape="circle"
-                color="success"
-                size="sm"
-                className="album-slide-next-btn absolute top-1/2 right-0 z-[999] -translate-y-1/2 text-base"
-            >
+            <Button shape="circle" color="success" size="sm" className="album-slide-next-btn absolute top-1/2 right-0 z-[999] -translate-y-1/2 text-base">
                 <BsArrowRight />
             </Button>
         </div>

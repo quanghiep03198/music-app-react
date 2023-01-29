@@ -1,58 +1,52 @@
-import { fetchUserThunkAction } from "@/app/slices/userSlice"
 import AppProvider from "@/context/AppProvider"
-import { useState } from "react"
 import { useEffect } from "react"
+import { useRef } from "react"
 import { Suspense } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { Navigate, Outlet } from "react-router-dom"
+import { Outlet, useLocation } from "react-router-dom"
 import tw from "tailwind-styled-components"
 import Loading from "../customs/Atomics/Loading"
 import ErrorBoundary from "../customs/ErrorBoundary"
 import AudioPlayer from "../shared/AudioPlayer"
 import Navbar from "../shared/Navbar"
 import Sidebar from "../shared/Sidebar"
-
-const LayoutWrapper = tw.div`drawer drawer-mobile `
-const ContentWrapper = tw.div`invisible-scroll drawer-content relative flex h-screen w-full flex-col justify-between overflow-x-auto overflow-y-auto`
-const PageContent = tw.div`flex flex-col justify-between w-full h-full gap-10 overflow-y-auto scroll bg-base-100 sm:p-2 p-6 xxl:p-10`
+const Container = tw.div`flex h-screen flex-col  overflow-hidden`
+const Drawer = tw.div`drawer drawer-mobile h-full`
+const DrawerContent = tw.div`invisible-scroll drawer-content relative flex flex-1 w-full flex-col  overflow-x-auto overflow-y-auto`
+const PageContent = tw.div`flex flex-col  w-full h-[inherit] gap-10 overflow-y-auto scroll sm:p-2 p-6 bg-neutral-focus`
 const SidebarToggler = tw.input`drawer-toggle`
 
 const Layout = () => {
-    const dispatch = useDispatch()
-    const { accessToken } = useSelector((state) => state.auth)
-
+    const { pathname } = useLocation()
+    const sidebarTogglerRef = useRef(null)
     useEffect(() => {
-        const getUserInfo = async () => {
-            await dispatch(fetchUserThunkAction())
-        }
-        return () => getUserInfo()
-    }, [accessToken])
-
+        sidebarTogglerRef.current.checked = false
+    }, [pathname])
     return (
         <ErrorBoundary>
-            <LayoutWrapper data-theme="dracula">
-                <SidebarToggler id="sidebar-toggle" type="checkbox" />
-                <AppProvider>
-                    <ContentWrapper>
-                        <Navbar />
-                        <PageContent>
-                            <Suspense
-                                fallback={
-                                    <div className="flex items-center justify-center p-20">
-                                        <Loading />
-                                    </div>
-                                }
-                            >
-                                <Outlet />
-                            </Suspense>
-                        </PageContent>
+            <AppProvider>
+                <Container data-theme="dracula">
+                    <Drawer>
+                        <SidebarToggler id="sidebar-toggle" type="checkbox" ref={sidebarTogglerRef} />
+                        <DrawerContent>
+                            <Navbar />
+                            <PageContent>
+                                <Suspense
+                                    fallback={
+                                        <div className="flex items-center justify-center p-20">
+                                            <Loading />
+                                        </div>
+                                    }
+                                >
+                                    <Outlet />
+                                </Suspense>
+                            </PageContent>
+                        </DrawerContent>
 
-                        <AudioPlayer />
-                    </ContentWrapper>
-                </AppProvider>
-
-                <Sidebar />
-            </LayoutWrapper>
+                        <Sidebar />
+                    </Drawer>
+                    <AudioPlayer />
+                </Container>
+            </AppProvider>
         </ErrorBoundary>
     )
 }

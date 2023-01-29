@@ -1,4 +1,5 @@
-import { fetchUserThunkAction, loginThunkAction } from "@/app/slices/userSlice"
+import { useFetchUserDataQuery, useLoginMutation } from "@/app/services/authApi"
+import { fetchUserThunkAction, loginThunkAction } from "@/app/slices/authSlice"
 import Button from "@/components/customs/Atomics/Button"
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
 import { useForm } from "react-hook-form"
@@ -14,18 +15,29 @@ const LoginPage = () => {
         formState: { errors },
         handleSubmit
     } = useForm()
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     const navigate = useNavigate()
-    const onSubmit = (data) => {
-        dispatch(loginThunkAction(data))
-            .then(() => {
-                dispatch(fetchUserThunkAction())
-            })
-            .then(() => navigate("/"))
-            .catch((error) => {
-                console.log(error.message)
-                navigate("/login")
-            })
+    const [login, { isFetching }] = useLoginMutation()
+    // const { data: user } = useFetchUserDataQuery(undefined, { skip: !isFetching })
+    const onSubmit = async (data) => {
+        try {
+            const response = await login(data).unwrap()
+
+            if (response) navigate("/")
+        } catch (error) {
+            console.log(error.message)
+            navigate("/login")
+        }
+
+        // dispatch(loginThunkAction(data))
+        //     .then(() => {
+        //         dispatch(fetchUserThunkAction())
+        //     })
+        //     .then(() => navigate("/"))
+        //     .catch((error) => {
+        //         console.log(error.message)
+        //         navigate("/login")
+        //     })
     }
 
     return (
@@ -34,16 +46,12 @@ const LoginPage = () => {
                 <div className="flex flex-col items-center justify-center text-center lg:text-left">
                     <h1 className="text-5xl font-bold">Login now!</h1>
                     <p className="py-6 text-xl sm:text-base xxl:truncate">
-                        Millions of songs are waiting for you. Login to
-                        experience more and more interesting features
+                        Millions of songs are waiting for you. Login to experience more and more interesting features
                     </p>
                 </div>
                 <div className="card glass w-full max-w-sm flex-shrink-0 shadow-2xl">
                     <div className="card-body">
-                        <img
-                            src={Logo}
-                            className=" max-w-full object-cover text-center"
-                        />
+                        <img src={Logo} className=" max-w-full object-cover text-center" />
                         <div className="form-control gap-2">
                             <Button size="block" className="gap-2">
                                 <FcGoogle /> Continue with Google account
@@ -58,9 +66,7 @@ const LoginPage = () => {
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <div className="form-control">
                                     <label className="label">
-                                        <span className="label-text">
-                                            Email
-                                        </span>
+                                        <span className="label-text">Email</span>
                                     </label>
                                     <input
                                         type="text"
@@ -75,17 +81,11 @@ const LoginPage = () => {
                                         })}
                                     />
 
-                                    {errors.email && (
-                                        <small className="error-message">
-                                            {errors.email?.message}
-                                        </small>
-                                    )}
+                                    {errors.email && <small className="error-message">{errors.email?.message}</small>}
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
-                                        <span className="label-text">
-                                            Password
-                                        </span>
+                                        <span className="label-text">Password</span>
                                     </label>
                                     <input
                                         type="password"
@@ -95,16 +95,9 @@ const LoginPage = () => {
                                             required: true
                                         })}
                                     />
-                                    {errors.password && (
-                                        <small className="error-message">
-                                            Provide a password!
-                                        </small>
-                                    )}
+                                    {errors.password && <small className="error-message">Provide a password!</small>}
                                     <label className="label">
-                                        <Link
-                                            to="/forgot-password"
-                                            className="link-hover label-text-alt link"
-                                        >
+                                        <Link to="/forgot-password" className="link-hover label-text-alt link">
                                             Forgot password?
                                         </Link>
                                     </label>

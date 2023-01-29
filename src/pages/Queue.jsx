@@ -1,5 +1,5 @@
 // import { fetchRelatedTrackThunkAction } from "@/app/redux/slice/queueSlice";
-import { useFetchRelatedTracksQuery } from "@/app/api/trackApi"
+import { useFetchRelatedTracksQuery } from "@/app/services/trackApi"
 import { addToQueue, setCurrentPlaylist } from "@/app/slices/queueSlice"
 import { Suspense, useEffect } from "react"
 import { BsPlayFill } from "react-icons/bs"
