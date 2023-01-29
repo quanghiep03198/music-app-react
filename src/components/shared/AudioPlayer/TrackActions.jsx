@@ -33,7 +33,7 @@ const TrackActions = ({ audioRef }) => {
                     </label>
                     <Range value={volume} step={0.01} max={1} onChange={adjustVolume} id="volume-range" />
                 </VolumeController>
-                <Button shape="circle" size="sm" className=" text-xl" onClick={() => setPlayState(!playState)}>
+                <Button shape="circle" size="sm" className="hidden text-xl sm:inline-flex" onClick={() => setPlayState(!playState)}>
                     {playState ? <BsPauseFill /> : <BsPlayFill />}
                 </Button>
                 <ToggleLikeTrackButton />
