@@ -22,9 +22,9 @@ const authApi = createApi({
             }
         }),
         refreshToken: builder.query({
-            query(userId) {
+            query(credential) {
                 return {
-                    url: `/refresh-token/${userId}`,
+                    url: `/refresh-token/${credential}`,
                     method: "GET"
                 }
             }
@@ -32,5 +32,5 @@ const authApi = createApi({
     })
 })
 
-export const { useLoginMutation, useFetchUserDataQuery, useRefreshTokenMutation } = authApi
+export const { useLoginMutation, useFetchUserDataQuery, useRefreshTokenQuery } = authApi
 export default authApi
