@@ -4,8 +4,8 @@ import { addToQueue, setCurrentPlaylist } from "@/app/slices/queueSlice"
 import { Suspense, useEffect } from "react"
 import { BsPlayFill } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
-import Loading from "../components/customs/Atomics/Loading"
-import TrackList from "../components/shared/Track/TrackList"
+import Loading from "../customs/atoms/Loading"
+import TrackList from "../shared/Track/TrackList"
 import { PageContent, Typography } from "./Home"
 
 const Queue = () => {

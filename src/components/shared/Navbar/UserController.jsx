@@ -3,9 +3,9 @@ import { BsPerson } from "react-icons/bs"
 import { HiLogout } from "react-icons/hi"
 import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-import Avatar from "../../customs/Atomics/Avatar"
-import { Dropdown, DropdownContent } from "../../customs/Atomics/Dropdown"
-import { Menu, MenuItem } from "../../customs/Atomics/Menu"
+import Avatar from "../../customs/atoms/Avatar"
+import { Dropdown, DropdownContent } from "../../customs/atoms/Dropdown"
+import { Menu, MenuItem } from "../../customs/atoms/Menu"
 
 const UserController = ({ user }) => {
     const dispatch = useDispatch()
@@ -18,8 +18,8 @@ const UserController = ({ user }) => {
                 </Avatar>{" "}
                 <span className="badge sm:hidden md:hidden">{user?.username}</span>
             </button>
-            <DropdownContent tabIndex={0}>
-                <Menu className="min-w-[240px] bg-base-300">
+            <DropdownContent tabIndex={0} className="py-4">
+                <Menu className="min-w-[240px] bg-neutral">
                     <MenuItem>
                         <Link to="/account/:id">
                             <BsPerson /> Account <span className="badge hidden sm:inline-flex md:inline-flex">{user?.username}</span>

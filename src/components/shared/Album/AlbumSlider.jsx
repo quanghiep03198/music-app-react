@@ -2,19 +2,15 @@ import { useFetchAlbumsQuery } from "@/app/services/albumApi"
 import swiperBreakpoints from "@/config/swiperBreakpoint.config"
 import { lazy, Suspense, useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
-import { Navigation } from "swiper"
+import { FreeMode, Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
-import Button from "../../customs/Atomics/Button"
+import Button from "../../customs/atoms/Button"
 
 import CardSkeleton from "../Skeletons/SkeletonCard"
 
 const AlbumCard = lazy(() => import("./AlbumCard"))
 
-const AlbumSlider = () => {
-    const { data, isFetching } = useFetchAlbumsQuery({
-        skip: 0,
-        limit: 10
-    })
+const AlbumSlider = ({ data, status }) => {
     const swiperRef = useRef()
     return (
         <div className="relative">
@@ -24,12 +20,15 @@ const AlbumSlider = () => {
                     nextEl: `.album-slide-next-btn`
                 }}
                 speed={700}
-                modules={[Navigation]}
+                modules={[Navigation, FreeMode]}
+                freeMode={true}
+                lazy={true}
+                loop
                 breakpoints={swiperBreakpoints}
                 ref={swiperRef}
                 className="album-slide container pb-10"
             >
-                {isFetching &&
+                {status.isFetching &&
                     [1, 2, 3, 4, 5].map((item) => (
                         <SwiperSlide key={item}>
                             <CardSkeleton />

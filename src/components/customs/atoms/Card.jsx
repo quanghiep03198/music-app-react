@@ -1,6 +1,6 @@
 import tw from "tailwind-styled-components"
 
-export const Card = tw.div`group card rounded-lg w-full p-4 sm:p-2 shadow-xl ${(props) =>
+export const Card = tw.div`group  card rounded-lg max-w-[280px] p-4 sm:p-2 shadow-xl ${(props) =>
     props.skeleton ? "bg-base-100" : "bg-base-100 hover:bg-neutral"} hover:cursor-grab`
 
 export const Figure = tw.figure`relative rounded-lg mask ${(props) => {
@@ -39,6 +39,6 @@ export const SkeletonFigure = tw.div`rounded-lg mask ${(props) => {
             return "mask-square"
     }
 }}`
-export const SkeletonImage = tw.div`h-60 max-w-full animate-pulse bg-neutral`
+export const SkeletonImage = tw.div` max-w-full animate-pulse bg-neutral flex justify-center items-center p-16`
 export const CardTitleSkeleton = tw.h1`w-24 h-2 rounded-full bg-neutral animate-pulse`
 export const CardTextSkeleton = tw.h1`w-24 h-2 rounded-full bg-neutral animate-pulse`

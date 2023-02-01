@@ -4,15 +4,15 @@ import { useRef } from "react"
 import { Suspense } from "react"
 import { Outlet, useLocation } from "react-router-dom"
 import tw from "tailwind-styled-components"
-import Loading from "../customs/Atomics/Loading"
+import Loading from "../customs/atoms/Loading"
 import ErrorBoundary from "../customs/ErrorBoundary"
 import AudioPlayer from "../shared/AudioPlayer"
 import Navbar from "../shared/Navbar"
 import Sidebar from "../shared/Sidebar"
 const Container = tw.div`flex h-screen flex-col  overflow-hidden`
 const Drawer = tw.div`drawer drawer-mobile h-full`
-const DrawerContent = tw.div`invisible-scroll drawer-content relative flex flex-1 w-full flex-col  overflow-x-auto overflow-y-auto`
-const PageContent = tw.div`flex flex-col  w-full h-[inherit] gap-10 overflow-y-auto scroll sm:p-2 p-6 bg-neutral-focus`
+const DrawerContent = tw.div`invisible-scroll drawer-content relative flex flex-1 w-full flex-col  overflow-x-auto overflow-y-auto bg-neutral-focus`
+const PageContent = tw.div`flex flex-col  w-full h-[inherit] gap-10 overflow-y-auto scroll sm:p-2 p-6`
 const SidebarToggler = tw.input`drawer-toggle`
 
 const Layout = () => {

@@ -1,6 +1,6 @@
 import { useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
-import { CardTextSkeleton } from "@/components/customs/Atomics/Card"
-import { Menu, MenuItem } from "@/components/customs/Atomics/Menu"
+import { CardTextSkeleton } from "@/components/customs/atoms/Card"
+import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
 import React from "react"
 import { BsPlus, BsPlusSquareDotted } from "react-icons/bs"
 import { useSelector } from "react-redux"

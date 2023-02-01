@@ -1,5 +1,5 @@
 import { useFetchAllGenresQuery } from "@/app/services/genreApi"
-import Tabs from "@/components/customs/Atomics/Tabs"
+import Tabs from "@/components/customs/atoms/Tabs"
 import GenreList from "@/components/shared/Genre/GenreList"
 import TrackList from "@/components/shared/Track/TrackList"
 import { AppContext } from "@/context/AppProvider"
@@ -28,25 +28,25 @@ const Search = () => {
                                         {searchResult.tracks?.length > 0 && (
                                             <section>
                                                 <Typography>Tracks</Typography>
-                                                <TrackList data={searchResult.tracks} />
+                                                <TrackList data={searchResult.tracks} status={{ isFetching: isFetching }} />
                                             </section>
                                         )}
                                         {searchResult.artists?.length > 0 && (
                                             <section>
                                                 <Typography>Artists</Typography>
-                                                <ArtistList data={searchResult.artists} />
+                                                <ArtistList data={searchResult.artists} status={{ isFetching: isFetching }} />
                                             </section>
                                         )}
                                         {searchResult.albums?.length > 0 && (
                                             <section>
                                                 <Typography>Albums</Typography>
-                                                <AlbumList data={searchResult.albums} />
+                                                <AlbumList data={searchResult.albums} status={{ isFetching: isFetching }} />
                                             </section>
                                         )}
                                         {searchResult.playlists?.length > 0 && (
                                             <section>
                                                 <Typography>Playlists</Typography>
-                                                <PlaylistList data={searchResult.playlists} />
+                                                <PlaylistList data={searchResult.playlists} status={{ isFetching: isFetching }} />
                                             </section>
                                         )}
                                     </div>
@@ -54,19 +54,19 @@ const Search = () => {
                             },
                             {
                                 title: "Tracks",
-                                pannelElement: <TrackList data={searchResult.tracks} />
+                                pannelElement: <TrackList data={searchResult.tracks} status={{ isFetching: isFetching }} />
                             },
                             {
                                 title: "Albums",
-                                pannelElement: <AlbumList data={searchResult.albums} />
+                                pannelElement: <AlbumList data={searchResult.albums} status={{ isFetching: isFetching }} />
                             },
                             {
                                 title: "Aritsts",
-                                pannelElement: <ArtistList data={searchResult.artists} />
+                                pannelElement: <ArtistList data={searchResult.artists} status={{ isFetching: isFetching }} />
                             },
                             {
                                 title: "Playlists",
-                                pannelElement: <PlaylistList data={searchResult.playlists} />
+                                pannelElement: <PlaylistList data={searchResult.playlists} status={{ isFetching: isFetching }} />
                             }
                         ]}
                     />

@@ -1,11 +1,11 @@
-import { useFetchUserDataQuery, useLoginMutation } from "@/app/services/authApi"
-import { fetchUserThunkAction, loginThunkAction } from "@/app/slices/authSlice"
-import Button from "@/components/customs/Atomics/Button"
+import { useLoginMutation } from "@/app/services/authApi"
+import Button from "@/components/customs/atoms/Button"
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
+import { useEffect } from "react"
+import { useRef } from "react"
 import { useForm } from "react-hook-form"
 import { FaFacebookSquare } from "react-icons/fa"
 import { FcGoogle } from "react-icons/fc"
-import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import Logo from "/images/logo.png"
 
@@ -15,29 +15,24 @@ const LoginPage = () => {
         formState: { errors },
         handleSubmit
     } = useForm()
-    // const dispatch = useDispatch()
+    const emailRef = useRef(null)
     const navigate = useNavigate()
-    const [login, { isFetching }] = useLoginMutation()
-    // const { data: user } = useFetchUserDataQuery(undefined, { skip: !isFetching })
+    useEffect(() => {
+        emailRef.current.focus()
+        emailRef.current.scrollIntoView({ behavior: "smooth" })
+    })
+    const [login] = useLoginMutation()
+    const { ref } = register("email")
     const onSubmit = async (data) => {
         try {
-            const response = await login(data).unwrap()
-
-            if (response) navigate("/")
+            const { credential, accessToken } = await login(data).unwrap()
+            if (credential && accessToken) {
+                navigate("/")
+            }
         } catch (error) {
             console.log(error.message)
             navigate("/login")
         }
-
-        // dispatch(loginThunkAction(data))
-        //     .then(() => {
-        //         dispatch(fetchUserThunkAction())
-        //     })
-        //     .then(() => navigate("/"))
-        //     .catch((error) => {
-        //         console.log(error.message)
-        //         navigate("/login")
-        //     })
     }
 
     return (
@@ -79,6 +74,10 @@ const LoginPage = () => {
                                                 message: "Email is invalid"
                                             }
                                         })}
+                                        ref={(e) => {
+                                            ref(e)
+                                            emailRef.current = e
+                                        }}
                                     />
 
                                     {errors.email && <small className="error-message">{errors.email?.message}</small>}

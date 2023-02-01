@@ -1,32 +1,29 @@
 import { useFetchTrackCollectionQuery } from "@/app/services/collectionApi"
 import { addToQueue, removeFromQueue, setCurrentTrack } from "@/app/slices/queueSlice"
-import { Menu, MenuItem } from "@/components/customs/Atomics/Menu"
+import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
 import { AppContext } from "@/context/AppProvider"
+import useLocalStorage from "@/hooks/useLocalStorage"
 import { formatNumber, timer } from "@/utils/formatter"
 import { useContext, useEffect, useState } from "react"
 import { BsClock, BsDownload, BsHeart, BsHeartFill, BsPauseFill, BsPlayFill, BsPlusLg, BsThreeDots } from "react-icons/bs"
 import { HiOutlineMinus } from "react-icons/hi2"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import Button from "../../customs/Atomics/Button"
-import { Dropdown, DropdownContent } from "../../customs/Atomics/Dropdown"
+import Button from "../../customs/atoms/Button"
+import { Dropdown, DropdownContent } from "../../customs/atoms/Dropdown"
 import SoundWave from "./SoundWave"
+import ToggleAddToQueueButton from "./ToggleAddToQueueButton"
+import ToggleLikeButton from "./ToggleLikeButton"
 
 const TrackCard = ({ index, track }) => {
-    const [isLiked, setIsLiked] = useState(false)
     const [isCurrentTrack, setIsCurrentTrack] = useState(false)
-    const [isInQueue, setIsInQueue] = useState()
 
-    const { authenticated } = useSelector((state) => state.auth)
-    const { playState, setPlayState } = useContext(AppContext)
-    const { currentTrack, nextup } = useSelector((state) => state.queue)
+    const [playState, setPlayState] = useLocalStorage("playState")
+
+    const { currentTrack } = useSelector((state) => state.queue)
 
     const dispatch = useDispatch()
-    const { data: likedTracks } = useFetchTrackCollectionQuery(undefined, { skip: authenticated })
-
     useEffect(() => {
-        setIsLiked(likedTracks?.find((item) => item._id === track._id) !== undefined)
-        setIsInQueue(nextup?.find((item) => item?._id === track?._id) !== undefined)
         setIsCurrentTrack(currentTrack?._id === track?._id)
     }, [currentTrack, playState])
 
@@ -37,15 +34,6 @@ const TrackCard = ({ index, track }) => {
             return
         }
         setPlayState(!playState)
-    }
-    const handleAddToQueue = () => {
-        dispatch(addToQueue(track))
-        setIsInQueue(true)
-    }
-
-    const handleRemoveFromQueue = () => {
-        dispatch(removeFromQueue(track))
-        setIsInQueue(false)
     }
 
     return (
@@ -96,34 +84,13 @@ const TrackCard = ({ index, track }) => {
                     </Button>
                     <DropdownContent tabIndex={0}>
                         <Menu className="bg-base-300">
-                            {isLiked ? (
-                                <MenuItem>
-                                    {" "}
-                                    <a role="button" className="truncate">
-                                        <BsHeartFill className="text-success" /> Remove from your library
-                                    </a>
-                                </MenuItem>
-                            ) : (
-                                <MenuItem>
-                                    <a role="button" className="truncate">
-                                        <BsHeart /> Save to your library
-                                    </a>
-                                </MenuItem>
-                            )}
+                            <MenuItem>
+                                <ToggleLikeButton track={track} />
+                            </MenuItem>
 
-                            {isInQueue ? (
-                                <MenuItem onClick={handleRemoveFromQueue}>
-                                    <a role="button" className="truncate">
-                                        <HiOutlineMinus /> Remove from queue
-                                    </a>
-                                </MenuItem>
-                            ) : (
-                                <MenuItem onClick={handleAddToQueue}>
-                                    <a role="button">
-                                        <BsPlusLg /> Add to queue
-                                    </a>
-                                </MenuItem>
-                            )}
+                            <MenuItem>
+                                <ToggleAddToQueueButton track={track} />
+                            </MenuItem>
                             <MenuItem>
                                 <a href={track?.downloadUrl} className="truncate">
                                     <BsDownload /> Download

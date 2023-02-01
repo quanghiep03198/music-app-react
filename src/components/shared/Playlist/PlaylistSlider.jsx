@@ -2,18 +2,13 @@ import { useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
 import swiperBreakpoints from "@/config/swiperBreakpoint.config"
 import { useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
-import { Navigation } from "swiper"
+import { Navigation, FreeMode } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
-import Button from "../../customs/Atomics/Button"
+import Button from "../../customs/atoms/Button"
 import CardSkeleton from "../Skeletons/SkeletonCard"
 import PlaylistCard from "./PlaylistCard"
 
-const PlaylistSlider = () => {
-    const { data, isFetching } = useFetchUserPlaylistsQuery({
-        id: import.meta.env.VITE_ADMIN_ID,
-        query: { skip: 0, limit: 10 }
-    })
-
+const PlaylistSlider = ({ data, status }) => {
     const swiperRef = useRef(null)
 
     return (
@@ -24,13 +19,16 @@ const PlaylistSlider = () => {
                     nextEl: ".playlist-next-button"
                 }}
                 speed={700}
-                slidesPerGroupSkip={1}
-                modules={[Navigation]}
+                modules={[Navigation, FreeMode]}
+                freeMode={true}
+                lazy={true}
+                loop
+                slidesPerView="auto"
                 breakpoints={swiperBreakpoints}
                 className="playlist-slide container pb-10"
                 ref={swiperRef}
             >
-                {isFetching &&
+                {status.isFetching &&
                     [1, 2, 3, 4, 5].map((item) => (
                         <SwiperSlide key={item}>
                             <CardSkeleton />

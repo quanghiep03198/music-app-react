@@ -8,18 +8,10 @@ export const StyledTracksList = tw.div`flex flex-col gap-2 w-full`
 const TrackList = ({ data, status }) => {
     return (
         <StyledTracksList>
-            {status?.isFetching &&
-                [1, 2, 3, 4, 5].map((item) => <SkeletonTrackCard key={item} />)}
+            {status?.isFetching && [1, 2, 3, 4, 5].map((item) => <SkeletonTrackCard key={item} />)}
             {Array.isArray(data) &&
                 data.map((track, index) => {
-                    return (
-                        <TrackCard
-                            key={track._id}
-                            className="rounded-xl"
-                            track={track}
-                            index={index + 1}
-                        />
-                    )
+                    return <TrackCard key={index} className="rounded-xl" track={track} index={index + 1} />
                 })}
         </StyledTracksList>
     )

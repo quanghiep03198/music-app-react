@@ -15,12 +15,21 @@ const collectionApi = createApi({
                         method: "GET"
                     }
                 },
-                keepUnusedDataFor: 5 * 60,
                 providesTags: ["TrackCollection"]
+            }),
+            updateTrackCollection: builder.mutation({
+                query(data) {
+                    return {
+                        url: `/collection/tracks`,
+                        method: "PATCH",
+                        data
+                    }
+                },
+                invalidatesTags: ["TrackCollection"]
             })
         }
     }
 })
 
-export const { useFetchTrackCollectionQuery } = collectionApi
+export const { useFetchTrackCollectionQuery, useUpdateTrackCollectionMutation } = collectionApi
 export default collectionApi

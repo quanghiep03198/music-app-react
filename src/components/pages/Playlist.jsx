@@ -1,22 +1,22 @@
 import { useFetchSinglePlaylistQuery } from "@/app/services/playlistApi"
 import { setCurrentPlaylist } from "@/app/slices/queueSlice"
-import { Dropdown, DropdownContent } from "@/components/customs/Atomics/Dropdown"
-import HeroBanner from "@/components/customs/Atomics/HeroBanner"
-import { Menu, MenuItem } from "@/components/customs/Atomics/Menu"
+import { Dropdown, DropdownContent } from "@/components/customs/atoms/Dropdown"
+import HeroBanner from "@/components/customs/atoms/HeroBanner"
+import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
 import { useContext } from "react"
 import { BsPauseFill, BsPencil, BsPlayFill, BsThreeDots, BsX } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from "react-router-dom"
-import Button from "../components/customs/Atomics/Button"
-import TrackList from "../components/shared/Track/TrackList"
-import { AppContext } from "../context/AppProvider"
+import Button from "../customs/atoms/Button"
+import TrackList from "../shared/Track/TrackList"
+import { AppContext } from "../../context/AppProvider"
 import DefaultThumbnail from "/images/default-thumbnail.png"
 
 const Playlist = () => {
     const { id } = useParams()
     const { data, isFetching } = useFetchSinglePlaylistQuery(id)
     const { playState, setPlayState } = useContext(AppContext)
-    const { currentPlaylist } = useSelector((state) => state.playback)
+    const { currentPlaylist } = useSelector((state) => state.queue)
 
     const dispatch = useDispatch()
 

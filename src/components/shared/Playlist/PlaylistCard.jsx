@@ -1,16 +1,16 @@
 import { setCurrentPlaylist } from "@/app/slices/queueSlice"
-import { AppContext } from "@/context/AppProvider"
-import { useContext } from "react"
+import useLocalStorage from "@/hooks/useLocalStorage"
 import { BsPauseFill, BsPlayFill } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import Button from "../../customs/Atomics/Button"
-import { Card, CardBody, CardTitle, Figure } from "../../customs/Atomics/Card"
+import Button from "../../customs/atoms/Button"
+import { Card, CardBody, CardTitle, Figure } from "../../customs/atoms/Card"
 import DefaultPlaylistThumbnail from "/images/default-album-image.png"
 
 const PlaylistCard = ({ playlist }) => {
     const dispatch = useDispatch()
-    const { playState, setPlayState } = useContext(AppContext)
+    const [playState, setPlayState] = useLocalStorage("playState")
+
     const { currentPlaylist } = useSelector((state) => state.queue)
 
     const playThisPlaylist = (playlist) => {

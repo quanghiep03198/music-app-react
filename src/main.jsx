@@ -4,7 +4,7 @@ import { PersistGate } from "redux-persist/integration/react"
 import store, { persistor } from "./app/store"
 
 import { lazy, StrictMode, Suspense } from "react"
-import LoadingScreen from "./components/customs/LoadingScreen"
+import LoadingScreen from "./components/pages/LoadingPage"
 import "./index.css"
 const App = lazy(() => import("./App"))
 

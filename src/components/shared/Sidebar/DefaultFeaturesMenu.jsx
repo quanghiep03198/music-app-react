@@ -1,4 +1,4 @@
-import { MenuItem } from "@/components/customs/Atomics/Menu"
+import { MenuItem } from "@/components/customs/atoms/Menu"
 import React, { Fragment } from "react"
 import { BiLibrary } from "react-icons/bi"
 import { BsHeart, BsPlusSquareDotted } from "react-icons/bs"

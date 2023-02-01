@@ -3,18 +3,17 @@ import ErrorBoundary from "@/components/customs/ErrorBoundary"
 import swiperBreakpoints from "@/config/swiperBreakpoint.config"
 import { lazy, Suspense, useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
-import { Navigation } from "swiper"
+import { FreeMode, Navigation } from "swiper"
 import "swiper/css"
 import "swiper/css/navigation"
 import "swiper/css/pagination"
 import { Swiper, SwiperSlide } from "swiper/react"
-import Button from "../../customs/Atomics/Button"
+import Button from "../../customs/atoms/Button"
 import CardSkeleton from "../Skeletons/SkeletonCard"
 
 import ArtistCard from "./ArtistCard"
 
-const ArtistSlider = () => {
-    const { data, isFetching } = useFetchArtistsQuery({ skip: 0, limit: 10 })
+const ArtistSlider = ({ data, status }) => {
     const swiperRef = useRef()
     const nextButtonRef = useRef(null)
     const prevButtonRef = useRef(null)
@@ -26,12 +25,15 @@ const ArtistSlider = () => {
                     nextEl: "#artist-slide-next-btn"
                 }}
                 speed={700}
-                modules={[Navigation]}
+                modules={[Navigation, FreeMode]}
+                freeMode={true}
+                lazy={true}
+                loop
                 breakpoints={swiperBreakpoints}
                 className="artists-slide container pb-10"
                 ref={swiperRef}
             >
-                {isFetching &&
+                {status.isFetching &&
                     [1, 2, 3, 4, 5].map((item) => (
                         <SwiperSlide key={item}>
                             <CardSkeleton />

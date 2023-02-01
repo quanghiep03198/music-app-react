@@ -86,8 +86,7 @@
         @apply relative top-0 opacity-100 shadow-[0_0_0.25rem_0.5rem_rgba(82,250,124,0.3)];
     }
 
-    input[type="range"]::-webkit-slider-runnable-track:hover
-        + input[type="range"]::-webkit-slider-thumb {
+    input[type="range"]::-webkit-slider-runnable-track:hover + input[type="range"]::-webkit-slider-thumb {
         @apply relative top-0 opacity-100 shadow-[0_0_0.25rem_0.5rem_rgba(82,250,124,0.3)];
     }
     input[type="range"]:active:-webkit-slider-thumb:hover {
@@ -213,15 +212,19 @@
 				[&>*:nth-child(3)]:basis-1/4
 				sm:[&>*:nth-child(3)]:hidden
 				md:[&>*:nth-child(3)]:hidden
+				lg:[&>*:nth-child(3)]:hidden
 				[&>*:nth-child(4)]:basis-1/4
 				sm:[&>*:nth-child(4)]:hidden
 				md:[&>*:nth-child(4)]:hidden
+				lg:[&>*:nth-child(4)]:hidden
 				[&>*:nth-child(5)]:basis-1/4
 				sm:[&>*:nth-child(5)]:hidden
 				md:[&>*:nth-child(5)]:hidden
+				lg:[&>*:nth-child(5)]:hidden
 				[&>*:nth-child(6)]:basis-1/12
 				sm:[&>*:nth-child(6)]:basis-1/6
-				md:[&>*:nth-child(6)]:basis-1/12;
+				md:[&>*:nth-child(6)]:basis-1/12
+				lg:[&>*:nth-child(6)]:basis-1/12;
     }
     /*#endregion */
 

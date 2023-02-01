@@ -4,24 +4,24 @@ import { Slide, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import tw from "tailwind-styled-components"
 import { HiX } from "react-icons/hi"
-import Loading from "./components/customs/Atomics/Loading"
+import Loading from "./components/customs/atoms/Loading"
 import ErrorBoundary from "./components/customs/ErrorBoundary"
 import Layout from "./components/layouts"
 import PrivateLayout from "./components/layouts/PrivateLayout"
-import LikedTrack from "./pages/LikedTrack"
-import AlbumPage from "./pages/Album"
+import LikedTrack from "./components/pages/LikedTrack"
+import AlbumPage from "./components/pages/Album"
 
-const Search = lazy(() => import("./pages/Search"))
-const HomePage = lazy(() => import("./pages/Home"))
-const Artist = lazy(() => import("./pages/Artist"))
-const Library = lazy(() => import("./pages/Library"))
-const Playlist = lazy(() => import("./pages/Playlist"))
-const Queue = lazy(() => import("./pages/Queue"))
+const Search = lazy(() => import("./components/pages/Search"))
+const HomePage = lazy(() => import("./components/pages/Home"))
+const Artist = lazy(() => import("./components/pages/Artist"))
+const Library = lazy(() => import("./components/pages/Library"))
+const Playlist = lazy(() => import("./components/pages/Playlist"))
+const Queue = lazy(() => import("./components/pages/Queue"))
 
-const LoginPage = lazy(() => import("./pages/Login"))
-const RegisterPage = lazy(() => import("./pages/Register"))
-const ResetPassword = lazy(() => import("./pages/ResetPassword"))
-const NotFound = lazy(() => import("./pages/NotFound"))
+const LoginPage = lazy(() => import("./components/pages/Login"))
+const RegisterPage = lazy(() => import("./components/pages/Register"))
+const ResetPassword = lazy(() => import("./components/pages/ResetPassword"))
+const NotFound = lazy(() => import("./components/pages/NotFound"))
 
 const LoadingWrapper = tw.div`flex items-center justify-center p-20`
 
@@ -117,7 +117,7 @@ function App() {
                 hideProgressBar={true}
                 transition={Slide}
                 autoClose={1000}
-                limit={3}
+                limit={1}
                 toastClassName={() => `bg-base-100 text-white flex justify-between items-center p-4 rounded-lg shadow-xl relative font-medium`}
                 bodyClassName={() => "flex items-center text-base-content"}
                 position="bottom-left"

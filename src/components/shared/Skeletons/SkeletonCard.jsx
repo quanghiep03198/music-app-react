@@ -1,18 +1,8 @@
-import {
-    Card,
-    CardBody,
-    CardTextSkeleton,
-    CardTitleSkeleton,
-    Figure,
-    SkeletonFigure,
-    SkeletonImage
-} from "../../customs/Atomics/Card"
+import { Card, CardBody, CardTextSkeleton, CardTitleSkeleton, SkeletonImage } from "../../customs/atoms/Card"
 
 const CardSkeleton = ({ mask }) => (
     <Card skeleton="true">
-        <SkeletonFigure mask={mask || "square"}>
-            <SkeletonImage />
-        </SkeletonFigure>
+        <SkeletonImage></SkeletonImage>
         <CardBody>
             <CardTitleSkeleton />
             <CardTextSkeleton />

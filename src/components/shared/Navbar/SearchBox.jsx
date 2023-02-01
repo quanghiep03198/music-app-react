@@ -1,10 +1,10 @@
-import Loading from "@/components/customs/Atomics/Loading"
+import Loading from "@/components/customs/atoms/Loading"
 import { AppContext } from "@/context/AppProvider"
 import axios from "@/config/axios.config"
 import { useContext, useEffect, useId, useRef, useState } from "react"
 import { BsSearch } from "react-icons/bs"
 import { useNavigate } from "react-router-dom"
-import Button from "../../customs/Atomics/Button"
+import Button from "../../customs/atoms/Button"
 
 const SearchBox = () => {
     const id = useId()
@@ -26,8 +26,10 @@ const SearchBox = () => {
             }
             setIsLoading(true)
             typingTimeoutRef.current = setTimeout(async () => {
-                const data = await axios.post(`/search`, {
-                    keyword: e.target.value
+                const data = await axios.get(`/search`, {
+                    params: {
+                        keyword: e.target.value
+                    }
                 })
                 setIsLoading(false)
                 setSearchResult(data)
@@ -47,13 +49,7 @@ const SearchBox = () => {
             {isLoading ? (
                 <Loading size="xs" />
             ) : (
-                <Button
-                    type="button"
-                    shape="circle"
-                    size="sm"
-                    color="transparent"
-                    className="text-lg"
-                >
+                <Button type="button" shape="circle" size="sm" color="transparent" className="text-lg">
                     <BsSearch />
                 </Button>
             )}

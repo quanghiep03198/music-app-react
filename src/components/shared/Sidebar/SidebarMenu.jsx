@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from "@/components/customs/Atomics/Menu"
+import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
 import { BsHouse, BsSearch } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
