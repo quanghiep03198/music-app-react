@@ -1,6 +1,4 @@
-import tw from "tailwind-styled-components"
 import SkeletonTrackCard from "../Skeletons/SkelentonTrackCard"
-import List from "react-virtualized/dist/commonjs/List"
 
 import TrackCard from "./TrackCard"
 
