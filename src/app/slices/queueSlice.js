@@ -9,7 +9,7 @@ const queueSlice = createSlice({
         },
         setCurrentPlaylist: (state, action) => {
             state.nextup = action.payload.tracks
-            state.currentPlaylist = action.payload._id || Date.now().toString()
+            state.currentPlaylist = action.payload._id || new Date().getTime().toString()
             state.currentTrack = action.payload.tracks[0]
         },
         addToQueue: (state, action) => {
