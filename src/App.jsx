@@ -10,6 +10,7 @@ import Layout from "./components/layouts"
 import PrivateLayout from "./components/layouts/PrivateLayout"
 import LikedTrack from "./components/pages/LikedTrack"
 import AlbumPage from "./components/pages/Album"
+import ForgotPassword from "./components/pages/ForgotPassword"
 
 const Search = lazy(() => import("./components/pages/Search"))
 const HomePage = lazy(() => import("./components/pages/Home"))
@@ -79,6 +80,20 @@ function App() {
                                 }
                             >
                                 <RegisterPage />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/forgot-password"
+                        element={
+                            <Suspense
+                                fallback={
+                                    <LoadingWrapper>
+                                        <Loading />
+                                    </LoadingWrapper>
+                                }
+                            >
+                                <ForgotPassword />
                             </Suspense>
                         }
                     />
