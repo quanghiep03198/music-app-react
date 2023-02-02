@@ -18,7 +18,6 @@ const LoginPage = () => {
     const emailRef = useRef(null)
     const navigate = useNavigate()
     useEffect(() => {
-        emailRef.current.focus()
         emailRef.current.scrollIntoView({ behavior: "smooth" })
     })
     const [login] = useLoginMutation()
@@ -56,8 +55,8 @@ const LoginPage = () => {
                                 Continue with Facebook account
                             </Button>
                         </div>
-                        <div className="divider">Or</div>
                         <ErrorBoundary>
+                            <div className="divider">Or</div>
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <div className="form-control">
                                     <label className="label">
@@ -98,6 +97,9 @@ const LoginPage = () => {
                                     <label className="label">
                                         <Link to="/forgot-password" className="link-hover label-text-alt link">
                                             Forgot password?
+                                        </Link>
+                                        <Link to="/register" className="link-hover label-text-alt link">
+                                            Create new account
                                         </Link>
                                     </label>
                                 </div>

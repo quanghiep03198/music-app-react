@@ -7,6 +7,7 @@ import axios from "axios"
 import Button from "../customs/atoms/Button"
 import { useState } from "react"
 import { toast } from "react-toastify"
+import { setCookie } from "@/utils/cookie"
 
 const RegisterPage = () => {
     const {
@@ -16,7 +17,6 @@ const RegisterPage = () => {
     } = useForm()
     const emailRef = useRef(null)
     const navigate = useNavigate()
-    const [error, setError] = useState(null)
     const { ref } = register("email")
     useEffect(() => {
         emailRef.current.scrollIntoView({ behavior: "smooth" })
@@ -24,10 +24,16 @@ const RegisterPage = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await axios.post("/register", data)
-            console.log(response)
+            const { token } = await axios.post("/register", data)
+            if (!token) {
+                toast.error(response.message)
+                return
+            }
+            setCookie("token", token)
+            toast.info("Check your email to get activating account link!")
+            navigate("/login")
         } catch (error) {
-            console.log(error)
+            console.log(error.message)
         }
     }
     return (
