@@ -1,7 +1,8 @@
 import axios from "axios"
-import { useEffect, useRef } from "react"
+import { useMemo } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import Button from "../customs/atoms/Button"
 import ErrorBoundary from "../customs/ErrorBoundary"
@@ -16,13 +17,14 @@ const ResetPassword = () => {
     const verifyCodeRef = useRef(null)
     const navigate = useNavigate()
     const { ref } = register("verifyCode")
+    const token = useMemo(() => sessionStorage.getItem("token"), [sessionStorage])
+
     useEffect(() => {
         verifyCodeRef.current.scrollIntoView({ behavior: "smooth" })
     })
 
     const onSubmit = async (data) => {
         try {
-            const token = sessionStorage.getItem("token")
             const response = await axios({
                 url: "/reset-password",
                 method: "POST",
@@ -43,6 +45,8 @@ const ResetPassword = () => {
             console.log(error)
         }
     }
+
+    if (!token) return <Navigate to="/" replace />
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content text-center">
