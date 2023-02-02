@@ -1,6 +1,7 @@
 import { useLoginMutation } from "@/app/services/authApi"
 import Button from "@/components/customs/atoms/Button"
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
+import { clearConfigCache } from "prettier"
 import { useEffect } from "react"
 import { useRef } from "react"
 import { useForm } from "react-hook-form"
@@ -20,8 +21,10 @@ const LoginPage = () => {
     useEffect(() => {
         emailRef.current.scrollIntoView({ behavior: "smooth" })
     })
-    const [login] = useLoginMutation()
+
+    const [login, { isLoading }] = useLoginMutation()
     const { ref } = register("email")
+
     const onSubmit = async (data) => {
         try {
             const { credential, accessToken } = await login(data).unwrap()
@@ -104,7 +107,7 @@ const LoginPage = () => {
                                     </label>
                                 </div>
                                 <div className="form-control mt-6">
-                                    <Button color="success" className="text-lg">
+                                    <Button color="success" className={`text-lg ${isLoading && "loading"}`}>
                                         Login
                                     </Button>
                                 </div>

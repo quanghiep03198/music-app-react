@@ -149,19 +149,19 @@
     /*endregion */
 
     /*#region loading */
-    .loading {
+    .loading-spinner {
         @apply pointer-events-none animate-spin rounded-full border-transparent border-t-success border-r-success;
     }
-    .loading-xs {
+    .loading-spinner-xs {
         @apply h-4 w-4  border-[3px];
     }
-    .loading-sm {
+    .loading-spinner-sm {
         @apply h-6 w-6  border-[3px];
     }
-    .loading-md {
+    .loading-spinner-md {
         @apply h-10 w-10  border-4;
     }
-    .loading-lg {
+    .loading-spinner-lg {
         @apply h-14 w-14  border-4;
     }
     /*#endregion */
