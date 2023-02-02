@@ -17,9 +17,6 @@ const AudioPlayer = () => {
     const { playState, setPlayState } = useContext(AppContext)
 
     useEffect(() => {
-        if (playState === null) {
-            setPlayState(false)
-        }
         playState ? audioRef.current.play() : audioRef.current.pause()
     }, [playState, currentTrack])
 
