@@ -1,6 +1,5 @@
 import { setCurrentTrack } from "@/app/slices/queueSlice"
 import { AppContext } from "@/context/AppProvider"
-import useLocalStorage from "@/hooks/useLocalStorage"
 import { useContext, useEffect, useState } from "react"
 import { BsPauseCircle, BsPlayCircle, BsShuffle, BsSkipBackwardFill, BsSkipForwardFill } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
@@ -15,7 +14,8 @@ const AudioButtonGroup = ({ audioRef }) => {
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0)
     const [loopState, setLoopState] = useState(false)
     const [shuffleState, setShuffleState] = useState(false)
-    const [playState, setPlayState] = useLocalStorage("playState")
+    const { playState, setPlayState } = useContext(AppContext)
+
     useEffect(() => {
         audioRef.current.addEventListener("ended", () => {
             handleChangeTrack(1)
@@ -23,11 +23,6 @@ const AudioButtonGroup = ({ audioRef }) => {
     })
 
     const dispatch = useDispatch()
-
-    // play/pause
-    const handleTogglePlay = (e) => {
-        dispatch(setPlayState(e.target.checked))
-    }
 
     // loop
     const handleToggleLoop = (e) => {
@@ -81,7 +76,7 @@ const AudioButtonGroup = ({ audioRef }) => {
                 swapOn={<BsPauseCircle />}
                 tw="swap-rotate btn btn-ghost btn-circle hover:bg-transparent text-4xl w-fit"
                 checked={playState}
-                onChange={handleTogglePlay}
+                onChange={(e) => setPlayState(e.target.checked)}
             />
             <Button color="transparent" className="text-2xl" onClick={() => handleChangeTrack(1)}>
                 <BsSkipForwardFill />

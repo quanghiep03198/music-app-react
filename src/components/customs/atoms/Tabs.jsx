@@ -15,36 +15,25 @@ const Tab = tw.a`tab ${(props) => {
     ${(props) => (props.active ? "tab-active" : "")}
 
 `
-export const TabPannel = tw.div`w-full h-full flex flex-col gap-10 ${(props) =>
-    props.isActive ? "" : "hidden"}`
+export const TabPannel = tw.div`w-full h-full flex flex-col gap-10 ${(props) => (props.active ? "" : "hidden")}`
 
 const Tabs = ({ data, tabType }) => {
-    const [currentTabIndex, setCurrentTabIndex] = useState(1)
+    const [currentTabIndex, setCurrentTabIndex] = useState(0)
 
     return (
         <div className="flex flex-col gap-10">
-            <div
-                className={`bg-transparent ${
-                    tabType === "boxed" ? "tabs tabs-boxed" : "tabs"
-                }`}
-            >
+            <div className={`bg-transparent ${tabType === "boxed" ? "tabs tabs-boxed" : "tabs"}`}>
                 {Array.isArray(data) &&
                     data.map((item, index) => (
-                        <Tab
-                            type={item.type}
-                            active={currentTabIndex === index + 1}
-                            onClick={() => setCurrentTabIndex(index + 1)}
-                        >
+                        <Tab type={item.type} active={currentTabIndex === index} onClick={() => setCurrentTabIndex(index)}>
                             {item.title}
                         </Tab>
                     ))}
             </div>
             {Array.isArray(data) &&
-                data.map((item, index) => (
-                    <TabPannel isActive={`${currentTabIndex === index + 1}`}>
-                        {item.pannelElement}
-                    </TabPannel>
-                ))}
+                data.map((item, index) => {
+                    return <TabPannel active={currentTabIndex === index}>{item.pannelElement}</TabPannel>
+                })}
         </div>
     )
 }

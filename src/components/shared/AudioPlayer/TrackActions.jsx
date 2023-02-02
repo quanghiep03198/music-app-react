@@ -1,10 +1,8 @@
 import Button from "@/components/customs/atoms/Button"
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
 import { AppContext } from "@/context/AppProvider"
-import useLocalStorage from "@/hooks/useLocalStorage"
-import { useContext } from "react"
-import { useEffect, useId, useState } from "react"
-import { BsPauseFill, BsPlayFill, BsVolumeUp } from "react-icons/bs"
+import { useContext, useEffect, useId, useState } from "react"
+import { BsPauseFill, BsPlayFill, BsVolumeDown, BsVolumeMute, BsVolumeUp } from "react-icons/bs"
 import { HiOutlineQueueList } from "react-icons/hi2"
 import { Link } from "react-router-dom"
 import tw from "tailwind-styled-components"
@@ -16,7 +14,7 @@ const VolumeController = tw.div`flex items-center self-center gap-2 sm:hidden md
 const TrackActions = ({ audioRef }) => {
     const [volume, setVolume] = useState(0)
     const inputId = useId()
-    const [playState, setPlayState] = useLocalStorage("playState")
+    const { playState, setPlayState } = useContext(AppContext)
 
     useEffect(() => {
         setVolume(audioRef.current.volume)
@@ -30,8 +28,8 @@ const TrackActions = ({ audioRef }) => {
         <ErrorBoundary>
             <ActionsGroup>
                 <VolumeController>
-                    <label htmlFor="volume-range" className="text-xl" id={inputId}>
-                        <BsVolumeUp />
+                    <label htmlFor="volume-range" className="text-2xl" id={inputId}>
+                        {volume === 1 ? <BsVolumeUp /> : volume == 0 ? <BsVolumeMute /> : <BsVolumeDown />}
                     </label>
                     <Range value={volume} step={0.01} max={1} onChange={adjustVolume} id="volume-range" />
                 </VolumeController>

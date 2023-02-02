@@ -23,7 +23,6 @@ const AlbumSlider = ({ data, status }) => {
                 modules={[Navigation, FreeMode]}
                 freeMode={true}
                 lazy={true}
-                loop
                 breakpoints={swiperBreakpoints}
                 ref={swiperRef}
                 className="album-slide container pb-10"
@@ -44,11 +43,11 @@ const AlbumSlider = ({ data, status }) => {
                     ))}
             </Swiper>
 
-            <Button shape="circle" color="success" size="sm" className="album-slide-prev-btn absolute top-1/2 left-0 z-[999] -translate-y-1/2 text-base">
+            <Button shape="circle" size="sm" className="album-slide-prev-btn absolute top-1/2 left-0 z-[999] -translate-y-1/2 text-base">
                 <BsArrowLeft />
             </Button>
 
-            <Button shape="circle" color="success" size="sm" className="album-slide-next-btn absolute top-1/2 right-0 z-[999] -translate-y-1/2 text-base">
+            <Button shape="circle" size="sm" className="album-slide-next-btn absolute top-1/2 right-0 z-[999] -translate-y-1/2 text-base">
                 <BsArrowRight />
             </Button>
         </div>

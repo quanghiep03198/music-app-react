@@ -29,9 +29,8 @@ const ToggleLikeButton = ({ track }) => {
                 return
             }
             const response = await updateTrackCollection(track)
-            if (!response) {
-                throw new Error("Failed to update track colleciton!")
-            }
+            if (!response) throw new Error("Failed to update track colleciton!")
+
             setIsLiked(!isLiked)
             !isLiked ? toast.success("Added track to your library") : toast.info("Removed track from your library")
         } catch (error) {

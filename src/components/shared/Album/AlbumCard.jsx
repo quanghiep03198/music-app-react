@@ -1,18 +1,19 @@
 import { setCurrentPlaylist } from "@/app/slices/queueSlice"
+import Swap from "@/components/customs/atoms/Swap"
 import { AppContext } from "@/context/AppProvider"
 import useLocalStorage from "@/hooks/useLocalStorage"
 import axios from "axios"
 import { useContext } from "react"
-import { BsPauseFill, BsPlayFill } from "react-icons/bs"
+import { BsHeart, BsHeartFill, BsPauseFill, BsPlayFill } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import Button from "../../customs/atoms/Button"
-import { Card, CardBody, Figure } from "../../customs/atoms/Card"
+import { Card, CardAction, CardBody, Figure } from "../../customs/atoms/Card"
 import DefaultAlbumThumbnail from "/images/default-album-image.png"
 
 const AlbumCard = ({ albumData }) => {
-    const [playState, setPlayState] = useLocalStorage("playState")
+    const { playState, setPlayState } = useContext(AppContext)
 
     const dispatch = useDispatch()
     const { currentPlaylist } = useSelector((state) => state.queue)
@@ -59,6 +60,9 @@ const AlbumCard = ({ albumData }) => {
                 <Link to={`/artist/${albumData?.artist?._id}`} className="truncate text-base-content/50 hover:link sm:text-sm">
                     {albumData?.artist?.name}
                 </Link>
+                <CardAction>
+                    <Swap swapOn={<BsHeartFill className="text-success" swapOff={<BsHeart />} />} />
+                </CardAction>
             </CardBody>
         </Card>
     )

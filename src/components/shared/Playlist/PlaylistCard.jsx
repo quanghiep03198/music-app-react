@@ -25,13 +25,19 @@ const PlaylistCard = ({ playlist }) => {
             <div className=" relative max-w-full">
                 <Link to={`/playlist/${playlist?._id}`}>
                     <Figure>
-                        <img src={playlist.thumbnail !== "" ? playlist.thumbnail : DefaultPlaylistThumbnail} />
+                        <img
+                            src={playlist.thumbnail !== "" ? playlist.thumbnail : DefaultPlaylistThumbnail}
+                            onError={({ currentTarget }) => {
+                                currentTarget.onerror = null // prevents looping
+                                currentTarget.src = DefaultPlaylistThumbnail
+                            }}
+                        />
                     </Figure>
                 </Link>
                 <Button
                     shape="circle"
                     color="success"
-                    className="sm:text-md absolute bottom-2 right-2 z-[999] translate-y-2 text-xl opacity-0 duration-300 group-hover:translate-y-0 group-hover:opacity-100 sm:btn-sm"
+                    className="sm:text-md absolute bottom-2 right-2  translate-y-2 text-xl opacity-0 duration-300 group-hover:translate-y-0 group-hover:opacity-100 sm:btn-sm"
                     onClick={() => playThisPlaylist(playlist)}
                 >
                     {playState && currentPlaylist === playlist._id ? <BsPauseFill /> : <BsPlayFill />}

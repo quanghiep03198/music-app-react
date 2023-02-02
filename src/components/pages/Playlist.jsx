@@ -10,7 +10,7 @@ import { Link, useParams } from "react-router-dom"
 import Button from "../customs/atoms/Button"
 import TrackList from "../shared/Track/TrackList"
 import { AppContext } from "../../context/AppProvider"
-import DefaultThumbnail from "/images/default-thumbnail.png"
+import DefaultThumbnail from "/images/default-album-image.png"
 
 const Playlist = () => {
     const { id } = useParams()
@@ -31,7 +31,7 @@ const Playlist = () => {
             <section className="group relative">
                 <HeroBanner heroImageUrl={data?.thumbnail !== "" ? data?.thumbnail : DefaultThumbnail}>
                     <small className="first-letter:uppercase">{data?.public ? "public playlist" : "private playlist"}</small>
-                    <h1 className="text-6xl font-bold sm:text-3xl md:text-4xl">{data?.title}</h1>
+                    <h1 className="text-6xl font-bold sm:text-4xl md:text-4xl ">{data?.title}</h1>
                     <p className="sm:text-sm">{data?.tracks?.length || 0} tracks</p>
                     <p>
                         <span>Created by </span>
