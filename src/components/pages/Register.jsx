@@ -22,8 +22,8 @@ const RegisterPage = () => {
 
     const onSubmit = async (data) => {
         try {
-            const { token } = await axios.post("/register", data)
-            if (!token) {
+            const response = await axios.post("/register", data)
+            if (response.status === 400) {
                 toast.error(response.message)
                 return
             }
