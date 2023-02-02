@@ -27,9 +27,9 @@ axios.interceptors.response.use(
     async (error) => {
         const { response, config } = error
         const skippingCheckTokenRoutes = ["/login", "/register", "/refresh-token", "/forgot-password", "/reset-password"]
-        if (skippingCheckTokenRoutes.indexOf(config.url) >= 0) return data
+        if (skippingCheckTokenRoutes.indexOf(config.url) >= 0) return config
 
-        if ((response.status === 401, response.data.message === "jwt expired")) {
+        if ((response?.status === 401, response?.data?.message === "jwt expired")) {
             console.error("[ERROR] Access token expired!")
             const { credential } = store.getState().auth
             const newAccessToken = await store.dispatch(authApi.endpoints.refreshToken.initiate(credential)).unwrap()
