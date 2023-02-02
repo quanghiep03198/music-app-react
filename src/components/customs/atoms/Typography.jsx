@@ -1,6 +1,5 @@
 import tw from "tailwind-styled-components"
 
-<<<<<<< HEAD
 const Typography = tw.h1`font-semibold sm:text-2xl mb-6
 ${(props) => {
     switch (props.align) {
@@ -63,7 +62,4 @@ ${(props) => {
 }}
 `
 
-=======
-const Typography = tw.h1``
->>>>>>> 249c10de1e8d8f3d0612943a04dc3e5a84ae8728
 export default Typography

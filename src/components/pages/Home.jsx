@@ -10,10 +10,6 @@ import { useFetchArtistsQuery } from "@/app/services/artistApi"
 import { useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
 import Typography from "../customs/atoms/Typography"
 
-<<<<<<< HEAD
-=======
-export const Typography = tw.h1`text-2xl font-semibold first-letter:uppercase mb-3`
->>>>>>> 249c10de1e8d8f3d0612943a04dc3e5a84ae8728
 export const PageContent = tw.div`flex flex-col gap-10 items-stretch h-full`
 
 const HomePage = () => {
