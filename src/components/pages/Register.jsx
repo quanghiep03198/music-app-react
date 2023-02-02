@@ -1,4 +1,3 @@
-import { setCookie } from "@/utils/cookie"
 import axios from "axios"
 import { useEffect, useRef } from "react"
 import { useForm } from "react-hook-form"
@@ -28,7 +27,6 @@ const RegisterPage = () => {
                 toast.error(response.message)
                 return
             }
-            setCookie("token", token)
             toast.info("Check your email to get activating account link!")
             navigate("/login")
         } catch (error) {
