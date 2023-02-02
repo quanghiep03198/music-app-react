@@ -45,6 +45,14 @@ const trackApi = createApi({
                     return currentArg !== previousArg
                 }
             }),
+            fetchTracksUserUploaded: builder.query({
+                query() {
+                    return {
+                        url: "/tracks/user-uploaded",
+                        method: "GET"
+                    }
+                }
+            }),
             uploadTracks: builder.mutation({
                 query(payload) {
                     return {
@@ -59,5 +67,5 @@ const trackApi = createApi({
     }
 })
 
-export const { useFetchTracksQuery, useUploadTracksMutation, useFetchRelatedTracksQuery } = trackApi
+export const { useFetchTracksQuery, useUploadTracksMutation, useFetchRelatedTracksQuery, useFetchTracksUserUploadedQuery } = trackApi
 export default trackApi
