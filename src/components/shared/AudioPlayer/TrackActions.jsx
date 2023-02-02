@@ -2,7 +2,11 @@ import Button from "@/components/customs/atoms/Button"
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
 import { AppContext } from "@/context/AppProvider"
 import { useContext, useEffect, useId, useState } from "react"
+<<<<<<< HEAD
 import { BsPauseFill, BsPlayFill, BsVolumeDown, BsVolumeMute, BsVolumeUp } from "react-icons/bs"
+=======
+import { BsPauseFill, BsPlayFill, BsVolumeUp } from "react-icons/bs"
+>>>>>>> 249c10de1e8d8f3d0612943a04dc3e5a84ae8728
 import { HiOutlineQueueList } from "react-icons/hi2"
 import { Link } from "react-router-dom"
 import tw from "tailwind-styled-components"

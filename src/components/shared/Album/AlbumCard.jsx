@@ -47,7 +47,7 @@ const AlbumCard = ({ albumData }) => {
                 <Button
                     shape="circle"
                     color="success"
-                    className="absolute bottom-2 right-2 translate-y-2 text-xl opacity-0 group-hover:translate-y-0 group-hover:opacity-100 sm:text-base sm:btn-sm"
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-2 text-xl opacity-0 group-hover:-translate-y-1/2 group-hover:opacity-100 sm:text-base sm:btn-sm"
                     onClick={() => playThisAlbum(albumData)}
                 >
                     {playState && currentPlaylist === albumData?._id ? <BsPauseFill /> : <BsPlayFill />}
