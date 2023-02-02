@@ -17,7 +17,7 @@ const ResetPassword = () => {
     const verifyCodeRef = useRef(null)
     const navigate = useNavigate()
     const { ref } = register("verifyCode")
-    const token = useMemo(() => sessionStorage.getItem("token"), [sessionStorage])
+    const [token, setToken] = useState(() => sessionStorage.getItem("token"))
 
     useEffect(() => {
         verifyCodeRef.current.scrollIntoView({ behavior: "smooth" })
