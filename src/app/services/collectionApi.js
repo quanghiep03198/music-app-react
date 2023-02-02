@@ -6,6 +6,7 @@ const collectionApi = createApi({
     baseQuery: axiosBaseQuery(),
     reducerPath: "collections",
     refetchOnReconnect: true,
+    refetchOnMountOrArgChange: true,
     endpoints(builder) {
         return {
             fetchTrackCollection: builder.query({
