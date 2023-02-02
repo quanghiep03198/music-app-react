@@ -52,6 +52,8 @@ const Button = tw.button`
                         return "btn-ghost"
                     case "transparent":
                         return "btn-ghost hover:bg-transparent"
+                    case "neutral":
+                        return "bg-neutral"
                     default:
                         return ""
                 }

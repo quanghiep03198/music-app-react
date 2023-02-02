@@ -8,7 +8,7 @@ import Logo from "/images/logo.png"
 
 const DrawerSidebar = tw.aside`drawer-side`
 const DrawerOverlay = tw.label`drawer-overlay`
-const DrawerSideWrapper = tw.div`p-2 bg-base-200 w-fit`
+const DrawerSideWrapper = tw.div`p-2 bg-base-200 w-fit flex flex-col overflow-y-hidden `
 const LogoImage = tw.img`max-w-[240px] h-[120px] object-contain -translate-x-2`
 
 const Sidebar = () => {
@@ -17,7 +17,7 @@ const Sidebar = () => {
     // useEffect(() => {
     //     overlayRef.current.click()
     // }, [pathname])
-    const { userInfo } = useSelector((state) => state.auth)
+    const { authenticated } = useSelector((state) => state.auth)
     return (
         <DrawerSidebar>
             <DrawerOverlay htmlFor="sidebar-toggle" ref={overlayRef} />
@@ -28,7 +28,7 @@ const Sidebar = () => {
 
                 <SidebarMenu />
                 <div className="divider"></div>
-                {userInfo && <UserPlaylists />}
+                {authenticated && <UserPlaylists />}
             </DrawerSideWrapper>
         </DrawerSidebar>
     )

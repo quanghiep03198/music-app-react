@@ -10,7 +10,7 @@ import { useFetchArtistsQuery } from "@/app/services/artistApi"
 import { useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
 
 export const Typography = tw.h1`text-2xl font-semibold first-letter:uppercase mb-3`
-export const PageContent = tw.div`flex flex-col gap-10 items-stretch`
+export const PageContent = tw.div`flex flex-col gap-10 items-stretch h-full`
 
 const HomePage = () => {
     const fetchTracksResponse = useFetchTracksQuery({

@@ -46,24 +46,10 @@ const ArtistSlider = ({ data, status }) => {
                         </SwiperSlide>
                     ))}
             </Swiper>
-            <Button
-                shape="circle"
-                color="success"
-                size="sm"
-                id="artist-slide-prev-btn"
-                className="prev-button absolute top-1/2 left-0 z-[999] text-base"
-                ref={prevButtonRef}
-            >
+            <Button shape="circle" size="sm" id="artist-slide-prev-btn" className="prev-button absolute top-1/2 left-0 z-[999] text-base" ref={prevButtonRef}>
                 <BsArrowLeft />
             </Button>
-            <Button
-                shape="circle"
-                color="success"
-                size="sm"
-                id="artist-slide-next-btn"
-                className="next-button absolute top-1/2 right-0 z-[999] text-base"
-                ref={nextButtonRef}
-            >
+            <Button shape="circle" size="sm" id="artist-slide-next-btn" className="next-button absolute top-1/2 right-0 z-[999] text-base" ref={nextButtonRef}>
                 <BsArrowRight />
             </Button>
         </div>

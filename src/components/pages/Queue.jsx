@@ -9,23 +9,10 @@ import TrackList from "../shared/Track/TrackList"
 import { PageContent, Typography } from "./Home"
 
 const Queue = () => {
-    const { currentTrack, nextup } = useSelector((state) => state.queue)
-
-    const { data, isLoading } = useFetchRelatedTracksQuery({
-        genre: currentTrack.genre?._id,
-        skip: 0,
-        limit: 10
-    })
-    const dispatch = useDispatch()
-    // useEffect(() => {
-    //     console.log(data)
-    //     if (nextup.length === 0) {
-    //         dispatch(addToQueue(data))
-    //     }
-    // })
+    const { nextup } = useSelector((state) => state.queue)
 
     return (
-        <PageContent>
+        <>
             <Typography className="flex items-center gap-2">
                 <BsPlayFill /> Queue
             </Typography>
@@ -33,7 +20,7 @@ const Queue = () => {
             <Suspense fallback={<Loading />}>
                 <TrackList data={nextup} />
             </Suspense>
-        </PageContent>
+        </>
     )
 }
 

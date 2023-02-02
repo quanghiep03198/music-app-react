@@ -18,10 +18,18 @@ const artistApi = createApi({
                 },
                 keepUnusedDataFor: 5 * 60,
                 providesTags: ["Artists"]
+            }),
+            fetchArtist: builder.query({
+                query(id) {
+                    return {
+                        url: `/artists/${id}`,
+                        method: "GET"
+                    }
+                }
             })
         }
     }
 })
 
-export const { useFetchArtistsQuery } = artistApi
+export const { useFetchArtistsQuery, useFetchArtistQuery } = artistApi
 export default artistApi

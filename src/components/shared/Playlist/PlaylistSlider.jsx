@@ -42,11 +42,11 @@ const PlaylistSlider = ({ data, status }) => {
                     ))}
             </Swiper>
 
-            <Button shape="circle" color="success" size="sm" className="playlist-prev-button absolute top-1/2 left-0 z-[999] -translate-y-1/2 text-base">
+            <Button shape="circle" size="sm" className="playlist-prev-button absolute top-1/2 left-0 z-[999] -translate-y-1/2 text-base">
                 <BsArrowLeft />
             </Button>
 
-            <Button shape="circle" color="success" size="sm" className="playlist-next-button absolute top-1/2 right-0 z-[999] -translate-y-1/2 text-base">
+            <Button shape="circle" size="sm" className="playlist-next-button absolute top-1/2 right-0 z-[999] -translate-y-1/2 text-base">
                 <BsArrowRight />
             </Button>
         </div>

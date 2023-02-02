@@ -27,7 +27,7 @@ export const Dropdown = tw.div`dropdown ${(props) => {
     }
 }}
 	`
-export const DropdownContent = tw.div`dropdown-content w-fit rounded-box`
+export const DropdownContent = tw.div`dropdown-content w-fit rounded-xl`
 // const Dropdown = ({
 // 	children,
 // 	dropdownButtonElement,

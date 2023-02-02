@@ -1,8 +1,7 @@
 import { AppContext } from "@/context/AppProvider"
-import useLocalStorage from "@/hooks/useLocalStorage"
 import "@/index.css"
-import { useContext, useEffect, useRef, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useContext, useEffect, useRef } from "react"
+import { useSelector } from "react-redux"
 import tw from "tailwind-styled-components"
 import AudioButtonGroup from "./AudioButtonGroup"
 import AudioSeekBar from "./AudioSeekBar"
@@ -14,9 +13,9 @@ const AudioControllerWrapper = tw.div`flex flex-col gap-1 justify-center items-c
 
 const AudioPlayer = () => {
     const audioRef = useRef()
-    // const { playState } = useContext(AppContext)
     const { currentTrack } = useSelector((state) => state.queue)
-    const [playState, setPlayState] = useLocalStorage("playState", false)
+    const { playState, setPlayState } = useContext(AppContext)
+
     useEffect(() => {
         if (playState === null) {
             setPlayState(false)

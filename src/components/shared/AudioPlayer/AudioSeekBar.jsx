@@ -1,6 +1,5 @@
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
 import { AppContext } from "@/context/AppProvider"
-import useLocalStorage from "@/hooks/useLocalStorage"
 import { timer } from "@/utils/formatter"
 import { useContext, useEffect, useState } from "react"
 import { useSelector } from "react-redux"
@@ -10,7 +9,7 @@ const AudioSeekBar = ({ audioRef }) => {
     const [intervalState, setIntervalState] = useState(0)
     const [currentTime, setCurrentTime] = useState(0)
     const { currentTrack } = useSelector((state) => state.queue)
-    const [playState] = useLocalStorage("playState")
+    const { playState } = useContext(AppContext)
 
     useEffect(() => {
         if (playState) {

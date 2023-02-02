@@ -1,12 +1,9 @@
-import { useFetchTrackCollectionQuery } from "@/app/services/collectionApi"
-import { addToQueue, removeFromQueue, setCurrentTrack } from "@/app/slices/queueSlice"
+import { setCurrentTrack } from "@/app/slices/queueSlice"
 import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
 import { AppContext } from "@/context/AppProvider"
-import useLocalStorage from "@/hooks/useLocalStorage"
 import { formatNumber, timer } from "@/utils/formatter"
 import { useContext, useEffect, useState } from "react"
-import { BsClock, BsDownload, BsHeart, BsHeartFill, BsPauseFill, BsPlayFill, BsPlusLg, BsThreeDots } from "react-icons/bs"
-import { HiOutlineMinus } from "react-icons/hi2"
+import { BsClock, BsDownload, BsPauseFill, BsPlayFill, BsThreeDots } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import Button from "../../customs/atoms/Button"
@@ -18,11 +15,10 @@ import ToggleLikeButton from "./ToggleLikeButton"
 const TrackCard = ({ index, track }) => {
     const [isCurrentTrack, setIsCurrentTrack] = useState(false)
 
-    const [playState, setPlayState] = useLocalStorage("playState")
-
+    const { playState, setPlayState } = useContext(AppContext)
     const { currentTrack } = useSelector((state) => state.queue)
-
     const dispatch = useDispatch()
+
     useEffect(() => {
         setIsCurrentTrack(currentTrack?._id === track?._id)
     }, [currentTrack, playState])

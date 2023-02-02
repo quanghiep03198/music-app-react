@@ -8,7 +8,7 @@ import PageNavigator from "./PageNavigator"
 import SearchBox from "./SearchBox"
 import UserController from "./UserController"
 
-const NavbarWrapper = tw.nav`navbar justify-between items-center p-5 bg-gradient-to-b from-base-300 to-transparent`
+const NavbarWrapper = tw.nav`navbar justify-between items-center p-5 bg-gradient-to-b from-base-300 to-transparent gap-6`
 const Navbar = () => {
     const { authenticated } = useSelector((state) => state.auth)
     const { data } = useFetchUserDataQuery(undefined)

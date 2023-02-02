@@ -7,21 +7,24 @@ import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 
 const UserPlaylists = () => {
-    const { authId } = useSelector((state) => state.auth)
+    const { credential } = useSelector((state) => state.auth)
     const { data, isFetching } = useFetchUserPlaylistsQuery({
-        id: authId,
-        query: { skip: 0, limit: 20 }
+        id: credential,
+        params: { skip: 0, limit: 20 }
     })
+    console.log(data)
     return (
-        <Menu>
-            {isFetching && [1, 2, 3].map((item) => <CardTextSkeleton key={item} />)}
-            {Array.isArray(data) &&
-                data.map((playlist) => (
-                    <MenuItem key={playlist?._id}>
-                        <Link to={`/playlist/${playlist?._id}`}>{playlist?.title}</Link>
-                    </MenuItem>
-                ))}
-        </Menu>
+        <div className="scroll max-h-full flex-1 ">
+            <Menu>
+                {isFetching && [1, 2, 3].map((item) => <CardTextSkeleton key={item} />)}
+                {Array.isArray(data) &&
+                    data.map((playlist) => (
+                        <MenuItem key={playlist?._id}>
+                            <Link to={`/playlist/${playlist?._id}`}>{playlist?.title}</Link>
+                        </MenuItem>
+                    ))}
+            </Menu>
+        </div>
     )
 }
 

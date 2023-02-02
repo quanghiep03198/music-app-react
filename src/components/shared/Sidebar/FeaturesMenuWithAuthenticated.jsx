@@ -26,7 +26,7 @@ const FeaturesMenuWithAuthenticated = () => {
                     }}
                 >
                     <BsHeart aria-hidden className="text-xl" />
-                    Liked tracks
+                    Liked Tracks
                 </NavLink>
             </MenuItem>
             <MenuItem>
