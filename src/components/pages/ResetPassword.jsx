@@ -36,8 +36,9 @@ const ResetPassword = () => {
                 toast.error(response.message)
                 return
             }
+            sessionStorage.removeItem("token")
             toast.success("Reset password successfully!")
-            navigate("/reset-password")
+            navigate("/login")
         } catch (error) {
             console.log(error)
         }
