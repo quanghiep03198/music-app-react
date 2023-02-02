@@ -17,11 +17,12 @@ const ResetPassword = () => {
     const verifyCodeRef = useRef(null)
     const navigate = useNavigate()
     const { ref } = register("verifyCode")
-    const [token, setToken] = useState(() => sessionStorage.getItem("token"))
 
     useEffect(() => {
         verifyCodeRef.current.scrollIntoView({ behavior: "smooth" })
     })
+
+    const token = sessionStorage.getItem("token")
 
     const onSubmit = async (data) => {
         try {

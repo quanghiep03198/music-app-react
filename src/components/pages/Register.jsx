@@ -1,13 +1,12 @@
-import React, { useEffect, useRef } from "react"
-import Logo from "/images/logo.png"
-import ErrorBoundary from "../customs/ErrorBoundary"
+import { setCookie } from "@/utils/cookie"
+import axios from "axios"
+import { useEffect, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
-import axios from "axios"
-import Button from "../customs/atoms/Button"
-import { useState } from "react"
 import { toast } from "react-toastify"
-import { setCookie } from "@/utils/cookie"
+import Button from "../customs/atoms/Button"
+import ErrorBoundary from "../customs/ErrorBoundary"
+import Logo from "/images/logo.png"
 
 const RegisterPage = () => {
     const {
