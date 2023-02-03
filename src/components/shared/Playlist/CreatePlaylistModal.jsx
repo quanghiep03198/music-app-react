@@ -5,7 +5,7 @@ import Typography from "@/components/customs/atoms/Typography"
 import useFirebaseUpload from "@/hooks/useFirebaseUpload"
 import { useRef } from "react"
 import { useForm } from "react-hook-form"
-import { BsCamera, BsX } from "react-icons/bs"
+import { BsCamera, BsCameraFill, BsX } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { toast } from "react-toastify"
 import DefaultPlaylistImage from "/images/default-album-image.png"
@@ -58,7 +58,7 @@ const CreatePlaylistModal = () => {
                                 <img src={DefaultPlaylistImage} alt="" className="h-[200px] w-[200px] object-contain" ref={imageRef} />
 
                                 <label htmlFor="file" className="absolute top-0 h-[200px] w-[200px] group-hover:bg-black/50 group-hover:duration-500">
-                                    <BsCamera className="absolute top-1/2 left-1/2 -translate-x-1/2  translate-y-2 text-4xl text-success opacity-0 group-hover:-translate-y-1/2 group-hover:opacity-100 group-hover:duration-500" />
+                                    <BsCameraFill className="absolute top-1/2 left-1/2 -translate-x-1/2  translate-y-2 text-4xl text-success opacity-0 group-hover:-translate-y-1/2 group-hover:opacity-100 group-hover:duration-500" />
                                 </label>
                             </div>
                             <input
