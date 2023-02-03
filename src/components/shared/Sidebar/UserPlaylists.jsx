@@ -17,7 +17,9 @@ const UserPlaylists = () => {
                 {isFetching &&
                     [1, 2, 3].map((item) => (
                         <MenuItem>
-                            <CardTextSkeleton key={item} />
+                            <a role="menuitem">
+                                <CardTextSkeleton key={item} />
+                            </a>
                         </MenuItem>
                     ))}
                 {Array.isArray(data) &&
