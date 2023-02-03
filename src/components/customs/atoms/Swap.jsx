@@ -1,11 +1,11 @@
 import React from "react"
 
-const Swap = ({ tw, swapOn, swapOff, checked, onChange }) => {
+const Swap = ({ tw, swapon, swapoff, checked, onChange }) => {
     return (
         <label className={`swap  ${tw}`}>
             <input type="checkbox" checked={checked} onChange={(e) => onChange(e)} />
-            <div className="swap-on">{swapOn}</div>
-            <div className="swap-off">{swapOff}</div>
+            <div className="swap-on">{swapon}</div>
+            <div className="swap-off">{swapoff}</div>
         </label>
     )
 }

@@ -62,8 +62,8 @@ const AudioButtonGroup = ({ audioRef }) => {
     return (
         <div className="flex items-center">
             <Swap
-                swapOn={<BsShuffle className="text-success" />}
-                swapOff={<BsShuffle />}
+                swapon={<BsShuffle className="text-success" />}
+                swapoff={<BsShuffle />}
                 tw="text-xl w-fit"
                 checked={shuffleState}
                 onChange={handleToggleShuffle}
@@ -72,8 +72,8 @@ const AudioButtonGroup = ({ audioRef }) => {
                 <BsSkipBackwardFill />
             </Button>
             <Swap
-                swapOff={<BsPlayCircle />}
-                swapOn={<BsPauseCircle />}
+                swapoff={<BsPlayCircle />}
+                swapon={<BsPauseCircle />}
                 tw="swap-rotate btn btn-ghost btn-circle hover:bg-transparent text-4xl w-fit"
                 checked={playState}
                 onChange={(e) => setPlayState(e.target.checked)}
@@ -82,8 +82,8 @@ const AudioButtonGroup = ({ audioRef }) => {
                 <BsSkipForwardFill />
             </Button>
             <Swap
-                swapOn={<RepeatIcon className="text-success" />}
-                swapOff={<RepeatIcon className="text-base-content" />}
+                swapon={<RepeatIcon className="text-success" />}
+                swapoff={<RepeatIcon className="text-base-content" />}
                 tw="text-xl w-fit"
                 checked={loopState}
                 onChange={handleToggleLoop}

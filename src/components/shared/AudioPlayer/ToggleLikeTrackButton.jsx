@@ -37,7 +37,7 @@ const ToggleLikeTrackButton = () => {
             console.log(error.message)
         }
     }
-    return <Swap swapOff={<BsHeart />} swapOn={<BsHeartFill className="text-success" />} checked={isLiked} onChange={() => toggleLikeTrack(currentTrack)} />
+    return <Swap swapoff={<BsHeart />} swapon={<BsHeartFill className="text-success" />} checked={isLiked} onChange={() => toggleLikeTrack(currentTrack)} />
 }
 
 export default memo(ToggleLikeTrackButton)
