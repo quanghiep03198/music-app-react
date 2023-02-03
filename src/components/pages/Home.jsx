@@ -1,14 +1,14 @@
 import tw from "tailwind-styled-components"
 import TrackList from "../shared/Track/TrackList"
 
-import { useFetchTracksQuery } from "@/app/services/trackApi"
-import AlbumSlider from "../shared/Album/AlbumSlider"
-import ArtistSlider from "../shared/Artist/ArtistSlider"
-import PlaylistSlider from "../shared/Playlist/PlaylistSlider"
 import { useFetchAlbumsQuery } from "@/app/services/albumApi"
 import { useFetchArtistsQuery } from "@/app/services/artistApi"
 import { useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
+import { useFetchTracksQuery } from "@/app/services/trackApi"
 import Typography from "../customs/atoms/Typography"
+import AlbumSlider from "../shared/Album/AlbumSlider"
+import ArtistSlider from "../shared/Artist/ArtistSlider"
+import PlaylistSlider from "../shared/Playlist/PlaylistSlider"
 
 export const PageContent = tw.div`flex flex-col gap-10 items-stretch h-full`
 

@@ -22,7 +22,8 @@ const AlbumCard = ({ albumData }) => {
     const { currentPlaylist } = useSelector((state) => state.queue)
     const [isLiked, setIsLiked] = useState(false)
     useEffect(() => {
-        setIsLiked(albumsCollection?.find((album) => album._id === albumData._id) !== undefined)
+        let isLiked = Array.isArray(albumsCollection) ? albumsCollection?.find((album) => album._id === albumData._id) !== undefined : false
+        setIsLiked(isLiked)
     }, [])
 
     const playThisAlbum = async (album) => {

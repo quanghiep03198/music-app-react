@@ -1,12 +1,12 @@
-import { useFetchSinglePlaylistQuery } from "@/app/services/playlistApi"
+import { useDeleteUserPlaylistMutation, useFetchSinglePlaylistQuery } from "@/app/services/playlistApi"
 import { setCurrentPlaylist } from "@/app/slices/queueSlice"
 import { Dropdown, DropdownContent } from "@/components/customs/atoms/Dropdown"
 import HeroBanner from "@/components/customs/atoms/HeroBanner"
 import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
 import { useContext } from "react"
-import { BsPauseFill, BsPencil, BsPlayFill, BsThreeDots, BsX } from "react-icons/bs"
+import { BsPauseFill, BsPencil, BsPlayFill, BsThreeDots, BsTrash, BsX } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import Button from "../customs/atoms/Button"
 import TrackList from "../shared/Track/TrackList"
 import { AppContext } from "../../context/AppProvider"
@@ -17,8 +17,10 @@ const Playlist = () => {
     const { data, isFetching } = useFetchSinglePlaylistQuery(id)
     const { playState, setPlayState } = useContext(AppContext)
     const { currentPlaylist } = useSelector((state) => state.queue)
-
+    const { credential } = useSelector((state) => state.auth)
+    const [deletePlaylist] = useDeleteUserPlaylistMutation()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const togglePlayPlaylist = () => {
         if (data._id && data._id !== currentPlaylist) {
@@ -26,8 +28,17 @@ const Playlist = () => {
         }
         setPlayState(!playState)
     }
+
+    const handleDeletePlaylist = (id) => {
+        deletePlaylist(id)
+            .then(() => {
+                navigate("/")
+            })
+            .catch((error) => console.log(error.message))
+    }
+
     return (
-        <div className="flex flex-col gap-10">
+        <div className="flex h-screen flex-col gap-10">
             <section className="group relative">
                 <HeroBanner heroImageUrl={data?.thumbnail !== "" ? data?.thumbnail : DefaultThumbnail}>
                     <small className="first-letter:uppercase">{data?.public ? "public playlist" : "private playlist"}</small>
@@ -37,27 +48,31 @@ const Playlist = () => {
                         <span>Created by </span>
                         <Link className="font-bold text-base-content hover:link">{data?.creator?.username}</Link>
                     </p>
-                    <Button shape="circle" color="success" className="text-xl sm:text-base" onClick={togglePlayPlaylist}>
-                        {playState && currentPlaylist === data._id ? <BsPauseFill /> : <BsPlayFill />}
-                    </Button>
                 </HeroBanner>
+            </section>
 
-                <Dropdown className="absolute top-0 right-0" position="bottom-end">
+            <section className="flex items-center gap-3">
+                <Button shape="circle" color="success" className="text-xl sm:text-base" onClick={togglePlayPlaylist}>
+                    {playState && currentPlaylist === data._id ? <BsPauseFill /> : <BsPlayFill />}
+                </Button>
+                <Dropdown position="bottom-right">
                     <Button color="transparent" className="text-xl" tabIndex={0}>
                         <BsThreeDots />
                     </Button>
-                    <DropdownContent tabIndex={0} className="bg-base-300">
-                        <Menu>
+                    <DropdownContent tabIndex={0}>
+                        <Menu className="bg-neutral">
                             <MenuItem>
                                 <a role="menuitem">
                                     <BsPencil /> Edit playlist
                                 </a>
                             </MenuItem>
-                            <MenuItem>
-                                <a role="menuitem" className="text-error">
-                                    <BsX className="text-xl" /> Delete this playlist
-                                </a>
-                            </MenuItem>
+                            {credential === data?.creator?._id && (
+                                <MenuItem onClick={() => handleDeletePlaylist(id)}>
+                                    <a role="menuitem">
+                                        <BsTrash className="text-xl" /> Delete this playlist
+                                    </a>
+                                </MenuItem>
+                            )}
                         </Menu>
                     </DropdownContent>
                 </Dropdown>

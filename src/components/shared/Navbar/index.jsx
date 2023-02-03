@@ -10,10 +10,11 @@ import UserController from "./UserController"
 
 const NavbarWrapper = tw.nav`navbar justify-between items-center p-5 bg-gradient-to-b from-base-300 to-transparent gap-6`
 const Navbar = () => {
-    const { authenticated } = useSelector((state) => state.auth)
-    const { data } = useFetchUserDataQuery(undefined)
+    const { authenticated, accessToken } = useSelector((state) => state.auth)
+    const { data } = useFetchUserDataQuery(undefined, { refetchOnMountOrArgChange: true })
 
     const { pathname } = useLocation()
+
     return (
         <NavbarWrapper>
             <div className="flex items-center gap-4">

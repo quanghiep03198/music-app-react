@@ -16,7 +16,7 @@ const ToggleLikeTrackButton = () => {
     useEffect(() => {
         if (!authenticated) setIsLiked(false)
         if (Array.isArray(data)) {
-            let isLiked = data.find((track) => track._id === currentTrack._id) !== undefined
+            let isLiked = Array.isArray(data) ? data?.find((track) => track?._id === currentTrack?._id) !== undefined : false
             setIsLiked(isLiked)
         }
     }, [data, authenticated])

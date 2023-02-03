@@ -34,8 +34,8 @@ const LoginPage = () => {
                 throw new Error(response.message)
             }
 
-            navigate("/")
             toast.success("Logged in successfully!")
+            navigate("/")
         } catch (error) {
             toast.error(error.message)
         }

@@ -8,6 +8,7 @@ import Loading from "../customs/atoms/Loading"
 import ErrorBoundary from "../customs/ErrorBoundary"
 import AudioPlayer from "../shared/AudioPlayer"
 import Navbar from "../shared/Navbar"
+import CreatePlaylistModal from "../shared/Playlist/CreatePlaylistModal"
 import Sidebar from "../shared/Sidebar"
 const Container = tw.div`flex h-screen flex-col  overflow-hidden`
 const Drawer = tw.div`drawer drawer-mobile h-full`
@@ -45,6 +46,7 @@ const Layout = () => {
                         <Sidebar />
                     </Drawer>
                     <AudioPlayer />
+                    <CreatePlaylistModal />
                 </Container>
             </AppProvider>
         </ErrorBoundary>

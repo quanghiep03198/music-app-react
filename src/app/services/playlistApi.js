@@ -7,6 +7,7 @@ const playlistApi = createApi({
     tagTypes: ["Playlists", "UserPlaylists"],
     keepUnusedDataFor: 5 * 60,
     refetchOnReconnect: true,
+    refetchOnMountOrArgChange: true,
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => {
         return {
@@ -46,6 +47,16 @@ const playlistApi = createApi({
                 },
                 invalidatesTags: ["UserPlaylists", "Playlists"]
             }),
+            createPlaylist: builder.mutation({
+                query(data) {
+                    return {
+                        url: "/playlists",
+                        method: "POST",
+                        data
+                    }
+                },
+                invalidatesTags: ["UserPlaylists", "Playlists"]
+            }),
             updateUserPlaylist: builder.mutation({
                 query(id, data) {
                     return {
@@ -54,16 +65,16 @@ const playlistApi = createApi({
                         data
                     }
                 },
-                invalidatesTags: ["UserPlaylists"]
+                invalidatesTags: ["UserPlaylists", "Playlists"]
             }),
             deleteUserPlaylist: builder.mutation({
                 query(id) {
                     return {
-                        url: `/playlist/${id}`,
+                        url: `/playlists/${id}`,
                         method: "DELETE"
                     }
                 },
-                invalidatesTags: ["UserPlaylists"]
+                invalidatesTags: ["UserPlaylists", "Playlists"]
             })
         }
     }
@@ -73,8 +84,9 @@ export const {
     useFetchSinglePlaylistQuery,
     useFetchPlaylistsQuery,
     useFetchUserPlaylistsQuery,
-    useAddToPlaylistMutation,
+    useCreatePlaylistMutation,
     useUpdateUserPlaylistMutation,
+    useAddToPlaylistMutation,
     useDeleteUserPlaylistMutation
 } = playlistApi
 export default playlistApi

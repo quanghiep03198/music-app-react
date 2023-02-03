@@ -21,7 +21,7 @@ const ResetPassword = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await axios.post("/reset-password", data)
+            const response = await axios.post("/reset-password", data, { headers: { Authorization: "Bearer" + " " + token } })
             console.log(response)
             if (response.status === 403) {
                 toast.error(response.message)

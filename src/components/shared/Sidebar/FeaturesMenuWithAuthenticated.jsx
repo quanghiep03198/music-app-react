@@ -35,9 +35,9 @@ const FeaturesMenuWithAuthenticated = () => {
                 </a>
             </MenuItem>
             <MenuItem>
-                <a role="menuitem">
+                <label role="menuitem" htmlFor="create-playlist-modal">
                     <BsPlusSquareDotted className="text-xl" /> Create playlist
-                </a>
+                </label>
             </MenuItem>
         </Fragment>
     )

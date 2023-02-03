@@ -10,7 +10,7 @@ axios.interceptors.request.use(
         /* do not attach token with headers with these routes */
         const skippingCheckTokenRoutes = ["/login", "/register", "/refresh-token", "/forgot-password"]
         if (skippingCheckTokenRoutes.indexOf(config.url) >= 0) return config
-        const accessToken = store.getState().auth?.accessToken ?? localStorage.getItem("accessToken") ?? sessionStorage.getItem("accessToken")
+        const accessToken = store.getState().auth?.accessToken || localStorage.getItem("accessToken") || sessionStorage.getItem("accessToken")
         if (accessToken) {
             config.headers.Authorization = "Bearer " + accessToken
             return config
@@ -30,8 +30,10 @@ axios.interceptors.response.use(
         if (skippingCheckTokenEndpoints.indexOf(config.url) >= 0) return config
 
         if ((response?.status === 401, response?.data?.message === "jwt expired")) {
+            console.log("[ERROR] Access token expired!")
             const { credential } = store.getState().auth
-            await store.dispatch(authApi.endpoints.refreshToken.initiate(credential)).unwrap()
+            const newAccessToken = await store.dispatch(authApi.endpoints.refreshToken.initiate(credential)).unwrap()
+            console.log("[SUCCESS] Access token expired!", newAccessToken)
             return axios.request(error.config)
         }
         return Promise.reject(error)

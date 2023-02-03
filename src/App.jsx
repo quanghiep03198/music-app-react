@@ -136,7 +136,7 @@ function App() {
                 toastClassName={() => `bg-base-100 text-white flex justify-between items-center p-4 rounded-lg shadow-xl relative font-medium`}
                 bodyClassName={() => "flex items-center text-base-content"}
                 position="bottom-left"
-                closeButton={<HiX className="absolute top-1 right-1 font-bold text-base-content" />}
+                closeButton={<HiX aria-hidden className="absolute top-1 right-1 font-bold text-base-content" />}
             />
         </ErrorBoundary>
     )

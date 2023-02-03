@@ -10,6 +10,9 @@ const authApi = createApi({
         fetchUserData: builder.query({
             query() {
                 return { url: "/user", method: "GET" }
+            },
+            forceRefetch({ currentArg, previousArg }) {
+                return currentArg !== previousArg
             }
         }),
         login: builder.mutation({

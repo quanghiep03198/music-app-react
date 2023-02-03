@@ -29,7 +29,7 @@ const LikedTrack = () => {
         setPlayState(!playState)
     }
     return (
-        <div className="flex flex-col gap-10">
+        <div className="flex h-screen flex-col gap-10">
             {/* Banner */}
             <HeroBanner heroImageUrl={LikedTracksListImage}>
                 <h1 className="text-6xl font-bold capitalize sm:text-2xl">liked tracks</h1>
@@ -48,25 +48,6 @@ const LikedTrack = () => {
                 <Button shape="circle" color="success" className="text-xl sm:text-base" onClick={togglePlayPlaylist}>
                     {playState ? <BsPauseFill /> : <BsPlayFill />}
                 </Button>
-                <Dropdown position="bottom-left">
-                    <Button color="transparent" className="text-2xl" tabIndex={0}>
-                        <BsThreeDots />
-                    </Button>
-                    <DropdownContent tabIndex={0} className="bg-neutral">
-                        <Menu>
-                            <MenuItem>
-                                <a role="menuitem">
-                                    <BsPencil /> Edit playlist
-                                </a>
-                            </MenuItem>
-                            <MenuItem>
-                                <a role="menuitem" className="text-error">
-                                    <BsX /> Delete this playlist
-                                </a>
-                            </MenuItem>
-                        </Menu>
-                    </DropdownContent>
-                </Dropdown>
             </section>
 
             {/* Tracks list */}

@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
 import { getAuth } from "firebase/auth"
+import { getStorage } from "firebase/storage"
 const firebaseConfig = {
     apiKey: "AIzaSyA5iFe7_o0tKML96WOdJaB53nPX9NLXehQ",
     authDomain: "music-app-cdef5.firebaseapp.com",
@@ -12,5 +13,6 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
+export const storage = getStorage(app)
 export const auth = getAuth(app)
 export default app
