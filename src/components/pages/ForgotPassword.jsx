@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
@@ -16,18 +16,21 @@ const ForgotPassword = () => {
     const emailRef = useRef(null)
     const navigate = useNavigate()
     const { ref } = register("email")
+    const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
         emailRef.current.scrollIntoView({ behavior: "smooth" })
     })
 
     const onSubmit = async (data) => {
         try {
+            setIsLoading(true)
             const response = await axios.post("/forgot-password", data)
             if (response.status === 404) {
                 toast.error(response.message)
                 return
             }
-            sessionStorage.setItem("token", response.token)
+            setIsLoading(false)
+            sessionStorage.setItem("accessToken", response.token)
             toast.info("Check your email to get verify code!")
             navigate("/reset-password")
         } catch (error) {

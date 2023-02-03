@@ -1,6 +1,5 @@
 import axios from "axios"
-import { useMemo } from "react"
-import { useEffect, useRef, useState } from "react"
+import { useRef } from "react"
 import { useForm } from "react-hook-form"
 import { Navigate, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
@@ -14,36 +13,25 @@ const ResetPassword = () => {
         formState: { errors },
         handleSubmit
     } = useForm()
-    const verifyCodeRef = useRef(null)
+
     const navigate = useNavigate()
     const { ref } = register("verifyCode")
-
-    useEffect(() => {
-        verifyCodeRef.current.scrollIntoView({ behavior: "smooth" })
-    })
-
-    const token = sessionStorage.getItem("token")
+    const verifyCodeRef = useRef(null)
+    const token = sessionStorage.getItem("accessToken")
 
     const onSubmit = async (data) => {
         try {
-            const response = await axios({
-                url: "/reset-password",
-                method: "POST",
-                headers: {
-                    Authorization: "Bearer " + token
-                },
-                data: data
-            })
+            const response = await axios.post("/reset-password", data)
             console.log(response)
             if (response.status === 403) {
                 toast.error(response.message)
                 return
             }
-            sessionStorage.removeItem("token")
+            sessionStorage.removeItem("accessToken")
             toast.success("Reset password successfully!")
             navigate("/login")
         } catch (error) {
-            console.log(error)
+            console.log(error.message)
         }
     }
 

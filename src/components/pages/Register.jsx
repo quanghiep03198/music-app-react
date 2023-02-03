@@ -16,22 +16,22 @@ const RegisterPage = () => {
     const emailRef = useRef(null)
     const navigate = useNavigate()
     const { ref } = register("email")
-    const [isFetching, setIsFetching] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
         emailRef.current.scrollIntoView({ behavior: "smooth" })
     })
 
     const onSubmit = async (data) => {
         try {
-            setIsFetching(true)
+            setIsLoading(true)
             const response = await axios.post("/register", data)
             if (response.status === 400) {
                 toast.error(response.message)
-                setIsFetching(false)
+                setIsLoading(false)
                 return
             }
             toast.info("Check your email to get activating account link!")
-            setIsFetching(false)
+            setIsLoading(false)
             navigate("/login")
         } catch (error) {
             console.log(error.message)
@@ -109,7 +109,7 @@ const RegisterPage = () => {
                                         </Link>
                                     </label>
                                     <div className="form-control mt-6">
-                                        <Button color="success" className={`text-lg capitalize ${isFetching && "loading"}`}>
+                                        <Button color="success" className={`text-lg capitalize ${isLoading && "loading"}`}>
                                             Create new account
                                         </Button>
                                     </div>

@@ -6,7 +6,10 @@ import { useForm } from "react-hook-form"
 import { FaFacebookSquare } from "react-icons/fa"
 import { FcGoogle } from "react-icons/fc"
 import { Link, useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 import Logo from "/images/logo.png"
+import { auth } from "@/config/firebase.config"
+import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from "firebase/auth"
 
 const LoginPage = () => {
     const {
@@ -17,21 +20,33 @@ const LoginPage = () => {
     const emailRef = useRef(null)
     const navigate = useNavigate()
     useEffect(() => {
+        emailRef.current.focus()
         emailRef.current.scrollIntoView({ behavior: "smooth" })
-    })
+    }, [])
 
     const [login, { isLoading }] = useLoginMutation()
     const { ref } = register("email")
 
     const onSubmit = async (data) => {
         try {
-            const { credential, accessToken } = await login(data).unwrap()
-            if (credential && accessToken) {
-                navigate("/")
+            const response = await login(data).unwrap()
+            if (response.status === 400 || response.status === 404) {
+                throw new Error(response.message)
             }
+
+            navigate("/")
+            toast.success("Logged in successfully!")
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+    const googleAuthProvider = new GoogleAuthProvider()
+    const authenticateWithGoogle = async () => {
+        try {
+            const response = await signInWithPopup(auth, googleAuthProvider)
+            console.log(response)
         } catch (error) {
             console.log(error.message)
-            navigate("/login")
         }
     }
 
@@ -48,7 +63,7 @@ const LoginPage = () => {
                     <div className="card-body">
                         <img src={Logo} className=" max-w-full object-cover text-center" />
                         <div className="form-control gap-2">
-                            <Button size="block" className="gap-2">
+                            <Button size="block" className="gap-2" onClick={authenticateWithGoogle}>
                                 <FcGoogle /> Continue with Google account
                             </Button>
                             <Button size="block" className="gap-2">

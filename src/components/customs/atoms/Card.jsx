@@ -21,7 +21,7 @@ export const Figure = tw.figure`relative rounded-lg mask ${(props) => {
 }}`
 export const CardTitle = tw.h1`card-title sm:text-base truncate`
 export const CardBody = tw.div`card-body px-0 py-4`
-export const CardAction = tw.div`card-actions`
+export const CardAction = tw.div`card-actions justify-end`
 
 export const SkeletonFigure = tw.div`rounded-lg mask ${(props) => {
     switch (props.mask) {

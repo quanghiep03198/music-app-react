@@ -2,7 +2,7 @@ import { setCurrentTrack } from "@/app/slices/queueSlice"
 import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
 import { AppContext } from "@/context/AppProvider"
 import { formatNumber, timer } from "@/utils/formatter"
-import { useContext, useEffect, useState } from "react"
+import { memo, useContext, useEffect, useState } from "react"
 import { BsClock, BsDownload, BsPauseFill, BsPlayFill, BsThreeDots } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
@@ -52,7 +52,12 @@ const TrackCard = ({ index, track }) => {
                 <div className="sm:text-sm">
                     <h6 className="truncate font-medium">{track?.title}</h6>
                     <p className="text-base-content/50">
-                        {Array.isArray(track.artists) && track.artists.map((artist) => <Link to={`/artist/${artist?._id}`}>{artist.name}</Link>)}
+                        {Array.isArray(track.artists) &&
+                            track.artists.map((artist) => (
+                                <Link key={artist._id} to={`/artist/${artist?._id}`}>
+                                    {artist.name}
+                                </Link>
+                            ))}
                     </p>
                 </div>
             </div>
@@ -100,4 +105,4 @@ const TrackCard = ({ index, track }) => {
     )
 }
 
-export default TrackCard
+export default memo(TrackCard)
