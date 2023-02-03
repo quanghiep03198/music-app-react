@@ -14,7 +14,12 @@ const UserPlaylists = () => {
     return (
         <div className="scroll max-h-full flex-1 ">
             <Menu>
-                {isFetching && [1, 2, 3].map((item) => <CardTextSkeleton key={item} />)}
+                {isFetching &&
+                    [1, 2, 3].map((item) => (
+                        <MenuItem>
+                            <CardTextSkeleton key={item} />
+                        </MenuItem>
+                    ))}
                 {Array.isArray(data) &&
                     data.map((playlist) => (
                         <MenuItem key={playlist?._id}>
