@@ -1,4 +1,5 @@
 import authApi from "@/app/services/authApi"
+import { logout } from "@/app/slices/authSlice"
 import store from "@/app/store"
 import axios from "axios"
 
@@ -33,6 +34,10 @@ axios.interceptors.response.use(
             console.log("[ERROR] Access token expired!")
             const { credential } = store.getState().auth
             const newAccessToken = await store.dispatch(authApi.endpoints.refreshToken.initiate(credential)).unwrap()
+            if (!newAccessToken) {
+                store.dispatch(logout())
+                return Promise.reject(error)
+            }
             console.log("[SUCCESS] Access token expired!", newAccessToken)
             return axios.request(error.config)
         }

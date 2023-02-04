@@ -11,6 +11,7 @@ import Typography from "../customs/atoms/Typography"
 import AlbumSlider from "../shared/Album/AlbumSlider"
 import ArtistSlider from "../shared/Artist/ArtistSlider"
 import PlaylistSlider from "../shared/Playlist/PlaylistSlider"
+import { LoadingWrapper } from "@/App"
 
 export const PageContent = tw.div`flex flex-col gap-10 items-stretch h-full`
 
@@ -27,6 +28,7 @@ const HomePage = () => {
         skip: 0,
         limit: 5
     })
+
     const fetchPlaylistsResponse = useFetchUserPlaylistsQuery(
         {
             id: import.meta.env.VITE_ADMIN_ID,
@@ -35,7 +37,7 @@ const HomePage = () => {
         { skip: !isPlaylistSectionIntoView }
     )
 
-    const fetchArtistsResponse = useFetchArtistsQuery({ skip: 0, limit: 10 }, { skip: !isAlbumSectionIntoView })
+    const fetchArtistsResponse = useFetchArtistsQuery({ skip: 0, limit: 10 }, { skip: !isArtistSectionIntoView })
     const fetchAlbumsResponse = useFetchAlbumsQuery(
         {
             skip: 0,

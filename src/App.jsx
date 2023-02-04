@@ -3,13 +3,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { Slide, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import tw from "tailwind-styled-components"
-import { HiX } from "react-icons/hi"
 import Loading from "./components/customs/atoms/Loading"
 import ErrorBoundary from "./components/customs/ErrorBoundary"
 import PrivateLayout from "./components/layouts/PrivateLayout"
-import LikedTrack from "./components/pages/LikedTrack"
 import AlbumPage from "./components/pages/Album"
 import ForgotPassword from "./components/pages/ForgotPassword"
+import LikedTrack from "./components/pages/LikedTrack"
 
 import Layout from "./components/layouts"
 const Search = lazy(() => import("./components/pages/Search"))
@@ -24,7 +23,7 @@ const RegisterPage = lazy(() => import("./components/pages/Register"))
 const ResetPassword = lazy(() => import("./components/pages/ResetPassword"))
 const NotFound = lazy(() => import("./components/pages/NotFound"))
 
-const LoadingWrapper = tw.div`flex items-center justify-center p-20`
+export const LoadingWrapper = tw.div`flex items-center justify-center p-20`
 
 function App() {
     return (
@@ -135,8 +134,8 @@ function App() {
                 limit={1}
                 toastClassName={() => `bg-base-100 text-white flex justify-between items-center p-4 rounded-lg shadow-xl relative font-medium`}
                 bodyClassName={() => "flex items-center text-base-content"}
-                position="bottom-left"
-                closeButton={<HiX aria-hidden className="absolute top-1 right-1 font-bold text-base-content" />}
+                position="top-center"
+                closeButton={false}
             />
         </ErrorBoundary>
     )

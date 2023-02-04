@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 
 const OPTIONS = {
     root: null,
     rootMargin: "0px 0px 0px 0px",
-    threshold: 0
+    threshold: 1
 }
 
 const useRenderOnScroll = (elementRef) => {
@@ -22,7 +22,7 @@ const useRenderOnScroll = (elementRef) => {
             observer.observe(elementRef.current)
         }
     }, [elementRef])
-
+    console.log("is visible:>>", isVisible)
     return isVisible
 }
 

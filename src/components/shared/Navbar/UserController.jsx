@@ -6,6 +6,7 @@ import { Link } from "react-router-dom"
 import Avatar from "../../customs/atoms/Avatar"
 import { Dropdown, DropdownContent } from "../../customs/atoms/Dropdown"
 import { Menu, MenuItem } from "../../customs/atoms/Menu"
+import DefaultAvatar from "/images/default-avatar.png"
 
 const UserController = ({ user }) => {
     const dispatch = useDispatch()
@@ -14,7 +15,7 @@ const UserController = ({ user }) => {
         <Dropdown position="bottom-end">
             <button className="flex items-center gap-2" tabIndex={0}>
                 <Avatar size="xs">
-                    <img src={user?.avatar} className="ring-4 ring-neutral" />
+                    <img src={user?.avatar || DefaultAvatar} className="ring-4 ring-neutral" />
                 </Avatar>{" "}
                 <span className="badge sm:hidden md:hidden">{user?.username}</span>
             </button>
