@@ -1,8 +1,10 @@
 import { Card, CardBody, CardTextSkeleton, CardTitleSkeleton, SkeletonImage } from "../../customs/atoms/Card"
 
-const CardSkeleton = ({ mask }) => (
+const SkeletonCard = ({ mask }) => (
     <Card skeleton="true">
-        <SkeletonImage></SkeletonImage>
+        <div className="mask-square">
+            <SkeletonImage />
+        </div>
         <CardBody>
             <CardTitleSkeleton />
             <CardTextSkeleton />
@@ -10,4 +12,4 @@ const CardSkeleton = ({ mask }) => (
     </Card>
 )
 
-export default CardSkeleton
+export default SkeletonCard

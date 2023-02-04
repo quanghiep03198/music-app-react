@@ -5,7 +5,6 @@ import qs from "qs"
 const playlistApi = createApi({
     reducerPath: "playlists",
     tagTypes: ["Playlists", "UserPlaylists"],
-    keepUnusedDataFor: 5 * 60,
     refetchOnReconnect: true,
     refetchOnMountOrArgChange: true,
     baseQuery: axiosBaseQuery(),

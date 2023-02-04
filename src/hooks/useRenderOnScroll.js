@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react"
+import { clearConfigCache } from "prettier"
+import { useState, useEffect } from "react"
 
 const OPTIONS = {
     root: null,
-    rootMargin: "0px 0px 0px 0px",
-    threshold: 1
+    rootMargin: "0px 0px 0px 0px", // breakpoint start to view
+    threshold: 0 // space to view
 }
 
 const useRenderOnScroll = (elementRef) => {
@@ -14,15 +15,17 @@ const useRenderOnScroll = (elementRef) => {
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        setIsVisible(true)
-                        observer.unobserve(elementRef.current)
+                        setTimeout(() => {
+                            setIsVisible(true)
+                            observer.unobserve(elementRef.current)
+                        }, 800)
                     }
                 })
             }, OPTIONS)
             observer.observe(elementRef.current)
         }
     }, [elementRef])
-    console.log("is visible:>>", isVisible)
+
     return isVisible
 }
 

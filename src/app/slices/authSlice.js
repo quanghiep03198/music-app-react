@@ -26,10 +26,10 @@ const authSlice = createSlice({
             state.authenticated = true
         })
         builder.addMatcher(authApi.endpoints.refreshToken.matchFulfilled, (state, { payload }) => {
-            state.accessToken = payload
+            state.accessToken = payload // set access token to store
         })
         builder.addMatcher(authApi.endpoints.refreshToken.matchRejected, (state, { payload }) => {
-            return initialState
+            return initialState // logout
         })
     }
 })

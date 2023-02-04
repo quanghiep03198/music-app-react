@@ -1,15 +1,16 @@
+import { LoadingWrapper } from "@/App"
+import Loading from "@/components/customs/atoms/Loading"
 import swiperBreakpoints from "@/config/swiperBreakpoint.config"
-import { useRef } from "react"
+import useRenderOnScroll from "@/hooks/useRenderOnScroll"
+import { Fragment, useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { FreeMode, Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 import Button from "../../customs/atoms/Button"
-import CardSkeleton from "../Skeletons/SkeletonCard"
+import SkeletonCard from "../Skeletons/SkeletonCard"
 import PlaylistCard from "./PlaylistCard"
 
 const PlaylistSlider = ({ data, status }) => {
-    const swiperRef = useRef(null)
-
     return (
         <div className="relative">
             <Swiper
@@ -21,16 +22,14 @@ const PlaylistSlider = ({ data, status }) => {
                 modules={[Navigation, FreeMode]}
                 freeMode={true}
                 lazy={true}
-                loop
                 slidesPerView="auto"
                 breakpoints={swiperBreakpoints}
                 className="playlist-slide container pb-10"
-                ref={swiperRef}
             >
                 {status.isFetching &&
                     [1, 2, 3, 4, 5].map((item) => (
                         <SwiperSlide key={item}>
-                            <CardSkeleton />
+                            <SkeletonCard />
                         </SwiperSlide>
                     ))}
                 {Array.isArray(data) &&

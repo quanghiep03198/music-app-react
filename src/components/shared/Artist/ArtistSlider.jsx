@@ -9,12 +9,11 @@ import "swiper/css/navigation"
 import "swiper/css/pagination"
 import { Swiper, SwiperSlide } from "swiper/react"
 import Button from "../../customs/atoms/Button"
-import CardSkeleton from "../Skeletons/SkeletonCard"
+import SkeletonCard from "../Skeletons/SkeletonCard"
 
 import ArtistCard from "./ArtistCard"
 
 const ArtistSlider = ({ data, status }) => {
-    const swiperRef = useRef()
     const nextButtonRef = useRef(null)
     const prevButtonRef = useRef(null)
     return (
@@ -31,12 +30,11 @@ const ArtistSlider = ({ data, status }) => {
                 loop
                 breakpoints={swiperBreakpoints}
                 className="artists-slide container pb-10"
-                ref={swiperRef}
             >
                 {status.isFetching &&
                     [1, 2, 3, 4, 5].map((item) => (
                         <SwiperSlide key={item}>
-                            <CardSkeleton />
+                            <SkeletonCard />
                         </SwiperSlide>
                     ))}
                 {Array.isArray(data) &&

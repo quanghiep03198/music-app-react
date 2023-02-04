@@ -6,7 +6,7 @@ import { FreeMode, Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 import Button from "../../customs/atoms/Button"
 
-import CardSkeleton from "../Skeletons/SkeletonCard"
+import SkeletonCard from "../Skeletons/SkeletonCard"
 
 const AlbumCard = lazy(() => import("./AlbumCard"))
 
@@ -30,13 +30,13 @@ const AlbumSlider = ({ data, status }) => {
                 {status.isFetching &&
                     [1, 2, 3, 4, 5].map((item) => (
                         <SwiperSlide key={item}>
-                            <CardSkeleton />
+                            <SkeletonCard />
                         </SwiperSlide>
                     ))}
                 {Array.isArray(data) &&
                     data.map((album) => (
                         <SwiperSlide key={album?._id}>
-                            <Suspense fallback={<CardSkeleton mask="square" />}>
+                            <Suspense fallback={<SkeletonCard mask="square" />}>
                                 <AlbumCard albumData={album} />
                             </Suspense>
                         </SwiperSlide>
