@@ -4,7 +4,7 @@ import axiosBaseQuery from "../axiosBaseQuery"
 const albumApi = createApi({
     tagTypes: ["Albums", "UserAlbums"],
     reducerPath: "albums",
-    keepUnusedDataFor: 5 * 60,
+
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => ({
         fetchAlbums: builder.query({
@@ -15,6 +15,8 @@ const albumApi = createApi({
                     params
                 }
             },
+
+            keepUnusedDataFor: 5 * 60,
             providesTags: ["Albums"]
         }),
         fetchSingleAlbum: builder.query({

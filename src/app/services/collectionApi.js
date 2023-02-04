@@ -16,6 +16,7 @@ const collectionApi = createApi({
                         method: "GET"
                     }
                 },
+                keepUnusedDataFor: 5 * 60,
                 providesTags: ["TrackCollection"]
             }),
             updateTrackCollection: builder.mutation({
@@ -26,6 +27,7 @@ const collectionApi = createApi({
                         data
                     }
                 },
+
                 invalidatesTags: ["TrackCollection"]
             }),
             fetchAlbumsCollection: builder.query({
@@ -35,6 +37,7 @@ const collectionApi = createApi({
                         method: "GET"
                     }
                 },
+                keepUnusedDataFor: 5 * 60,
                 providesTags: ["AlbumCollection"]
             }),
             updateAlbumsCollection: builder.mutation({
@@ -54,6 +57,8 @@ const collectionApi = createApi({
                         method: "GET"
                     }
                 },
+
+                keepUnusedDataFor: 5 * 60,
                 providesTags: ["AlbumCollection"]
             }),
             updateArtistsCollection: builder.mutation({

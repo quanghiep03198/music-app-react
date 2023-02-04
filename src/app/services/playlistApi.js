@@ -19,7 +19,7 @@ const playlistApi = createApi({
                         params
                     }
                 },
-
+                keepUnusedDataFor: 5 * 60,
                 providesTags: ["UserPlaylists"]
             }),
             fetchPlaylists: builder.query({
@@ -30,6 +30,7 @@ const playlistApi = createApi({
                         params
                     }
                 },
+                keepUnusedDataFor: 5 * 60,
                 providesTags: ["Playlists"]
             }),
             fetchSinglePlaylist: builder.query({

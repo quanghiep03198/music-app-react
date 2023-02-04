@@ -6,12 +6,12 @@ import tw from "tailwind-styled-components"
 import { HiX } from "react-icons/hi"
 import Loading from "./components/customs/atoms/Loading"
 import ErrorBoundary from "./components/customs/ErrorBoundary"
-import Layout from "./components/layouts"
 import PrivateLayout from "./components/layouts/PrivateLayout"
 import LikedTrack from "./components/pages/LikedTrack"
 import AlbumPage from "./components/pages/Album"
 import ForgotPassword from "./components/pages/ForgotPassword"
 
+import Layout from "./components/layouts"
 const Search = lazy(() => import("./components/pages/Search"))
 const HomePage = lazy(() => import("./components/pages/Home"))
 const Artist = lazy(() => import("./components/pages/Artist"))

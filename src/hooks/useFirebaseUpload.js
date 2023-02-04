@@ -6,7 +6,7 @@ import { toast } from "react-toastify"
 export const IMAGE_DIR = "pictures/"
 export const MUSIC_DIR = "music/"
 
-export default function useFirebaseUpload() {
+const useFirebaseUpload = () => {
     const [isUploading, setIsUploading] = useState(false)
     const [isError, setIsError] = useState(false)
 
@@ -37,3 +37,4 @@ export default function useFirebaseUpload() {
         isError
     }
 }
+export default useFirebaseUpload

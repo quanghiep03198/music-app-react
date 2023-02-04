@@ -1,8 +1,8 @@
-import { memo, useEffect, useRef } from "react"
+import { lazy, Suspense, useRef } from "react"
 import { useSelector } from "react-redux"
-import { Link, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
 import tw from "tailwind-styled-components"
-import SidebarMenu from "./SidebarMenu"
+const SidebarMenu = lazy(() => import("./SidebarMenu"))
 import UserPlaylists from "./UserPlaylists"
 import Logo from "/images/logo.png"
 
@@ -12,11 +12,8 @@ const DrawerSideWrapper = tw.div`p-2 bg-base-200 w-fit flex flex-col overflow-y-
 const LogoImage = tw.img`max-w-[240px] h-[120px] object-contain -translate-x-2`
 
 const Sidebar = () => {
-    const { pathname } = useLocation()
     const overlayRef = useRef()
-    // useEffect(() => {
-    //     overlayRef.current.click()
-    // }, [pathname])
+
     const { authenticated } = useSelector((state) => state.auth)
     return (
         <DrawerSidebar>
@@ -28,7 +25,19 @@ const Sidebar = () => {
 
                 <SidebarMenu />
                 <div className="divider"></div>
-                {authenticated && <UserPlaylists />}
+                {authenticated && (
+                    <Suspense
+                        fallback={[1, 2, 3].map((item) => (
+                            <MenuItem>
+                                <a role="menuitem">
+                                    <CardTextSkeleton key={item} />
+                                </a>
+                            </MenuItem>
+                        ))}
+                    >
+                        <UserPlaylists />
+                    </Suspense>
+                )}
             </DrawerSideWrapper>
         </DrawerSidebar>
     )
