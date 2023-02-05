@@ -30,9 +30,9 @@ const FeaturesMenuWithAuthenticated = () => {
                 </NavLink>
             </MenuItem>
             <MenuItem>
-                <a role="menuitem">
+                <label htmlFor="upload-track-modal" role="menuitem">
                     <BsUpload className="text-xl" /> Upload
-                </a>
+                </label>
             </MenuItem>
             <MenuItem>
                 <label role="menuitem" htmlFor="create-playlist-modal">

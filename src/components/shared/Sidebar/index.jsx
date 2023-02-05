@@ -9,7 +9,7 @@ import SidebarMenu from "./SidebarMenu"
 const DrawerSidebar = tw.aside`drawer-side`
 const DrawerOverlay = tw.label`drawer-overlay`
 const DrawerSideWrapper = tw.div`p-2 bg-base-200 w-fit flex flex-col overflow-y-hidden `
-const LogoImage = tw.img`max-w-[240px] h-[120px] object-contain -translate-x-2`
+const LogoImage = tw.img`max-w-[200px] aspect-[2/1] object-contain -translate-x-2`
 
 const Sidebar = () => {
     const overlayRef = useRef()
@@ -20,7 +20,7 @@ const Sidebar = () => {
             <DrawerOverlay htmlFor="sidebar-toggle" ref={overlayRef} />
             <DrawerSideWrapper>
                 <Link to="/">
-                    <LogoImage src={Logo} alt="" />
+                    <LogoImage src={Logo} />
                 </Link>
 
                 <SidebarMenu />

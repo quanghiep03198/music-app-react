@@ -18,7 +18,7 @@ const useRenderOnScroll = (elementRef) => {
                         setTimeout(() => {
                             setIsVisible(true)
                             observer.unobserve(elementRef.current)
-                        }, 800)
+                        }, 100)
                     }
                 })
             }, OPTIONS)

@@ -27,7 +27,7 @@ const trackApi = createApi({
                         console.log(error.message)
                     }
                 },
-                keepUnusedDataFor: 5 * 60,
+
                 providesTags: ["Tracks"]
             }),
             fetchRelatedTracks: builder.query({
@@ -51,12 +51,12 @@ const trackApi = createApi({
                     }
                 }
             }),
-            uploadTracks: builder.mutation({
-                query(payload) {
+            createTrack: builder.mutation({
+                query(data) {
                     return {
-                        url: "/track-upload",
+                        url: "/tracks",
                         method: "POST",
-                        body: payload
+                        data
                     }
                 },
                 invalidatesTags: ["Tracks"]
@@ -65,5 +65,5 @@ const trackApi = createApi({
     }
 })
 
-export const { useFetchTracksQuery, useUploadTracksMutation, useFetchRelatedTracksQuery, useFetchTracksUserUploadedQuery } = trackApi
+export const { useFetchTracksQuery, useCreateTrackMutation, useFetchRelatedTracksQuery, useFetchTracksUserUploadedQuery } = trackApi
 export default trackApi

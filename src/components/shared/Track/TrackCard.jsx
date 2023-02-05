@@ -55,16 +55,19 @@ const TrackCard = ({ index, track }) => {
                         </Button>
                     </div>
                     <div role="cell" className="flex items-center gap-2">
-                        <img src={track?.thumbnail} className="h-14 w-14 rounded-md sm:h-12 sm:w-12" loading="lazy" />
+                        <img src={track?.thumbnail || track?.alternativeThumbnail} className="h-14 w-14 rounded-md sm:h-12 sm:w-12" loading="lazy" />
                         <div className="sm:text-sm">
-                            <h6 className="truncate font-medium">{track?.title}</h6>
+                            <h6 className="truncate font-medium capitalize">{track?.title}</h6>
                             <p className="text-base-content/50">
-                                {Array.isArray(track.artists) &&
-                                    track.artists.map((artist) => (
-                                        <Link key={artist._id} to={`/artist/${artist?._id}`}>
-                                            {artist.name}
+                                {Array.isArray(track.artists) ? (
+                                    track.artists.map((artist, index) => (
+                                        <Link key={artist._id} to={`/artist/${artist?._id}`} className="hover:link">
+                                            {(index ? ", " : "") + artist.name}
                                         </Link>
-                                    ))}
+                                    ))
+                                ) : (
+                                    <Link to={`/user/${track?.creator?._id}`}>{track?.creator?.username}</Link>
+                                )}
                             </p>
                         </div>
                     </div>

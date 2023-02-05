@@ -10,7 +10,7 @@ const TrackInfo = () => {
 
     return (
         <TrackInfoWrapper>
-            <Thumbnail src={currentTrack?.thumbnail} />
+            <Thumbnail src={currentTrack?.thumbnail || currentTrack?.alternativeThumbnail} />
             <div>
                 <Title>{currentTrack?.title}</Title>
                 <p>{Array.isArray(currentTrack?.artists) && currentTrack.artists.map((artist) => artist.name).join(", ")}</p>

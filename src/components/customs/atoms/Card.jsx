@@ -39,6 +39,6 @@ export const SkeletonFigure = tw.div`rounded-lg mask ${(props) => {
             return "mask-square"
     }
 }}`
-export const SkeletonImage = tw.div` max-w-full h-[240px] animate-pulse bg-neutral flex justify-center items-center p-16`
-export const CardTitleSkeleton = tw.h1`w-24 h-2 rounded-full bg-neutral animate-pulse`
-export const CardTextSkeleton = tw.h1`w-24 h-2 rounded-full bg-neutral animate-pulse`
+export const SkeletonImage = tw.div` max-w-full aspect-square animate-pulse bg-neutral flex justify-center items-center p-16 rounded-lg`
+export const SkeletonCardTitle = tw.h1`w-20 h-4 rounded-full bg-neutral animate-pulse`
+export const SkeletonTextCard = tw.h1`w-24 h-2 rounded-full bg-neutral animate-pulse`

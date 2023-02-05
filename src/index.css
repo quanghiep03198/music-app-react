@@ -176,12 +176,9 @@
     /*#endregion */
 
     /*#region form control */
-    .form-control > .input,
-    .form-control > .custom-select {
-        @apply input-bordered border-base-content/50 bg-transparent text-base-content outline-none focus:border-base-content focus:outline-none;
-    }
+
     .form-control > .input:focus,
-    .form-control > .custom-select:focus {
+    .form-control > .select:focus {
         @apply border-base-content outline-none;
     }
 

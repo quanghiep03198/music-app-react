@@ -11,20 +11,17 @@ const useFirebaseUpload = () => {
     const [isError, setIsError] = useState(false)
 
     return {
-        upload: async (dir, file) => {
+        upload: async (dirname, file) => {
             try {
-                console.log(file)
                 if (!file) {
                     toast.error("Provide a file!")
                     return
                 }
-                const storageRef = ref(storage, dir + file?.name)
+                const storageRef = ref(storage, dirname + file?.name)
                 await uploadBytes(storageRef, file)
                 setIsUploading(true)
-                const dowloadURL = await getDownloadURL(storageRef).then((data) => {
-                    setIsUploading(false)
-                    return data
-                })
+                const dowloadURL = await getDownloadURL(storageRef)
+                setIsUploading(false)
                 return dowloadURL
             } catch (error) {
                 console.log(error.message)

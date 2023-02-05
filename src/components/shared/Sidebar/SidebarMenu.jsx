@@ -8,7 +8,7 @@ import FeaturesMenuWithAuthenticated from "./FeaturesMenuWithAuthenticated"
 const SidebarMenu = () => {
     const { authenticated } = useSelector((state) => state.auth)
     return (
-        <Menu className="invisible-scroll min-w-[320px] overflow-y-scroll">
+        <Menu className="min-w-[320px] text-base">
             <MenuItem>
                 <NavLink
                     to="/"

@@ -1,6 +1,6 @@
 import { BsPlayFill } from "react-icons/bs"
 import tw from "tailwind-styled-components"
-import { CardTextSkeleton, CardTitleSkeleton } from "../../customs/atoms/Card"
+import { SkeletonTextCard } from "../../customs/atoms/Card"
 export const ThumbnailSkeleton = tw.div`h-14 w-14 rounded-lg bg-neutral `
 
 const SkeletonTrackCard = () => {
@@ -11,19 +11,19 @@ const SkeletonTrackCard = () => {
             <div className="flex items-center gap-1">
                 <ThumbnailSkeleton />
                 <div className="flex flex-col gap-3">
-                    <CardTextSkeleton />
-                    <CardTextSkeleton />
+                    <SkeletonTextCard />
+                    <SkeletonTextCard />
                 </div>
             </div>
 
             <div>
-                <CardTextSkeleton />
+                <SkeletonTextCard />
             </div>
             <div>
-                <CardTextSkeleton />
+                <SkeletonTextCard />
             </div>
             <div>
-                <CardTextSkeleton />
+                <SkeletonTextCard />
             </div>
         </div>
     )

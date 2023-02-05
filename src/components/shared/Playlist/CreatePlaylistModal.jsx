@@ -1,11 +1,10 @@
 import { useCreatePlaylistMutation } from "@/app/services/playlistApi"
 import Button from "@/components/customs/atoms/Button"
-import { Figure } from "@/components/customs/atoms/Card"
 import Typography from "@/components/customs/atoms/Typography"
 import useFirebaseUpload from "@/hooks/useFirebaseUpload"
-import { useRef } from "react"
+import { Fragment, useRef } from "react"
 import { useForm } from "react-hook-form"
-import { BsCamera, BsCameraFill, BsX } from "react-icons/bs"
+import { BsCameraFill, BsX } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { toast } from "react-toastify"
 import DefaultPlaylistImage from "/images/default-album-image.png"
@@ -28,6 +27,7 @@ const CreatePlaylistModal = () => {
         reset()
         imageRef.current.src = DefaultPlaylistImage
     }
+
     const onSubmit = async (data) => {
         try {
             const thumbnail = data.thumbnail.length > 0 ? await upload("pictures/", data.thumbnail[0]) : undefined
@@ -38,11 +38,12 @@ const CreatePlaylistModal = () => {
             console.log(error.message)
         }
     }
+
     return (
-        <>
+        <Fragment>
             <input type="checkbox" id="create-playlist-modal" className="modal-toggle" />
             <div className="modal">
-                <div className="modal-box">
+                <div className="invisible-scroll modal-box max-w-sm">
                     <label
                         htmlFor="create-playlist-modal"
                         className="btn-sm btn-circle btn absolute right-2 top-2"
@@ -94,7 +95,7 @@ const CreatePlaylistModal = () => {
                     </form>
                 </div>
             </div>
-        </>
+        </Fragment>
     )
 }
 export default CreatePlaylistModal

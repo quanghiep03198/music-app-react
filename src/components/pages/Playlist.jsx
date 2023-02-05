@@ -23,7 +23,7 @@ const Playlist = () => {
     const navigate = useNavigate()
 
     const togglePlayPlaylist = () => {
-        if (data._id && data._id !== currentPlaylist) {
+        if (data?._id && data?._id !== currentPlaylist) {
             dispatch(setCurrentPlaylist(data))
         }
         setPlayState(!playState)
@@ -53,7 +53,7 @@ const Playlist = () => {
 
             <section className="flex items-center gap-3">
                 <Button shape="circle" color="success" className="text-xl sm:text-base" onClick={togglePlayPlaylist}>
-                    {playState && currentPlaylist === data._id ? <BsPauseFill /> : <BsPlayFill />}
+                    {playState && currentPlaylist === data?._id ? <BsPauseFill /> : <BsPlayFill />}
                 </Button>
                 <Dropdown position="bottom-right">
                     <Button color="transparent" className="text-xl" tabIndex={0}>
