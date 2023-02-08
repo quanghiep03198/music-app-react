@@ -1,70 +1,54 @@
-import Loading from "@/components/customs/atoms/Loading"
-import { AppContext } from "@/context/AppProvider"
-import axios from "@/config/axios.config"
-import { useContext, useEffect, useId, useRef, useState } from "react"
-import { BsSearch } from "react-icons/bs"
-import { useNavigate } from "react-router-dom"
-import Button from "../../customs/atoms/Button"
+import Loading from "@/components/customs/atoms/Loading";
+import axios from "@/config/axios.config";
+import { AppContext } from "@/context/AppProvider";
+import useDebounce from "@/hooks/userDebounce";
+import { useContext, useEffect, useId, useRef, useState } from "react";
+import { BsSearch } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import Button from "../../customs/atoms/Button";
 
 const SearchBox = () => {
-    const id = useId()
-    const navigate = useNavigate()
-    const { setSearchResult } = useContext(AppContext)
-    const [searchValue, setSearchValue] = useState("")
-    const typingTimeoutRef = useRef(null)
+   const id = useId();
+   const navigate = useNavigate();
+   const { setSearchResult } = useContext(AppContext);
 
-    const [isLoading, setIsLoading] = useState(false)
-    useEffect(() => {
-        if (searchValue === "") setSearchResult(null)
-    }, [searchValue])
+   const [debounceSearch, isLoading] = useDebounce(handleSearch, 500);
 
-    const handleSearch = (e) => {
-        try {
-            setSearchValue(e.target.value)
-            if (typingTimeoutRef.current) {
-                clearTimeout(typingTimeoutRef.current)
-            }
-            setIsLoading(true)
-            typingTimeoutRef.current = setTimeout(async () => {
-                const data = await axios.get(`/search`, {
-                    params: {
-                        keyword: e.target.value
-                    }
-                })
-                setIsLoading(false)
-                setSearchResult(data)
-                if (e.target.value === "") setSearchResult(null)
-            }, 300)
-        } catch (error) {
-            console.log(error.message)
-        }
-    }
-    return (
-        <form
-            className="flex items-center gap-1 rounded-full border border-neutral bg-base-200 px-2 "
-            onSubmit={(e) => {
-                e.preventDefault()
-            }}
-        >
-            {isLoading ? (
-                <Loading size="xs" />
-            ) : (
-                <Button type="button" shape="circle" size="sm" color="transparent" className="text-lg">
-                    <BsSearch />
-                </Button>
-            )}
+   async function handleSearch(searchTerm) {
+      try {
+         const data = await axios.get(`/search`, {
+            params: {
+               keyword: searchTerm,
+            },
+         });
 
-            <input
-                type="search"
-                className={`input input-sm rounded-full bg-transparent focus:outline-none`}
-                id={id}
-                placeholder="Search ..."
-                value={searchValue}
-                onFocus={() => navigate("/search")}
-                onChange={(e) => handleSearch(e)}
-            />
-        </form>
-    )
-}
+         setSearchResult(data);
+         if (searchTerm === "") setSearchResult(null);
+      } catch (error) {
+         console.log(error.message);
+      }
+   }
 
-export default SearchBox
+   return (
+      <form
+         className="flex items-center gap-1 rounded-full border border-neutral bg-base-200 px-2 "
+         onSubmit={(e) => {
+            e.preventDefault();
+         }}>
+         <label htmlFor="" className="basis-1/6">
+            {isLoading ? <Loading size="xs" /> : <BsSearch className="text-lg" />}
+         </label>
+
+         <input
+            type="search"
+            className={`input input-sm basis-5/6 rounded-full bg-transparent focus:outline-none`}
+            id={id}
+            placeholder="Search ..."
+            onFocus={() => navigate("/search")}
+            onChange={(e) => debounceSearch(e.target.value)}
+         />
+      </form>
+   );
+};
+
+export default SearchBox;

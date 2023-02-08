@@ -13,7 +13,6 @@ import DefaultPlaylistImage from "/images/default-album-image.png"
 
 const UploadTrackModal = () => {
     const { register, formState: errors, handleSubmit, reset } = useForm()
-    const creator = useSelector((state) => state.auth?.credential)
     const [createNewTrack, { isLoading }] = useCreateTrackMutation()
     const { data: genres } = useFetchAllGenresQuery(undefined)
     const trackThumbnailRef = useRef(null)
