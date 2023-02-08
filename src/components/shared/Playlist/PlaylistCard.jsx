@@ -10,9 +10,8 @@ import { Card, CardBody, CardTitle, Figure, SkeletonImage } from "../../customs/
 import SkeletonCard from "../Skeletons/SkeletonCard"
 import DefaultPlaylistThumbnail from "/images/default-album-image.png"
 
-const PlaylistCard = ({ isFetching, playlist }) => {
+const PlaylistCard = ({ isFetching = false, playlist }) => {
     const dispatch = useDispatch()
-    console.log(playlist)
     const { playState, setPlayState } = useContext(AppContext)
     const cardRef = useRef(null)
     const isScrolledIntoView = useRenderOnScroll(cardRef)
@@ -27,7 +26,7 @@ const PlaylistCard = ({ isFetching, playlist }) => {
     }
     return (
         <div ref={cardRef}>
-            {!isScrolledIntoView ? (
+            {!isScrolledIntoView || isFetching ? (
                 <SkeletonCard />
             ) : (
                 <Card>
