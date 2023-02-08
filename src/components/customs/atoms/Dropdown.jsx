@@ -28,23 +28,3 @@ export const Dropdown = tw.div`dropdown ${(props) => {
 }}
 	`
 export const DropdownContent = tw.div`dropdown-content w-fit rounded-xl`
-// const Dropdown = ({
-// 	children,
-// 	dropdownButtonElement,
-// 	buttonSize = "sm",
-// 	buttonShape = "square",
-// 	buttonColor = "transparent",
-// }) => {
-// 	return (
-// 		<DropdownWrapper>
-// 			<Button role="none" size={buttonSize} shape={buttonShape} color={buttonColor} tabIndex={0}>
-// 				{dropdownButtonElement}
-// 			</Button>
-// 			<div tabIndex={0} className="dropdown-content w-fit">
-// 				{children}
-// 			</div>
-// 		</DropdownWrapper>
-// 	);
-// };
-
-// export default Dropdown;

@@ -1,8 +1,4 @@
-import { LoadingWrapper } from "@/App"
-import Loading from "@/components/customs/atoms/Loading"
 import swiperBreakpoints from "@/config/swiperBreakpoint.config"
-import useRenderOnScroll from "@/hooks/useRenderOnScroll"
-import { Fragment, useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { FreeMode, Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"

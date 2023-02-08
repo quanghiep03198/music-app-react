@@ -1,10 +1,6 @@
-import React from "react"
-
 import tw from "tailwind-styled-components"
 
-const Avatar = tw.div`avatar [&>img]:rounded-full [&>img]:object-cover ${(
-    props
-) => {
+const Avatar = tw.div`avatar [&>img]:rounded-full [&>img]:object-cover ${(props) => {
     switch (props.size) {
         case "xs":
             return "[&>img]:w-8 [&>img]:h-8"

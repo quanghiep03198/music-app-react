@@ -1,15 +1,14 @@
 import { setCurrentPlaylist } from "@/app/slices/queueSlice"
-import useLocalStorage from "@/hooks/useLocalStorage"
+import { AppContext } from "@/context/AppProvider"
+import useRenderOnScroll from "@/hooks/useRenderOnScroll"
+import { useContext, useRef } from "react"
 import { BsPauseFill, BsPlayFill } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import Button from "../../customs/atoms/Button"
 import { Card, CardBody, CardTitle, Figure, SkeletonImage } from "../../customs/atoms/Card"
-import DefaultPlaylistThumbnail from "/images/default-album-image.png"
-import { useContext, useRef } from "react"
-import useRenderOnScroll from "@/hooks/useRenderOnScroll"
 import SkeletonCard from "../Skeletons/SkeletonCard"
-import { AppContext } from "@/context/AppProvider"
+import DefaultPlaylistThumbnail from "/images/default-album-image.png"
 
 const PlaylistCard = ({ isFetching, playlist }) => {
     const dispatch = useDispatch()
