@@ -1,5 +1,5 @@
 import React from "react"
-import { Figure } from "./Card"
+import { Figure, SkeletonImage } from "./Card"
 import DefaultAlbumThumbnail from "/images/default-album-image.png"
 
 const HeroBanner = ({ children, heroImageUrl }) => {
@@ -13,6 +13,7 @@ const HeroBanner = ({ children, heroImageUrl }) => {
                             currentTarget.onerror = null // prevents looping
                             currentTarget.src = DefaultAlbumThumbnail
                         }}
+                        onLoadStart={<SkeletonImage />}
                         className="max-w-[16rem] rounded-lg shadow-2xl"
                     />
                 </Figure>
