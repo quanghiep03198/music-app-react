@@ -19,7 +19,7 @@ const authSlice = createSlice({
         builder.addMatcher(authApi.endpoints.login.matchFulfilled, (state, { payload }) => {
             state.credential = payload.credential
             state.accessToken = payload.accessToken
-            state.authenticated = payload.credential !== null && payload.accessToken !== null
+            state.authenticated = payload.status === 200
         })
         builder.addMatcher(authApi.endpoints.fetchUserData.matchFulfilled, (state, { payload }) => {
             state.user = payload

@@ -16,11 +16,11 @@ const authApi = createApi({
             }
         }),
         login: builder.mutation({
-            query(credential) {
+            query(payload) {
                 return {
                     url: "/login",
                     method: "POST",
-                    data: credential
+                    data: payload
                 }
             }
         }),

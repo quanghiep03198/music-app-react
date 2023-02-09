@@ -1,5 +1,4 @@
 import { useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
-import { SkeletonTextCard } from "@/components/customs/atoms/Card"
 import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"

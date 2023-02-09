@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/dist/query"
-import { FLUSH, KEY_PREFIX, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from "redux-persist"
+import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 
+import rootReducer from "./rootReducer"
 import albumApi from "./services/albumApi"
 import artistApi from "./services/artistApi"
 import authApi from "./services/authApi"
@@ -10,7 +11,6 @@ import collectionApi from "./services/collectionApi"
 import genreApi from "./services/genreApi"
 import playlistApi from "./services/playlistApi"
 import trackApi from "./services/trackApi"
-import rootReducer from "./rootReducer"
 
 const persistConfig = {
     key: "root",
