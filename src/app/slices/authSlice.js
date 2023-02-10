@@ -25,6 +25,7 @@ const authSlice = createSlice({
             state.user = payload
             state.authenticated = true
         })
+
         builder.addMatcher(authApi.endpoints.refreshToken.matchFulfilled, (state, { payload }) => {
             state.accessToken = payload // set access token to store
         })

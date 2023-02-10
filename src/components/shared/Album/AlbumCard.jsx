@@ -61,7 +61,6 @@ const AlbumCard = ({ albumData }) => {
                         currentTarget.onerror = null // prevents looping
                         currentTarget.src = DefaultAlbumThumbnail
                     }}
-                    onLoadStart={<SkeletonImage />}
                 />
                 <Button
                     shape="circle"

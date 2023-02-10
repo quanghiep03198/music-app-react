@@ -7,7 +7,7 @@ import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import tw from "tailwind-styled-components"
-import { Card, CardBody, CardTitle, Figure, SkeletonImage } from "../../customs/atoms/Card"
+import { Card, CardBody, CardTitle, Figure } from "../../customs/atoms/Card"
 import Swap from "../../customs/atoms/Swap"
 import SkeletonCard from "../Skeletons/SkeletonCard"
 import AlternativeLogo from "/images/alt-logo.png"
@@ -73,7 +73,6 @@ const ArtistCard = ({ artistData, isFetching }) => {
                                 currentTarget.src = AlternativeLogo
                             }}
                             loading="lazy"
-                            onLoadStart={<SkeletonImage />}
                             className="aspect-[1] max-w-full"
                         />
                     </Figure>

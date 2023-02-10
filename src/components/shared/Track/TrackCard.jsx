@@ -74,12 +74,7 @@ const TrackCard = ({ index, track }) => {
                         </Button>
                     </div>
                     <div role="cell" className="flex items-center gap-2">
-                        <img
-                            src={track?.thumbnail || track?.alternativeThumbnail}
-                            className="h-14 w-14 rounded-md sm:h-12 sm:w-12"
-                            loading="lazy"
-                            onLoadStart={<SkeletonImage />}
-                        />
+                        {<img src={track?.thumbnail || track?.alternativeThumbnail} className="h-14 w-14 rounded-md sm:h-12 sm:w-12" loading="lazy" />}
                         <div className="sm:text-sm">
                             <h6 className="truncate font-medium capitalize">{track?.title}</h6>
                             <p className="text-base-content/50">

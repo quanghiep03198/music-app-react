@@ -40,7 +40,6 @@ const PlaylistCard = ({ isFetching = false, playlist }) => {
                                         currentTarget.onerror = null // prevents looping
                                         currentTarget.src = DefaultPlaylistThumbnail
                                     }}
-                                    onLoadStart={<SkeletonImage />}
                                 />
                             </Figure>
                         </Link>
