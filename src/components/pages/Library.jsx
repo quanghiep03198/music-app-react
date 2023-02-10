@@ -1,70 +1,91 @@
-import { useFetchAlbumsCollectionQuery, useFetchArtistsCollectionQuery } from "@/app/services/collectionApi";
-import { useFetchTracksUserUploadedQuery } from "@/app/services/trackApi";
-import { lazy, Suspense } from "react";
-import Loading from "../customs/atoms/Loading";
-import Tabs from "../customs/atoms/Tabs";
-import Typography from "../customs/atoms/Typography";
+import { useFetchAlbumsCollectionQuery, useFetchArtistsCollectionQuery } from "@/app/services/collectionApi"
+import { useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
+import { useFetchTracksUserUploadedQuery } from "@/app/services/trackApi"
+import { lazy, Suspense } from "react"
+import { useSelector } from "react-redux"
+import Loading from "../customs/atoms/Loading"
+import Tabs from "../customs/atoms/Tabs"
+import Typography from "../customs/atoms/Typography"
 
-const AlbumList = lazy(() => import("../shared/Album/AlbumList"));
-const ArtistList = lazy(() => import("../shared/Artist/ArtistList"));
-const TrackList = lazy(() => import("../shared/Track/TrackList"));
+const PlaylistList = lazy(() => import("../shared/Playlist/PlaylistList"))
+const AlbumList = lazy(() => import("../shared/Album/AlbumList"))
+const ArtistList = lazy(() => import("../shared/Artist/ArtistList"))
+const TrackList = lazy(() => import("../shared/Track/TrackList"))
 
 const Library = () => {
-   const userAlbumsCollection = useFetchAlbumsCollectionQuery(undefined);
-   const userArtistsCollection = useFetchArtistsCollectionQuery(undefined);
-   const uploadedTracks = useFetchTracksUserUploadedQuery(undefined);
+    const credential = useSelector((state) => state.auth?.credential)
+    console.log(credential)
+    const userAlbumsCollection = useFetchAlbumsCollectionQuery(undefined)
+    const userArtistsCollection = useFetchArtistsCollectionQuery(undefined)
+    const uploadedTracks = useFetchTracksUserUploadedQuery(undefined)
+    const userPlaylists = useFetchUserPlaylistsQuery({ id: credential })
 
-   const tabData = [
-      {
-         title: "Albums",
-         pannelElement: (
-            <Suspense
-               fallback={
-                  <div className="p-10">
-                     <Loading />
-                  </div>
-               }>
-               <AlbumList data={userAlbumsCollection.data} status={{ isFetching: userAlbumsCollection.isFetching }} />
-            </Suspense>
-         ),
-      },
-      {
-         title: "Artists",
-         pannelElement: (
-            <Suspense
-               fallback={
-                  <div className="p-10">
-                     <Loading />
-                  </div>
-               }>
-               <ArtistList
-                  data={userArtistsCollection.data}
-                  status={{ isFetching: userArtistsCollection.isFetching }}
-               />
-            </Suspense>
-         ),
-      },
-      {
-         title: "Uploaded",
-         pannelElement: (
-            <Suspense
-               fallback={
-                  <div className="p-10">
-                     <Loading />
-                  </div>
-               }>
-               <TrackList data={uploadedTracks.data} status={{ isFetching: uploadedTracks.isFetching }} />
-            </Suspense>
-         ),
-      },
-   ];
+    console.log(userPlaylists.data)
+    const tabData = [
+        {
+            title: "Albums",
+            pannelElement: (
+                <Suspense
+                    fallback={
+                        <div className="p-10">
+                            <Loading />
+                        </div>
+                    }
+                >
+                    <AlbumList data={userAlbumsCollection.data} status={{ isFetching: userAlbumsCollection.isFetching }} />
+                </Suspense>
+            )
+        },
+        {
+            title: "Artists",
+            pannelElement: (
+                <Suspense
+                    fallback={
+                        <div className="p-10">
+                            <Loading />
+                        </div>
+                    }
+                >
+                    <ArtistList data={userArtistsCollection.data} status={{ isFetching: userArtistsCollection.isFetching }} />
+                </Suspense>
+            )
+        },
+        {
+            title: "Playlists",
+            pannelElement: (
+                <Suspense
+                    fallback={
+                        <div className="p-10">
+                            <Loading />
+                        </div>
+                    }
+                >
+                    <PlaylistList data={userPlaylists?.data} status={{ isFetching: userPlaylists.isFetching }} />
+                </Suspense>
+            )
+        },
+        {
+            title: "Uploaded",
+            pannelElement: (
+                <Suspense
+                    fallback={
+                        <div className="p-10">
+                            <Loading />
+                        </div>
+                    }
+                >
+                    <TrackList data={uploadedTracks.data} status={{ isFetching: uploadedTracks.isFetching }} />
+                </Suspense>
+            )
+        }
+    ]
 
-   return (
-      <>
-         <Typography size="4xl">Your Library</Typography>
-         <Tabs data={tabData} tabType="boxed" />
-      </>
-   );
-};
+    return (
+        <>
+            <Typography size="4xl">Your Library</Typography>
+            <Tabs data={tabData} tabType="boxed" />
+        </>
+    )
+}
 
-export default Library;
+export default Library

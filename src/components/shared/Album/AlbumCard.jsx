@@ -1,6 +1,5 @@
 import { useFetchAlbumsCollectionQuery, useUpdateAlbumsCollectionMutation } from "@/app/services/collectionApi"
 import { setCurrentPlaylist } from "@/app/slices/queueSlice"
-import Loading from "@/components/customs/atoms/Loading"
 import Swap from "@/components/customs/atoms/Swap"
 import { AppContext } from "@/context/AppProvider"
 import axios from "axios"
@@ -10,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import Button from "../../customs/atoms/Button"
-import { Card, CardBody, Figure, SkeletonImage } from "../../customs/atoms/Card"
+import { Card, CardBody, Figure } from "../../customs/atoms/Card"
 import DefaultAlbumThumbnail from "/images/default-album-image.png"
 
 const AlbumCard = ({ albumData }) => {
@@ -77,7 +76,7 @@ const AlbumCard = ({ albumData }) => {
                         {albumData?.title}
                     </Link>
                     {isLoading ? (
-                        <Loading />
+                        <BsHeartFill className="animate-pulse text-xl text-success" />
                     ) : (
                         <Swap
                             swapon={<BsHeartFill className="text-xl text-success" />}

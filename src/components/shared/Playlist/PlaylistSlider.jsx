@@ -31,7 +31,7 @@ const PlaylistSlider = ({ data, status }) => {
                 {Array.isArray(data) &&
                     data.map((playlist) => (
                         <SwiperSlide key={playlist?._id}>
-                            <PlaylistCard playlist={playlist} isFetching={status.isFetching} />
+                            <PlaylistCard data={playlist} isFetching={status.isFetching} />
                         </SwiperSlide>
                     ))}
             </Swiper>
