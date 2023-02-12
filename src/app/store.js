@@ -14,6 +14,7 @@ import trackApi from "./services/trackApi"
 
 const persistConfig = {
     key: "root",
+    blacklist:["auth","authApi"]
     storage
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
