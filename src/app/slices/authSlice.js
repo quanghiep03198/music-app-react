@@ -12,7 +12,7 @@ const authSlice = createSlice({
     initialState: initialState,
     reducers: {
         logout(state, action) {
-            state = {...initialState}
+            return initialState
         }
     },
     extraReducers: (builder) => {
