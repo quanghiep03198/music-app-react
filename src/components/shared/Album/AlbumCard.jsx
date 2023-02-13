@@ -25,14 +25,14 @@ const AlbumCard = ({ albumData }) => {
         setIsLiked(isLiked)
     }, [])
 
-    const playThisAlbum = async (album) => {
-        if (album._id !== currentPlaylist) {
-            const { tracks } = await axios.get(`/albums/${album._id}`)
+    const playThisAlbum = async () => {
+        if (albumData._id !== currentPlaylist) {
+            const { tracks } = await axios.get(`/albums/${albumData._id}`)
             if (!Array.isArray(tracks) || tracks.length === 0) {
-                toast.info("Album is updating!", { toastId: album._id })
+                toast.info("Album is updating!", { toastId: albumData._id })
                 return
             }
-            dispatch(setCurrentPlaylist({ ...album, tracks }))
+            dispatch(setCurrentPlaylist({ ...albumData, tracks }))
             setPlayState(true)
         } else {
             setPlayState(!playState)
@@ -65,7 +65,7 @@ const AlbumCard = ({ albumData }) => {
                     shape="circle"
                     color="success"
                     className="sm:text-md absolute bottom-2 right-2  translate-y-2 text-xl opacity-0 duration-300 group-hover:translate-y-0 group-hover:opacity-100 sm:btn-sm"
-                    onClick={() => playThisAlbum(albumData)}
+                    onClick={playThisAlbum}
                 >
                     {playState && currentPlaylist === albumData?._id ? <BsPauseFill /> : <BsPlayFill />}
                 </Button>

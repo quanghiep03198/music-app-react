@@ -14,21 +14,23 @@ const UserPlaylists = () => {
     )
 
     return (
-        <Menu>
-            {Array.isArray(data) &&
-                data.map((playlist) => (
-                    <MenuItem key={playlist?._id}>
-                        <NavLink
-                            to={`/playlist/${playlist?._id}`}
-                            className={({ isActive }) => {
-                                return isActive ? "justify-between text-success" : "justify-between text-base-content"
-                            }}
-                        >
-                            {playlist?.title}
-                        </NavLink>
-                    </MenuItem>
-                ))}
-        </Menu>
+        <div className="scroll overflow-y-auto">
+            <Menu>
+                {Array.isArray(data) &&
+                    data.map((playlist) => (
+                        <MenuItem key={playlist?._id}>
+                            <NavLink
+                                to={`/playlist/${playlist?._id}`}
+                                className={({ isActive }) => {
+                                    return isActive ? "justify-between text-success" : "justify-between text-base-content"
+                                }}
+                            >
+                                {playlist?.title}
+                            </NavLink>
+                        </MenuItem>
+                    ))}
+            </Menu>
+        </div>
     )
 }
 

@@ -17,12 +17,11 @@ const PlaylistCard = ({ isFetching, data }) => {
     const isScrolledIntoView = useRenderOnScroll(cardRef)
     const { currentPlaylist } = useSelector((state) => state.queue)
 
-    const playThisPlaylist = (playlist) => {
-        if (currentPlaylist !== playlist._id) {
-            dispatch(setCurrentPlaylist({ playlistId: playlist._id, tracks: playlist?.tracks }))
-            return
-        }
+    const playThisPlaylist = () => {
         setPlayState(!playState)
+        if (currentPlaylist !== data._id) {
+            dispatch(setCurrentPlaylist({ playlistId: data._id, tracks: data?.tracks }))
+        }
     }
     return (
         <div ref={cardRef}>
@@ -47,7 +46,7 @@ const PlaylistCard = ({ isFetching, data }) => {
                             shape="circle"
                             color="success"
                             className="sm:text-md absolute bottom-2 right-2  translate-y-2 text-xl opacity-0 duration-300 group-hover:translate-y-0 group-hover:opacity-100 sm:btn-sm"
-                            onClick={() => playThisPlaylist(data)}
+                            onClick={playThisPlaylist}
                         >
                             {playState && currentPlaylist === data._id ? <BsPauseFill /> : <BsPlayFill />}
                         </Button>
