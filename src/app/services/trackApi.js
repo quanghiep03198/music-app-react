@@ -7,7 +7,6 @@ const trackApi = createApi({
     reducerPath: "tracks",
     tagTypes: ["Tracks", "LikedTracks"],
     refetchOnReconnect: true,
-    keepUnusedDataFor: 5 * 60,
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => {
         return {
@@ -29,6 +28,7 @@ const trackApi = createApi({
                     }
                 },
 
+                keepUnusedDataFor: 5 * 60,
                 providesTags: ["Tracks"]
             }),
             fetchRelatedTracks: builder.query({

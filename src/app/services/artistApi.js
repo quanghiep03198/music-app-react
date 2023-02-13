@@ -5,7 +5,6 @@ const artistApi = createApi({
     reducerPath: "artists",
     tagTypes: ["Artists"],
     refetchOnReconnect: true,
-    keepUnusedDataFor: 5 * 60,
     baseQuery: axiosBaseQuery(),
     endpoints(builder) {
         return {
@@ -17,6 +16,7 @@ const artistApi = createApi({
                         params
                     }
                 },
+                keepUnusedDataFor: 5 * 60,
                 providesTags: ["Artists"]
             }),
             fetchArtist: builder.query({

@@ -1,3 +1,4 @@
+import { LoadingWrapper } from "@/App"
 import { useFetchAlbumsCollectionQuery, useFetchArtistsCollectionQuery } from "@/app/services/collectionApi"
 import { useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
 import { useFetchTracksUserUploadedQuery } from "@/app/services/trackApi"
@@ -27,9 +28,9 @@ const Library = () => {
             pannelElement: (
                 <Suspense
                     fallback={
-                        <div className="p-10">
+                        <LoadingWrapper>
                             <Loading />
-                        </div>
+                        </LoadingWrapper>
                     }
                 >
                     <AlbumList data={userAlbumsCollection.data} status={{ isFetching: userAlbumsCollection.isFetching }} />
@@ -41,9 +42,9 @@ const Library = () => {
             pannelElement: (
                 <Suspense
                     fallback={
-                        <div className="p-10">
+                        <LoadingWrapper>
                             <Loading />
-                        </div>
+                        </LoadingWrapper>
                     }
                 >
                     <ArtistList data={userArtistsCollection.data} status={{ isFetching: userArtistsCollection.isFetching }} />
@@ -55,9 +56,9 @@ const Library = () => {
             pannelElement: (
                 <Suspense
                     fallback={
-                        <div className="p-10">
+                        <LoadingWrapper>
                             <Loading />
-                        </div>
+                        </LoadingWrapper>
                     }
                 >
                     <PlaylistList data={userPlaylists?.data} status={{ isFetching: userPlaylists.isFetching }} />
@@ -69,9 +70,9 @@ const Library = () => {
             pannelElement: (
                 <Suspense
                     fallback={
-                        <div className="p-10">
+                        <LoadingWrapper>
                             <Loading />
-                        </div>
+                        </LoadingWrapper>
                     }
                 >
                     <TrackList data={uploadedTracks.data} status={{ isFetching: uploadedTracks.isFetching }} />

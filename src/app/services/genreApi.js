@@ -4,7 +4,6 @@ import axiosBaseQuery from "../axiosBaseQuery"
 const genreApi = createApi({
     tagTypes: ["Genres"],
     reducerPath: "genres",
-    keepUnusedDataFor: 5 * 60,
     refetchOnReconnect: true,
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => ({
@@ -12,6 +11,7 @@ const genreApi = createApi({
             query() {
                 return { url: "/genres", method: "GET" }
             },
+            keepUnusedDataFor: 5 * 60,
             providesTags: ["Genres"]
         }),
 

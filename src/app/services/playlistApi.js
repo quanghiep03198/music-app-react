@@ -6,7 +6,6 @@ const playlistApi = createApi({
     tagTypes: ["Playlists", "UserPlaylists"],
     refetchOnReconnect: true,
     refetchOnMountOrArgChange: true,
-    keepUnusedDataFor: 5 * 60,
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => {
         return {
@@ -18,7 +17,7 @@ const playlistApi = createApi({
                         params
                     }
                 },
-
+                keepUnusedDataFor: 5 * 60,
                 providesTags: ["UserPlaylists"]
             }),
             fetchPlaylists: builder.query({
@@ -29,6 +28,7 @@ const playlistApi = createApi({
                         params
                     }
                 },
+                keepUnusedDataFor: 5 * 60,
                 providesTags: ["Playlists"]
             }),
             fetchSinglePlaylist: builder.query({
