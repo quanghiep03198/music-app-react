@@ -5,7 +5,6 @@ const playlistApi = createApi({
     reducerPath: "playlists",
     tagTypes: ["Playlists", "UserPlaylists"],
     refetchOnReconnect: true,
-    refetchOnMountOrArgChange: true,
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => {
         return {
