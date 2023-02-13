@@ -36,7 +36,7 @@ const store = configureStore({
             collectionApi.middleware,
             authApi.middleware
         ]),
-    devTools: currentEnv.toLowerCase() === "development"
+   // devTools: currentEnv.toLowerCase() === "development"
 })
 
 // option to use refetchOnMountedOrArgsChange
