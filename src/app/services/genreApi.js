@@ -12,8 +12,7 @@ const genreApi = createApi({
             query() {
                 return { url: "/genres", method: "GET" }
             },
-            providesTags: ["Genres"],
-            keepUnusedDataFor: 5 * 60
+            providesTags: ["Genres"]
         }),
 
         fetchSingleGenre: builder.query({

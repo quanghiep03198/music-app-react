@@ -7,6 +7,7 @@ const collectionApi = createApi({
     reducerPath: "collections",
     refetchOnReconnect: true,
     refetchOnMountOrArgChange: true,
+    keepUnusedDataFor: 5 * 60,
     endpoints(builder) {
         return {
             fetchTrackCollection: builder.query({
@@ -16,7 +17,7 @@ const collectionApi = createApi({
                         method: "GET"
                     }
                 },
-                keepUnusedDataFor: 5 * 60,
+
                 providesTags: ["TrackCollection"]
             }),
             updateTrackCollection: builder.mutation({
@@ -37,7 +38,7 @@ const collectionApi = createApi({
                         method: "GET"
                     }
                 },
-                keepUnusedDataFor: 5 * 60,
+
                 providesTags: ["AlbumCollection"]
             }),
             updateAlbumsCollection: builder.mutation({
@@ -58,7 +59,6 @@ const collectionApi = createApi({
                     }
                 },
 
-                keepUnusedDataFor: 5 * 60,
                 providesTags: ["AlbumCollection"]
             }),
             updateArtistsCollection: builder.mutation({
