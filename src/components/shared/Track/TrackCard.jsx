@@ -4,7 +4,7 @@ import { AppContext } from "@/context/AppProvider"
 import useRenderOnScroll from "@/hooks/useRenderOnScroll"
 import { formatNumber, timer } from "@/utils/formatter"
 import { useContext, useEffect, useRef, useState } from "react"
-import { BsClock, BsDownload, BsPauseFill, BsPlayFill, BsThreeDots } from "react-icons/bs"
+import { BsClock, BsDownload, BsPauseFill, BsPlayFill, BsPlusLg, BsThreeDots } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import Button from "../../customs/atoms/Button"
@@ -16,7 +16,7 @@ import ToggleLikeButton from "./ToggleLikeButton"
 
 const TrackCard = ({ index, track }) => {
     const [isCurrentTrack, setIsCurrentTrack] = useState(false)
-    const { playState, setPlayState } = useContext(AppContext)
+    const { playState, setPlayState, trackToAddToPlaylist, setTrackToAddToPlaylist } = useContext(AppContext)
     const { currentTrack } = useSelector((state) => state.queue)
     const trackCardRef = useRef(null)
     const isScrollToView = useRenderOnScroll(trackCardRef)
@@ -48,7 +48,7 @@ const TrackCard = ({ index, track }) => {
 						gap-2 
 						rounded-lg 
 						p-1 
-						hover:bg-neutral/50 
+						hover:bg-neutral/20
 						sm:grid-cols-[10%,80%,10%]
 						sm:text-sm
 						md:grid-cols-[10%,80%,10%]
@@ -57,7 +57,7 @@ const TrackCard = ({ index, track }) => {
 						md:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
 						lg:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
 
-			    ${isCurrentTrack && "group bg-neutral"}`}
+			    ${isCurrentTrack && "group bg-neutral/20"}`}
                     ref={trackCardRef}
                 >
                     <div role="cell" className="relative text-center">
@@ -100,7 +100,7 @@ const TrackCard = ({ index, track }) => {
                         <BsClock /> {timer(track?.duration)}
                     </div>
 
-                    <div role="cell">
+                    <div role="cell" className="relative">
                         <Dropdown gap={6} position="bottom-end">
                             <Button role="none" size="sm" shape="square" color="transparent" tabIndex={0}>
                                 <BsThreeDots />
@@ -112,6 +112,11 @@ const TrackCard = ({ index, track }) => {
                                     </MenuItem>
                                     <MenuItem>
                                         <ToggleAddToQueueButton track={track} />
+                                    </MenuItem>
+                                    <MenuItem onClick={() => setTrackToAddToPlaylist(track)}>
+                                        <label htmlFor="playlist-list-modal">
+                                            <BsPlusLg /> Add to playlist
+                                        </label>
                                     </MenuItem>
                                     <MenuItem>
                                         <a href={track?.downloadUrl} className="truncate">

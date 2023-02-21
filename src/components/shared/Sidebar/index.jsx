@@ -8,7 +8,7 @@ import Logo from "/images/logo.png"
 
 const DrawerSidebar = tw.aside`drawer-side`
 const DrawerOverlay = tw.label`drawer-overlay`
-const DrawerSideWrapper = tw.div`p-2 bg-base-200 w-fit flex flex-col overflow-y-hidden `
+const DrawerSideWrapper = tw.div`p-2 bg-neutral w-fit flex flex-col overflow-y-hidden text-neutral-content `
 const LogoImage = tw.img`max-w-[200px] aspect-[2/1] object-contain -translate-x-2`
 
 const Sidebar = () => {

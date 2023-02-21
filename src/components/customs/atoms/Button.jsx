@@ -56,11 +56,17 @@ const Button = tw.button`
                 return "btn-ghost hover:bg-transparent"
             case "neutral":
                 return "bg-neutral"
+            case "disabled":
+                return "disabled"
             default:
                 return ""
         }
     }}
-            
+        
+    ${(props) => {
+        return props.disabled ? "no-animation" : ""
+    }}
+
     ${(props) => {
         return props.isLoading ? "loading" : ""
     }}

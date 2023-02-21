@@ -11,7 +11,7 @@ const FeaturesMenuWithAuthenticated = () => {
                 <NavLink
                     to="/library"
                     className={({ isActive }) => {
-                        return isActive ? "text-success" : "text-base-content"
+                        return isActive ? "text-success" : ""
                     }}
                 >
                     <BiLibrary aria-hidden className="text-xl" />
@@ -22,7 +22,7 @@ const FeaturesMenuWithAuthenticated = () => {
                 <NavLink
                     to="/liked-tracks"
                     className={({ isActive }) => {
-                        return isActive ? "text-success" : "text-base-content"
+                        return isActive ? "text-success" : ""
                     }}
                 >
                     <BsHeart aria-hidden className="text-xl" />

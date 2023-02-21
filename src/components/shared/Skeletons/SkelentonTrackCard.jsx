@@ -1,7 +1,7 @@
 import { BsPlayFill } from "react-icons/bs"
 import tw from "tailwind-styled-components"
 import { SkeletonTextCard } from "../../customs/atoms/Card"
-export const ThumbnailSkeleton = tw.div`h-14 w-14 rounded-lg bg-neutral `
+export const ThumbnailSkeleton = tw.div`h-14 w-14 rounded-lg bg-neutral/20 `
 
 const SkeletonTrackCard = () => {
     return (
@@ -23,7 +23,7 @@ const SkeletonTrackCard = () => {
                     md:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
                     lg:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden"
         >
-            <BsPlayFill className="animate-pulse text-2xl text-neutral" />
+            <BsPlayFill className="animate-pulse text-2xl text-neutral/20" />
 
             <div className="flex items-center gap-1">
                 <ThumbnailSkeleton />

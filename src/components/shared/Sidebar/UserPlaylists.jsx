@@ -22,7 +22,7 @@ const UserPlaylists = () => {
                             <NavLink
                                 to={`/playlist/${playlist?._id}`}
                                 className={({ isActive }) => {
-                                    return isActive ? "justify-between text-success" : "justify-between text-base-content"
+                                    return isActive ? "justify-between text-success" : "justify-between"
                                 }}
                             >
                                 {playlist?.title}

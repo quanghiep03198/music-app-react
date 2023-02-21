@@ -1,19 +1,20 @@
 import { useFetchUserDataQuery } from "@/app/services/authApi"
-import { useEffect } from "react"
-import { BsList, BsMoon, BsPerson, BsSun, BsSunset, BsUpload } from "react-icons/bs"
+import Swap from "@/components/customs/atoms/Swap"
+import { ThemeContext } from "@/context/ThemeProvider"
+import { useContext } from "react"
+import { BsList, BsMoon, BsPerson, BsSun, BsUpload } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { Link, useLocation } from "react-router-dom"
 import tw from "tailwind-styled-components"
 import PageNavigator from "./PageNavigator"
 import SearchBox from "./SearchBox"
 import UserController from "./UserController"
-import Swap from "@/components/customs/atoms/Swap"
 
-const NavbarWrapper = tw.nav`navbar justify-between items-center p-5 bg-gradient-to-b from-base-300 to-transparent gap-6`
+const NavbarWrapper = tw.nav`navbar justify-between items-center p-5 gap-6`
 const Navbar = () => {
     const { authenticated, accessToken } = useSelector((state) => state.auth)
     const { data } = useFetchUserDataQuery(undefined)
-
+    const { isDarkTheme, setTheme } = useContext(ThemeContext)
     const { pathname } = useLocation()
 
     return (
@@ -29,7 +30,13 @@ const Navbar = () => {
                 <label htmlFor="upload-track-modal" role="menuitem" className="btn-circle btn hidden sm:inline-flex sm:btn-sm">
                     <BsUpload />
                 </label>
-                <Swap effect="rotate" swapoff={<BsMoon />} swapon={<BsSun />} tw="btn btn-circle btn-sm" />
+                <Swap
+                    effect="rotate"
+                    swapoff={<BsMoon />}
+                    swapon={<BsSun />}
+                    tw="btn btn-circle btn-sm btn-ghost text-lg"
+                    onChange={() => setTheme(!isDarkTheme)}
+                />
                 {authenticated ? (
                     <UserController user={data} />
                 ) : (

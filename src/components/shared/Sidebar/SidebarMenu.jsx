@@ -8,12 +8,12 @@ import FeaturesMenuWithAuthenticated from "./FeaturesMenuWithAuthenticated"
 const SidebarMenu = () => {
     const { authenticated } = useSelector((state) => state.auth)
     return (
-        <Menu className="min-w-[320px] text-base">
+        <Menu className="min-w-[320px] text-base text-neutral-content">
             <MenuItem>
                 <NavLink
                     to="/"
                     className={({ isActive }) => {
-                        return isActive ? "text-success" : "text-base-content"
+                        return isActive ? "text-success" : ""
                     }}
                 >
                     <BsHouse aria-hidden className="text-xl" /> Home
@@ -23,7 +23,7 @@ const SidebarMenu = () => {
                 <NavLink
                     to="/search"
                     className={({ isActive }) => {
-                        return isActive ? "text-success" : "text-base-content"
+                        return isActive ? "text-success" : ""
                     }}
                 >
                     <BsSearch aria-hidden className="text-xl" /> Search

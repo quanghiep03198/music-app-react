@@ -13,19 +13,17 @@ const HeroBanner = ({ children, heroImageUrl }) => {
     return (
         <div className="hero glass relative place-content-start rounded-xl sm:place-content-center">
             <div className="hero-content sm:flex-col">
-                <Figure mask="square">
-                    {isLoadingImage && <SkeletonImage tw="min-w-[16rem]" />}
+                {isLoadingImage && <SkeletonImage tw="min-w-[16rem]" />}
 
-                    <img
-                        src={heroImageUrl}
-                        onError={({ currentTarget }) => {
-                            currentTarget.onerror = null // prevents looping
-                            currentTarget.src = DefaultAlbumThumbnail
-                        }}
-                        onLoad={handleOnLoadImage}
-                        className={`max-w-[16rem] rounded-lg shadow-2xl ${isLoadingImage ? "hidden" : "block"}`}
-                    />
-                </Figure>
+                <img
+                    src={heroImageUrl}
+                    onError={({ currentTarget }) => {
+                        currentTarget.onerror = null // prevents looping
+                        currentTarget.src = DefaultAlbumThumbnail
+                    }}
+                    onLoad={handleOnLoadImage}
+                    className={`aspect-square w-[16rem] rounded-lg object-cover shadow-2xl sm:w-[12rem] ${isLoadingImage ? "hidden" : "block"}`}
+                />
 
                 <div className="flex flex-1 flex-col gap-2">{children}</div>
             </div>

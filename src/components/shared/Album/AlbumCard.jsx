@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import Button from "../../customs/atoms/Button"
-import { Card, CardBody, Figure, SkeletonImage } from "../../customs/atoms/Card"
+import { Card, CardBody, CardTitle, Figure, SkeletonImage } from "../../customs/atoms/Card"
 import DefaultAlbumThumbnail from "/images/default-album-image.png"
 
 const AlbumCard = ({ albumData }) => {
@@ -77,7 +77,7 @@ const AlbumCard = ({ albumData }) => {
             <CardBody>
                 <label className="label p-0">
                     <Link to={`/album/${albumData?._id}`} className="card-title flex-1 truncate hover:link sm:text-base">
-                        {albumData?.title}
+                        <CardTitle>{albumData?.title}</CardTitle>
                     </Link>
                     {isLoading ? (
                         <BsHeartFill className="animate-pulse text-xl text-success" />

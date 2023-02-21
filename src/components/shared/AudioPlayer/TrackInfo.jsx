@@ -3,7 +3,7 @@ import tw from "tailwind-styled-components"
 
 const TrackInfoWrapper = tw.div`flex basis-1/4 items-center gap-4 sm:flex-1 md:flex-1 sm:text-sm`
 const Thumbnail = tw.img`h-12 w-12 rounded-md`
-const Title = tw.h5`truncate font-semibold text-base-content`
+const Title = tw.h5`truncate font-semibold text-neutral-content`
 
 const TrackInfo = () => {
     const currentTrack = useSelector((state) => state.queue.currentTrack)

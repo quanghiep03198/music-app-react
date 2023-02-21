@@ -77,7 +77,6 @@ const ArtistCard = ({ artistData, isFetching }) => {
                             }}
                             onLoad={() => setIsLoadingImage(false)}
                             className={isLoadingImage ? "hidden" : "aspect-[1] min-w-full object-cover"}
-                            loading="lazy"
                         />
                     </Figure>
 

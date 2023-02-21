@@ -1,6 +1,6 @@
-const { createContext, useState } = require("react")
+import { createContext, useState } from "react"
 
-const ThemeContext = createContext(false)
+export const ThemeContext = createContext(false)
 
 const ThemeProvider = ({ children }) => {
     const [isDarkTheme, setTheme] = useState(true)
@@ -8,5 +8,4 @@ const ThemeProvider = ({ children }) => {
     return <ThemeContext.Provider value={{ isDarkTheme, setTheme }}>{children}</ThemeContext.Provider>
 }
 
-export { ThemeContext }
 export default ThemeProvider

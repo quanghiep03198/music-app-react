@@ -38,7 +38,7 @@ const playlistApi = createApi({
             addToPlaylist: builder.mutation({
                 query(id, payload) {
                     return {
-                        url: `/playlists/${id}`,
+                        url: `/playlists/${id}/edit-track-list`,
                         method: "PATCH",
                         data: payload
                     }

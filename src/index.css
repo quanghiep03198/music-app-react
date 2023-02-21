@@ -61,10 +61,10 @@
 				appearance-none
 				rounded-sm
 				border-none 
-				bg-neutral
+				bg-neutral-content/25
 				bg-gradient-to-r 
-				from-base-content
-				to-base-content
+				from-neutral-content
+				to-neutral-content
                 bg-no-repeat
                 outline-none
 				duration-[all_ease_500] 
@@ -172,7 +172,10 @@
     .menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):active) {
         @apply bg-success text-zinc-900;
     }
-
+    .collapse-title,
+    :where(.collapse > input[type="checkbox"]) {
+        @apply max-h-fit w-full p-1 transition-[background-color_0.2s_ease-in-out];
+    }
     /*#endregion */
 
     /*#region form control */
