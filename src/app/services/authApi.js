@@ -5,7 +5,6 @@ const authApi = createApi({
     reducerPath: "authApi",
     baseQuery: axiosBaseQuery(),
     refetchOnMountOrArgChange: true,
-    refetchOnReconnect: true,
     endpoints: (builder) => ({
         fetchUserData: builder.query({
             query() {

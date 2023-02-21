@@ -1,6 +1,6 @@
 import { useFetchTrackCollectionQuery, useUpdateTrackCollectionMutation } from "@/app/services/collectionApi"
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
-import React, { Fragment, useState } from "react"
+import React, { Fragment, useCallback, useState } from "react"
 import { useEffect } from "react"
 import { BsHeart, BsHeartFill } from "react-icons/bs"
 import { useSelector } from "react-redux"
@@ -10,19 +10,19 @@ const ToggleLikeButton = ({ track }) => {
     const [isLiked, setIsLiked] = useState(false)
     const { authenticated } = useSelector((state) => state.auth)
     const { data } = useFetchTrackCollectionQuery(undefined, { skip: !authenticated })
-    const [updateTrackCollection] = useUpdateTrackCollectionMutation()
+    const [updateTrackCollection, isLoading] = useUpdateTrackCollectionMutation()
 
     useEffect(() => {
         if (!authenticated) {
             setIsLiked(false)
         }
         if (Array.isArray(data) && authenticated) {
-            let isLiked = data.find((item) => item._id === track._id) !== undefined
+            let isLiked = data.some((item) => item._id === track._id)
             setIsLiked(isLiked)
         }
     }, [data, authenticated])
 
-    const handleUpdateTrackColleciton = async (track) => {
+    const handleUpdateTrackColleciton = useCallback(async (track) => {
         try {
             if (!authenticated) {
                 toast.info("You have to login first!")
@@ -36,7 +36,7 @@ const ToggleLikeButton = ({ track }) => {
         } catch (error) {
             console.log(error.message)
         }
-    }
+    })
 
     return (
         <ErrorBoundary>

@@ -1,7 +1,11 @@
-import React from "react"
+import { BsPlusLg } from "react-icons/bs"
 
 const ToggleAddToPlaylistButton = () => {
-    return <div>ToggleAddToPlaylistButton</div>
+    return (
+        <a role="button">
+            <BsPlusLg /> Add to playlist
+        </a>
+    )
 }
 
 export default ToggleAddToPlaylistButton

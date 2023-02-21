@@ -2,10 +2,11 @@ import { createApi } from "@reduxjs/toolkit/query/react"
 import axiosBaseQuery from "../axiosBaseQuery"
 
 const collectionApi = createApi({
-    tagTypes: ["TrackCollection", "AlbumCollection", "PlaylistCollection"],
+    tagTypes: ["TrackCollection", "AlbumCollection", "ArtistCollection"],
     baseQuery: axiosBaseQuery(),
     reducerPath: "collections",
     refetchOnReconnect: true,
+    keepUnusedDataFor: 5 * 60,
     endpoints(builder) {
         return {
             fetchTrackCollection: builder.query({
@@ -15,7 +16,7 @@ const collectionApi = createApi({
                         method: "GET"
                     }
                 },
-                keepUnusedDataFor: 5 * 60,
+
                 providesTags: ["TrackCollection"]
             }),
             updateTrackCollection: builder.mutation({
@@ -36,7 +37,7 @@ const collectionApi = createApi({
                         method: "GET"
                     }
                 },
-                keepUnusedDataFor: 5 * 60,
+
                 providesTags: ["AlbumCollection"]
             }),
             updateAlbumsCollection: builder.mutation({
@@ -57,8 +58,7 @@ const collectionApi = createApi({
                     }
                 },
 
-                keepUnusedDataFor: 5 * 60,
-                providesTags: ["AlbumCollection"]
+                providesTags: ["ArtistCollection"]
             }),
             updateArtistsCollection: builder.mutation({
                 query(data) {
@@ -68,7 +68,7 @@ const collectionApi = createApi({
                         data
                     }
                 },
-                invalidatesTags: ["AlbumCollection"]
+                invalidatesTags: ["ArtistCollection"]
             })
         }
     }

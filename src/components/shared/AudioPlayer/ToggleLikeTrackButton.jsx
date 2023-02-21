@@ -13,10 +13,11 @@ const ToggleLikeTrackButton = () => {
     })
     const [isLiked, setIsLiked] = useState(false)
     const [updateTrackCollection] = useUpdateTrackCollectionMutation()
+
     useEffect(() => {
         if (!authenticated) setIsLiked(false)
         if (Array.isArray(data)) {
-            let isLiked = Array.isArray(data) ? data?.find((track) => track?._id === currentTrack?._id) !== undefined : false
+            let isLiked = Array.isArray(data) ? data.some((track) => track._id === currentTrack._id) : false
             setIsLiked(isLiked)
         }
     }, [data, authenticated])
@@ -26,7 +27,7 @@ const ToggleLikeTrackButton = () => {
                 toast.info("You have to login first!")
                 return
             }
-            const res = await updateTrackCollection(track).unwrap()
+            const res = await updateTrackCollection(track)
             if (!res) {
                 toast.error("Cannot update track collection")
                 return

@@ -5,8 +5,8 @@ import store from "../store"
 
 const trackApi = createApi({
     reducerPath: "tracks",
-    tagTypes: ["Tracks", "LikedTracks"],
-    refetchOnReconnect: true,
+    tagTypes: ["Tracks"],
+    // refetchOnReconnect: true,
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => {
         return {

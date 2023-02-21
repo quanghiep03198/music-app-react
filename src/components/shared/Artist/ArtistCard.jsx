@@ -7,7 +7,7 @@ import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import tw from "tailwind-styled-components"
-import { Card, CardBody, CardTitle, Figure } from "../../customs/atoms/Card"
+import { Card, CardBody, CardTitle, Figure, SkeletonImage } from "../../customs/atoms/Card"
 import Swap from "../../customs/atoms/Swap"
 import SkeletonCard from "../Skeletons/SkeletonCard"
 import AlternativeLogo from "/images/alt-logo.png"
@@ -18,6 +18,8 @@ const ArtistCard = ({ artistData, isFetching }) => {
     const cardRef = useRef(null)
     const isScrolledToView = useRenderOnScroll(cardRef)
     const authenticated = useSelector((state) => state.auth?.authenticated)
+    const [isLoadingImage, setIsLoadingImage] = useState(true)
+
     const { data } = useFetchArtistsCollectionQuery(undefined, {
         skip: !authenticated
     })
@@ -45,7 +47,7 @@ const ArtistCard = ({ artistData, isFetching }) => {
 
     return (
         <div ref={cardRef}>
-            {!isScrolledToView || isFetching ? (
+            {!isScrolledToView ? (
                 <SkeletonCard mask="circle" />
             ) : (
                 <Card>
@@ -66,14 +68,16 @@ const ArtistCard = ({ artistData, isFetching }) => {
                                 checked={isFollowed}
                             />
                         </Overlay>
+                        {isLoadingImage && <SkeletonImage tw="min-w-full aspect-[1]" />}
                         <img
                             src={artistData?.avatar}
                             onError={({ currentTarget }) => {
                                 currentTarget.onerror = null // prevents looping
                                 currentTarget.src = AlternativeLogo
                             }}
+                            onLoad={() => setIsLoadingImage(false)}
+                            className={isLoadingImage ? "hidden" : "aspect-[1] min-w-full object-cover"}
                             loading="lazy"
-                            className="aspect-[1] max-w-full"
                         />
                     </Figure>
 

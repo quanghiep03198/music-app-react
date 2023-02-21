@@ -13,7 +13,6 @@ import SkeletonTrackCard from "../Skeletons/SkelentonTrackCard"
 import SoundWave from "./SoundWave"
 import ToggleAddToQueueButton from "./ToggleAddToQueueButton"
 import ToggleLikeButton from "./ToggleLikeButton"
-import { SkeletonImage } from "@/components/customs/atoms/Card"
 
 const TrackCard = ({ index, track }) => {
     const [isCurrentTrack, setIsCurrentTrack] = useState(false)
@@ -107,7 +106,7 @@ const TrackCard = ({ index, track }) => {
                                 <BsThreeDots />
                             </Button>
                             <DropdownContent tabIndex={0}>
-                                <Menu className="bg-base-300">
+                                <Menu className="bg-base-200">
                                     <MenuItem>
                                         <ToggleLikeButton track={track} />
                                     </MenuItem>

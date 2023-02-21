@@ -9,10 +9,12 @@ const ToggleAddToQueueButton = ({ track }) => {
     const [isInQueue, setIsInQueue] = useState(false)
     const { nextup } = useSelector((state) => state.queue)
     const dispatch = useDispatch()
+
     useEffect(() => {
-        let existedInQueue = nextup.find((item) => item._id === track._id) !== undefined
+        let existedInQueue = nextup.some((item) => item._id === track._id)
         setIsInQueue(existedInQueue)
     }, [nextup])
+
     const handleToggleAddToQueue = (track) => {
         if (isInQueue) {
             dispatch(removeFromQueue(track))

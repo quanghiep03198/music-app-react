@@ -11,18 +11,18 @@ const swiperBreakpoints = {
     },
     1024: {
         slidesPerView: 3,
-        spaceBetween: 48,
+        spaceBetween: 36,
         slidesPerGroup: 3
     },
     1366: {
         slidesPerView: 4,
-        spaceBetween: 48,
+        spaceBetween: 36,
         slidesPerGroup: 4
     },
     1920: {
-        slidesPerView: 5,
-        spaceBetween: 48,
-        slidesPerGroup: 5
+        slidesPerView: 6,
+        spaceBetween: 36,
+        slidesPerGroup: 6
     }
 }
 

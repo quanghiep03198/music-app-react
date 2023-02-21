@@ -26,12 +26,6 @@ const AlbumSlider = ({ data, status }) => {
                 ref={swiperRef}
                 className="album-slide container pb-10"
             >
-                {status.isFetching &&
-                    [1, 2, 3, 4, 5].map((item) => (
-                        <SwiperSlide key={item}>
-                            <SkeletonCard />
-                        </SwiperSlide>
-                    ))}
                 {Array.isArray(data) &&
                     data.map((album) => (
                         <SwiperSlide key={album?._id}>

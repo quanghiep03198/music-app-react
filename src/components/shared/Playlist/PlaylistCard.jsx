@@ -1,12 +1,13 @@
 import { setCurrentPlaylist } from "@/app/slices/queueSlice"
 import { AppContext } from "@/context/AppProvider"
 import useRenderOnScroll from "@/hooks/useRenderOnScroll"
-import { useContext, useRef } from "react"
+import { useContext, useRef, useState } from "react"
 import { BsPauseFill, BsPlayFill } from "react-icons/bs"
+import { MdImageSearch } from "react-icons/md"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import Button from "../../customs/atoms/Button"
-import { Card, CardBody, CardTitle, Figure } from "../../customs/atoms/Card"
+import { Card, CardBody, CardTitle, Figure, SkeletonImage } from "../../customs/atoms/Card"
 import SkeletonCard from "../Skeletons/SkeletonCard"
 import DefaultPlaylistThumbnail from "/images/default-album-image.png"
 
@@ -14,15 +15,18 @@ const PlaylistCard = ({ isFetching, data }) => {
     const dispatch = useDispatch()
     const { playState, setPlayState } = useContext(AppContext)
     const cardRef = useRef(null)
+    const [isLoadingImage, setIsLoadingImage] = useState(true)
     const isScrolledIntoView = useRenderOnScroll(cardRef)
     const { currentPlaylist } = useSelector((state) => state.queue)
 
     const playThisPlaylist = () => {
+        console.log(1)
         setPlayState(!playState)
         if (currentPlaylist !== data._id) {
-            dispatch(setCurrentPlaylist({ playlistId: data._id, tracks: data?.tracks }))
+            dispatch(setCurrentPlaylist({ listId: data._id, tracks: data?.tracks }))
         }
     }
+
     return (
         <div ref={cardRef}>
             {!isScrolledIntoView || isFetching ? (
@@ -32,13 +36,15 @@ const PlaylistCard = ({ isFetching, data }) => {
                     <div className="relative max-w-full">
                         <Link to={`/playlist/${data?._id}`}>
                             <Figure>
+                                {isLoadingImage && <SkeletonImage tw="min-w-full" />}
                                 <img
-                                    loading="lazy"
-                                    src={data.thumbnail !== "" ? data.thumbnail : DefaultPlaylistThumbnail}
+                                    src={!data.thumbnail ? DefaultPlaylistThumbnail : data.thumbnail}
                                     onError={({ currentTarget }) => {
                                         currentTarget.onerror = null // prevents looping
                                         currentTarget.src = DefaultPlaylistThumbnail
                                     }}
+                                    className={isLoadingImage ? "hidden" : "aspect-square min-w-full object-cover"}
+                                    onLoad={() => setIsLoadingImage(false)}
                                 />
                             </Figure>
                         </Link>

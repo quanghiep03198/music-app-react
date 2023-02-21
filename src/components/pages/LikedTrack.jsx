@@ -12,13 +12,15 @@ import LikedTracksListImage from "/images/liked-track-image.png"
 
 const LikedTrack = () => {
     const { playState, setPlayState } = useContext(AppContext)
-    const dispatch = useDispatch()
-    const { data } = useFetchTrackCollectionQuery()
     const { currentPlaylist } = useSelector((state) => state.queue)
     const { user } = useSelector((state) => state.auth)
+    const { data } = useFetchTrackCollectionQuery(undefined)
+
+    const dispatch = useDispatch()
+
     const togglePlayPlaylist = () => {
         const payload = {
-            _id: "liked_tracks",
+            listId: "liked_tracks",
             tracks: data
         }
         if (payload._id && payload._id !== currentPlaylist) {

@@ -14,12 +14,12 @@ const ArtistList = lazy(() => import("../shared/Artist/ArtistList"))
 const TrackList = lazy(() => import("../shared/Track/TrackList"))
 
 const Library = () => {
-    const credential = useSelector((state) => state.auth?.credential)
-    console.log(credential)
-    const userAlbumsCollection = useFetchAlbumsCollectionQuery(undefined)
-    const userArtistsCollection = useFetchArtistsCollectionQuery(undefined)
-    const uploadedTracks = useFetchTracksUserUploadedQuery(undefined)
-    const userPlaylists = useFetchUserPlaylistsQuery({ id: credential })
+    const { credential, authenticated } = useSelector((state) => state.auth)
+
+    const userAlbumsCollection = useFetchAlbumsCollectionQuery(undefined, { skip: !authenticated })
+    const userArtistsCollection = useFetchArtistsCollectionQuery(undefined, { skip: !authenticated })
+    const uploadedTracks = useFetchTracksUserUploadedQuery(undefined, { skip: !authenticated })
+    const userPlaylists = useFetchUserPlaylistsQuery({ id: credential }, { skip: !authenticated })
 
     console.log(userPlaylists.data)
     const tabData = [

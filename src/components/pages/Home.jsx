@@ -9,12 +9,10 @@ import Typography from "../customs/atoms/Typography"
 import AlbumSlider from "../shared/Album/AlbumSlider"
 import ArtistSlider from "../shared/Artist/ArtistSlider"
 import PlaylistSlider from "../shared/Playlist/PlaylistSlider"
-import { useSelector } from "react-redux"
 
 export const PageContent = tw.div`flex flex-col gap-10 items-stretch h-full`
 
 const HomePage = () => {
-    const authenticated = useSelector((state) => state.auth?.authenticated)
     const fetchTracksResponse = useFetchTracksQuery({
         skip: 0,
         limit: 5

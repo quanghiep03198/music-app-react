@@ -3,13 +3,13 @@ import { setCurrentPlaylist } from "@/app/slices/queueSlice"
 import Swap from "@/components/customs/atoms/Swap"
 import { AppContext } from "@/context/AppProvider"
 import axios from "axios"
-import { useContext, useEffect, useState } from "react"
+import { memo, useContext, useEffect, useState } from "react"
 import { BsHeart, BsHeartFill, BsPauseFill, BsPlayFill } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import Button from "../../customs/atoms/Button"
-import { Card, CardBody, Figure } from "../../customs/atoms/Card"
+import { Card, CardBody, Figure, SkeletonImage } from "../../customs/atoms/Card"
 import DefaultAlbumThumbnail from "/images/default-album-image.png"
 
 const AlbumCard = ({ albumData }) => {
@@ -17,11 +17,13 @@ const AlbumCard = ({ albumData }) => {
     const dispatch = useDispatch()
     const [updateAlbumCollection, { isLoading }] = useUpdateAlbumsCollectionMutation()
     const authenticated = useSelector((state) => state.auth?.authenticated)
-    const { data: albumsCollection } = useFetchAlbumsCollectionQuery(undefined, { skip: !authenticated })
+    const albumsCollection = useFetchAlbumsCollectionQuery(undefined, { skip: !authenticated })
     const { currentPlaylist } = useSelector((state) => state.queue)
     const [isLiked, setIsLiked] = useState(false)
+    const [isLoadingImage, setIsLoadingImage] = useState(true)
+
     useEffect(() => {
-        let isLiked = Array.isArray(albumsCollection) ? albumsCollection?.find((album) => album._id === albumData._id) !== undefined : false
+        let isLiked = albumsCollection.data?.some((album) => album._id === albumData._id)
         setIsLiked(isLiked)
     }, [])
 
@@ -32,7 +34,7 @@ const AlbumCard = ({ albumData }) => {
                 toast.info("Album is updating!", { toastId: albumData._id })
                 return
             }
-            dispatch(setCurrentPlaylist({ ...albumData, tracks }))
+            dispatch(setCurrentPlaylist({ listId: albumData._id, tracks: tracks, ...albumData }))
             setPlayState(true)
         } else {
             setPlayState(!playState)
@@ -53,6 +55,7 @@ const AlbumCard = ({ albumData }) => {
     return (
         <Card>
             <Figure shape="square">
+                {isLoadingImage && <SkeletonImage tw="min-w-full aspect-[1]" />}
                 <img
                     src={albumData?.image}
                     loading="lazy"
@@ -60,6 +63,7 @@ const AlbumCard = ({ albumData }) => {
                         currentTarget.onerror = null // prevents looping
                         currentTarget.src = DefaultAlbumThumbnail
                     }}
+                    onLoad={() => setIsLoadingImage(false)}
                 />
                 <Button
                     shape="circle"
@@ -94,4 +98,4 @@ const AlbumCard = ({ albumData }) => {
     )
 }
 
-export default AlbumCard
+export default memo(AlbumCard)
