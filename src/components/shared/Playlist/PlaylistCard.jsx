@@ -3,7 +3,6 @@ import { AppContext } from "@/context/AppProvider"
 import useRenderOnScroll from "@/hooks/useRenderOnScroll"
 import { useContext, useRef, useState } from "react"
 import { BsPauseFill, BsPlayFill } from "react-icons/bs"
-import { MdImageSearch } from "react-icons/md"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import Button from "../../customs/atoms/Button"
@@ -20,7 +19,6 @@ const PlaylistCard = ({ isFetching, data }) => {
     const { currentPlaylist } = useSelector((state) => state.queue)
 
     const playThisPlaylist = () => {
-        console.log(1)
         setPlayState(!playState)
         if (currentPlaylist !== data._id) {
             dispatch(setCurrentPlaylist({ listId: data._id, tracks: data?.tracks }))

@@ -1,5 +1,6 @@
 import AppProvider from "@/context/AppProvider"
 import { ThemeContext } from "@/context/ThemeProvider"
+import useLocalStorage from "@/hooks/useLocalStorage"
 import { Suspense, useContext, useEffect, useRef } from "react"
 import { Outlet, useLocation } from "react-router-dom"
 import tw from "tailwind-styled-components"
@@ -21,12 +22,14 @@ const SidebarToggler = tw.input`drawer-toggle`
 const Layout = () => {
     const { pathname } = useLocation()
     const sidebarTogglerRef = useRef(null)
-    const { isDarkTheme } = useContext(ThemeContext)
+
+    const { isDarkTheme, setIsDarkTheme } = useContext(ThemeContext)
     useEffect(() => {
         if (sidebarTogglerRef.current) {
             sidebarTogglerRef.current.checked = false
         }
     }, [pathname])
+
     return (
         <ErrorBoundary>
             <AppProvider>

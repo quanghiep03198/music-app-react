@@ -58,11 +58,11 @@ const AlbumCard = ({ albumData }) => {
                 {isLoadingImage && <SkeletonImage tw="min-w-full aspect-[1]" />}
                 <img
                     src={albumData?.image}
-                    loading="lazy"
                     onError={({ currentTarget }) => {
                         currentTarget.onerror = null // prevents looping
                         currentTarget.src = DefaultAlbumThumbnail
                     }}
+                    className={isLoadingImage ? "hidden" : "aspect-square min-w-full object-cover"}
                     onLoad={() => setIsLoadingImage(false)}
                 />
                 <Button

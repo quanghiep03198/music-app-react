@@ -24,10 +24,10 @@ const Navbar = () => {
                 {pathname === "/search" && <SearchBox />}
             </div>
             <div className="flex items-center gap-4">
-                <label htmlFor="sidebar-toggle" className="btn-circle btn hidden sm:inline-flex sm:btn-sm">
+                <label htmlFor="sidebar-toggle" className="btn-ghost btn-circle btn hidden sm:inline-flex sm:btn-sm">
                     <BsList aria-hidden />
                 </label>
-                <label htmlFor="upload-track-modal" role="menuitem" className="btn-circle btn hidden sm:inline-flex sm:btn-sm">
+                <label htmlFor="upload-track-modal" role="menuitem" className="btn-ghost btn-circle btn hidden sm:inline-flex sm:btn-sm">
                     <BsUpload />
                 </label>
                 <Swap

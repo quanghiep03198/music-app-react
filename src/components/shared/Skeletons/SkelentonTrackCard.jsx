@@ -1,7 +1,7 @@
 import { BsPlayFill } from "react-icons/bs"
 import tw from "tailwind-styled-components"
 import { SkeletonTextCard } from "../../customs/atoms/Card"
-export const ThumbnailSkeleton = tw.div`h-14 w-14 rounded-lg bg-neutral/20 `
+export const ThumbnailSkeleton = tw.div`h-14 w-14 rounded-lg bg-gray-300 `
 
 const SkeletonTrackCard = () => {
     return (
