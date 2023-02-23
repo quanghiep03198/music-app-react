@@ -2,7 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react"
 import axiosBaseQuery from "../axiosBaseQuery"
 
 const collectionApi = createApi({
-    tagTypes: ["TrackCollection", "AlbumCollection", "ArtistCollection", "Tracks", "Albums", "Artists"],
+    tagTypes: ["TrackCollection", "AlbumCollection", "ArtistCollection"],
     baseQuery: axiosBaseQuery(),
     reducerPath: "collections",
     refetchOnReconnect: true,
@@ -17,7 +17,7 @@ const collectionApi = createApi({
                     }
                 },
 
-                providesTags: ["TrackCollection", "Tracks"]
+                providesTags: ["TrackCollection"]
             }),
             updateTrackCollection: builder.mutation({
                 query(data) {
@@ -28,7 +28,7 @@ const collectionApi = createApi({
                     }
                 },
 
-                invalidatesTags: ["TrackCollection", "Tracks"]
+                invalidatesTags: ["TrackCollection"]
             }),
             fetchAlbumsCollection: builder.query({
                 query() {
@@ -38,7 +38,7 @@ const collectionApi = createApi({
                     }
                 },
 
-                providesTags: ["AlbumCollection", "Albums"]
+                providesTags: ["AlbumCollection"]
             }),
             updateAlbumsCollection: builder.mutation({
                 query(data) {
@@ -48,7 +48,7 @@ const collectionApi = createApi({
                         data
                     }
                 },
-                invalidatesTags: ["AlbumCollection", "Albums"]
+                invalidatesTags: ["AlbumCollection"]
             }),
             fetchArtistsCollection: builder.query({
                 query() {
@@ -58,7 +58,7 @@ const collectionApi = createApi({
                     }
                 },
 
-                providesTags: ["ArtistCollection", "Artists"]
+                providesTags: ["ArtistCollection"]
             }),
             updateArtistsCollection: builder.mutation({
                 query(data) {
@@ -68,7 +68,7 @@ const collectionApi = createApi({
                         data
                     }
                 },
-                invalidatesTags: ["ArtistCollection", "Artists"]
+                invalidatesTags: ["ArtistCollection"]
             })
         }
     }
