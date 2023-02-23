@@ -23,7 +23,7 @@ const AlbumCard = ({ albumData }) => {
     const [isLoadingImage, setIsLoadingImage] = useState(true)
 
     useEffect(() => {
-        let isLiked = albumsCollection.data?.some((album) => album._id === albumData._id)
+        let isLiked = Array.isArray(albumsCollection.data) && albumsCollection?.data?.some((album) => album._id === albumData._id)
         setIsLiked(isLiked)
     }, [])
 
@@ -69,8 +69,7 @@ const AlbumCard = ({ albumData }) => {
                     shape="circle"
                     color="success"
                     className="sm:text-md absolute bottom-2 right-2  translate-y-2 text-xl opacity-0 duration-300 group-hover:translate-y-0 group-hover:opacity-100 sm:btn-sm"
-                    onClick={playThisAlbum}
-                >
+                    onClick={playThisAlbum}>
                     {playState && currentPlaylist === albumData?._id ? <BsPauseFill /> : <BsPlayFill />}
                 </Button>
             </Figure>
