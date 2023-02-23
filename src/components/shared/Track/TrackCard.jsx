@@ -3,13 +3,14 @@ import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
 import { AppContext } from "@/context/AppProvider"
 import useRenderOnScroll from "@/hooks/useRenderOnScroll"
 import { formatNumber, timer } from "@/utils/formatter"
-import { useContext, useEffect, useRef, useState } from "react"
-import { BsClock, BsDownload, BsPauseFill, BsPlayFill, BsPlusLg, BsThreeDots } from "react-icons/bs"
+import { useContext, useEffect, useMemo, useRef, useState } from "react"
+import { BsClock, BsDownload, BsPauseFill, BsPlayFill, BsPlus, BsThreeDots } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import Button from "../../customs/atoms/Button"
 import { Dropdown, DropdownContent } from "../../customs/atoms/Dropdown"
 import SkeletonTrackCard from "../Skeletons/SkelentonTrackCard"
+import RemoveFromPlaylistButton from "./RemoveFromPlaylistButton"
 import SoundWave from "./SoundWave"
 import ToggleAddToQueueButton from "./ToggleAddToQueueButton"
 import ToggleLikeButton from "./ToggleLikeButton"
@@ -21,6 +22,9 @@ const TrackCard = ({ index, track }) => {
     const trackCardRef = useRef(null)
     const isScrollToView = useRenderOnScroll(trackCardRef)
     const dispatch = useDispatch()
+    const location = useLocation()
+
+    const isPlaylistPage = useMemo(() => location.pathname.includes("playlist"), [location])
 
     useEffect(() => {
         setIsCurrentTrack(currentTrack?._id === track?._id)
@@ -42,10 +46,10 @@ const TrackCard = ({ index, track }) => {
 						group
 						grid 
 						min-h-[60px]
-						grid-cols-[5%,35%,15%,15%,15%,5%]
+						grid-cols-[5%,40%,20%,20%,5%]
 						items-center
 						justify-between
-						gap-2 
+						gap-0 
 						rounded-lg 
 						p-1 
 						hover:bg-neutral/20
@@ -57,7 +61,7 @@ const TrackCard = ({ index, track }) => {
 						md:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
 						lg:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
 
-			    ${isCurrentTrack && "group bg-neutral/20"}`}
+			    ${isCurrentTrack && "group glass"}`}
                     ref={trackCardRef}
                 >
                     <div role="cell" className="relative text-center">
@@ -92,13 +96,9 @@ const TrackCard = ({ index, track }) => {
 
                     <div>{track.album?.title ?? ""}</div>
 
-                    <time role="cell" className="flex items-center gap-2 ">
-                        <BsPlayFill /> {formatNumber(track?.listen)}
-                    </time>
-
-                    <div className="flex items-center gap-2">
+                    <time className="flex items-center gap-2">
                         <BsClock /> {timer(track?.duration)}
-                    </div>
+                    </time>
 
                     <div role="cell" className="relative">
                         <Dropdown gap={6} position="bottom-end">
@@ -115,9 +115,14 @@ const TrackCard = ({ index, track }) => {
                                     </MenuItem>
                                     <MenuItem onClick={() => setTrackToAddToPlaylist(track)}>
                                         <label htmlFor="playlist-list-modal">
-                                            <BsPlusLg /> Add to playlist
+                                            <BsPlus /> Add to playlist
                                         </label>
                                     </MenuItem>
+                                    {isPlaylistPage && (
+                                        <MenuItem>
+                                            <RemoveFromPlaylistButton trackToRemove={track} />
+                                        </MenuItem>
+                                    )}
                                     <MenuItem>
                                         <a href={track?.downloadUrl} className="truncate">
                                             <BsDownload /> Download

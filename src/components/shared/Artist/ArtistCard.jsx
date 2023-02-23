@@ -35,9 +35,7 @@ const ArtistCard = ({ artistData, isFetching }) => {
 
     const handleToggleFollowArtist = async (artist) => {
         try {
-            const response = await updateArtistCollection(artist)
-            if (response.status === 401) throw new Error(response.message)
-
+            await updateArtistCollection(artist)
             setIsFollowed(!isFollowed)
             !isFollowed ? toast.success(`You've followed ${artist.name}`) : toast.info(`You've unfollowed ${artist.name}`)
         } catch (error) {
@@ -47,7 +45,7 @@ const ArtistCard = ({ artistData, isFetching }) => {
 
     return (
         <div ref={cardRef}>
-            {!isScrolledToView ? (
+            {!isScrolledToView || isFetching ? (
                 <SkeletonCard mask="circle" />
             ) : (
                 <Card>

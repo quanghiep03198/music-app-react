@@ -20,9 +20,9 @@ const UserController = ({ user }) => {
                 <span className="badge sm:hidden md:hidden">{user?.username}</span>
             </button>
             <DropdownContent tabIndex={0} className="py-4">
-                <Menu className="min-w-[240px] bg-base-100 shadow-xl">
+                <Menu className="min-w-[240px] bg-base-300 shadow-xl">
                     <MenuItem>
-                        <Link to="/account/:id">
+                        <Link to="/account">
                             <BsPerson /> Account <span className="badge hidden sm:inline-flex md:inline-flex">{user?.username}</span>
                         </Link>
                     </MenuItem>

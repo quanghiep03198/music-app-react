@@ -3,7 +3,7 @@ import { Figure, SkeletonImage } from "./Card"
 import DefaultAlbumThumbnail from "/images/default-album-image.png"
 import { MdImageSearch } from "react-icons/md"
 
-const HeroBanner = ({ children, heroImageUrl }) => {
+const HeroBanner = ({ children, heroImageUrl, heroImageMask }) => {
     const [isLoadingImage, setIsLoadingImage] = useState(true)
 
     const handleOnLoadImage = useCallback(() => {
@@ -22,7 +22,9 @@ const HeroBanner = ({ children, heroImageUrl }) => {
                         currentTarget.src = DefaultAlbumThumbnail
                     }}
                     onLoad={handleOnLoadImage}
-                    className={`aspect-square w-[16rem] rounded-lg object-cover shadow-2xl sm:w-[12rem] ${isLoadingImage ? "hidden" : "block"}`}
+                    className={`aspect-square ${heroImageMask === "circle" ? "rounded-full" : "rounded-lg"} w-[16rem]  object-cover shadow-2xl sm:w-[12rem] ${
+                        isLoadingImage ? "hidden" : "block"
+                    }`}
                 />
 
                 <div className="flex flex-1 flex-col gap-2">{children}</div>

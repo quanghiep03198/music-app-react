@@ -62,7 +62,7 @@ const LoginPage = () => {
                 <div className="card glass w-full max-w-sm flex-shrink-0 shadow-2xl">
                     <div className="card-body">
                         <img src={Logo} className=" max-w-full object-cover text-center" />
-                        <div className="form-control gap-2">
+                        {/* <div className="form-control gap-2">
                             <Button size="block" className="gap-2" onClick={authenticateWithGoogle}>
                                 <FcGoogle /> Continue with Google account
                             </Button>
@@ -70,9 +70,9 @@ const LoginPage = () => {
                                 <FaFacebookSquare className="text-[#3b5998]" />
                                 Continue with Facebook account
                             </Button>
-                        </div>
+                        </div> */}
                         <ErrorBoundary>
-                            <div className="divider">Or</div>
+                            {/* <div className="divider">Or</div> */}
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <div className="form-control">
                                     <label className="label">

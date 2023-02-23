@@ -29,13 +29,13 @@
     }
 
     .scroll::-webkit-scrollbar {
-        @apply mr-1 w-2 opacity-0;
+        @apply mr-1 w-1 opacity-0;
     }
     .scroll::-webkit-scrollbar-track {
-        @apply w-4;
+        @apply w-1;
     }
     .scroll::-webkit-scrollbar-thumb {
-        @apply rounded-full bg-neutral;
+        @apply rounded-full bg-gray-400/50;
     }
     /*#endregion */
 
@@ -63,8 +63,8 @@
 				border-none 
 				bg-neutral-content/25
 				bg-gradient-to-r 
-				from-neutral-content
-				to-neutral-content
+				from-base-content
+				to-base-content
                 bg-no-repeat
                 outline-none
 				duration-[all_ease_500] 

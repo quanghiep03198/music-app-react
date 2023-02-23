@@ -8,7 +8,7 @@ import AudioSeekBar from "./AudioSeekBar"
 import TrackActions from "./TrackActions"
 import TrackInfo from "./TrackInfo"
 
-const AudioPlayerWrapper = tw.div`w-full flex flex-wrap xl:flex-nowrap xxl:flex-nowrap justify-between items-start xl:items-start xxl:items-start flex-grow gap-10 p-4 bg-neutral border-t border-neutral-content/20 text-neutral-content`
+const AudioPlayerWrapper = tw.div`w-full flex flex-wrap xl:flex-nowrap xxl:flex-nowrap justify-between items-start xl:items-start xxl:items-start flex-grow gap-10 p-4 bg-base-300 border-t border-neutral-content/20 text-base-content`
 const AudioControllerWrapper = tw.div`flex flex-col gap-1 justify-center items-center flex-1 sm:basis-full md:basis-full sm:order-3 md:order-3 sm:hidden`
 
 const AudioPlayer = () => {

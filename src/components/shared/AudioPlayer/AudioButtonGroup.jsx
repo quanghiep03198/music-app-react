@@ -81,7 +81,7 @@ const AudioButtonGroup = ({ audioRef }) => {
             </Button>
             <Swap
                 swapon={<RepeatIcon className="text-success" />}
-                swapoff={<RepeatIcon className="text-neutral-content" />}
+                swapoff={<RepeatIcon className="text-base-content" />}
                 tw="text-xl w-fit"
                 checked={loopState}
                 onChange={handleToggleLoop}

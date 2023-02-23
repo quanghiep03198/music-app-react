@@ -35,8 +35,9 @@ const playlistApi = createApi({
                     return { url: `/playlists/${id}`, method: "GET" }
                 }
             }),
-            addToPlaylist: builder.mutation({
-                query(id, payload) {
+            editTrackList: builder.mutation({
+                query({ id, payload }) {
+                    console.log(payload)
                     return {
                         url: `/playlists/${id}/edit-track-list`,
                         method: "PATCH",
@@ -84,7 +85,7 @@ export const {
     useFetchUserPlaylistsQuery,
     useCreatePlaylistMutation,
     useUpdateUserPlaylistMutation,
-    useAddToPlaylistMutation,
+    useEditTrackListMutation,
     useDeleteUserPlaylistMutation
 } = playlistApi
 export default playlistApi

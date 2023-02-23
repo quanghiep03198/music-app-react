@@ -33,7 +33,7 @@ const Layout = () => {
     return (
         <ErrorBoundary>
             <AppProvider>
-                <Container data-theme={isDarkTheme ? "dark" : "light"}>
+                <Container>
                     <Drawer>
                         <SidebarToggler id="sidebar-toggle" type="checkbox" ref={sidebarTogglerRef} />
                         <DrawerContent>

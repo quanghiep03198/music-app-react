@@ -10,6 +10,7 @@ import AlbumPage from "./components/pages/Album"
 import ForgotPassword from "./components/pages/ForgotPassword"
 import LikedTrack from "./components/pages/LikedTrack"
 import LoadingScreen from "./components/pages/LoadingPage"
+import Profile from "./components/pages/Profile"
 
 const Layout = lazy(() => import("./components/layouts"))
 const Search = lazy(() => import("./components/pages/Search"))
@@ -19,6 +20,7 @@ const Library = lazy(() => import("./components/pages/Library"))
 const Playlist = lazy(() => import("./components/pages/Playlist"))
 const Queue = lazy(() => import("./components/pages/Queue"))
 
+const Account = lazy(() => import("./components/layouts/Account"))
 const LoginPage = lazy(() => import("./components/pages/Login"))
 const RegisterPage = lazy(() => import("./components/pages/Register"))
 const ResetPassword = lazy(() => import("./components/pages/ResetPassword"))
@@ -37,8 +39,7 @@ function App() {
                             <Suspense fallback={<LoadingScreen />}>
                                 <Layout />
                             </Suspense>
-                        }
-                    >
+                        }>
                         <Route index element={<HomePage />} />
                         <Route path="/queue" element={<Queue />} />
                         <Route path="/search" element={<Search />} />
@@ -63,6 +64,22 @@ function App() {
                         <Route path="/album/:id" element={<AlbumPage />} />
                     </Route>
                     <Route
+                        path="/account"
+                        element={
+                            <Suspense
+                                fallback={
+                                    <LoadingWrapper>
+                                        <Loading />
+                                    </LoadingWrapper>
+                                }>
+                                <PrivateLayout>
+                                    <Account />
+                                </PrivateLayout>
+                            </Suspense>
+                        }>
+                        <Route index element={<Profile />}></Route>
+                    </Route>
+                    <Route
                         path="/login"
                         element={
                             <Suspense
@@ -70,8 +87,7 @@ function App() {
                                     <LoadingWrapper>
                                         <Loading />
                                     </LoadingWrapper>
-                                }
-                            >
+                                }>
                                 <LoginPage />
                             </Suspense>
                         }
@@ -84,8 +100,7 @@ function App() {
                                     <LoadingWrapper>
                                         <Loading />
                                     </LoadingWrapper>
-                                }
-                            >
+                                }>
                                 <RegisterPage />
                             </Suspense>
                         }
@@ -98,8 +113,7 @@ function App() {
                                     <LoadingWrapper>
                                         <Loading />
                                     </LoadingWrapper>
-                                }
-                            >
+                                }>
                                 <ForgotPassword />
                             </Suspense>
                         }
@@ -112,8 +126,7 @@ function App() {
                                     <LoadingWrapper>
                                         <Loading />
                                     </LoadingWrapper>
-                                }
-                            >
+                                }>
                                 <ResetPassword />
                             </Suspense>
                         }
@@ -126,8 +139,7 @@ function App() {
                                     <LoadingWrapper>
                                         <Loading />
                                     </LoadingWrapper>
-                                }
-                            >
+                                }>
                                 <NotFound />
                             </Suspense>
                         }

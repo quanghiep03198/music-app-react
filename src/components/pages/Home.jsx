@@ -9,10 +9,13 @@ import Typography from "../customs/atoms/Typography"
 import AlbumSlider from "../shared/Album/AlbumSlider"
 import ArtistSlider from "../shared/Artist/ArtistSlider"
 import PlaylistSlider from "../shared/Playlist/PlaylistSlider"
+import { useSelector } from "react-redux"
+import { useFetchArtistsCollectionQuery } from "@/app/services/collectionApi"
 
 export const PageContent = tw.div`flex flex-col gap-10 items-stretch h-full`
 
 const HomePage = () => {
+    const { credential, authenticated } = useSelector((state) => state.auth)
     const fetchTracksResponse = useFetchTracksQuery({
         skip: 0,
         limit: 5
@@ -28,7 +31,8 @@ const HomePage = () => {
         skip: 0,
         limit: 10
     })
-
+    const userArtistsCollection = useFetchArtistsCollectionQuery(undefined, { skip: !authenticated })
+    const userPlaylists = useFetchUserPlaylistsQuery({ id: credential }, { skip: !authenticated })
     return (
         <>
             <section className="pb-10">
@@ -58,6 +62,24 @@ const HomePage = () => {
                 </Typography>
                 <AlbumSlider data={fetchAlbumsResponse.data} status={{ isFetching: fetchAlbumsResponse.isFetching }} />
             </section>
+
+            {userArtistsCollection.data && (
+                <section>
+                    <Typography tranform="capitalize" size="2xl">
+                        your favourite artists
+                    </Typography>
+                    <ArtistSlider data={userArtistsCollection.data} status={{ isFetching: fetchArtistsResponse.isFetching }} />
+                </section>
+            )}
+
+            {userPlaylists.data && (
+                <section>
+                    <Typography tranform="capitalize" size="2xl">
+                        your playlists
+                    </Typography>
+                    <PlaylistSlider data={userPlaylists.data} status={{ isFetching: fetchPlaylistsResponse.isFetching }} />
+                </section>
+            )}
         </>
     )
 }
