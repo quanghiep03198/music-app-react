@@ -1,7 +1,7 @@
 import tw from "tailwind-styled-components"
 
 export const Card = tw.div`group card rounded-xl max-w-[280px] p-3 shadow-xl ${(props) =>
-    props.skeleton ? "bg-neutral" : "bg-base-300 hover:glass"} hover:cursor-grab`
+    props.skeleton ? "bg-base-300" : "bg-base-300 hover:glass"} hover:cursor-grab`
 
 export const Figure = tw.figure`relative rounded-lg mask ${(props) => {
     switch (props.mask) {
