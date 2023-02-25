@@ -9,34 +9,32 @@ import { toast } from "react-toastify"
 const ToggleLikeButton = ({ track }) => {
     const [isLiked, setIsLiked] = useState(false)
     const { authenticated } = useSelector((state) => state.auth)
-    const { data } = useFetchTrackCollectionQuery(undefined, { skip: !authenticated })
-    const [updateTrackCollection, isLoading] = useUpdateTrackCollectionMutation()
+    const trackCollection = useSelector((state) => state.collections?.tracks)
+    const [updateTrackCollection] = useUpdateTrackCollectionMutation()
 
     useEffect(() => {
         if (!authenticated) {
             setIsLiked(false)
         }
-        if (Array.isArray(data) && authenticated) {
-            let isLiked = data.some((item) => item._id === track._id)
+        if (Array.isArray(trackCollection) && authenticated) {
+            let isLiked = trackCollection.some((item) => item._id === track._id)
             setIsLiked(isLiked)
         }
-    }, [data, authenticated])
+    }, [trackCollection, authenticated])
 
-    const handleUpdateTrackColleciton = useCallback(async (track) => {
+    const handleUpdateTrackColleciton = async (track) => {
         try {
             if (!authenticated) {
                 toast.info("You have to login first!")
                 return
             }
-            const response = await updateTrackCollection(track)
-            if (!response) throw new Error("Failed to update track colleciton!")
-
+            await updateTrackCollection(track)
             setIsLiked(!isLiked)
             !isLiked ? toast.success("Added track to your library") : toast.info("Removed track from your library")
         } catch (error) {
             console.log(error.message)
         }
-    })
+    }
 
     return (
         <ErrorBoundary>

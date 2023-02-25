@@ -4,6 +4,7 @@ import { useRef } from "react"
 import { Link } from "react-router-dom"
 import Logo from "/images/logo.png"
 import tw from "tailwind-styled-components"
+import { HiOutlineMusicalNote } from "react-icons/hi2"
 const SkeltonGenreCard = tw.div`max-w-full aspect-square rounded-lg bg-neutral animate-pulse`
 
 const GenreCard = ({ data }) => {
@@ -13,8 +14,8 @@ const GenreCard = ({ data }) => {
     return (
         <Link to={`/genres/${data?._id}`} ref={cardRef}>
             {isScrollToView ? (
-                <Card className="aspect-square max-w-full bg-[url('/images/vinyl.png')] bg-cover bg-no-repeat hover:cursor-pointer">
-                    <h3 className="text-2xl font-semibold text-base-content hover:link sm:text-lg">{data?.name}</h3>
+                <Card className="to neutral-focus aspect-square max-w-full  bg-cover bg-no-repeat transition-all hover:cursor-pointer">
+                    <h3 className="text-xl font-semibold text-base-content hover:link sm:text-lg">{data?.name}</h3>
                     <img src={Logo} className="absolute bottom-1 left-1 max-w-[96px] object-cover" />
                 </Card>
             ) : (

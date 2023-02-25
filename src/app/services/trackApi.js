@@ -4,7 +4,7 @@ import { setCurrentPlaylist } from "../slices/queueSlice"
 import store from "../store"
 
 const trackApi = createApi({
-    reducerPath: "tracks",
+    reducerPath: "trackApi",
     tagTypes: ["Tracks"],
     // refetchOnReconnect: true,
     baseQuery: axiosBaseQuery(),

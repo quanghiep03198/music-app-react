@@ -11,6 +11,11 @@ import DefaultAvatar from "/images/default-avatar.png"
 const UserController = ({ user }) => {
     const dispatch = useDispatch()
 
+    const handleLogout = () => {
+        dispatch(logout())
+        localStorage.removeItem("persist:root")
+    }
+
     return (
         <Dropdown position="bottom-end">
             <button className="flex items-center gap-2" tabIndex={0}>
@@ -26,7 +31,7 @@ const UserController = ({ user }) => {
                             <BsPerson /> Account <span className="badge hidden sm:inline-flex md:inline-flex">{user?.username}</span>
                         </Link>
                     </MenuItem>
-                    <MenuItem onClick={() => dispatch(logout())}>
+                    <MenuItem onClick={handleLogout}>
                         <a role="menuitem">
                             <HiLogout /> Logout
                         </a>

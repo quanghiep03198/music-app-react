@@ -3,7 +3,7 @@ import axiosBaseQuery from "../axiosBaseQuery"
 
 const albumApi = createApi({
     tagTypes: ["Albums", "UserAlbums"],
-    reducerPath: "albums",
+    reducerPath: "albumsApi",
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => ({
         fetchAlbums: builder.query({

@@ -1,24 +1,26 @@
 import { combineReducers } from "@reduxjs/toolkit"
+import albumApi from "./services/albumApi"
 import artistApi from "./services/artistApi"
+import authApi from "./services/authApi"
+import collectionApi from "./services/collectionApi"
+import genreApi from "./services/genreApi"
 import playlistApi from "./services/playlistApi"
 import trackApi from "./services/trackApi"
-import queueSlice from "./slices/queueSlice"
 import authSlice from "./slices/authSlice"
-import albumApi from "./services/albumApi"
-import genreApi from "./services/genreApi"
-import collectionApi from "./services/collectionApi"
-import authApi from "./services/authApi"
+import collectionSlice from "./slices/collectionSlice"
+import queueSlice from "./slices/queueSlice"
 
 const rootReducer = combineReducers({
-    tracks: trackApi.reducer,
-    playlists: playlistApi.reducer,
-    artists: artistApi.reducer,
-    collections: collectionApi.reducer,
-    genres: genreApi.reducer,
-    auth: authSlice.reducer,
+    [trackApi.reducerPath]: trackApi.reducer,
+    [playlistApi.reducerPath]: playlistApi.reducer,
+    [artistApi.reducerPath]: artistApi.reducer,
+    [collectionApi.reducerPath]: collectionApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
-    queue: queueSlice.reducer,
-    albums: albumApi.reducer
+    [genreApi.reducerPath]: genreApi.reducer,
+    [albumApi.reducerPath]: albumApi.reducer,
+    collections: collectionSlice.reducer,
+    auth: authSlice.reducer,
+    queue: queueSlice.reducer
 })
 
 export default rootReducer

@@ -1,14 +1,15 @@
 import { useEditTrackListMutation, useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
 import Button from "@/components/customs/atoms/Button"
 import { AppContext } from "@/context/AppProvider"
-import { useContext } from "react"
+import { Fragment, useContext, useState } from "react"
 import { useSelector } from "react-redux/es/hooks/useSelector"
 import { toast } from "react-toastify"
 
-const PlaylistListModal = ({ trackToAdd }) => {
+const PlaylistListModal = () => {
     const { credential, authenticated } = useSelector((state) => state.auth)
-    const { trackToAddToPlaylist, setTrackToAddToPlaylist } = useContext(AppContext)
-    const { data, isFetching } = useFetchUserPlaylistsQuery(
+    const [playlistToAdd, setPlaylistToAdd] = useState(null)
+    const { trackToEditPlaylist } = useContext(AppContext)
+    const { data } = useFetchUserPlaylistsQuery(
         {
             id: credential,
             params: { skip: 0, limit: 20 }
@@ -19,22 +20,20 @@ const PlaylistListModal = ({ trackToAdd }) => {
 
     const handleAddToPlaylist = async (playlist) => {
         try {
-            if (playlist.tracks.some((track) => track._id === trackToAddToPlaylist?._id)) {
+            setPlaylistToAdd(playlist)
+            if (playlist.tracks.some((track) => track._id === trackToEditPlaylist?._id)) {
                 return
             }
-            console.log(trackToAddToPlaylist)
-            const response = await addToPlaylist({ id: playlist._id, payload: { track: trackToAddToPlaylist._id } })
+            const response = await addToPlaylist({ id: playlist._id, payload: { track: trackToEditPlaylist._id } }).unwrap()
             console.log(response)
-            if (response) {
-                toast.success(`Added to ${playlist.title}`)
-            }
+            if (response) toast.success(`Added to ${playlist.title}`)
         } catch (error) {
             console.log(error)
         }
     }
 
     return (
-        <>
+        <Fragment>
             <input type="checkbox" id="playlist-list-modal" className="modal-toggle" />
             <label htmlFor="playlist-list-modal" className="modal cursor-pointer">
                 <label className="modal-box relative" htmlFor="">
@@ -46,10 +45,13 @@ const PlaylistListModal = ({ trackToAdd }) => {
                                 <label
                                     className="label rounded-lg p-3 hover:bg-neutral/50 hover:duration-500"
                                     key={playlist?._id}
-                                    onClick={() => handleAddToPlaylist(playlist)}
-                                >
+                                    onClick={() => handleAddToPlaylist(playlist)}>
                                     {playlist.title}
-                                    <Button size="sm" disabled={playlist.tracks.some((track) => track._id === trackToAddToPlaylist?._id)} color="success">
+                                    <Button
+                                        size="sm"
+                                        isLoading={isLoading && playlistToAdd._id === playlist._id}
+                                        disabled={playlist.tracks.some((track) => track._id === trackToEditPlaylist?._id)}
+                                        color="success">
                                         Add to playlist
                                     </Button>
                                 </label>
@@ -57,7 +59,7 @@ const PlaylistListModal = ({ trackToAdd }) => {
                     </div>
                 </label>
             </label>
-        </>
+        </Fragment>
     )
 }
 

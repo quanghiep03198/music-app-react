@@ -2,6 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react"
 import axiosBaseQuery from "../axiosBaseQuery"
 
 const authApi = createApi({
+    tagTypes: ["Auth"],
     reducerPath: "authApi",
     baseQuery: axiosBaseQuery(),
     refetchOnMountOrArgChange: true,
@@ -10,9 +11,7 @@ const authApi = createApi({
             query() {
                 return { url: "/user", method: "GET" }
             },
-            forceRefetch({ currentArg, previousArg }) {
-                return currentArg !== previousArg
-            }
+            providesTags: ["Auth"]
         }),
         login: builder.mutation({
             query(payload) {
@@ -25,6 +24,7 @@ const authApi = createApi({
         }),
         refreshToken: builder.query({
             query(credential) {
+                if (!credential) return
                 return {
                     url: `/refresh-token/${credential}`,
                     method: "GET"

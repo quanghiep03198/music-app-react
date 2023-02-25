@@ -1,12 +1,13 @@
 import { createApi } from "@reduxjs/toolkit/query/react"
+import axios from "@/config/axios.config"
 import axiosBaseQuery from "../axiosBaseQuery"
 
 const playlistApi = createApi({
-    reducerPath: "playlists",
-    tagTypes: ["Playlists", "UserPlaylists"],
+    reducerPath: "playlistApi",
+    tagTypes: ["Playlists", "UserPlaylists", "Playlist"],
     refetchOnReconnect: true,
     baseQuery: axiosBaseQuery(),
-    endpoints: (builder) => {
+    endpoints(builder) {
         return {
             fetchUserPlaylists: builder.query({
                 query({ id, params }) {
@@ -16,7 +17,6 @@ const playlistApi = createApi({
                         params
                     }
                 },
-                keepUnusedDataFor: 5 * 60,
                 providesTags: ["UserPlaylists"]
             }),
             fetchPlaylists: builder.query({
@@ -33,7 +33,11 @@ const playlistApi = createApi({
             fetchSinglePlaylist: builder.query({
                 query(id) {
                     return { url: `/playlists/${id}`, method: "GET" }
-                }
+                },
+                forceRefetch({ currentArg, previousArg }) {
+                    return currentArg !== previousArg
+                },
+                providesTags: (result, error, id) => [{ type: "Playlist", id }]
             }),
             editTrackList: builder.mutation({
                 query({ id, payload }) {
@@ -44,7 +48,8 @@ const playlistApi = createApi({
                         data: payload
                     }
                 },
-                invalidatesTags: ["UserPlaylists", "Playlists"]
+
+                invalidatesTags: ["Playlists", "UserPlaylists", "Playlist"]
             }),
             createPlaylist: builder.mutation({
                 query(data) {
@@ -64,7 +69,7 @@ const playlistApi = createApi({
                         data
                     }
                 },
-                invalidatesTags: ["UserPlaylists", "Playlists"]
+                invalidatesTags: ["UserPlaylists"]
             }),
             deleteUserPlaylist: builder.mutation({
                 query(id) {

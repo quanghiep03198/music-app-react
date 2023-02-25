@@ -13,8 +13,8 @@ import UserController from "./UserController"
 
 const NavbarWrapper = tw.nav`navbar justify-between items-center p-5 gap-6`
 const Navbar = () => {
-    const { authenticated, accessToken } = useSelector((state) => state.auth)
-    const { data } = useFetchUserDataQuery(undefined, { refetchOnMountOrArgChange: true })
+    const { authenticated } = useSelector((state) => state.auth)
+    const { data } = useFetchUserDataQuery(undefined, { skip: !authenticated })
     const { isDarkTheme, setTheme } = useContext(ThemeContext)
     const { pathname } = useLocation()
 

@@ -3,7 +3,7 @@ import axiosBaseQuery from "../axiosBaseQuery"
 
 const genreApi = createApi({
     tagTypes: ["Genres"],
-    reducerPath: "genres",
+    reducerPath: "genreApi",
     refetchOnReconnect: true,
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => ({

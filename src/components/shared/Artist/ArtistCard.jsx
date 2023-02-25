@@ -20,18 +20,16 @@ const ArtistCard = ({ artistData, isFetching }) => {
     const authenticated = useSelector((state) => state.auth?.authenticated)
     const [isLoadingImage, setIsLoadingImage] = useState(true)
 
-    const { data } = useFetchArtistsCollectionQuery(undefined, {
-        skip: !authenticated
-    })
+    const artistCollection = useSelector((state) => state.collections?.artists)
 
     const [updateArtistCollection, { isLoading }] = useUpdateArtistsCollectionMutation()
     const [isFollowed, setIsFollowed] = useState(false)
 
     useEffect(() => {
         setIsFollowed(() => {
-            return Array.isArray(data) ? data?.find((artist) => artist._id === artistData._id) !== undefined : false
+            return Array.isArray(artistCollection) && artistCollection?.some((artist) => artist._id === artistData._id)
         })
-    }, [data])
+    }, [artistCollection])
 
     const handleToggleFollowArtist = async (artist) => {
         try {

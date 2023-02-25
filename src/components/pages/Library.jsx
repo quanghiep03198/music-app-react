@@ -21,7 +21,6 @@ const Library = () => {
     const uploadedTracks = useFetchTracksUserUploadedQuery(undefined, { skip: !authenticated })
     const userPlaylists = useFetchUserPlaylistsQuery({ id: credential }, { skip: !authenticated })
 
-    console.log(userPlaylists.data)
     const tabData = [
         {
             title: "Albums",
@@ -31,8 +30,7 @@ const Library = () => {
                         <LoadingWrapper>
                             <Loading />
                         </LoadingWrapper>
-                    }
-                >
+                    }>
                     <AlbumList data={userAlbumsCollection.data} status={{ isFetching: userAlbumsCollection.isFetching }} />
                 </Suspense>
             )
@@ -45,8 +43,7 @@ const Library = () => {
                         <LoadingWrapper>
                             <Loading />
                         </LoadingWrapper>
-                    }
-                >
+                    }>
                     <ArtistList data={userArtistsCollection.data} status={{ isFetching: userArtistsCollection.isFetching }} />
                 </Suspense>
             )
@@ -59,8 +56,7 @@ const Library = () => {
                         <LoadingWrapper>
                             <Loading />
                         </LoadingWrapper>
-                    }
-                >
+                    }>
                     <PlaylistList data={userPlaylists?.data} status={{ isFetching: userPlaylists.isFetching }} />
                 </Suspense>
             )
@@ -73,8 +69,7 @@ const Library = () => {
                         <LoadingWrapper>
                             <Loading />
                         </LoadingWrapper>
-                    }
-                >
+                    }>
                     <TrackList data={uploadedTracks.data} status={{ isFetching: uploadedTracks.isFetching }} />
                 </Suspense>
             )

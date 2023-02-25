@@ -4,7 +4,7 @@ import axiosBaseQuery from "../axiosBaseQuery"
 const collectionApi = createApi({
     tagTypes: ["TrackCollection", "AlbumCollection", "ArtistCollection"],
     baseQuery: axiosBaseQuery(),
-    reducerPath: "collections",
+    reducerPath: "collectionApi",
     refetchOnReconnect: true,
     keepUnusedDataFor: 5 * 60,
     endpoints(builder) {

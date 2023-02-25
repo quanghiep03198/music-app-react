@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom"
 
 const UserPlaylists = () => {
     const { credential, authenticated } = useSelector((state) => state.auth)
+
     const { data, isFetching } = useFetchUserPlaylistsQuery(
         {
             id: credential,
@@ -23,8 +24,7 @@ const UserPlaylists = () => {
                                 to={`/playlist/${playlist?._id}`}
                                 className={({ isActive }) => {
                                     return isActive ? "justify-between text-success" : "justify-between text-base-content"
-                                }}
-                            >
+                                }}>
                                 {playlist?.title}
                             </NavLink>
                         </MenuItem>

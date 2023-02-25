@@ -1,49 +1,24 @@
+import playlistApi, { useEditTrackListMutation } from "@/app/services/playlistApi"
 import { setCurrentTrack } from "@/app/slices/queueSlice"
 import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
 import { AppContext } from "@/context/AppProvider"
 import useRenderOnScroll from "@/hooks/useRenderOnScroll"
-import { formatNumber, timer } from "@/utils/formatter"
+import { timer } from "@/utils/formatter"
 import { useContext, useEffect, useMemo, useRef, useState } from "react"
 import { BsClock, BsDownload, BsPauseFill, BsPlayFill, BsPlus, BsThreeDots } from "react-icons/bs"
+import { HiMinus } from "react-icons/hi2"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
+import { toast } from "react-toastify"
+import tw from "tailwind-styled-components"
 import Button from "../../customs/atoms/Button"
 import { Dropdown, DropdownContent } from "../../customs/atoms/Dropdown"
 import SkeletonTrackCard from "../Skeletons/SkelentonTrackCard"
-import RemoveFromPlaylistButton from "./RemoveFromPlaylistButton"
 import SoundWave from "./SoundWave"
 import ToggleAddToQueueButton from "./ToggleAddToQueueButton"
 import ToggleLikeButton from "./ToggleLikeButton"
 
-const TrackCard = ({ index, track }) => {
-    const [isCurrentTrack, setIsCurrentTrack] = useState(false)
-    const { playState, setPlayState, trackToAddToPlaylist, setTrackToAddToPlaylist } = useContext(AppContext)
-    const { currentTrack } = useSelector((state) => state.queue)
-    const trackCardRef = useRef(null)
-    const isScrollToView = useRenderOnScroll(trackCardRef)
-    const dispatch = useDispatch()
-    const location = useLocation()
-
-    const isPlaylistPage = useMemo(() => location.pathname.includes("playlist"), [location])
-
-    useEffect(() => {
-        setIsCurrentTrack(currentTrack?._id === track?._id)
-    }, [currentTrack, playState])
-
-    const togglePlay = (track) => {
-        if (!isCurrentTrack) {
-            dispatch(setCurrentTrack(track))
-            setPlayState(true)
-            return
-        }
-        setPlayState(!playState)
-    }
-    return (
-        <div ref={trackCardRef}>
-            {isScrollToView ? (
-                <div
-                    className={`
-						group
+const TrackCardWrapper = tw.div`group
 						grid 
 						min-h-[60px]
 						grid-cols-[5%,40%,20%,20%,5%]
@@ -59,11 +34,46 @@ const TrackCard = ({ index, track }) => {
 						lg:grid-cols-[10%,80%,10%]
 						sm:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
 						md:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
-						lg:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
+						lg:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden`
 
-			    ${isCurrentTrack && "group glass"}`}
-                    ref={trackCardRef}
-                >
+const TrackCard = ({ index, track, isPlaylistCreator }) => {
+    const location = useLocation()
+    const params = useParams()
+    const [isCurrentTrack, setIsCurrentTrack] = useState(false)
+    const { playState, setPlayState, setTrackToEditPlaylist } = useContext(AppContext)
+    const { currentTrack } = useSelector((state) => state.queue)
+    const trackCardRef = useRef(null)
+    const isScrollToView = useRenderOnScroll(trackCardRef)
+    const isPlaylistPage = useMemo(() => location.pathname.includes("playlist"), [location])
+    const dispatch = useDispatch()
+    const [removeTrackFromPlaylist] = useEditTrackListMutation()
+
+    useEffect(() => {
+        setIsCurrentTrack(currentTrack?._id === track?._id)
+    }, [currentTrack, playState])
+
+    const togglePlay = (track) => {
+        if (!isCurrentTrack) {
+            dispatch(setCurrentTrack(track))
+            setPlayState(true)
+            return
+        }
+        setPlayState(!playState)
+    }
+
+    const handleRemoveFromPlaylist = async (track) => {
+        try {
+            await removeTrackFromPlaylist({ id: params.id, payload: { track: track._id } })
+            toast.info("Removed track from this playlist!")
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    return (
+        <div ref={trackCardRef}>
+            {isScrollToView ? (
+                <TrackCardWrapper className={`${isCurrentTrack && "group bg-neutral"}`} ref={trackCardRef}>
                     <div role="cell" className="relative text-center">
                         <SoundWave track={track} isPlaying={isCurrentTrack && playState} />
                         {!(isCurrentTrack && playState) && <span className="w-full group-hover:hidden">{index}</span>}
@@ -71,8 +81,7 @@ const TrackCard = ({ index, track }) => {
                             shape="circle"
                             color="success"
                             className="hidden text-xl group-hover:inline-flex sm:text-base sm:btn-sm"
-                            onClick={() => togglePlay(track)}
-                        >
+                            onClick={() => togglePlay(track)}>
                             {isCurrentTrack && playState ? <BsPauseFill /> : <BsPlayFill />}
                         </Button>
                     </div>
@@ -113,14 +122,16 @@ const TrackCard = ({ index, track }) => {
                                     <MenuItem>
                                         <ToggleAddToQueueButton track={track} />
                                     </MenuItem>
-                                    <MenuItem onClick={() => setTrackToAddToPlaylist(track)}>
+                                    <MenuItem onClick={() => setTrackToEditPlaylist(track)}>
                                         <label htmlFor="playlist-list-modal">
                                             <BsPlus /> Add to playlist
                                         </label>
                                     </MenuItem>
-                                    {isPlaylistPage && (
+                                    {isPlaylistPage && isPlaylistCreator && (
                                         <MenuItem>
-                                            <RemoveFromPlaylistButton trackToRemove={track} />
+                                            <label onClick={() => handleRemoveFromPlaylist(track)}>
+                                                <HiMinus /> Remove from this playlist
+                                            </label>
                                         </MenuItem>
                                     )}
                                     <MenuItem>
@@ -132,7 +143,7 @@ const TrackCard = ({ index, track }) => {
                             </DropdownContent>
                         </Dropdown>
                     </div>
-                </div>
+                </TrackCardWrapper>
             ) : (
                 <SkeletonTrackCard />
             )}

@@ -6,8 +6,8 @@ export const AppContext = createContext()
 const AppProvider = ({ children }) => {
     const [playState, setPlayState] = useState(false)
     const [searchResult, setSearchResult] = useState(null)
-    const [trackToAddToPlaylist, setTrackToAddToPlaylist] = useState(null)
-
+    const [trackToEditPlaylist, setTrackToEditPlaylist] = useState(null)
+    console.log(trackToEditPlaylist)
     return (
         <AppContext.Provider
             value={{
@@ -15,10 +15,9 @@ const AppProvider = ({ children }) => {
                 setPlayState,
                 searchResult,
                 setSearchResult,
-                trackToAddToPlaylist,
-                setTrackToAddToPlaylist
-            }}
-        >
+                trackToEditPlaylist,
+                setTrackToEditPlaylist
+            }}>
             {children}
         </AppContext.Provider>
     )

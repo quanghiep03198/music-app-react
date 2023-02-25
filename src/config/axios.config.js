@@ -31,14 +31,16 @@ axios.interceptors.response.use(
         if (skippingCheckTokenEndpoints.some((url) => url === config.url)) return config
 
         if (response?.status === 401 || response?.data?.message === "jwt expired") {
-            console.log("[ERROR] Access token expired!")
             const { credential } = store.getState().auth
+            if (!credential) {
+                store.dispatch(logout())
+                return Promise.reject(error)
+            }
             const newAccessToken = await store.dispatch(authApi.endpoints.refreshToken.initiate(credential)).unwrap()
             if (!newAccessToken) {
                 store.dispatch(logout())
                 return Promise.reject(error)
             }
-            console.log("[SUCCESS] Access token expired!", newAccessToken)
             return axios.request(error.config)
         }
         return Promise.reject(error)

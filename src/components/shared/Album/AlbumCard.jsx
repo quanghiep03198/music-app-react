@@ -17,13 +17,13 @@ const AlbumCard = ({ albumData }) => {
     const dispatch = useDispatch()
     const [updateAlbumCollection, { isLoading }] = useUpdateAlbumsCollectionMutation()
     const authenticated = useSelector((state) => state.auth?.authenticated)
-    const albumsCollection = useFetchAlbumsCollectionQuery(undefined, { skip: !authenticated })
+    const albumsCollection = useSelector((state) => state.collections?.albums)
     const { currentPlaylist } = useSelector((state) => state.queue)
     const [isLiked, setIsLiked] = useState(false)
     const [isLoadingImage, setIsLoadingImage] = useState(true)
 
     useEffect(() => {
-        let isLiked = Array.isArray(albumsCollection.data) && albumsCollection?.data?.some((album) => album._id === albumData._id)
+        let isLiked = Array.isArray(albumsCollection) && albumsCollection?.some((album) => album._id === albumData._id)
         setIsLiked(isLiked)
     }, [])
 
