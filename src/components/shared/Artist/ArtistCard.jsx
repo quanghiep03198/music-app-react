@@ -1,7 +1,7 @@
 import { useFetchArtistsCollectionQuery, useUpdateArtistsCollectionMutation } from "@/app/services/collectionApi"
 import Tooltip from "@/components/customs/atoms/Tooltip"
 import useRenderOnScroll from "@/hooks/useRenderOnScroll"
-import { useEffect, useRef, useState } from "react"
+import { memo, useEffect, useRef, useState } from "react"
 import { BsPersonPlusFill } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
@@ -89,4 +89,4 @@ const ArtistCard = ({ artistData, isFetching }) => {
     )
 }
 
-export default ArtistCard
+export default memo(ArtistCard)

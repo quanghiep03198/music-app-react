@@ -3,7 +3,7 @@ import { setCurrentTrack } from "@/app/slices/queueSlice"
 import { AppContext } from "@/context/AppProvider"
 import useRenderOnScroll from "@/hooks/useRenderOnScroll"
 import { timer } from "@/utils/formatter"
-import { useContext, useEffect, useMemo, useRef, useState } from "react"
+import { memo, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useLocation, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
@@ -30,7 +30,7 @@ const TrackCardWrapper = tw.div`group
                         sm:gap-2
 						rounded-lg 
 						p-1 
-						hover:bg-neutral/20
+						hover:bg-neutral/25
 						sm:grid-cols-[10%,80%,10%]
 						sm:text-sm
 						md:grid-cols-[10%,80%,10%]
@@ -77,7 +77,7 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
     return (
         <div ref={trackCardRef}>
             {isScrollToView ? (
-                <TrackCardWrapper className={`${isCurrentTrack && "group bg-neutral"}`} ref={trackCardRef}>
+                <TrackCardWrapper className={`${isCurrentTrack && "group bg-neutral/50"}`} ref={trackCardRef}>
                     <div role="cell" className="relative text-center">
                         <SoundWave track={track} isPlaying={isCurrentTrack && playState} />
                         {!(isCurrentTrack && playState) && <span className="w-full group-hover:hidden">{index}</span>}
@@ -162,4 +162,4 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
     )
 }
 
-export default TrackCard
+export default memo(TrackCard)

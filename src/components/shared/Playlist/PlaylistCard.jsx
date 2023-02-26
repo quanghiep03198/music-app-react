@@ -1,7 +1,7 @@
 import { setCurrentPlaylist } from "@/app/slices/queueSlice"
 import { AppContext } from "@/context/AppProvider"
 import useRenderOnScroll from "@/hooks/useRenderOnScroll"
-import { useContext, useRef, useState } from "react"
+import { memo, useContext, useRef, useState } from "react"
 import { BsPauseFill, BsPlayFill } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
@@ -66,4 +66,4 @@ const PlaylistCard = ({ isFetching, data }) => {
     )
 }
 
-export default PlaylistCard
+export default memo(PlaylistCard)
