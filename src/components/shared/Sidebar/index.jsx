@@ -20,7 +20,7 @@ const Sidebar = () => {
             <DrawerOverlay htmlFor="sidebar-toggle" ref={overlayRef} />
             <DrawerSideWrapper>
                 <Link to="/">
-                    <LogoImage src={Logo} />
+                    <LogoImage src={Logo} loading="eager" />
                 </Link>
 
                 <SidebarMenu />

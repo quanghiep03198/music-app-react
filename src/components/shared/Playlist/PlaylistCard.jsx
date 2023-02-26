@@ -41,6 +41,8 @@ const PlaylistCard = ({ isFetching, data }) => {
                                         currentTarget.onerror = null // prevents looping
                                         currentTarget.src = DefaultPlaylistThumbnail
                                     }}
+                                    alt="thumbnail"
+                                    loading="eager"
                                     className={isLoadingImage ? "hidden" : "aspect-square min-w-full object-cover"}
                                     onLoad={() => setIsLoadingImage(false)}
                                 />

@@ -93,7 +93,9 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
                         {isLoadingImage && <ThumbnailSkeleton />}
                         {
                             <img
+                                alt="thumbnail"
                                 src={track?.thumbnail || track?.alternativeThumbnail}
+                                loading="eager"
                                 onLoad={() => setIsLoadingImage(false)}
                                 className={isLoadingImage ? "hidden" : "h-14 w-14 rounded-md sm:h-12 sm:w-12"}
                             />

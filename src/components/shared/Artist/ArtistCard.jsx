@@ -71,7 +71,9 @@ const ArtistCard = ({ artistData, isFetching }) => {
                                 currentTarget.onerror = null // prevents looping
                                 currentTarget.src = AlternativeLogo
                             }}
+                            alt="thumbnail"
                             onLoad={() => setIsLoadingImage(false)}
+                            loading="eager"
                             className={isLoadingImage ? "hidden" : "aspect-[1] min-w-full object-cover"}
                         />
                     </Figure>

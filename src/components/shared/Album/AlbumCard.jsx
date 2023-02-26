@@ -62,6 +62,8 @@ const AlbumCard = ({ albumData }) => {
                         currentTarget.onerror = null // prevents looping
                         currentTarget.src = DefaultAlbumThumbnail
                     }}
+                    alt="thumbnail"
+                    loading="eager"
                     className={isLoadingImage ? "hidden" : "aspect-square min-w-full object-cover"}
                     onLoad={() => setIsLoadingImage(false)}
                 />
