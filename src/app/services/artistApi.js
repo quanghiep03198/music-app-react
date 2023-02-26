@@ -25,6 +25,9 @@ const artistApi = createApi({
                         url: `/artists/${id}`,
                         method: "GET"
                     }
+                },
+                providesTags(result, error, id) {
+                    return [{ type: "Artist", id }]
                 }
             })
         }

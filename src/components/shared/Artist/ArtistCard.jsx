@@ -77,11 +77,10 @@ const ArtistCard = ({ artistData, isFetching }) => {
                     </Figure>
 
                     <CardBody>
-                        <label className="label p-0">
-                            <Link to={`/artist/${artistData._id}`}>
-                                <CardTitle>{artistData.name}</CardTitle>
-                            </Link>
-                        </label>
+                        <Link to={`/artist/${artistData._id}`} className="hover:link">
+                            <CardTitle>{artistData.name}</CardTitle>
+                        </Link>
+
                         <p className="truncate text-base-content/50 sm:text-sm">{artistData.desc ?? "Artist"}</p>
                     </CardBody>
                 </Card>

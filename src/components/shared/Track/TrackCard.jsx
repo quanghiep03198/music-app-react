@@ -1,19 +1,21 @@
-import playlistApi, { useEditTrackListMutation } from "@/app/services/playlistApi"
+import { useEditTrackListMutation } from "@/app/services/playlistApi"
 import { setCurrentTrack } from "@/app/slices/queueSlice"
-import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
 import { AppContext } from "@/context/AppProvider"
 import useRenderOnScroll from "@/hooks/useRenderOnScroll"
 import { timer } from "@/utils/formatter"
 import { useContext, useEffect, useMemo, useRef, useState } from "react"
-import { BsClock, BsDownload, BsPauseFill, BsPlayFill, BsPlus, BsThreeDots } from "react-icons/bs"
-import { HiMinus } from "react-icons/hi2"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useLocation, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
 import tw from "tailwind-styled-components"
+
+import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
+import { BiPlus } from "react-icons/bi"
+import { BsClock, BsDownload, BsPauseFill, BsPlayFill, BsThreeDots } from "react-icons/bs"
+import { HiMinus } from "react-icons/hi2"
 import Button from "../../customs/atoms/Button"
 import { Dropdown, DropdownContent } from "../../customs/atoms/Dropdown"
-import SkeletonTrackCard from "../Skeletons/SkelentonTrackCard"
+import SkeletonTrackCard, { ThumbnailSkeleton } from "../Skeletons/SkelentonTrackCard"
 import SoundWave from "./SoundWave"
 import ToggleAddToQueueButton from "./ToggleAddToQueueButton"
 import ToggleLikeButton from "./ToggleLikeButton"
@@ -25,6 +27,7 @@ const TrackCardWrapper = tw.div`group
 						items-center
 						justify-between
 						gap-0 
+                        sm:gap-2
 						rounded-lg 
 						p-1 
 						hover:bg-neutral/20
@@ -45,6 +48,7 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
     const trackCardRef = useRef(null)
     const isScrollToView = useRenderOnScroll(trackCardRef)
     const isPlaylistPage = useMemo(() => location.pathname.includes("playlist"), [location])
+    const [isLoadingImage, setIsLoadingImage] = useState(true)
     const dispatch = useDispatch()
     const [removeTrackFromPlaylist] = useEditTrackListMutation()
 
@@ -86,7 +90,14 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
                         </Button>
                     </div>
                     <div role="cell" className="flex items-center gap-2">
-                        {<img src={track?.thumbnail || track?.alternativeThumbnail} className="h-14 w-14 rounded-md sm:h-12 sm:w-12" loading="lazy" />}
+                        {isLoadingImage && <ThumbnailSkeleton />}
+                        {
+                            <img
+                                src={track?.thumbnail || track?.alternativeThumbnail}
+                                onLoad={() => setIsLoadingImage(false)}
+                                className={isLoadingImage ? "hidden" : "h-14 w-14 rounded-md sm:h-12 sm:w-12"}
+                            />
+                        }
                         <div className="sm:text-sm">
                             <h6 className="truncate font-medium capitalize">{track?.title}</h6>
                             <p className="text-base-content/50">
@@ -124,7 +135,7 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
                                     </MenuItem>
                                     <MenuItem onClick={() => setTrackToEditPlaylist(track)}>
                                         <label htmlFor="playlist-list-modal">
-                                            <BsPlus /> Add to playlist
+                                            <BiPlus /> Add to playlist
                                         </label>
                                     </MenuItem>
                                     {isPlaylistPage && isPlaylistCreator && (

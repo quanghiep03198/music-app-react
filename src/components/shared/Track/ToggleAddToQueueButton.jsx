@@ -1,6 +1,6 @@
 import { addToQueue, removeFromQueue } from "@/app/slices/queueSlice"
 import { Fragment, useEffect, useState } from "react"
-import { BsPlus, BsPlusLg } from "react-icons/bs"
+import { BiPlus } from "react-icons/bi"
 import { HiOutlineMinus } from "react-icons/hi"
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
@@ -33,7 +33,7 @@ const ToggleAddToQueueButton = ({ track }) => {
                 </Fragment>
             ) : (
                 <Fragment>
-                    <BsPlus /> Add to queue
+                    <BiPlus /> Add to queue
                 </Fragment>
             )}
         </a>

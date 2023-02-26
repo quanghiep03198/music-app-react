@@ -9,10 +9,12 @@ import { useForm } from "react-hook-form"
 import { BsCameraFill, BsX } from "react-icons/bs"
 import { toast } from "react-toastify"
 import DefaultPlaylistImage from "/images/default-album-image.png"
+import { useFetchArtistsQuery } from "@/app/services/artistApi"
 
 const UploadTrackModal = () => {
     const { register, formState: errors, handleSubmit, reset } = useForm()
     const [createNewTrack, { isLoading }] = useCreateTrackMutation()
+    const { data: artists } = useFetchArtistsQuery({ skip: 0, limit: 100 })
     const { data: genres } = useFetchAllGenresQuery(undefined)
     const trackThumbnailRef = useRef(null)
     const closeModalButtonRef = useRef(null)
@@ -77,8 +79,7 @@ const UploadTrackModal = () => {
 
                                 <label
                                     htmlFor="track-thumbnail"
-                                    className="absolute top-0 h-[200px] w-[200px] group-hover:bg-black/50 group-hover:duration-500"
-                                >
+                                    className="absolute top-0 h-[200px] w-[200px] group-hover:bg-black/50 group-hover:duration-500">
                                     <BsCameraFill className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-2 text-4xl text-success opacity-0 group-hover:-translate-y-1/2 group-hover:opacity-100 group-hover:duration-500" />
                                 </label>
                             </div>
@@ -90,12 +91,10 @@ const UploadTrackModal = () => {
                             />
                         </div>
                         <div className="form-control relative">
-                            <label htmlFor="" className="label">
-                                <span className="label-text">Title</span>
-                            </label>
                             <input
                                 type="text"
                                 className="input-bordered input"
+                                placeholder="Title"
                                 {...register("title", {
                                     required: "Provide a title!",
                                     minLength: {
@@ -108,7 +107,7 @@ const UploadTrackModal = () => {
                         </div>
                         <div className="form-control">
                             <select className="select-bordered select">
-                                <option>Pick a genre</option>
+                                <option>-- Pick a genre --</option>
                                 {Array.isArray(genres) &&
                                     genres.map((genre) => (
                                         <option key={genre._id} value={genre._id}>
@@ -118,9 +117,17 @@ const UploadTrackModal = () => {
                             </select>
                         </div>
                         <div className="form-control">
-                            <label htmlFor="" className="label">
-                                <span className="label-text">File</span>
-                            </label>
+                            <select name="" id="" className="select-bordered select">
+                                <option value="">-- Tribute to an artist --</option>
+                                {Array.isArray(artists) &&
+                                    artists.map((artist) => (
+                                        <option key={artist._id} value={artist._id}>
+                                            {artist.name}
+                                        </option>
+                                    ))}
+                            </select>
+                        </div>
+                        <div className="form-control">
                             <input
                                 type="file"
                                 className="file:btn "
@@ -131,12 +138,7 @@ const UploadTrackModal = () => {
                             />
                             {errors.file && <small className="error-message">{errors.file?.message}</small>}
                         </div>
-                        <div className="form-control">
-                            <label htmlFor="" className="label">
-                                <span className="label-text">Make it public</span>
-                                <input type="checkbox" className="toggle-success toggle" />
-                            </label>
-                        </div>
+
                         <div className="form-control">
                             <Button isLoading={isUploading} color="success" className="text-lg">
                                 Save

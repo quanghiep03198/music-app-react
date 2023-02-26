@@ -14,9 +14,9 @@ const GenreCard = ({ data }) => {
     return (
         <Link to={`/genres/${data?._id}`} ref={cardRef}>
             {isScrollToView ? (
-                <Card className="to neutral-focus aspect-square max-w-full  bg-cover bg-no-repeat transition-all hover:cursor-pointer">
+                <Card className="to glass aspect-square max-w-full bg-no-repeat text-neutral transition-all hover:cursor-pointer">
                     <h3 className="text-xl font-semibold text-base-content hover:link sm:text-lg">{data?.name}</h3>
-                    <img src={Logo} className="absolute bottom-1 left-1 max-w-[96px] object-cover" />
+                    <img src={Logo} className="absolute bottom-1 left-1 max-w-[8rem] object-cover" />
                 </Card>
             ) : (
                 <SkeltonGenreCard>

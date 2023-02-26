@@ -2,6 +2,30 @@ import tw from "tailwind-styled-components"
 
 const Typography = tw.h1`font-semibold sm:text-2xl mb-6
 ${(props) => {
+    switch (props.fontWeight) {
+        case "thin":
+            return "font-thin"
+        case "extra-light":
+            return "font-extra-light"
+        case "light":
+            return "font-light"
+        case "normal":
+            return "font-normal"
+        case "medium":
+            return "font-medium"
+        case "semibold":
+            return "font-semibold"
+        case "extra-bold":
+            return "font-extra-bold"
+        default:
+            return "font-medium"
+    }
+}}
+
+
+
+
+${(props) => {
     switch (props.align) {
         case "left":
             return "text-left"

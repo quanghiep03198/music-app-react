@@ -48,8 +48,7 @@ const CreatePlaylistModal = () => {
                         htmlFor="create-playlist-modal"
                         className="btn-sm btn-circle btn absolute right-2 top-2"
                         onClick={resetForm}
-                        ref={closeModalButtonRef}
-                    >
+                        ref={closeModalButtonRef}>
                         <BsX />
                     </label>
                     <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
@@ -77,6 +76,7 @@ const CreatePlaylistModal = () => {
                             <input
                                 type="text"
                                 className="input-bordered input"
+                                placeholder="Title"
                                 {...register("title", {
                                     required: "Provide a title!",
                                     minLength: {
@@ -86,6 +86,12 @@ const CreatePlaylistModal = () => {
                                 })}
                             />
                             {errors.title && <small className="error-message">{errors.title?.message}</small>}
+                        </div>
+                        <div className="form-control">
+                            <label htmlFor="" className="label">
+                                <span className="label-text">Make it public</span>
+                                <input type="checkbox" className="toggle-success toggle" {...register("public")} />
+                            </label>
                         </div>
                         <div className="form-control">
                             <Button isLoading={isUploading} color="success">

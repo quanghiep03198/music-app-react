@@ -22,9 +22,8 @@ const SkeletonTrackCard = () => {
 						lg:grid-cols-[10%,80%,10%]
 						sm:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
 						md:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
-						lg:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden"
-        >
-            <BsPlayFill className="animate-pulse text-2xl text-neutral/20" />
+						lg:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden">
+            <BsPlayFill className="animate-pulse text-2xl text-neutral" />
 
             <div className="flex items-center gap-1">
                 <ThumbnailSkeleton />

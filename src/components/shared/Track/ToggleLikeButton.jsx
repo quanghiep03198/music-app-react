@@ -8,7 +8,7 @@ import { toast } from "react-toastify"
 
 const ToggleLikeButton = ({ track }) => {
     const [isLiked, setIsLiked] = useState(false)
-    const { authenticated } = useSelector((state) => state.auth)
+    const authenticated = useSelector((state) => state.auth?.authenticated)
     const trackCollection = useSelector((state) => state.collections?.tracks)
     const [updateTrackCollection] = useUpdateTrackCollectionMutation()
 
