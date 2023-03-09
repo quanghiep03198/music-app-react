@@ -15,6 +15,8 @@ ${(props) => {
             return "font-medium"
         case "semibold":
             return "font-semibold"
+        case "bold":
+            return "font-bold"
         case "extra-bold":
             return "font-extra-bold"
         default:

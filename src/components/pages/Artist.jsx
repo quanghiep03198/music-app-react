@@ -24,7 +24,7 @@ const Artist = () => {
                     </div>
                 ) : (
                     <Fragment>
-                        <Typography size="7xl" fontWeight="semibold">
+                        <Typography size="6xl" fontWeight="bold">
                             {data?.artist?.name}
                         </Typography>
                         <p className="text-lg">{data?.artist.desc}</p>
