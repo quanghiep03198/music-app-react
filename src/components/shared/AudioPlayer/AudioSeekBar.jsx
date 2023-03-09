@@ -3,7 +3,7 @@ import { AppContext } from "@/context/AppProvider"
 import { timer } from "@/utils/formatter"
 import { useContext, useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import Range from "../../customs/atoms/Range"
+import Range from "../../customs/@core/Range"
 
 const AudioSeekBar = ({ audioRef }) => {
     const [intervalState, setIntervalState] = useState(0)

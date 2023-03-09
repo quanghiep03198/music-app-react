@@ -4,9 +4,9 @@ import { useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
 import { useFetchTracksUserUploadedQuery } from "@/app/services/trackApi"
 import { lazy, Suspense } from "react"
 import { useSelector } from "react-redux"
-import Loading from "../customs/atoms/Loading"
-import Tabs from "../customs/atoms/Tabs"
-import Typography from "../customs/atoms/Typography"
+import Loading from "../customs/@core/Loading"
+import Tabs from "../customs/@core/Tabs"
+import Typography from "../customs/@core/Typography"
 
 const PlaylistList = lazy(() => import("../shared/Playlist/PlaylistList"))
 const AlbumList = lazy(() => import("../shared/Album/AlbumList"))

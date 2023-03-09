@@ -36,6 +36,9 @@ axios.interceptors.response.use(
                 store.dispatch(logout())
                 return Promise.reject(error)
             }
+            // Cancel request
+            // const controller = new AbortController()
+            // axios.request({ signal: controller.signal, ...error.config })
             const newAccessToken = await store.dispatch(authApi.endpoints.refreshToken.initiate(credential)).unwrap()
             if (!newAccessToken) {
                 store.dispatch(logout())

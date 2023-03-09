@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import Button from "../customs/atoms/Button"
+import Button from "../customs/@core/Button"
 import ErrorBoundary from "../customs/ErrorBoundary"
 import Logo from "/images/logo.png"
 

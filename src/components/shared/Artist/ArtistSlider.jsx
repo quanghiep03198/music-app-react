@@ -3,7 +3,7 @@ import { useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { FreeMode, Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
-import Button from "../../customs/atoms/Button"
+import Button from "../../customs/@core/Button"
 import SkeletonCard from "../Skeletons/SkeletonCard"
 import "swiper/css"
 import "swiper/css/navigation"
@@ -27,8 +27,7 @@ const ArtistSlider = ({ data, status }) => {
                 freeMode={true}
                 lazy={true}
                 breakpoints={swiperBreakpoints}
-                className="artists-slide container pb-10"
-            >
+                className="artists-slide container pb-10">
                 {status.isFetching &&
                     [1, 2, 3, 4, 5].map((item) => (
                         <SwiperSlide key={item}>

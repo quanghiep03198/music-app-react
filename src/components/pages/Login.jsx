@@ -1,5 +1,5 @@
 import { useLoginMutation } from "@/app/services/authApi"
-import Button from "@/components/customs/atoms/Button"
+import Button from "@/components/customs/@core/Button"
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
 import { useEffect, useRef } from "react"
 import { useForm } from "react-hook-form"

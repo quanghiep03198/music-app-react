@@ -1,5 +1,5 @@
 import { useFetchUserDataQuery } from "@/app/services/authApi"
-import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
+import { Menu, MenuItem } from "@/components/customs/@core/Menu"
 import React, { useRef } from "react"
 import { BsKey, BsLock, BsPencil, BsPerson } from "react-icons/bs"
 import { NavLink } from "react-router-dom"
@@ -23,24 +23,21 @@ const AccountLayoutSidebar = () => {
                         to="/account"
                         className={({ isActive }) => {
                             return isActive ? "text-success" : ""
-                        }}
-                    >
+                        }}>
                         <BsPerson aria-hidden className="text-xl" /> Overall
                     </NavLink>
                     <NavLink
                         to="/account/edit-info"
                         className={({ isActive }) => {
                             return isActive ? "text-success" : ""
-                        }}
-                    >
+                        }}>
                         <BsPencil aria-hidden className="text-xl" /> Edit Info
                     </NavLink>
                     <NavLink
                         to="/account/edit-info"
                         className={({ isActive }) => {
                             return isActive ? "text-success" : ""
-                        }}
-                    >
+                        }}>
                         <BsKey aria-hidden className="text-xl" /> Change Password
                     </NavLink>
                 </MenuItem>
@@ -52,24 +49,21 @@ const AccountLayoutSidebar = () => {
                             to="/account"
                             className={({ isActive }) => {
                                 return isActive ? "text-success" : ""
-                            }}
-                        >
+                            }}>
                             <BsPerson aria-hidden className="text-xl" /> Overall
                         </NavLink>
                         <NavLink
                             to="/account/edit-info"
                             className={({ isActive }) => {
                                 return isActive ? "text-success" : ""
-                            }}
-                        >
+                            }}>
                             <BsPencil aria-hidden className="text-xl" /> Edit Info
                         </NavLink>
                         <NavLink
                             to="/account/edit-info"
                             className={({ isActive }) => {
                                 return isActive ? "text-success" : ""
-                            }}
-                        >
+                            }}>
                             <BsKey aria-hidden className="text-xl" /> Change Password
                         </NavLink>
                     </MenuItem>

@@ -1,4 +1,4 @@
-import { Card, CardBody, SkeletonTextCard, SkeletonCardTitle, SkeletonImage } from "../../customs/atoms/Card"
+import { Card, CardBody, SkeletonTextCard, SkeletonCardTitle, SkeletonImage } from "../../customs/@core/Card"
 
 const SkeletonCard = (props) => (
     <Card skeleton="true">
@@ -12,8 +12,7 @@ const SkeletonCard = (props) => (
                     default:
                         return "aspect-square"
                 }
-            }}`}
-        >
+            }}`}>
             <SkeletonImage />
         </div>
         <CardBody>

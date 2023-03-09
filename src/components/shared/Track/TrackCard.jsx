@@ -9,18 +9,18 @@ import { Link, useLocation, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
 import tw from "tailwind-styled-components"
 
-import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
+import { Menu, MenuItem } from "@/components/customs/@core/Menu"
 import { BiPlus } from "react-icons/bi"
 import { BsClock, BsDownload, BsPauseFill, BsPlayFill, BsThreeDots } from "react-icons/bs"
 import { HiMinus } from "react-icons/hi2"
-import Button from "../../customs/atoms/Button"
-import { Dropdown, DropdownContent } from "../../customs/atoms/Dropdown"
+import Button from "../../customs/@core/Button"
+import { Dropdown, DropdownContent } from "../../customs/@core/Dropdown"
 import SkeletonTrackCard, { ThumbnailSkeleton } from "../Skeletons/SkelentonTrackCard"
 import SoundWave from "./SoundWave"
 import ToggleAddToQueueButton from "./ToggleAddToQueueButton"
 import ToggleLikeButton from "./ToggleLikeButton"
 
-const TrackCardWrapper = tw.div`group
+export const TrackCardWrapper = tw.div`group
 						grid 
 						min-h-[60px]
 						grid-cols-[5%,40%,20%,20%,5%]
@@ -37,24 +37,20 @@ const TrackCardWrapper = tw.div`group
 						lg:grid-cols-[10%,80%,10%]
 						sm:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
 						md:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
-						lg:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden`
+						lg:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden duration-300`
 
 const TrackCard = ({ index, track, isPlaylistCreator }) => {
     const location = useLocation()
     const params = useParams()
-    const [isCurrentTrack, setIsCurrentTrack] = useState(false)
     const { playState, setPlayState, setTrackToEditPlaylist } = useContext(AppContext)
     const { currentTrack } = useSelector((state) => state.queue)
     const trackCardRef = useRef(null)
     const isScrollToView = useRenderOnScroll(trackCardRef)
     const isPlaylistPage = useMemo(() => location.pathname.includes("playlist"), [location])
+    const isCurrentTrack = useMemo(() => currentTrack?._id === track?._id, [currentTrack])
     const [isLoadingImage, setIsLoadingImage] = useState(true)
     const dispatch = useDispatch()
     const [removeTrackFromPlaylist] = useEditTrackListMutation()
-
-    useEffect(() => {
-        setIsCurrentTrack(currentTrack?._id === track?._id)
-    }, [currentTrack, playState])
 
     const togglePlay = (track) => {
         if (!isCurrentTrack) {
@@ -77,10 +73,10 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
     return (
         <div ref={trackCardRef}>
             {isScrollToView ? (
-                <TrackCardWrapper className={`${isCurrentTrack && "group bg-neutral/50"}`} ref={trackCardRef}>
+                <TrackCardWrapper ref={trackCardRef}>
                     <div role="cell" className="relative text-center">
                         <SoundWave track={track} isPlaying={isCurrentTrack && playState} />
-                        {!(isCurrentTrack && playState) && <span className="w-full group-hover:hidden">{index}</span>}
+                        {!(isCurrentTrack && playState) && <span className={`w-full group-hover:hidden ${isCurrentTrack && "text-success"}`}>{index}</span>}
                         <Button
                             shape="circle"
                             color="success"
@@ -101,7 +97,7 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
                             />
                         }
                         <div className="sm:text-sm">
-                            <h6 className="truncate font-medium capitalize">{track?.title}</h6>
+                            <h6 className={`truncate font-medium capitalize ${isCurrentTrack && "text-success"}`}>{track?.title}</h6>
                             <p className="text-base-content/50">
                                 {Array.isArray(track.artists) ? (
                                     track.artists.map((artist, index) => (

@@ -2,7 +2,7 @@ import swiperBreakpoints from "@/config/swiperBreakpoint.config"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { FreeMode, Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
-import Button from "../../customs/atoms/Button"
+import Button from "../../customs/@core/Button"
 import SkeletonCard from "../Skeletons/SkeletonCard"
 import PlaylistCard from "./PlaylistCard"
 
@@ -20,8 +20,7 @@ const PlaylistSlider = ({ data, status }) => {
                 lazy={true}
                 slidesPerView="auto"
                 breakpoints={swiperBreakpoints}
-                className="playlist-slide container pb-10"
-            >
+                className="playlist-slide container pb-10">
                 {status.isFetching &&
                     [1, 2, 3, 4, 5].map((item) => (
                         <SwiperSlide key={item}>

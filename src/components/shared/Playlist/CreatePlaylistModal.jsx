@@ -1,6 +1,6 @@
 import { useCreatePlaylistMutation } from "@/app/services/playlistApi"
-import Button from "@/components/customs/atoms/Button"
-import Typography from "@/components/customs/atoms/Typography"
+import Button from "@/components/customs/@core/Button"
+import Typography from "@/components/customs/@core/Typography"
 import useFirebaseUpload from "@/hooks/useFirebaseUpload"
 import { Fragment, useRef } from "react"
 import { useForm } from "react-hook-form"

@@ -1,7 +1,7 @@
 import React from "react"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import Typography from "../customs/atoms/Typography"
+import Typography from "../customs/@core/Typography"
 
 const Profile = () => {
     const { user } = useSelector((state) => state.auth)

@@ -1,6 +1,6 @@
 import { useFetchAlbumsCollectionQuery, useUpdateAlbumsCollectionMutation } from "@/app/services/collectionApi"
 import { setCurrentPlaylist } from "@/app/slices/queueSlice"
-import Swap from "@/components/customs/atoms/Swap"
+import Swap from "@/components/customs/@core/Swap"
 import { AppContext } from "@/context/AppProvider"
 import axios from "axios"
 import { memo, useContext, useEffect, useState } from "react"
@@ -8,8 +8,8 @@ import { BsHeart, BsHeartFill, BsPauseFill, BsPlayFill } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
-import Button from "../../customs/atoms/Button"
-import { Card, CardBody, CardTitle, Figure, SkeletonImage } from "../../customs/atoms/Card"
+import Button from "../../customs/@core/Button"
+import { Card, CardBody, CardTitle, Figure, SkeletonImage } from "../../customs/@core/Card"
 import DefaultAlbumThumbnail from "/images/default-album-image.png"
 
 const AlbumCard = ({ albumData }) => {

@@ -1,10 +1,10 @@
+import Grid from "@/components/customs/@core/Grid"
 import AlbumCard from "./AlbumCard"
-
 const AlbumList = ({ data }) => {
     return (
-        <div className="grid gap-10 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-6">
+        <Grid space-x={10} breakpoints={{ sm: 2, md: 3, lg: 4, xl: 5, xxl: 6 }}>
             {Array.isArray(data) && data.map((album) => <AlbumCard key={album?._id} albumData={album} />)}
-        </div>
+        </Grid>
     )
 }
 

@@ -1,4 +1,4 @@
-import { Card, SkeletonCardTitle } from "@/components/customs/atoms/Card"
+import { Card, SkeletonCardTitle } from "@/components/customs/@core/Card"
 import useRenderOnScroll from "@/hooks/useRenderOnScroll"
 import { useRef } from "react"
 import { Link } from "react-router-dom"

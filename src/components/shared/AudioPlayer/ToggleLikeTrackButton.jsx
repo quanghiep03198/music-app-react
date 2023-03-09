@@ -1,5 +1,5 @@
 import { useFetchTrackCollectionQuery, useUpdateTrackCollectionMutation } from "@/app/services/collectionApi"
-import Swap from "@/components/customs/atoms/Swap"
+import Swap from "@/components/customs/@core/Swap"
 import { memo, useEffect, useState } from "react"
 import { BsHeart, BsHeartFill } from "react-icons/bs"
 import { useSelector } from "react-redux"

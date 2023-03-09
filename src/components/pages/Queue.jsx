@@ -1,9 +1,9 @@
 import { Suspense } from "react"
 import { BsPlayFill } from "react-icons/bs"
 import { useSelector } from "react-redux"
-import Loading from "../customs/atoms/Loading"
+import Loading from "../customs/@core/Loading"
 import TrackList from "../shared/Track/TrackList"
-import Typography from "../customs/atoms/Typography"
+import Typography from "../customs/@core/Typography"
 import { Fragment } from "react"
 
 const Queue = () => {

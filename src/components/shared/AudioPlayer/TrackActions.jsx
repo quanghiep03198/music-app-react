@@ -1,4 +1,4 @@
-import Button from "@/components/customs/atoms/Button"
+import Button from "@/components/customs/@core/Button"
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
 import { AppContext } from "@/context/AppProvider"
 import { useContext, useEffect, useId, useState } from "react"
@@ -6,7 +6,7 @@ import { BsPauseFill, BsPlayFill, BsVolumeDown, BsVolumeMute, BsVolumeUp } from 
 import { HiOutlineQueueList } from "react-icons/hi2"
 import { Link } from "react-router-dom"
 import tw from "tailwind-styled-components"
-import Range from "../../customs/atoms/Range"
+import Range from "../../customs/@core/Range"
 import ToggleLikeTrackButton from "./ToggleLikeTrackButton"
 const ActionsGroup = tw.div`flex justify-end items-center gap-4 basis-1/4 sm:flex-none md:flex-none `
 const VolumeController = tw.div`flex items-center self-center gap-2 sm:hidden md:hidden`
@@ -15,7 +15,6 @@ const TrackActions = ({ audioRef }) => {
     const [volume, setVolume] = useState(0)
     const inputId = useId()
     const { playState, setPlayState } = useContext(AppContext)
-
     useEffect(() => {
         setVolume(audioRef.current.volume)
     }, [audioRef])

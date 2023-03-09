@@ -1,4 +1,5 @@
 import { AppContext } from "@/context/AppProvider"
+import useLocalStorage from "@/hooks/useLocalStorage"
 import "@/index.css"
 import { useContext, useEffect, useRef } from "react"
 import { useSelector } from "react-redux"
@@ -15,7 +16,6 @@ const AudioPlayer = () => {
     const audioRef = useRef()
     const { currentTrack } = useSelector((state) => state.queue)
     const { playState, setPlayState } = useContext(AppContext)
-
     useEffect(() => {
         playState ? audioRef.current.play() : audioRef.current.pause()
     }, [playState, currentTrack])

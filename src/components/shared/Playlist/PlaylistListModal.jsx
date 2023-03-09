@@ -1,5 +1,5 @@
 import { useEditTrackListMutation, useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
-import Button from "@/components/customs/atoms/Button"
+import Button from "@/components/customs/@core/Button"
 import { AppContext } from "@/context/AppProvider"
 import { Fragment, useContext, useState } from "react"
 import { useSelector } from "react-redux/es/hooks/useSelector"

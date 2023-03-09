@@ -4,8 +4,8 @@ import { useContext, useEffect, useState } from "react"
 import { BsPauseCircle, BsPlayCircle, BsShuffle, BsSkipBackwardFill, BsSkipForwardFill } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
 import tw from "tailwind-styled-components"
-import Button from "../../customs/atoms/Button"
-import Swap from "../../customs/atoms/Swap"
+import Button from "../../customs/@core/Button"
+import Swap from "../../customs/@core/Swap"
 
 const RepeatIcon = tw.i`bi bi-repeat`
 

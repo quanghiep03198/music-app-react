@@ -3,9 +3,9 @@ import { BsPerson } from "react-icons/bs"
 import { HiLogout } from "react-icons/hi"
 import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-import Avatar from "../../customs/atoms/Avatar"
-import { Dropdown, DropdownContent } from "../../customs/atoms/Dropdown"
-import { Menu, MenuItem } from "../../customs/atoms/Menu"
+import Avatar from "../../customs/@core/Avatar"
+import { Dropdown, DropdownContent } from "../../customs/@core/Dropdown"
+import { Menu, MenuItem } from "../../customs/@core/Menu"
 import DefaultAvatar from "/images/default-avatar.png"
 
 const UserController = ({ user }) => {

@@ -3,7 +3,7 @@ import { lazy, Suspense, useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { FreeMode, Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
-import Button from "../../customs/atoms/Button"
+import Button from "../../customs/@core/Button"
 
 import SkeletonCard from "../Skeletons/SkeletonCard"
 
@@ -24,8 +24,7 @@ const AlbumSlider = ({ data, status }) => {
                 lazy={true}
                 breakpoints={swiperBreakpoints}
                 ref={swiperRef}
-                className="album-slide container pb-10"
-            >
+                className="album-slide container pb-10">
                 {Array.isArray(data) &&
                     data.map((album) => (
                         <SwiperSlide key={album?._id}>

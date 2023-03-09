@@ -1,5 +1,5 @@
 import React from "react"
-import Loading from "../customs/atoms/Loading"
+import Loading from "../customs/@core/Loading"
 import Logo from "/images/logo.png"
 
 const LoadingScreen = () => {

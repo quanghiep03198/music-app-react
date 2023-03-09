@@ -1,6 +1,6 @@
 import { useFetchUserDataQuery } from "@/app/services/authApi"
-import Swap from "@/components/customs/atoms/Swap"
-import Tooltip from "@/components/customs/atoms/Tooltip"
+import Swap from "@/components/customs/@core/Swap"
+import Tooltip from "@/components/customs/@core/Tooltip"
 import { ThemeContext } from "@/context/ThemeProvider"
 import { useContext } from "react"
 import { BsList, BsMoon, BsPerson, BsPlusSquareDotted, BsSun, BsUpload } from "react-icons/bs"

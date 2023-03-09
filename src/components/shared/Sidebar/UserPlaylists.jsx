@@ -1,5 +1,5 @@
 import { useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
-import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
+import { Menu, MenuItem } from "@/components/customs/@core/Menu"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
 

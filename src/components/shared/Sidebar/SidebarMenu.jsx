@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from "@/components/customs/atoms/Menu"
+import { Menu, MenuItem } from "@/components/customs/@core/Menu"
 import { BsHouse, BsSearch } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
@@ -14,8 +14,7 @@ const SidebarMenu = () => {
                     to="/"
                     className={({ isActive }) => {
                         return isActive ? "text-success" : ""
-                    }}
-                >
+                    }}>
                     <BsHouse aria-hidden className="text-xl" /> Home
                 </NavLink>
             </MenuItem>
@@ -24,8 +23,7 @@ const SidebarMenu = () => {
                     to="/search"
                     className={({ isActive }) => {
                         return isActive ? "text-success" : ""
-                    }}
-                >
+                    }}>
                     <BsSearch aria-hidden className="text-xl" /> Search
                 </NavLink>
             </MenuItem>

@@ -1,28 +1,12 @@
 import { BsPlayFill } from "react-icons/bs"
 import tw from "tailwind-styled-components"
-import { SkeletonTextCard } from "../../customs/atoms/Card"
+import { SkeletonTextCard } from "../../customs/@core/Card"
 export const ThumbnailSkeleton = tw.div`h-14 w-14 rounded-lg bg-neutral `
+import { TrackCardWrapper } from "../Track/TrackCard"
 
 const SkeletonTrackCard = () => {
     return (
-        <div
-            className="group
-						grid 
-						min-h-[60px]
-						grid-cols-[5%,40%,20%,20%,5%]
-						items-center
-						justify-between
-						gap-0 
-						rounded-lg 
-						p-1 
-						hover:bg-neutral/20
-						sm:grid-cols-[10%,80%,10%]
-						sm:text-sm
-						md:grid-cols-[10%,80%,10%]
-						lg:grid-cols-[10%,80%,10%]
-						sm:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
-						md:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
-						lg:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden">
+        <TrackCardWrapper>
             <BsPlayFill className="animate-pulse text-2xl text-neutral" />
 
             <div className="flex items-center gap-1">
@@ -42,7 +26,7 @@ const SkeletonTrackCard = () => {
             <div>
                 <SkeletonTextCard />
             </div>
-        </div>
+        </TrackCardWrapper>
     )
 }
 

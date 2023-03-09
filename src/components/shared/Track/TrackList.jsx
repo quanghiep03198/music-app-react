@@ -1,5 +1,3 @@
-import SkeletonTrackCard from "../Skeletons/SkelentonTrackCard"
-
 import TrackCard from "./TrackCard"
 
 const TrackList = ({ data, status }) => {

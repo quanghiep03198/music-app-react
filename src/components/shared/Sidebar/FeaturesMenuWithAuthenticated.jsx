@@ -1,4 +1,4 @@
-import { MenuItem } from "@/components/customs/atoms/Menu"
+import { MenuItem } from "@/components/customs/@core/Menu"
 import { Fragment } from "react"
 import { BiLibrary } from "react-icons/bi"
 import { BsHeart, BsPlusSquareDotted, BsUpload } from "react-icons/bs"
@@ -12,8 +12,7 @@ const FeaturesMenuWithAuthenticated = () => {
                     to="/library"
                     className={({ isActive }) => {
                         return isActive ? "text-success" : ""
-                    }}
-                >
+                    }}>
                     <BiLibrary aria-hidden className="text-xl" />
                     Library
                 </NavLink>
@@ -23,8 +22,7 @@ const FeaturesMenuWithAuthenticated = () => {
                     to="/liked-tracks"
                     className={({ isActive }) => {
                         return isActive ? "text-success" : ""
-                    }}
-                >
+                    }}>
                     <BsHeart aria-hidden className="text-xl" />
                     Liked Tracks
                 </NavLink>

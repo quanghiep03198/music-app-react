@@ -1,7 +1,7 @@
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs"
 import { useNavigate } from "react-router-dom"
-import Button from "../../customs/atoms/Button"
-import Tooltip from "../../customs/atoms/Tooltip"
+import Button from "../../customs/@core/Button"
+import Tooltip from "../../customs/@core/Tooltip"
 
 const PageNavigator = () => {
     const navigate = useNavigate()
