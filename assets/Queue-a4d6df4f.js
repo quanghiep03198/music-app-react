@@ -1,0 +1,1 @@
+import{u as l,j as s,r as a,b as e,n}from"./index-555376f6.js";import{T as u,l as c,U as o}from"./App-36a15c4e.js";const m=()=>{const{nextup:r}=l(t=>t.queue);return s(a.Fragment,{children:[s(u,{size:"4xl",className:"flex items-center gap-2",children:[e(c,{})," Queue"]}),e(a.Suspense,{fallback:e(n,{}),children:e(o,{data:r})})]})};export{m as default};

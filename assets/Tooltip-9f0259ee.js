@@ -1,0 +1,1 @@
+import{F as o}from"./index-555376f6.js";const i=o.div`tooltip ${t=>{switch(t.position){case"top":return"tooltip-top";case"bottom":return"tooltip-bottom";case"right":return"tooltip-right";case"left":return"tooltip-left";default:return"tooltip-top"}}}`;export{i as T};
