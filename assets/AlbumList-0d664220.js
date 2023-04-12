@@ -1,0 +1,1 @@
+import{b as o}from"./index-bcb46a99.js";import{G as t}from"./Grid-c991ead0.js";import s from"./AlbumCard-66532781.js";import"./Swap-ba08f6de.js";import"./App-aacd66e8.js";const d=({data:i})=>o(t,{"space-x":10,breakpoints:{sm:2,md:3,lg:4,xl:5,xxl:6},children:Array.isArray(i)&&i.map(r=>o(s,{albumData:r},r==null?void 0:r._id))});export{d as default};

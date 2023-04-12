@@ -1,4 +1,4 @@
-import{F as n,r as i,j as b,b as a}from"./index-555376f6.js";const d=n.a`tab ${e=>{switch(e.type){case"bordered":return"tab-bordered";case"lifted":return"tab-lifted";default:return""}}}
+import{F as n,r as i,j as b,b as a}from"./index-bcb46a99.js";const d=n.a`tab ${e=>{switch(e.type){case"bordered":return"tab-bordered";case"lifted":return"tab-lifted";default:return""}}}
 
     ${e=>e.active?"tab-active":""}
 

@@ -1,0 +1,1 @@
+import{j as a,b as e}from"./index-bcb46a99.js";import{R as s,W as t,X as l,S as d,_ as n}from"./App-aacd66e8.js";const u=r=>a(s,{skeleton:"true",children:[e("div",{className:`${()=>{switch(r.mask){case"square":return"aspect-square";case"circle":return"rounded-full";default:return"aspect-square"}}}`,children:e(t,{})}),a(l,{children:[e(d,{}),e(n,{})]})]});export{u as S};
