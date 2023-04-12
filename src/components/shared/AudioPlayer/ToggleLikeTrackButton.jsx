@@ -35,7 +35,7 @@ const ToggleLikeTrackButton = () => {
             setIsLiked(!isLiked)
             !isLiked ? toast.success("Added track to your library") : toast.info("Removed track from your library")
         } catch (error) {
-            console.log(error.message)
+            toast.error("Opps! Something went wrong!")
         }
     }
     return <Swap swapoff={<BsHeart />} swapon={<BsHeartFill className="text-success" />} checked={isLiked} onChange={() => toggleLikeTrack(currentTrack)} />

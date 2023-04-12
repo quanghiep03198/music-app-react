@@ -34,7 +34,7 @@ const ForgotPassword = () => {
             toast.info("Check your email to get verify code!")
             navigate("/reset-password")
         } catch (error) {
-            console.log(error)
+            toast.error("Opps something went wrong!")
         }
     }
     return (

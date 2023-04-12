@@ -18,6 +18,7 @@ const collectionSlice = createSlice({
         })
         builder.addMatcher(collectionApi.endpoints.fetchArtistsCollection.matchFulfilled, (state, { payload }) => {
             state.artists = payload
+            return state
         })
         builder.addMatcher(collectionApi.endpoints.fetchAlbumsCollection.matchFulfilled, (state, { payload }) => {
             state.albums = payload

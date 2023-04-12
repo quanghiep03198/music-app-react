@@ -41,7 +41,6 @@ const playlistApi = createApi({
             }),
             editTrackList: builder.mutation({
                 query({ id, payload }) {
-                    console.log(payload)
                     return {
                         url: `/playlists/${id}/edit-track-list`,
                         method: "PATCH",

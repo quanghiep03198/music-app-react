@@ -6,13 +6,12 @@ import { useContext, useEffect, useId, useRef, useState } from "react"
 import { BsSearch } from "react-icons/bs"
 import { useNavigate } from "react-router-dom"
 import Button from "../../customs/@core/Button"
+import { toast } from "react-toastify"
 
 const SearchBox = () => {
     const id = useId()
     const navigate = useNavigate()
     const { setSearchResult } = useContext(AppContext)
-
-    const [debounceSearch, isLoading] = useDebounce(handleSearch, 500)
 
     async function handleSearch(searchTerm) {
         try {
@@ -24,10 +23,10 @@ const SearchBox = () => {
 
             setSearchResult(data)
             if (searchTerm === "") setSearchResult(null)
-        } catch (error) {
-            console.log(error.message)
-        }
+        } catch (error) {}
     }
+
+    const [debounceSearch, isLoading] = useDebounce(handleSearch, 500)
 
     return (
         <form

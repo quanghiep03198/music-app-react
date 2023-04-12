@@ -33,7 +33,7 @@ const ArtistCard = ({ artistData, isFetching }) => {
 
     const handleToggleFollowArtist = async (artist) => {
         try {
-            await updateArtistCollection(artist)
+            await updateArtistCollection({ artist: artist._id })
             setIsFollowed(!isFollowed)
             !isFollowed ? toast.success(`You've followed ${artist.name}`) : toast.info(`You've unfollowed ${artist.name}`)
         } catch (error) {

@@ -4,9 +4,11 @@ import store from "@/app/store"
 import axios from "axios"
 
 // config base url for axios globally
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
+const instance = axios.create({
+    baseURL: import.meta.env.VITE_BASE_URL
+})
 
-axios.interceptors.request.use(
+instance.interceptors.request.use(
     (config) => {
         /* do not attach token with headers with these routes */
         const skippingCheckTokenRoutes = ["/login", "/register", "/refresh-token", "/forgot-password"]
@@ -23,7 +25,7 @@ axios.interceptors.request.use(
     }
 )
 
-axios.interceptors.response.use(
+instance.interceptors.response.use(
     (response) => response.data,
     async (error) => {
         const { response, config } = error
@@ -50,4 +52,4 @@ axios.interceptors.response.use(
     }
 )
 
-export default axios
+export default instance

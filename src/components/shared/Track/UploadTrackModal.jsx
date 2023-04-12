@@ -53,11 +53,9 @@ const UploadTrackModal = () => {
                 trackSrc: downloadUrl,
                 duration: duration
             })
-            console.log(response.data)
             closeModalButtonRef.current.click()
             toast.success("Created new playlist!")
         } catch (error) {
-            console.log(error)
             return await Promise.reject(error)
         }
     }

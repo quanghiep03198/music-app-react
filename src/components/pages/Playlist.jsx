@@ -14,6 +14,7 @@ import { SkeletonCardTitle, SkeletonTextCard } from "../customs/@core/Card"
 import TrackCard from "../shared/Track/TrackCard"
 import TrackList from "../shared/Track/TrackList"
 import DefaultThumbnail from "/images/default-album-image.png"
+import { toast } from "react-toastify"
 
 const Playlist = () => {
     const { id } = useParams()
@@ -35,7 +36,7 @@ const Playlist = () => {
     const handleDeletePlaylist = (id) => {
         deletePlaylist(id)
             .then(() => navigate("/"))
-            .catch((error) => console.log(error.message))
+            .catch((error) => toast.error("Opps! Something went wrong!"))
     }
 
     return (

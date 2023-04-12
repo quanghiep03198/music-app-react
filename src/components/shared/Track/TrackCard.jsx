@@ -65,9 +65,7 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
         try {
             await removeTrackFromPlaylist({ id: params.id, payload: { track: track._id } })
             toast.info("Removed track from this playlist!")
-        } catch (error) {
-            console.log(error)
-        }
+        } catch (error) {}
     }
 
     return (

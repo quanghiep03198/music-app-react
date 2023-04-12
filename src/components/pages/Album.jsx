@@ -16,7 +16,6 @@ import { Dropdown } from "../customs/@core/Dropdown"
 const AlbumPage = () => {
     const { id } = useParams()
     const { data } = useFetchSingleAlbumQuery(id)
-    console.log("album:>>", data)
     const { playState, setPlayState } = useContext(AppContext)
     const currentPlaylist = useSelector((state) => state.queue?.currentPlaylist)
     const dispatch = useDispatch()

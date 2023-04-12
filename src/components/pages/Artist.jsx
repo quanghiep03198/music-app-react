@@ -12,7 +12,6 @@ const Artist = () => {
     const { id } = useParams()
 
     const { data, isFetching } = useFetchArtistQuery(id)
-    console.log(data)
     return (
         <ErrorBoundary>
             <HeroBanner heroImageUrl={data?.artist?.avatar} style={{ backgroundImage: `url(${data?.artist?.wallpaper}) ` }}>

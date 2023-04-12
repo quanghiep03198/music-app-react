@@ -7,7 +7,6 @@ const AppProvider = ({ children }) => {
     const [playState, setPlayState] = useState(false)
     const [searchResult, setSearchResult] = useState(null)
     const [trackToEditPlaylist, setTrackToEditPlaylist] = useState(null)
-    console.log(trackToEditPlaylist)
     return (
         <AppContext.Provider
             value={{

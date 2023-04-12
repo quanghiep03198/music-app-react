@@ -2,7 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react"
 import axiosBaseQuery from "../axiosBaseQuery"
 
 const collectionApi = createApi({
-    tagTypes: ["TrackCollection", "AlbumCollection", "ArtistCollection"],
+    tagTypes: ["Collection"],
     baseQuery: axiosBaseQuery(),
     reducerPath: "collectionApi",
     refetchOnReconnect: true,
@@ -17,7 +17,7 @@ const collectionApi = createApi({
                     }
                 },
 
-                providesTags: ["TrackCollection"]
+                providesTags: ["Collection"]
             }),
             updateTrackCollection: builder.mutation({
                 query(data) {
@@ -28,7 +28,7 @@ const collectionApi = createApi({
                     }
                 },
 
-                invalidatesTags: ["TrackCollection"]
+                invalidatesTags: ["Collection"]
             }),
             fetchAlbumsCollection: builder.query({
                 query() {
@@ -38,7 +38,7 @@ const collectionApi = createApi({
                     }
                 },
 
-                providesTags: ["AlbumCollection"]
+                providesTags: ["Collection"]
             }),
             updateAlbumsCollection: builder.mutation({
                 query(data) {
@@ -48,7 +48,7 @@ const collectionApi = createApi({
                         data
                     }
                 },
-                invalidatesTags: ["AlbumCollection"]
+                invalidatesTags: ["Collection"]
             }),
             fetchArtistsCollection: builder.query({
                 query() {
@@ -58,7 +58,7 @@ const collectionApi = createApi({
                     }
                 },
 
-                providesTags: ["ArtistCollection"]
+                providesTags: ["Collection"]
             }),
             updateArtistsCollection: builder.mutation({
                 query(data) {
@@ -68,7 +68,7 @@ const collectionApi = createApi({
                         data
                     }
                 },
-                invalidatesTags: ["ArtistCollection"]
+                invalidatesTags: ["Collection"]
             })
         }
     }

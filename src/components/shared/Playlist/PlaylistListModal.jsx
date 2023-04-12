@@ -25,11 +25,8 @@ const PlaylistListModal = () => {
                 return
             }
             const response = await addToPlaylist({ id: playlist._id, payload: { track: trackToEditPlaylist._id } }).unwrap()
-            console.log(response)
             if (response) toast.success(`Added to ${playlist.title}`)
-        } catch (error) {
-            console.log(error)
-        }
+        } catch (error) {}
     }
 
     return (

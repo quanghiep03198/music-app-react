@@ -34,7 +34,7 @@ const RegisterPage = () => {
             setIsLoading(false)
             navigate("/login")
         } catch (error) {
-            console.log(error.message)
+            toast.error("Opps! Something went wrong!")
         }
     }
     return (

@@ -19,8 +19,8 @@ const ArtistSlider = ({ data, status }) => {
         <div className="relative">
             <Swiper
                 navigation={{
-                    prevEl: "#artist-slide-prev-btn",
-                    nextEl: "#artist-slide-next-btn"
+                    prevEl: ".artist-slide-prev-btn",
+                    nextEl: ".artist-slide-next-btn"
                 }}
                 speed={700}
                 modules={[Navigation, FreeMode]}
@@ -41,10 +41,10 @@ const ArtistSlider = ({ data, status }) => {
                         </SwiperSlide>
                     ))}
             </Swiper>
-            <Button shape="circle" size="sm" id="artist-slide-prev-btn" className="prev-button absolute top-1/2 left-0 z-[999] text-base" ref={prevButtonRef}>
+            <Button shape="circle" size="sm" className="artist-slide-prev-btn absolute top-1/2 left-0 z-[999] text-base" ref={prevButtonRef}>
                 <BsArrowLeft />
             </Button>
-            <Button shape="circle" size="sm" id="artist-slide-next-btn" className="next-button absolute top-1/2 right-0 z-[999] text-base" ref={nextButtonRef}>
+            <Button shape="circle" size="sm" className="artist-slide-next-btn next-button absolute top-1/2 right-0 z-[999] text-base" ref={nextButtonRef}>
                 <BsArrowRight />
             </Button>
         </div>

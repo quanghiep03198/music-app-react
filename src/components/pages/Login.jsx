@@ -40,15 +40,6 @@ const LoginPage = () => {
             toast.error(error.message)
         }
     }
-    const googleAuthProvider = new GoogleAuthProvider()
-    const authenticateWithGoogle = async () => {
-        try {
-            const response = await signInWithPopup(auth, googleAuthProvider)
-            console.log(response)
-        } catch (error) {
-            console.log(error.message)
-        }
-    }
 
     return (
         <div className="hero min-h-screen bg-base-200">

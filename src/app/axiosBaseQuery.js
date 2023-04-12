@@ -1,10 +1,10 @@
-import axios from "@/config/axios.config"
+import instance from "@/config/axios.config"
 
 // custom base query with axios
 export default function axiosBaseQuery() {
     return async ({ url, method, data, params }) => {
         try {
-            const response = await axios({
+            const response = await instance.request({
                 url: url,
                 method,
                 data,

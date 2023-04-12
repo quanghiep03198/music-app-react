@@ -13,7 +13,6 @@ import { BsKey, BsPencil, BsPerson } from "react-icons/bs"
 
 const Account = () => {
     const { data } = useFetchUserDataQuery(undefined)
-    console.log(data)
     const { pathname } = useLocation()
     const sidebarTogglerRef = useRef(null)
 

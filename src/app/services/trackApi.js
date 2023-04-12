@@ -24,7 +24,7 @@ const trackApi = createApi({
                         const { nextup } = store.getState().queue
                         if (nextup.length === 0) dispatch(setCurrentPlaylist({ tracks: data }))
                     } catch (error) {
-                        console.log(error.message)
+                        return
                     }
                 },
 

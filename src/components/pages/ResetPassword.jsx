@@ -24,7 +24,6 @@ const ResetPassword = () => {
             const response = await axios.post("/reset-password", data, {
                 headers: { Authorization: "Bearer" + " " + token }
             })
-            console.log(response)
             if (response.status === 403) {
                 toast.error(response.message)
                 return
@@ -33,7 +32,7 @@ const ResetPassword = () => {
             toast.success("Reset password successfully!")
             navigate("/login")
         } catch (error) {
-            console.log(error.message)
+            toast.error("Opps! Something went wrong!")
         }
     }
 

@@ -31,9 +31,7 @@ const ToggleLikeButton = ({ track }) => {
             await updateTrackCollection(track)
             setIsLiked(!isLiked)
             !isLiked ? toast.success("Added track to your library") : toast.info("Removed track from your library")
-        } catch (error) {
-            console.log(error.message)
-        }
+        } catch (error) {}
     }
 
     return (
