@@ -20,7 +20,7 @@ const UserController = ({ user }) => {
         <Dropdown position="bottom-end">
             <button className="flex items-center gap-2" tabIndex={0}>
                 <Avatar size="xs">
-                    <img src={user?.avatar || DefaultAvatar} loading="eager" />
+                    <img src={user?.avatar || DefaultAvatar} loading="lazy" />
                 </Avatar>
                 <span className="badge sm:hidden md:hidden">{user?.username}</span>
             </button>

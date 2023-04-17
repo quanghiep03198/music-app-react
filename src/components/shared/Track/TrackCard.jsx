@@ -89,7 +89,7 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
                             <img
                                 alt="thumbnail"
                                 src={track?.thumbnail || track?.alternativeThumbnail}
-                                loading="eager"
+                                loading="lazy"
                                 onLoad={() => setIsLoadingImage(false)}
                                 className={isLoadingImage ? "hidden" : "h-14 w-14 rounded-md sm:h-12 sm:w-12"}
                             />

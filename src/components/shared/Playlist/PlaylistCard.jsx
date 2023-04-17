@@ -42,7 +42,7 @@ const PlaylistCard = ({ isFetching, data }) => {
                                         currentTarget.src = DefaultPlaylistThumbnail
                                     }}
                                     alt="thumbnail"
-                                    loading="eager"
+                                    loading="lazy"
                                     className={isLoadingImage ? "hidden" : "aspect-square min-w-full object-cover"}
                                     onLoad={() => setIsLoadingImage(false)}
                                 />

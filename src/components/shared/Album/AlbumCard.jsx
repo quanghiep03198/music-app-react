@@ -63,7 +63,7 @@ const AlbumCard = ({ albumData }) => {
                         currentTarget.src = DefaultAlbumThumbnail
                     }}
                     alt="thumbnail"
-                    loading="eager"
+                    loading="lazy"
                     className={isLoadingImage ? "hidden" : "aspect-square min-w-full object-cover"}
                     onLoad={() => setIsLoadingImage(false)}
                 />
