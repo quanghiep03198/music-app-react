@@ -1,5 +1,5 @@
-import { useEditTrackListMutation } from "@/app/services/playlistApi"
-import { setCurrentTrack } from "@/app/slices/queueSlice"
+import { useEditTrackListMutation } from "@/redux/api/playlistApi"
+import { setCurrentTrack } from "@/redux/reducers/queueSlice"
 import { AppContext } from "@/context/AppProvider"
 import useRenderOnScroll from "@/hooks/useRenderOnScroll"
 import { timer } from "@/utils/formatter"
@@ -89,7 +89,7 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
                             <img
                                 alt="thumbnail"
                                 src={track?.thumbnail || track?.alternativeThumbnail}
-                                loading="lazy"
+                                loading="eager"
                                 onLoad={() => setIsLoadingImage(false)}
                                 className={isLoadingImage ? "hidden" : "h-14 w-14 rounded-md sm:h-12 sm:w-12"}
                             />

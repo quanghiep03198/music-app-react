@@ -1,4 +1,4 @@
-import { addToQueue, removeFromQueue } from "@/app/slices/queueSlice"
+import { addToQueue, removeFromQueue } from "@/redux/reducers/queueSlice"
 import { Fragment, useEffect, useState } from "react"
 import { BiPlus } from "react-icons/bi"
 import { HiOutlineMinus } from "react-icons/hi"

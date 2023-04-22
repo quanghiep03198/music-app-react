@@ -1,8 +1,8 @@
-import { useFetchUserDataQuery } from "@/app/services/authApi"
+import { useFetchUserDataQuery } from "@/redux/api/authApi"
 import React from "react"
 import { HiBars3, HiBars3CenterLeft } from "react-icons/hi2"
 import { useSelector } from "react-redux"
-import UserController from "../Navbar/UserController"
+import UserController from "../AudioPlayer/Navbar/UserController"
 import Logo from "/images/logo.png"
 
 const AccountLayoutNavbar = () => {
@@ -13,7 +13,7 @@ const AccountLayoutNavbar = () => {
             <div className="navbar mx-auto w-full max-w-7xl">
                 <div className="navbar-start">
                     <div className="hidden flex-none sm:block md:block">
-                        <label htmlFor="my-drawer-3" className="btn-ghost btn-square btn-sm btn">
+                        <label htmlFor="my-drawer-3" className="btn-ghost btn-sm btn-square btn">
                             <HiBars3CenterLeft />
                         </label>
                     </div>

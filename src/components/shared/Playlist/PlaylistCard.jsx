@@ -1,4 +1,4 @@
-import { setCurrentPlaylist } from "@/app/slices/queueSlice"
+import { setCurrentPlaylist } from "@/redux/reducers/queueSlice"
 import { AppContext } from "@/context/AppProvider"
 import useRenderOnScroll from "@/hooks/useRenderOnScroll"
 import { memo, useContext, useRef, useState } from "react"
@@ -42,7 +42,7 @@ const PlaylistCard = ({ isFetching, data }) => {
                                         currentTarget.src = DefaultPlaylistThumbnail
                                     }}
                                     alt="thumbnail"
-                                    loading="lazy"
+                                    loading="eager"
                                     className={isLoadingImage ? "hidden" : "aspect-square min-w-full object-cover"}
                                     onLoad={() => setIsLoadingImage(false)}
                                 />

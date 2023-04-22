@@ -1,4 +1,4 @@
-import { logout } from "@/app/slices/authSlice"
+import { logout } from "@/redux/reducers/authSlice"
 import { createContext, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 

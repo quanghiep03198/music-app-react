@@ -1,4 +1,4 @@
-import { useFetchTrackCollectionQuery, useUpdateTrackCollectionMutation } from "@/app/services/collectionApi"
+import { useFetchTrackCollectionQuery, useUpdateTrackCollectionMutation } from "@/redux/api/collectionApi"
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
 import React, { Fragment, useCallback, useState } from "react"
 import { useEffect } from "react"

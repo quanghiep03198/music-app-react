@@ -59,6 +59,9 @@ module.exports = {
             xxl: { min: "1920px" }
         },
         extend: {
+            fontFamily: {
+                inter: ["Inter var"]
+            },
             animation: {
                 fadeInOut: "fadeIn .3s linear, fadeOut 1s linear 1s forwards",
                 jumping: "jumping 1.5s linear infinite",

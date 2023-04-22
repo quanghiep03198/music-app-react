@@ -1,14 +1,14 @@
-import { useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
+import { useFetchUserPlaylistsQuery } from "@/redux/api/playlistApi"
 import { Menu, MenuItem } from "@/components/customs/@core/Menu"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
 
 const UserPlaylists = () => {
-    const { credential, authenticated } = useSelector((state) => state.auth)
+    const { uid, authenticated } = useSelector((state) => state.auth)
 
     const { data, isFetching } = useFetchUserPlaylistsQuery(
         {
-            id: credential,
+            id: uid,
             params: { skip: 0, limit: 20 }
         },
         { skip: !authenticated }

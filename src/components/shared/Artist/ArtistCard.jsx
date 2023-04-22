@@ -1,4 +1,4 @@
-import { useFetchArtistsCollectionQuery, useUpdateArtistsCollectionMutation } from "@/app/services/collectionApi"
+import { useFetchArtistsCollectionQuery, useUpdateArtistsCollectionMutation } from "@/redux/api/collectionApi"
 import Tooltip from "@/components/customs/@core/Tooltip"
 import useRenderOnScroll from "@/hooks/useRenderOnScroll"
 import { memo, useEffect, useRef, useState } from "react"
@@ -42,52 +42,47 @@ const ArtistCard = ({ artistData, isFetching }) => {
     }
 
     return (
-        <div ref={cardRef}>
-            {!isScrolledToView || isFetching ? (
-                <SkeletonCard mask="circle" />
-            ) : (
-                <Card>
-                    <Figure mask="circle">
-                        <Overlay>
-                            <Swap
-                                swapon={
-                                    <Tooltip data-tip="Unfollow">
-                                        <BsPersonPlusFill className="text-3xl text-success" />
-                                    </Tooltip>
-                                }
-                                swapoff={
-                                    <Tooltip data-tip="Follow">
-                                        <BsPersonPlusFill className="text-3xl text-neutral-content" />
-                                    </Tooltip>
-                                }
-                                onChange={() => handleToggleFollowArtist(artistData)}
-                                checked={isFollowed}
-                            />
-                        </Overlay>
-                        {isLoadingImage && <SkeletonImage tw="min-w-full aspect-[1]" />}
-                        <img
-                            src={artistData?.avatar}
-                            onError={({ currentTarget }) => {
-                                currentTarget.onerror = null // prevents looping
-                                currentTarget.src = AlternativeLogo
-                            }}
-                            alt="thumbnail"
-                            onLoad={() => setIsLoadingImage(false)}
-                            loading="lazy"
-                            className={isLoadingImage ? "hidden" : "aspect-[1] min-w-full object-cover"}
-                        />
-                    </Figure>
+        <Card>
+            <Figure mask="circle">
+                <Overlay>
+                    <Swap
+                        swapon={
+                            <Tooltip data-tip="Unfollow">
+                                <BsPersonPlusFill className="text-3xl text-success" />
+                            </Tooltip>
+                        }
+                        swapoff={
+                            <Tooltip data-tip="Follow">
+                                <BsPersonPlusFill className="text-3xl text-neutral-content" />
+                            </Tooltip>
+                        }
+                        onChange={() => handleToggleFollowArtist(artistData)}
+                        checked={isFollowed}
+                    />
+                </Overlay>
+                {isLoadingImage && <SkeletonImage tw="min-w-full" />}
 
-                    <CardBody>
-                        <Link to={`/artist/${artistData._id}`} className="hover:link">
-                            <CardTitle>{artistData.name}</CardTitle>
-                        </Link>
+                <img
+                    src={artistData?.avatar}
+                    onError={({ currentTarget }) => {
+                        currentTarget.onerror = null // prevents looping
+                        currentTarget.src = AlternativeLogo
+                    }}
+                    alt="thumbnail"
+                    onLoad={() => setIsLoadingImage(false)}
+                    loading="lazy"
+                    className={isLoadingImage ? "hidden" : "aspect-square min-w-full object-cover"}
+                />
+            </Figure>
 
-                        <p className="truncate text-base-content/50 sm:text-sm">{artistData.desc ?? "Artist"}</p>
-                    </CardBody>
-                </Card>
-            )}
-        </div>
+            <CardBody>
+                <Link to={`/artist/${artistData._id}`} className="hover:link">
+                    <CardTitle>{artistData.name}</CardTitle>
+                </Link>
+
+                <p className="truncate text-base-content/50 sm:text-sm">{artistData.desc ?? "Artist"}</p>
+            </CardBody>
+        </Card>
     )
 }
 

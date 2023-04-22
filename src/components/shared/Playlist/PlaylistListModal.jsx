@@ -1,4 +1,4 @@
-import { useEditTrackListMutation, useFetchUserPlaylistsQuery } from "@/app/services/playlistApi"
+import { useEditTrackListMutation, useFetchUserPlaylistsQuery } from "@/redux/api/playlistApi"
 import Button from "@/components/customs/@core/Button"
 import { AppContext } from "@/context/AppProvider"
 import { Fragment, useContext, useState } from "react"
@@ -6,12 +6,12 @@ import { useSelector } from "react-redux/es/hooks/useSelector"
 import { toast } from "react-toastify"
 
 const PlaylistListModal = () => {
-    const { credential, authenticated } = useSelector((state) => state.auth)
+    const { uid, authenticated } = useSelector((state) => state.auth)
     const [playlistToAdd, setPlaylistToAdd] = useState(null)
     const { trackToEditPlaylist } = useContext(AppContext)
     const { data } = useFetchUserPlaylistsQuery(
         {
-            id: credential,
+            id: uid,
             params: { skip: 0, limit: 20 }
         },
         { skip: !authenticated }

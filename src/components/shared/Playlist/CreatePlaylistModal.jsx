@@ -1,4 +1,4 @@
-import { useCreatePlaylistMutation } from "@/app/services/playlistApi"
+import { useCreatePlaylistMutation } from "@/redux/api/playlistApi"
 import Button from "@/components/customs/@core/Button"
 import Typography from "@/components/customs/@core/Typography"
 import useFirebaseUpload from "@/hooks/useFirebaseUpload"
@@ -11,7 +11,7 @@ import DefaultPlaylistImage from "/images/default-album-image.png"
 
 const CreatePlaylistModal = () => {
     const { register, formState: errors, handleSubmit, reset } = useForm()
-    const creator = useSelector((state) => state.auth?.credential)
+    const creator = useSelector((state) => state.auth?.uid)
     const [createNewPlaylist, { isLoading }] = useCreatePlaylistMutation()
 
     const imageRef = useRef(null)

@@ -1,4 +1,4 @@
-import { useFetchTrackCollectionQuery, useUpdateTrackCollectionMutation } from "@/app/services/collectionApi"
+import { useFetchTrackCollectionQuery, useUpdateTrackCollectionMutation } from "@/redux/api/collectionApi"
 import Swap from "@/components/customs/@core/Swap"
 import { memo, useEffect, useState } from "react"
 import { BsHeart, BsHeartFill } from "react-icons/bs"

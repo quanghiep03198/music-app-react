@@ -1,4 +1,4 @@
-import { useFetchUserDataQuery } from "@/app/services/authApi"
+import { useFetchUserDataQuery } from "@/redux/api/authApi"
 import { Menu, MenuItem } from "@/components/customs/@core/Menu"
 import React, { useRef } from "react"
 import { BsKey, BsLock, BsPencil, BsPerson } from "react-icons/bs"

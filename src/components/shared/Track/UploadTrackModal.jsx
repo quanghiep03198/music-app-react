@@ -1,5 +1,5 @@
-import { useFetchAllGenresQuery } from "@/app/services/genreApi"
-import { useCreateTrackMutation } from "@/app/services/trackApi"
+import { useFetchAllGenresQuery } from "@/redux/api/genreApi"
+import { useCreateTrackMutation } from "@/redux/api/trackApi"
 import ErrorBoundary from "@/components/customs/ErrorBoundary"
 import Button from "@/components/customs/@core/Button"
 import Typography from "@/components/customs/@core/Typography"
@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form"
 import { BsCameraFill, BsX } from "react-icons/bs"
 import { toast } from "react-toastify"
 import DefaultPlaylistImage from "/images/default-album-image.png"
-import { useFetchArtistsQuery } from "@/app/services/artistApi"
+import { useFetchArtistsQuery } from "@/redux/api/artistApi"
 
 const UploadTrackModal = () => {
     const { register, formState: errors, handleSubmit, reset } = useForm()

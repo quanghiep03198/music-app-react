@@ -1,7 +1,7 @@
-import { useFetchAlbumsCollectionQuery, useUpdateAlbumsCollectionMutation } from "@/app/services/collectionApi"
-import { setCurrentPlaylist } from "@/app/slices/queueSlice"
 import Swap from "@/components/customs/@core/Swap"
 import { AppContext } from "@/context/AppProvider"
+import { useUpdateAlbumsCollectionMutation } from "@/redux/api/collectionApi"
+import { setCurrentPlaylist } from "@/redux/reducers/queueSlice"
 import axios from "axios"
 import { memo, useContext, useEffect, useState } from "react"
 import { BsHeart, BsHeartFill, BsPauseFill, BsPlayFill } from "react-icons/bs"
@@ -63,7 +63,7 @@ const AlbumCard = ({ albumData }) => {
                         currentTarget.src = DefaultAlbumThumbnail
                     }}
                     alt="thumbnail"
-                    loading="lazy"
+                    loading="eager"
                     className={isLoadingImage ? "hidden" : "aspect-square min-w-full object-cover"}
                     onLoad={() => setIsLoadingImage(false)}
                 />
