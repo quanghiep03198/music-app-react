@@ -1,107 +1,116 @@
-import { useCreatePlaylistMutation } from "@/redux/api/playlistApi"
-import Button from "@/components/customs/@core/Button"
-import Typography from "@/components/customs/@core/Typography"
+import Typography from "@/components/customs/Typography"
+import { AppContext, ModalActionEnum } from "@/context/AppProvider"
 import useFirebaseUpload from "@/hooks/useFirebaseUpload"
-import { Fragment, useRef } from "react"
+import { useCreatePlaylistMutation } from "@/providers/api/playlistApi"
+import { useContext, useRef } from "react"
+import { Button, FileInput, Form, Input, Mask, Modal, Toggle } from "react-daisyui"
 import { useForm } from "react-hook-form"
 import { BsCameraFill, BsX } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { toast } from "react-toastify"
 import DefaultPlaylistImage from "/images/default-album-image.png"
+import tw from "tailwind-styled-components"
 
 const CreatePlaylistModal = () => {
-    const { register, formState: errors, handleSubmit, reset } = useForm()
-    const creator = useSelector((state) => state.auth?.uid)
-    const [createNewPlaylist, { isLoading }] = useCreatePlaylistMutation()
+   const { register, formState: errors, handleSubmit, reset } = useForm()
+   const creator = useSelector((state) => state.auth?.uid)
+   const [createNewPlaylist, { isLoading }] = useCreatePlaylistMutation()
+   const { modalStates, handleToggleModal } = useContext(AppContext)
+   const imageRef = useRef(null)
+   const closeModalButtonRef = useRef(null)
 
-    const imageRef = useRef(null)
-    const closeModalButtonRef = useRef(null)
+   const { upload, isUploading, isError } = useFirebaseUpload()
+   const getCurrentImage = (e) => {
+      const url = URL.createObjectURL(e.target.files[0])
+      imageRef.current.src = url
+   }
 
-    const { upload, isUploading, isError } = useFirebaseUpload()
-    const getCurrentImage = (e) => {
-        const url = URL.createObjectURL(e.target.files[0])
-        imageRef.current.src = url
-    }
+   const handleCloseModal = () => {
+      reset()
+      handleToggleModal({ type: ModalActionEnum.TOGGLE_CREATE_PLAYLIST_MODAL })
+      imageRef.current.src = DefaultPlaylistImage
+   }
 
-    const resetForm = () => {
-        reset()
-        imageRef.current.src = DefaultPlaylistImage
-    }
+   const onSubmit = async (data) => {
+      try {
+         const thumbnail = data.thumbnail.length > 0 ? await upload("pictures/", data.thumbnail[0]) : undefined
+         await createNewPlaylist({ thumbnail: thumbnail, title: data.title })
+         closeModalButtonRef.current.click()
+         toast.success("Created new playlist!")
+      } catch (error) {
+         console.log(error.message)
+      }
+   }
 
-    const onSubmit = async (data) => {
-        try {
-            const thumbnail = data.thumbnail.length > 0 ? await upload("pictures/", data.thumbnail[0]) : undefined
-            await createNewPlaylist({ thumbnail: thumbnail, title: data.title })
-            closeModalButtonRef.current.click()
-            toast.success("Created new playlist!")
-        } catch (error) {
-            console.log(error.message)
-        }
-    }
+   return (
+      <Modal open={modalStates.createPlaylistModalState} onClickBackdrop={handleCloseModal}>
+         <Button color="ghost" shape="circle" className="absolute right-2 top-2" onClick={handleCloseModal} ref={closeModalButtonRef}>
+            <BsX />
+         </Button>
+         <Form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
+            <Form.Control className="self-center">
+               <Typography className="text-center">Choose an image</Typography>
+               <ImageFieldControl className="group">
+                  <ImageFieldControl.Image src={DefaultPlaylistImage} alt="" ref={imageRef} />
+                  <ImageFieldControl.Label htmlFor="track-thumbnail">
+                     <ImageFieldControl.Icon />
+                  </ImageFieldControl.Label>
+                  <ImageFieldControl.Input
+                     type="file"
+                     id="track-thumbnail"
+                     {...register("thumbnail", { required: false, onChange: (e) => getCurrentImage(e) })}
+                  />
+               </ImageFieldControl>
+               <FileInput
+                  type="file"
+                  id="file"
+                  className="invisible absolute"
+                  {...register("thumbnail", { required: false, onChange: (e) => getCurrentImage(e) })}
+               />
+            </Form.Control>
+            <Form.Control>
+               <Label htmlFor="" className="label">
+                  <Label.Text>Playlist's title</Label.Text>
+               </Label>
 
-    return (
-        <Fragment>
-            <input type="checkbox" id="create-playlist-modal" className="modal-toggle" />
-            <div className="modal">
-                <div className="invisible-scroll modal-box max-w-sm">
-                    <label
-                        htmlFor="create-playlist-modal"
-                        className="btn-sm btn-circle btn absolute right-2 top-2"
-                        onClick={resetForm}
-                        ref={closeModalButtonRef}>
-                        <BsX />
-                    </label>
-                    <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-                        <div className="form-control self-center">
-                            <Typography className="text-center">Choose an image</Typography>
-                            <div className="group mask-square relative rounded-xl">
-                                <img src={DefaultPlaylistImage} alt="" className="h-[200px] w-[200px] object-contain" ref={imageRef} />
+               <Input
+                  type="text"
+                  bordered
+                  placeholder="Title"
+                  {...register("title", {
+                     required: "Provide a title!",
+                     minLength: {
+                        value: 3,
+                        message: "Playlist's title should have at least 6 characters!"
+                     }
+                  })}
+               />
+               {errors.title && <small className="error-message">{errors.title?.message}</small>}
+            </Form.Control>
+            <Form.Control>
+               <Label htmlFor="status">
+                  <Label.Text>Make it public</Label.Text>
+                  <Toggle id="status" color="success" {...register("public")} />
+               </Label>
+            </Form.Control>
 
-                                <label htmlFor="file" className="absolute top-0 h-[200px] w-[200px] group-hover:bg-black/50 group-hover:duration-500">
-                                    <BsCameraFill className="absolute top-1/2 left-1/2 -translate-x-1/2  translate-y-2 text-4xl text-success opacity-0 group-hover:-translate-y-1/2 group-hover:opacity-100 group-hover:duration-500" />
-                                </label>
-                            </div>
-                            <input
-                                type="file"
-                                id="file"
-                                className="invisible absolute"
-                                {...register("thumbnail", { required: false, onChange: (e) => getCurrentImage(e) })}
-                            />
-                        </div>
-                        <div className="form-control">
-                            <label htmlFor="" className="label">
-                                <span className="label-text">Playlist's title</span>
-                            </label>
-
-                            <input
-                                type="text"
-                                className="input-bordered input"
-                                placeholder="Title"
-                                {...register("title", {
-                                    required: "Provide a title!",
-                                    minLength: {
-                                        value: 3,
-                                        message: "Playlist's title should have at least 6 characters!"
-                                    }
-                                })}
-                            />
-                            {errors.title && <small className="error-message">{errors.title?.message}</small>}
-                        </div>
-                        <div className="form-control">
-                            <label htmlFor="" className="label">
-                                <span className="label-text">Make it public</span>
-                                <input type="checkbox" className="toggle-success toggle" {...register("public")} />
-                            </label>
-                        </div>
-                        <div className="form-control">
-                            <Button isLoading={isUploading} color="success">
-                                Save
-                            </Button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </Fragment>
-    )
+            <Button type="submit" loading={isUploading} color="success" size="md" className="text-lg font-semibold">
+               Save
+            </Button>
+         </Form>
+      </Modal>
+   )
 }
+
+Form.Control = tw.div`form-control`
+const ImageFieldControl = tw.div`mask-square relative rounded-xl`
+ImageFieldControl.Image = tw.img`h-[200px] w-[200px] object-contain`
+ImageFieldControl.Label = tw.label`absolute top-0 h-[200px] w-[200px] group-hover:bg-black/50 group-hover:duration-500`
+ImageFieldControl.Icon = tw(
+   BsCameraFill
+)`absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-2 text-4xl text-success opacity-0 group-hover:-translate-y-1/2 group-hover:opacity-100 group-hover:duration-500`
+ImageFieldControl.Input = tw.input`invisible absolute`
+const Label = tw.label`label`
+Label.Text = tw.span`label-text`
+
 export default CreatePlaylistModal
