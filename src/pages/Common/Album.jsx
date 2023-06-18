@@ -1,16 +1,15 @@
-import { useFetchSingleAlbumQuery } from "@/providers/api/albumApi"
 import ErrorBoundary from "@/components/error/ErrorBoundary"
 import TrackList from "@/components/shared/Track/TrackList"
 import { AppContext } from "@/context/AppProvider"
+import { useFetchSingleAlbumQuery } from "@/providers/api/albumApi"
+import { setCurrentPlaylist } from "@/providers/slices/queueSlice"
 import { useContext } from "react"
+import { Button, Dropdown } from "react-daisyui"
 import { BsPauseFill, BsPlayFill, BsThreeDots } from "react-icons/bs"
-import Hero from "react-daisyui"
+import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from "react-router-dom"
 import HeroBanner from "../../components/customs/HeroBanner"
 import DefaultThumbnail from "/images/default-thumbnail.png"
-import { setCurrentPlaylist } from "@/providers/reducers/queueSlice"
-import { useDispatch, useSelector } from "react-redux"
-import { Button, Dropdown } from "react-daisyui"
 
 const AlbumPage = () => {
    const { id } = useParams()
@@ -47,7 +46,7 @@ const AlbumPage = () => {
             <Button shape="circle" color="success" className="text-xl sm:text-sm" onClick={togglePlayPlaylist}>
                {playState ? <BsPauseFill /> : <BsPlayFill />}
             </Button>
-            <Dropdown>
+            <Dropdown open={false}>
                <Dropdown.Toggle color="ghost">
                   <BsThreeDots />
                </Dropdown.Toggle>

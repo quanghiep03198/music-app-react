@@ -7,7 +7,7 @@ import PageNavigator from "./PageNavigator"
 import SearchBox from "./SearchBox"
 import UserController from "./UserController"
 import { Tooltip } from "react-daisyui"
-import { Paths } from "@/config/paths.config"
+import { Paths } from "@/configs/paths.config"
 
 const Navbar = () => {
    const { authenticated } = useSelector((state) => state.auth)

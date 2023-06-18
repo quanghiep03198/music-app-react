@@ -7,6 +7,8 @@ import Loading from "../../components/customs/Loading"
 import ErrorBoundary from "../../components/error/ErrorBoundary"
 import Footer from "./components/Footer"
 import Navbar from "./components/Navbar"
+import { Menu } from "react-daisyui"
+import tw from "tailwind-styled-components"
 
 const Account = () => {
    const { data } = useFetchUserDataQuery(undefined)
@@ -23,38 +25,38 @@ const Account = () => {
          <div className="drawer">
             <input id="sidebar-toggle" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex min-h-screen flex-col justify-between">
-               <Navbar use={data} />
+               <Navbar user={data} />
                <div className="bg-neutral ">
                   <div className="mx-auto grid h-screen max-w-7xl grid-cols-[1fr,3fr] items-stretch gap-4 bg-base-100 sm:grid-cols-1">
-                     <aside className="bg-base-200 p-3 sm:hidden md:hidden">
-                        <ul className="menu">
-                           <li>
+                     <Aside>
+                        <Menu>
+                           <Menu.Item>
                               <Link to="/account">
                                  <BsPerson /> Overall
                               </Link>
-                           </li>
-                           <li>
+                           </Menu.Item>
+                           <Menu.Item>
                               <Link to="/account">
                                  <BsPencil /> Edit profile
                               </Link>
-                           </li>
-                           <li>
+                           </Menu.Item>
+                           <Menu.Item>
                               <Link to="/account/change-password">
                                  <BsKey /> Change password
                               </Link>
-                           </li>
-                        </ul>
-                     </aside>
-                     <Suspense
-                        fallback={
-                           <LoadingWrapper>
-                              <Loading />
-                           </LoadingWrapper>
-                        }>
-                        <div className="p-3">
+                           </Menu.Item>
+                        </Menu>
+                     </Aside>
+                     <div className="p-3">
+                        <Suspense
+                           fallback={
+                              <LoadingWrapper>
+                                 <Loading />
+                              </LoadingWrapper>
+                           }>
                            <Outlet />
-                        </div>
-                     </Suspense>
+                        </Suspense>
+                     </div>
                   </div>
                </div>
                <Footer />
@@ -63,5 +65,7 @@ const Account = () => {
       </ErrorBoundary>
    )
 }
+
+const Aside = tw.aside`bg-base-200 p-3 sm:hidden md:hidden`
 
 export default Account

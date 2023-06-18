@@ -14,7 +14,7 @@ import classNames from "classnames"
 const Search = () => {
    const { data, isFetching, isError } = useFetchAllGenresQuery(undefined)
    const { searchResult } = useContext(AppContext)
-   const [tabValue, setTabValue] = useState()
+   const [tabValue, setTabValue] = useState("All")
 
    const tabData = useMemo(
       () => [
@@ -76,7 +76,7 @@ const Search = () => {
    if (searchResult)
       return (
          <Fragment>
-            <Tabs onChange={setTabValue} variant="lifted" size="lg">
+            <Tabs onChange={setTabValue} value={tabValue} variant="lifted" size="lg">
                {tabData.map((item) => (
                   <Tabs.Tab size="lg" color="success" value={item.title}>
                      {item.title}

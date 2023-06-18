@@ -1,6 +1,6 @@
 import HeroBanner from "@/components/customs/HeroBanner"
 import { useDeleteUserPlaylistMutation, useFetchSinglePlaylistQuery } from "@/providers/api/playlistApi"
-import { setCurrentPlaylist } from "@/providers/reducers/queueSlice"
+import { setCurrentPlaylist } from "@/providers/slices/queueSlice"
 import { Fragment, useContext } from "react"
 import { Button, Dropdown } from "react-daisyui"
 import { BiPlus } from "react-icons/bi"
@@ -8,10 +8,10 @@ import { BsPauseFill, BsPencil, BsPlayFill, BsThreeDots, BsTrash } from "react-i
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
-import { SkeletonCardTitle, SkeletonTextCard } from "../../components/customs/Card"
+import tw from "tailwind-styled-components"
 import TrackList from "../../components/shared/Track/TrackList"
 import { AppContext } from "../../context/AppProvider"
-import DefaultThumbnail from "/images/default-album-image.png"
+import DefaultThumbnail from "/images/default-thumbnail.png"
 
 const Playlist = () => {
    const { id } = useParams()
@@ -31,20 +31,24 @@ const Playlist = () => {
    }
 
    const handleDeletePlaylist = (id) => {
-      deletePlaylist(id)
-         .then(() => navigate("/"))
-         .catch((error) => toast.error("Opps! Something went wrong!"))
+      try {
+         deletePlaylist(id)
+         navigate("/")
+         toast.info("Deleted playlist!")
+      } catch (error) {
+         toast.error("Opps! Something went wrong!")
+      }
    }
 
    return (
       <div className="flex h-screen flex-col gap-10">
          <section className="group relative">
-            <HeroBanner heroImageUrl={data?.thumbnail !== "" ? data?.thumbnail : DefaultThumbnail}>
+            <HeroBanner heroImageUrl={data?.thumbnail ?? DefaultThumbnail}>
                {isFetching ? (
                   <div className="flex flex-col gap-3">
-                     <SkeletonCardTitle />
-                     <SkeletonTextCard />
-                     <SkeletonTextCard />
+                     <Skeleton className="h-3 w-20" />
+                     <Skeleton className="h-3 w-20" />
+                     <Skeleton className="h-3 w-20" />
                   </div>
                ) : (
                   <Fragment>
@@ -86,11 +90,11 @@ const Playlist = () => {
             </Dropdown>
          </section>
 
-         <section>
-            <TrackList data={data?.tracks} status={{ isFetching: isFetching }} />
-         </section>
+         <TrackList data={data?.tracks} status={{ isFetching: isFetching }} />
       </div>
    )
 }
+
+const Skeleton = tw.div`animate-pulse rounded-full`
 
 export default Playlist

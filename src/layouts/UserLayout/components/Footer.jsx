@@ -3,7 +3,7 @@ import Logo from "/images/logo.png"
 
 const Footer = () => {
    return (
-      <footer className=" bg-base-300 p-10 text-base-content">
+      <footer className="bg-base-300 p-10 text-base-content">
          <div className="footer mx-auto max-w-7xl">
             <div>
                <img src={Logo} alt="" className="max-w-[10rem] -translate-x-4 object-contain" />

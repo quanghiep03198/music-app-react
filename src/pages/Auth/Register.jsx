@@ -41,7 +41,7 @@ const RegisterPage = () => {
       <Hero className="min-h-screen bg-base-200">
          <Hero.Content className="text-center">
             <div className="max-w-md">
-               <Card className="glass card w-full max-w-sm flex-shrink-0 shadow-2xl">
+               <Card className="card glass w-full max-w-sm flex-shrink-0 shadow-2xl">
                   <Card.Body className="text-left">
                      <img src={Logo} className=" max-w-full object-cover text-center" />
 

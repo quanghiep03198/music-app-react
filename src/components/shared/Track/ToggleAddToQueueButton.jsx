@@ -1,5 +1,5 @@
-import { addToQueue, removeFromQueue } from "@/providers/reducers/queueSlice"
-import { Fragment, useEffect, useState } from "react"
+import { addToQueue, removeFromQueue } from "@/providers/slices/queueSlice"
+import { useEffect, useState } from "react"
 import { Swap } from "react-daisyui"
 import { BiPlus } from "react-icons/bi"
 import { HiOutlineMinus } from "react-icons/hi"

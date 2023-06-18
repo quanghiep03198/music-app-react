@@ -1,6 +1,6 @@
 import useLocalStorage from "@/hooks/useLocalStorage"
 import { useLoginWithEmailMutation } from "@/providers/api/authApi"
-import { loginWithGoogle } from "@/providers/reducers/authSlice"
+import { loginWithGoogle } from "@/providers/slices/authSlice"
 import { useGoogleLogin } from "@react-oauth/google"
 import axios from "axios"
 import { useEffect, useRef } from "react"
@@ -12,7 +12,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import tw from "tailwind-styled-components"
 import Logo from "/images/logo.png"
-import { Paths } from "@/config/paths.config"
+import { Paths } from "@/configs/paths.config"
+import Typography from "@/components/customs/Typography"
 
 const LoginPage = () => {
    const {
@@ -68,7 +69,9 @@ const LoginPage = () => {
       <Hero className="h-screen">
          <Hero.Content className="flex-col xl:flex-row-reverse">
             <Hero.Caption>
-               <h1 className="text-5xl font-bold">Login now!</h1>
+               <Typography size="5xl" fontWeight="bold">
+                  Login now!
+               </Typography>
                <p className="py-6 text-xl sm:text-base xxl:whitespace-normal">
                   Millions of songs are waiting for you. Login to experience more and more interesting features
                </p>

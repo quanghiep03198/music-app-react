@@ -1,4 +1,4 @@
-import { logout } from "@/providers/reducers/authSlice"
+import { logout } from "@/providers/slices/authSlice"
 import store from "@/providers/store"
 import checkJsonType from "@/utils/checkJsonType"
 import axios from "axios"
@@ -36,13 +36,14 @@ instance.interceptors.response.use(
             return Promise.reject(error)
          }
          // Cancel request
-         const refreshToken = await instance.get("/refresh-token/" + JSON.parse(uid))
-         if (!refreshToken) {
+         try {
+            const refreshToken = await instance.get("/refresh-token/" + JSON.parse(uid))
+            instance.setAccessToken(refreshToken)
+            return axios.request(error.config)
+         } catch (error) {
             store.dispatch(logout())
             return Promise.reject(error)
          }
-         instance.setAccessToken(refreshToken)
-         return axios.request(error.config)
       }
       return Promise.reject(error)
    }

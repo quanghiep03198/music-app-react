@@ -11,7 +11,7 @@ const Navbar = () => {
          <div className="navbar mx-auto w-full max-w-7xl">
             <div className="navbar-start">
                <div className="hidden flex-none sm:block md:block">
-                  <label htmlFor="my-drawer-3" className="btn-ghost btn-sm btn-square btn">
+                  <label htmlFor="my-drawer-3" className="btn-ghost btn-square btn-sm btn">
                      <HiBars3CenterLeft />
                   </label>
                </div>

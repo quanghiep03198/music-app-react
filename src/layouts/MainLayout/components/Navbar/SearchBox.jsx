@@ -1,5 +1,5 @@
 import Loading from "@/components/customs/Loading"
-import axios from "@/config/axios.config"
+import axios from "@/configs/axios.config"
 import { AppContext } from "@/context/AppProvider"
 import useDebounce from "@/hooks/userDebounce"
 import { useContext, useId } from "react"

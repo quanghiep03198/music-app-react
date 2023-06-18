@@ -1,4 +1,4 @@
-import { setCurrentTrack } from "@/providers/reducers/queueSlice"
+import { setCurrentTrack } from "@/providers/slices/queueSlice"
 import { AppContext } from "@/context/AppProvider"
 import { useContext, useEffect, useState } from "react"
 import { BsPauseCircle, BsPlayCircle, BsShuffle, BsSkipBackwardFill, BsSkipForwardFill } from "react-icons/bs"

@@ -1,4 +1,5 @@
-import { AppContext } from "@/context/AppProvider"
+import Typography from "@/components/customs/Typography"
+import { AppContext, ModalActionEnum } from "@/context/AppProvider"
 import { useEditTrackListMutation, useFetchUserPlaylistsQuery } from "@/providers/api/playlistApi"
 import { useContext, useState } from "react"
 import { Button, Modal } from "react-daisyui"
@@ -10,8 +11,7 @@ import tw from "tailwind-styled-components"
 const PlaylistListModal = () => {
    const { uid, authenticated } = useSelector((state) => state.auth)
    const [playlistToAdd, setPlaylistToAdd] = useState(null)
-   const { trackToEditPlaylist, modalStates, handleToggleModal } = useContext(AppContext)
-
+   const { trackToEditPlaylist, modalStates, handleToggleModal, setTrackToEditPlaylist } = useContext(AppContext)
    const { data } = useFetchUserPlaylistsQuery(
       {
          id: uid,
@@ -27,40 +27,50 @@ const PlaylistListModal = () => {
          if (playlist.tracks.some((track) => track._id === trackToEditPlaylist?._id)) {
             return
          }
-         const response = await addToPlaylist({ id: playlist._id, payload: { track: trackToEditPlaylist._id } }).unwrap()
-         if (response) toast.success(`Added to ${playlist.title}`)
-      } catch (error) {}
+         await addToPlaylist({ id: playlist._id, payload: { track: trackToEditPlaylist._id } })
+         toast.success(`Added to ${playlist.title}`)
+      } catch (error) {
+         toast.error("Opps! Something went wrong!")
+      }
    }
-   const handleCloseModal = () => {}
+
+   const handleCloseModal = () => {
+      handleToggleModal({ type: ModalActionEnum.TOGGLE_COLLECTION_MODAL })
+      setTrackToEditPlaylist(null)
+   }
+
    return (
       <Modal open={modalStates.collectionModalState} onClickBackdrop={handleCloseModal}>
-         <Button color="ghost" shape="circle" startIcon={HiXMark} />
+         <Button color="ghost" shape="circle" className="absolute right-2 top-2" onClick={handleCloseModal}>
+            <HiXMark className="text-lg" />
+         </Button>
 
-         <Modal.Body className="modal-box relative">
-            <h3 className="mb-6 text-center text-xl font-medium capitalize">add to playlist</h3>
+         <Modal.Body>
+            <Typography size="xl" fontWeight="medium" align="center" className="mb-6 capitalize">
+               add to playlist
+            </Typography>
 
-            <Modal.Form>
+            <List>
                {Array.isArray(data) &&
                   data.map((playlist) => (
-                     <label
-                        className="label rounded-lg p-3 hover:bg-neutral/50 hover:duration-500"
-                        key={playlist?._id}
-                        onClick={() => handleAddToPlaylist(playlist)}>
+                     <List.Item key={playlist?._id} onClick={() => handleAddToPlaylist(playlist)}>
                         {playlist.title}
                         <Button
-                           isLoading={isLoading && playlistToAdd._id === playlist._id}
+                           size="sm"
+                           loading={isLoading && playlistToAdd._id === playlist._id}
                            disabled={playlist.tracks.some((track) => track._id === trackToEditPlaylist?._id)}
                            color="success">
                            Add to playlist
                         </Button>
-                     </label>
+                     </List.Item>
                   ))}
-            </Modal.Form>
+            </List>
          </Modal.Body>
       </Modal>
    )
 }
 
-Modal.Form = tw.div`flex flex-col gap-1`
+const List = tw.div`flex flex-col gap-1`
+List.Item = tw.div`label rounded-lg p-3 hover:bg-neutral/50 hover:duration-500`
 
 export default PlaylistListModal

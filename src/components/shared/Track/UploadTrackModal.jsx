@@ -1,16 +1,15 @@
 import Typography from "@/components/customs/Typography"
 import { AppContext, ModalActionEnum } from "@/context/AppProvider"
-import useFirebaseUpload from "@/hooks/useFirebaseUpload"
 import { useFetchArtistsQuery } from "@/providers/api/artistApi"
 import { useFetchAllGenresQuery } from "@/providers/api/genreApi"
 import { useCreateTrackMutation } from "@/providers/api/trackApi"
-import { Fragment, useContext, useRef, useState } from "react"
+import { Fragment, useContext, useId, useRef, useState } from "react"
 import { Button, FileInput, Form, Input, Modal, Select } from "react-daisyui"
 import { useForm } from "react-hook-form"
 import { BsCameraFill, BsX } from "react-icons/bs"
 import { toast } from "react-toastify"
 import tw from "tailwind-styled-components"
-import DefaultPlaylistImage from "/images/default-album-image.png"
+import DefaultPlaylistImage from "/images/default-thumbnail.png"
 
 const UploadTrackModal = () => {
    const { modalStates, handleToggleModal } = useContext(AppContext)
@@ -18,27 +17,28 @@ const UploadTrackModal = () => {
    const [createNewTrack, { isLoading }] = useCreateTrackMutation()
    const { data: artists } = useFetchArtistsQuery({ skip: 0, limit: 100 })
    const { data: genres } = useFetchAllGenresQuery(undefined)
-   const trackThumbnailRef = useRef(null)
-   const closeModalButtonRef = useRef(null)
+   const imageRef = useRef(null)
    const audioRef = useRef(null)
-   const { upload, isUploading, isError } = useFirebaseUpload()
    const [duration, setDuration] = useState(0)
+   const [image, setImage] = useState(DefaultPlaylistImage)
+   const id = useId()
 
    // show preview thumbnail
    const getCurrentImage = (e) => {
+      console.log("e.target.files :>> ", e.target.files)
       const url = URL.createObjectURL(e.target.files[0])
-      trackThumbnailRef.current.src = url
+      setImage(url)
    }
 
    // close modal
    const handleCloseModal = () => {
       handleToggleModal({ type: ModalActionEnum.TOGGLE_UPLOAD_MODAL })
       reset()
-      trackThumbnailRef.current.src = DefaultPlaylistImage
+      setImage(DefaultPlaylistImage)
    }
 
    // get song duration
-   const setCurrentUploadFile = async (e) => {
+   const getTrackDuration = async (e) => {
       audioRef.current.src = URL.createObjectURL(e.target.files[0])
       audioRef.current.preload = "metadata"
       const duration = await new Promise((resolve) => {
@@ -52,20 +52,20 @@ const UploadTrackModal = () => {
    // upload file
    const onSubmit = async (data) => {
       try {
-         data.thumbnail = data.thumbnail.length > 0 ? await upload("pictures/", data.thumbnail[0]) : undefined
-         const downloadUrl = await upload("music/", data.file[0])
+         const form = new FormData()
+         form.append("title", data.title)
+         form.append("artists", data.artists)
+         form.append("genre", data.genre)
+         form.append("file", data.file[0])
+         form.append("duration", duration)
+         if (data.thumbnail.length > 0) form.append("thumbnail", data.thumbnail[0])
 
-         const response = await createNewTrack({
-            thumbnail: data.thumbnail,
-            title: data.title,
-            downloadUrl: downloadUrl,
-            trackSrc: downloadUrl,
-            duration: duration
-         })
-         closeModalButtonRef.current.click()
-         toast.success("Created new playlist!")
+         await createNewTrack(form)
+         toast.success("Created new track!")
       } catch (error) {
-         return await Promise.reject(error)
+         toast.error("Failed to upload !")
+      } finally {
+         handleCloseModal()
       }
    }
 
@@ -73,23 +73,19 @@ const UploadTrackModal = () => {
       <Fragment>
          <audio className="hidden" ref={audioRef} />
          <Modal open={modalStates.uploadModalState} onClickBackdrop={handleCloseModal}>
-            <Button shape="circle" color="ghost" className="absolute right-2 top-2" onClick={handleCloseModal} ref={closeModalButtonRef}>
-               <BsX />
+            <Button shape="circle" color="ghost" className="absolute right-2 top-2" onClick={handleCloseModal}>
+               <BsX className="text-lg" />
             </Button>
             <Modal.Body>
-               <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+               <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6" encType="multipart/form-data">
                   <Form.Control className="self-center">
                      <Typography className="text-center">Choose an image</Typography>
                      <ImageFieldControl className="group">
-                        <ImageFieldControl.Image src={DefaultPlaylistImage} alt="" ref={trackThumbnailRef} />
-                        <ImageFieldControl.Label htmlFor="track-thumbnail">
+                        <img className="h-[200px] w-[200px] object-contain" src={image} alt="" ref={imageRef} />
+                        <ImageFieldControl.Label htmlFor={id}>
                            <ImageFieldControl.Icon />
                         </ImageFieldControl.Label>
-                        <ImageFieldControl.Input
-                           type="file"
-                           id="track-thumbnail"
-                           {...register("thumbnail", { required: false, onChange: (e) => getCurrentImage(e) })}
-                        />
+                        <input className="hidden" type="file" id={id} {...register("thumbnail", { required: false, onChange: (e) => getCurrentImage(e) })} />
                      </ImageFieldControl>
                   </Form.Control>
                   <Form.Control>
@@ -108,7 +104,7 @@ const UploadTrackModal = () => {
                      {errors.title && <small className="error-message">{errors.title?.message}</small>}
                   </Form.Control>
                   <Form.Control>
-                     <Select className="select-bordered select">
+                     <Select className="select-bordered select" {...register("genre")}>
                         <Select.Option>-- Pick a genre --</Select.Option>
                         {Array.isArray(genres) &&
                            genres.map((genre) => (
@@ -119,7 +115,7 @@ const UploadTrackModal = () => {
                      </Select>
                   </Form.Control>
                   <Form.Control>
-                     <Select className="select-bordered select">
+                     <Select className="select-bordered select" {...register("artists")}>
                         <Select.Option value="">-- Tribute to an artist --</Select.Option>
                         {Array.isArray(artists) &&
                            artists.map((artist) => (
@@ -136,14 +132,14 @@ const UploadTrackModal = () => {
                         {...register("file", {
                            required: "Provide a file!"
                         })}
-                        onChange={(e) => setCurrentUploadFile(e)}
+                        onChange={(e) => getTrackDuration(e)}
                      />
                      {errors.file && <small className="error-message">{errors.file?.message}</small>}
                   </Form.Control>
 
                   <Form.Control>
-                     <Button isLoading={isUploading} color="success" className="text-lg">
-                        Save
+                     <Button loading={isLoading} color="success" className="text-lg">
+                        Upload
                      </Button>
                   </Form.Control>
                </Form>

@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react"
 import { Hero } from "react-daisyui"
 import { SkeletonImage } from "./Card"
-import DefaultAlbumThumbnail from "/images/default-album-image.png"
+import DefaultAlbumThumbnail from "/images/default-thumbnail.png"
 import tw from "tailwind-styled-components"
 import classNames from "classnames"
 

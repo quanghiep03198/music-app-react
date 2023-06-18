@@ -13,24 +13,24 @@ const AudioPlayerWrapper = tw.div`w-full flex flex-wrap xl:flex-nowrap xxl:flex-
 const AudioControllerWrapper = tw.div`flex flex-col gap-1 justify-center items-center flex-1 sm:basis-full md:basis-full sm:order-3 md:order-3 sm:hidden`
 
 const AudioPlayer = () => {
-    const audioRef = useRef()
-    const { currentTrack } = useSelector((state) => state.queue)
-    const { playState, setPlayState } = useContext(AppContext)
-    useEffect(() => {
-        playState ? audioRef.current.play() : audioRef.current.pause()
-    }, [playState, currentTrack])
+   const audioRef = useRef()
+   const { currentTrack } = useSelector((state) => state.queue)
+   const { playState, setPlayState } = useContext(AppContext)
+   useEffect(() => {
+      playState ? audioRef.current.play() : audioRef.current.pause()
+   }, [playState, currentTrack])
 
-    return (
-        <AudioPlayerWrapper>
-            <TrackInfo />
-            <AudioControllerWrapper>
-                <audio src={currentTrack?.trackSrc} preload="metadata" ref={audioRef} />
-                <AudioSeekBar audioRef={audioRef} />
-                <AudioButtonGroup audioRef={audioRef} />
-            </AudioControllerWrapper>
-            <TrackActions audioRef={audioRef} />
-        </AudioPlayerWrapper>
-    )
+   return (
+      <AudioPlayerWrapper>
+         <TrackInfo />
+         <AudioControllerWrapper>
+            <audio src={currentTrack?.trackSrc} preload="metadata" ref={audioRef} />
+            <AudioSeekBar audioRef={audioRef} />
+            <AudioButtonGroup audioRef={audioRef} />
+         </AudioControllerWrapper>
+         <TrackActions audioRef={audioRef} />
+      </AudioPlayerWrapper>
+   )
 }
 
 export default AudioPlayer

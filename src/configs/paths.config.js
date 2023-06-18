@@ -16,9 +16,12 @@ export const Paths = {
    RESET_PASSWORD: "/account/reset-password"
 }
 
+/**
+ * @enum
+ */
 export const AdminPaths = {
    DEFAULT: "/admin",
-   ARTISTS: "/artists",
-   TRACKS: "/tracks",
-   GENRES: "/genres"
+   ARTISTS: "/admin/artists",
+   TRACKS: "/admin/tracks",
+   GENRES: "/admin/genres"
 }

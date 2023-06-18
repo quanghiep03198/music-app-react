@@ -1,4 +1,4 @@
-import swiperBreakpoints from "@/config/swiperBreakpoint.config"
+import swiperBreakpoints from "@/configs/swiperBreakpoint.config"
 import { useRef } from "react"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { FreeMode, Navigation } from "swiper"

@@ -1,5 +1,4 @@
 import { useFetchTrackCollectionQuery, useUpdateTrackCollectionMutation } from "@/providers/api/collectionApi"
-
 import { memo, useEffect, useState } from "react"
 import { Swap } from "react-daisyui"
 import { BsHeart, BsHeartFill } from "react-icons/bs"
@@ -22,6 +21,7 @@ const ToggleLikeTrackButton = () => {
          setIsLiked(isLiked)
       }
    }, [data, authenticated])
+
    const toggleLikeTrack = async (track) => {
       try {
          if (!authenticated) {
@@ -39,9 +39,7 @@ const ToggleLikeTrackButton = () => {
          toast.error("Opps! Something went wrong!")
       }
    }
-   return (
-      <Swap offElement={<BsHeart />} onElement={<BsHeartFill className="text-success" />} checked={isLiked} onChange={() => toggleLikeTrack(currentTrack)} />
-   )
+   return <Swap offElement={<BsHeart />} onElement={<BsHeartFill className="text-success" />} active={isLiked} onChange={() => toggleLikeTrack(currentTrack)} />
 }
 
 export default memo(ToggleLikeTrackButton)

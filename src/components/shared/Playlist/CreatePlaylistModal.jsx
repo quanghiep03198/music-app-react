@@ -1,25 +1,21 @@
 import Typography from "@/components/customs/Typography"
 import { AppContext, ModalActionEnum } from "@/context/AppProvider"
-import useFirebaseUpload from "@/hooks/useFirebaseUpload"
 import { useCreatePlaylistMutation } from "@/providers/api/playlistApi"
-import { useContext, useRef } from "react"
-import { Button, FileInput, Form, Input, Mask, Modal, Toggle } from "react-daisyui"
+import { useContext, useId, useRef } from "react"
+import { Button, FileInput, Form, Input, Modal, Toggle } from "react-daisyui"
 import { useForm } from "react-hook-form"
 import { BsCameraFill, BsX } from "react-icons/bs"
-import { useSelector } from "react-redux"
 import { toast } from "react-toastify"
-import DefaultPlaylistImage from "/images/default-album-image.png"
 import tw from "tailwind-styled-components"
+import DefaultPlaylistImage from "/images/default-thumbnail.png"
 
 const CreatePlaylistModal = () => {
    const { register, formState: errors, handleSubmit, reset } = useForm()
-   const creator = useSelector((state) => state.auth?.uid)
    const [createNewPlaylist, { isLoading }] = useCreatePlaylistMutation()
    const { modalStates, handleToggleModal } = useContext(AppContext)
    const imageRef = useRef(null)
-   const closeModalButtonRef = useRef(null)
+   const id = useId()
 
-   const { upload, isUploading, isError } = useFirebaseUpload()
    const getCurrentImage = (e) => {
       const url = URL.createObjectURL(e.target.files[0])
       imageRef.current.src = url
@@ -33,37 +29,37 @@ const CreatePlaylistModal = () => {
 
    const onSubmit = async (data) => {
       try {
-         const thumbnail = data.thumbnail.length > 0 ? await upload("pictures/", data.thumbnail[0]) : undefined
-         await createNewPlaylist({ thumbnail: thumbnail, title: data.title })
-         closeModalButtonRef.current.click()
-         toast.success("Created new playlist!")
+         const form = new FormData()
+         if (data.thumbnail.length > 0) form.append("thumbnail", data.thumbnail[0])
+         form.append("title", data.title)
+         form.append("public", data.public)
+         await createNewPlaylist(form)
+         toast.success("Created new playlist !")
       } catch (error) {
-         console.log(error.message)
+         toast.error("Failed to create playlist !")
+      } finally {
+         handleCloseModal()
       }
    }
 
    return (
       <Modal open={modalStates.createPlaylistModalState} onClickBackdrop={handleCloseModal}>
-         <Button color="ghost" shape="circle" className="absolute right-2 top-2" onClick={handleCloseModal} ref={closeModalButtonRef}>
-            <BsX />
+         <Button color="ghost" shape="circle" className="absolute right-2 top-2" onClick={handleCloseModal}>
+            <BsX className="text-lg" />
          </Button>
          <Form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
             <Form.Control className="self-center">
                <Typography className="text-center">Choose an image</Typography>
                <ImageFieldControl className="group">
                   <ImageFieldControl.Image src={DefaultPlaylistImage} alt="" ref={imageRef} />
-                  <ImageFieldControl.Label htmlFor="track-thumbnail">
+                  <ImageFieldControl.Label htmlFor={id}>
                      <ImageFieldControl.Icon />
                   </ImageFieldControl.Label>
-                  <ImageFieldControl.Input
-                     type="file"
-                     id="track-thumbnail"
-                     {...register("thumbnail", { required: false, onChange: (e) => getCurrentImage(e) })}
-                  />
+                  <ImageFieldControl.Input type="file" id={id} {...register("thumbnail", { required: false, onChange: (e) => getCurrentImage(e) })} />
                </ImageFieldControl>
                <FileInput
                   type="file"
-                  id="file"
+                  id={id}
                   className="invisible absolute"
                   {...register("thumbnail", { required: false, onChange: (e) => getCurrentImage(e) })}
                />
@@ -94,7 +90,7 @@ const CreatePlaylistModal = () => {
                </Label>
             </Form.Control>
 
-            <Button type="submit" loading={isUploading} color="success" size="md" className="text-lg font-semibold">
+            <Button type="submit" loading={isLoading} color="success" size="md" className="text-lg font-semibold">
                Save
             </Button>
          </Form>

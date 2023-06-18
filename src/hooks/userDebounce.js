@@ -1,23 +1,23 @@
-import { useRef, useState } from "react";
+import { useRef, useState } from "react"
 
 const useDebounce = (callback, timeout) => {
-   const timerId = useRef(null);
-   const [isDone, setIsDone] = useState(false);
-   timeout = timeout || 0;
+   const timerId = useRef(null)
+   const [isDone, setIsDone] = useState(false)
+   timeout = timeout || 0
    return [
       (...args) => {
          if (timerId.current) {
-            clearTimeout(timerId.current);
-            timerId.current = null;
-            setIsDone(true);
+            clearTimeout(timerId.current)
+            timerId.current = null
+            setIsDone(true)
          }
          timerId.current = setTimeout(() => {
-            setIsDone(false);
-            callback(...args);
-         }, timeout);
+            setIsDone(false)
+            callback(...args)
+         }, timeout)
       },
-      isDone,
-   ];
-};
+      isDone
+   ]
+}
 
-export default useDebounce;
+export default useDebounce

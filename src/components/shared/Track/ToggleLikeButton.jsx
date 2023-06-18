@@ -20,7 +20,6 @@ const ToggleLikeButton = ({ track }) => {
          let isLiked = trackCollection.some((item) => item._id === track._id)
          setIsLiked(isLiked)
       }
-      console.log("trackCollection :>> ", trackCollection)
    }, [trackCollection, authenticated])
 
    const handleUpdateTrackColleciton = async (track) => {

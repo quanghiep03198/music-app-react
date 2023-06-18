@@ -13,31 +13,31 @@ import playlistApi from "./api/playlistApi"
 import trackApi from "./api/trackApi"
 
 const persistConfig = {
-    key: "root",
-    storage,
-    whitelist: ["auth", "queue", "collection"]
+   key: "root",
+   storage,
+   whitelist: ["auth", "queue", "collection"]
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const currentEnv = import.meta.env.VITE_NODE_ENV // get current environment
 
 const store = configureStore({
-    reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-            }
-        }).concat([
-            trackApi.middleware,
-            playlistApi.middleware,
-            artistApi.middleware,
-            albumApi.middleware,
-            genreApi.middleware,
-            collectionApi.middleware,
-            authApi.middleware
-        ])
-    // devTools: currentEnv.toLowerCase() === "development"
+   reducer: persistedReducer,
+   middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+         serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+         }
+      }).concat([
+         trackApi.middleware,
+         playlistApi.middleware,
+         artistApi.middleware,
+         albumApi.middleware,
+         genreApi.middleware,
+         collectionApi.middleware,
+         authApi.middleware
+      ])
+   // devTools: currentEnv.toLowerCase() === "development"
 })
 
 // option to use refetchOnMountedOrArgsChange

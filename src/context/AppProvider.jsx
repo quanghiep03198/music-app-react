@@ -19,7 +19,7 @@ export const modalReducer = (state, action) => {
       case ModalActionEnum.TOGGLE_UPLOAD_MODAL:
          return { ...state, uploadModalState: !state.uploadModalState }
       case ModalActionEnum.TOGGLE_COLLECTION_MODAL:
-         return { ...state, collectionModalState: !state.playlistModalState }
+         return { ...state, collectionModalState: !state.collectionModalState }
       case ModalActionEnum.TOGGLE_CREATE_PLAYLIST_MODAL:
          return { ...state, createPlaylistModalState: !state.createPlaylistModalState }
    }

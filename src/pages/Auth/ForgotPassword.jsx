@@ -17,6 +17,7 @@ const ForgotPassword = () => {
    const navigate = useNavigate()
    const { ref } = register("email")
    const [isLoading, setIsLoading] = useState(false)
+
    useEffect(() => {
       emailRef.current.scrollIntoView({ behavior: "smooth" })
    })
@@ -40,11 +41,10 @@ const ForgotPassword = () => {
    return (
       <Hero className="min-h-screen bg-base-200">
          <Hero.Content className="hero-content text-center">
-            <div className="max-w-md">
-               <div className="glass card w-full max-w-sm flex-shrink-0 shadow-2xl">
-                  <Card className="card-body text-left">
+            <Box>
+               <Card className="glass w-full max-w-sm flex-shrink-0 shadow-2xl">
+                  <Card.Body className="text-left">
                      <Image src={Logo} />
-
                      <Form onSubmit={handleSubmit(onSubmit)}>
                         <Form.Control className="form-control">
                            <Label className="label">
@@ -76,14 +76,15 @@ const ForgotPassword = () => {
                            </Button>
                         </Form.Control>
                      </Form>
-                  </Card>
-               </div>
-            </div>
+                  </Card.Body>
+               </Card>
+            </Box>
          </Hero.Content>
       </Hero>
    )
 }
 
+const Box = tw.div`max-w-md`
 const Image = tw.img`max-w-full object-cover text-center`
 const Label = tw.label`label`
 Label.Text = tw.span`label-text`

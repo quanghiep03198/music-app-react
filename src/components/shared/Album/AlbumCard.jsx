@@ -1,7 +1,7 @@
 import { Figure } from "@/components/customs/Card"
 import { AppContext } from "@/context/AppProvider"
 import { useUpdateAlbumsCollectionMutation } from "@/providers/api/collectionApi"
-import { setCurrentPlaylist } from "@/providers/reducers/queueSlice"
+import { setCurrentPlaylist } from "@/providers/slices/queueSlice"
 import axios from "axios"
 import classNames from "classnames"
 import { memo, useContext, useEffect, useState } from "react"
@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import tw from "tailwind-styled-components"
-import DefaultAlbumThumbnail from "/images/default-album-image.png"
+import DefaultAlbumThumbnail from "/images/default-thumbnail.png"
 
 const AlbumCard = ({ albumData }) => {
    const { playState, setPlayState } = useContext(AppContext)
@@ -31,7 +31,7 @@ const AlbumCard = ({ albumData }) => {
       if (albumData._id !== currentPlaylist) {
          const { tracks } = await axios.get(`/albums/${albumData._id}`)
          if (!Array.isArray(tracks) || tracks.length === 0) {
-            toast.info("Album is updating!", { toastId: albumData._id })
+            toast.info("Album has no track!")
             return
          }
          dispatch(setCurrentPlaylist({ listId: albumData._id, tracks: tracks, ...albumData }))
@@ -43,8 +43,7 @@ const AlbumCard = ({ albumData }) => {
 
    const handleToggleAddToLibrary = async (album) => {
       try {
-         const response = await updateAlbumCollection(album)
-         if (!response) throw new Error("Failed to add to your library")
+         await updateAlbumCollection(album)
          setIsLiked(!isLiked)
          !isLiked ? toast.success("Added to your library!") : toast.info("Removed from your library!")
       } catch (error) {
@@ -53,7 +52,7 @@ const AlbumCard = ({ albumData }) => {
    }
 
    return (
-      <Card className="max-w-[280px] rounded-lg p-3">
+      <Card className="group max-w-[280px] rounded-lg bg-base-300 p-3">
          <Figure shape="square">
             {isLoadingImage && <Skeleton className="aspect-[1] w-full" />}
             <Figure.Image
@@ -76,8 +75,8 @@ const AlbumCard = ({ albumData }) => {
             </Button>
          </Figure>
          <Card.Body className="px-0 py-4">
-            <label className="label p-0">
-               <Card.Title tag={Link} to={`/albums/${albumData?._id}`} className="card-title flex-1 truncate hover:link sm:text-base">
+            <div className="label p-0">
+               <Card.Title tag={Link} to={`/albums/${albumData?._id}`} className="flex-1 truncate text-lg hover:link sm:text-base">
                   {albumData?.title}
                </Card.Title>
 
@@ -91,7 +90,7 @@ const AlbumCard = ({ albumData }) => {
                      active={isLiked}
                   />
                )}
-            </label>
+            </div>
             <Link to={`/artist/${albumData?.artist?._id}`} className="truncate text-base-content/50 hover:link sm:text-sm">
                {albumData?.artist?.name}
             </Link>

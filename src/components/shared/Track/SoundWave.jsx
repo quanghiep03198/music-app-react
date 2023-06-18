@@ -1,15 +1,13 @@
-import styles from "./TrackCard.module.css"
+import classNames from "classnames"
 
-const SoundWave = ({ isPlaying }) => {
-    return (
-        <div className={`${styles["sound-wave"]} group-hover:hidden ${!isPlaying && "hidden"}`}>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    )
-}
+const SoundWave = ({ isPlaying }) => (
+   <div className={classNames("sound-wave group-hover:hidden", { hidden: !isPlaying })}>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+   </div>
+)
 
 export default SoundWave

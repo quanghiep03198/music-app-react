@@ -1,16 +1,15 @@
-import { setCurrentPlaylist } from "@/providers/reducers/queueSlice"
+import { setCurrentPlaylist } from "@/providers/slices/queueSlice"
 import { AppContext } from "@/context/AppProvider"
 import useLazyRender from "@/hooks/useLazyRender"
 import { memo, useContext, useRef, useState } from "react"
 import { BsPauseFill, BsPlayFill } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-
 import { Figure, SkeletonImage } from "../../customs/Card"
 import SkeletonCard from "../Skeletons/SkeletonCard"
-import DefaultPlaylistThumbnail from "/images/default-album-image.png"
+import DefaultPlaylistThumbnail from "/images/default-thumbnail.png"
 import { Button, Card } from "react-daisyui"
-import { Paths } from "@/config/paths.config"
+import { Paths } from "@/configs/paths.config"
 
 const PlaylistCard = ({ isFetching, data }) => {
    const dispatch = useDispatch()
@@ -32,7 +31,7 @@ const PlaylistCard = ({ isFetching, data }) => {
          {!isScrolledIntoView ? (
             <SkeletonCard />
          ) : (
-            <Card className="max-w-[280px] bg-base-300 p-3 shadow-lg">
+            <Card className="group max-w-[280px] bg-base-300 p-3 shadow-lg">
                <div className="relative max-w-full">
                   <Link to={`/playlists/${data?._id}`}>
                      <Figure>
@@ -59,11 +58,10 @@ const PlaylistCard = ({ isFetching, data }) => {
                   </Button>
                </div>
                <Card.Body className="px-0 py-4">
-                  <Link>
-                     <Card.Title tag={Link} to={Paths.PLAYLIST.replace(":id", data?._id)} className="hover:link">
-                        {data?.title}
-                     </Card.Title>
-                  </Link>
+                  <Card.Title tag={Link} to={Paths.PLAYLIST.replace(":id", data?._id)} className="text-lg hover:link sm:text-base">
+                     {data?.title}
+                  </Card.Title>
+
                   <p className="text-base-content/50 sm:text-sm">Created at: {data.createdAt && new Date(data.createdAt).toLocaleDateString()}</p>
                </Card.Body>
             </Card>
