@@ -17,15 +17,9 @@ const SkeletonTrackCard = () => {
             </div>
          </div>
 
-         <div>
-            <SkeletonTextCard />
-         </div>
-         <div>
-            <SkeletonTextCard />
-         </div>
-         <div>
-            <SkeletonTextCard />
-         </div>
+         <SkeletonTextCard />
+         <SkeletonTextCard />
+         <SkeletonTextCard />
       </Track>
    )
 }

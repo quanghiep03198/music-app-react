@@ -19,20 +19,7 @@ import ToggleLikeButton from "./ToggleLikeButton"
 import { Paths } from "@/configs/paths.config"
 import DefaultThumbnail from "/images/default-thumbnail.png"
 import classNames from "classnames"
-
-const renderArtists = ({ artists, creator }) =>
-   Array.isArray(artists) ? (
-      artists.map((artist, index) => (
-         <Fragment>
-            <Link key={artist._id} to={Paths.ARTIST.replace(":id", artists._id)}>
-               {artist.name}
-            </Link>
-            {artists.length > 0 && index < artists.length - 1 && ", "}
-         </Fragment>
-      ))
-   ) : (
-      <Link>{creator.username}</Link>
-   )
+import Typography from "@/components/customs/Typography"
 
 const TrackCard = ({ index, track, isPlaylistCreator }) => {
    const location = useLocation()
@@ -46,7 +33,7 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
    const [isLoadingImage, setIsLoadingImage] = useState(true)
    const dispatch = useDispatch()
    const [removeTrackFromPlaylist] = useEditTrackListMutation()
-
+   console.log("track :>> ", track)
    const togglePlay = (track) => {
       if (!isCurrentTrack) {
          dispatch(setCurrentTrack(track))
@@ -86,7 +73,7 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
                <Track.Item role="cell" className="flex items-center gap-2">
                   {isLoadingImage && <Track.ThumbnailSkeleton />}
                   {
-                     <img
+                     <Track.Image
                         alt="thumbnail"
                         src={track?.thumbnail || track?.alternativeThumbnail}
                         loading="eager"
@@ -95,16 +82,16 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
                            currentTarget.onerror = null // prevents looping
                            currentTarget.src = DefaultThumbnail
                         }}
-                        className={classNames("h-14 w-14 rounded-md object-cover sm:h-12 sm:w-12", { hidden: isLoadingImage })}
+                        className={classNames({ hidden: isLoadingImage })}
                      />
                   }
                   <div className="sm:text-sm">
-                     <h6 className={`truncate font-medium capitalize ${isCurrentTrack && "text-success"}`}>{track?.title}</h6>
-                     <p className="text-base-content/50">{renderArtists({ artists: track.artists, creator: track.creator })}</p>
+                     <h3 className={classNames("mb-0 truncate text-base font-medium capitalize", { "text-success": isCurrentTrack })}>{track?.title}</h3>
+                     <Track.Artists artists={track.artists} />
                   </div>
                </Track.Item>
                <Track.Item role="cell">{track.album?.title ?? ""}</Track.Item>
-               <Track.Item role="cell" className="flex items-center gap-2">
+               <Track.Item role="cell" className="flex items-center gap-2 sm:hidden">
                   <BsClock /> {timer(track?.duration)}
                </Track.Item>
                <Track.Item role="cell">
@@ -143,26 +130,22 @@ const TrackCard = ({ index, track, isPlaylistCreator }) => {
    )
 }
 
-export const Track = tw.div`group
-                            grid 
-                            min-h-[60px]
-                            grid-cols-[5%,40%,20%,20%,5%]
-                            items-center
-                            justify-between
-                            gap-0 
-                            sm:gap-2
-                            rounded-lg 
-                            p-1 
-                            hover:bg-neutral/25
-                            sm:grid-cols-[10%,80%,10%]
-                            sm:text-sm
-                            md:grid-cols-[10%,80%,10%]
-                            lg:grid-cols-[10%,80%,10%]
-                            sm:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
-                            md:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden
-                            lg:[&>:not(:first-child):not(:nth-child(2)):not(:last-child)]:hidden duration-300`
-
+export const Track = tw.div`group track-card w-full`
 Track.Item = ({ ...props }) => <div {...props}>{props.children}</div>
 Track.ThumbnailSkeleton = tw.div`animate-pulse h-14 w-14 rounded-lg bg-neutral`
+Track.Image = tw.img`h-14 w-14 rounded-md object-cover sm:h-12 sm:w-12`
+Track.Artists = ({ artists }) => (
+   <div className="text-base-content/50">
+      {Array.isArray(artists) &&
+         artists.map((artist, index) => (
+            <Fragment>
+               <Link key={artist._id} className="hover:link" to={Paths.ARTIST.replace(":id", artist._id)}>
+                  {artist.name}
+               </Link>
+               {index < artists.length - 1 && ", "}
+            </Fragment>
+         ))}
+   </div>
+)
 
 export default memo(TrackCard)

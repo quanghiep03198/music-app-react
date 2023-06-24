@@ -7,6 +7,7 @@ import Typography from "../../components/customs/Typography"
 import ErrorBoundary from "../../components/error/ErrorBoundary"
 import AlbumList from "../../components/shared/Album/AlbumList"
 import TrackList from "../../components/shared/Track/TrackList"
+import Text from "@/components/customs/Text"
 
 const Artist = () => {
    const { id } = useParams()
@@ -23,26 +24,34 @@ const Artist = () => {
                </div>
             ) : (
                <Fragment>
-                  <Typography size="6xl" fontWeight="bold">
+                  <Typography $as="h1" className="mb-6 sm:text-4xl" size="6xl" fontWeight="bold">
                      {data?.artist?.name}
                   </Typography>
-                  <p className="text-lg">{data?.artist.desc}</p>
-                  <p className="text-base">{data?.followers} followers</p>
+                  <Text $as="p" size="lg" fontWeight="normal" className="mb-1 sm:text-sm">
+                     {data?.artist.desc}
+                  </Text>
+                  <Text $as="p" size="base" fontWeight="normal" className="mb-1 text-neutral-content sm:text-sm">
+                     {data?.followers} followers
+                  </Text>
                </Fragment>
             )}
          </HeroBanner>
          <section className="flex flex-col gap-10">
             {data?.tracks.length > 0 && (
-               <div>
-                  <Typography size="2xl">Tracks</Typography>
+               <Fragment>
+                  <Typography size="2xl" className="mb-0">
+                     Tracks
+                  </Typography>
                   <TrackList data={data?.tracks} />
-               </div>
+               </Fragment>
             )}
             {data?.albums.length > 0 && (
-               <div>
-                  <Typography size="2xl">albums</Typography>
+               <Fragment>
+                  <Typography size="2xl" className="mb-0">
+                     albums
+                  </Typography>
                   <AlbumList data={data?.albums} />
-               </div>
+               </Fragment>
             )}
          </section>
       </ErrorBoundary>

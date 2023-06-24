@@ -11,7 +11,7 @@ import { Menu } from "react-daisyui"
 import tw from "tailwind-styled-components"
 
 const Account = () => {
-   const { data } = useFetchUserDataQuery(undefined)
+   const { data } = useFetchUserDataQuery(undefined, { refetchOnMountOrArgChange: true })
    const { pathname } = useLocation()
    const sidebarTogglerRef = useRef(null)
 
@@ -23,7 +23,6 @@ const Account = () => {
    return (
       <ErrorBoundary>
          <div className="drawer">
-            <input id="sidebar-toggle" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex min-h-screen flex-col justify-between">
                <Navbar user={data} />
                <div className="bg-neutral ">

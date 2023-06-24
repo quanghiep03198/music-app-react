@@ -14,7 +14,7 @@ const HeroBanner = ({ children, heroImageUrl, heroImageMask }) => {
 
    return (
       <Hero className="glass relative place-content-start rounded-xl sm:place-content-center">
-         <Hero.Content className="hero-content sm:flex-col">
+         <Hero.Content className="sm:flex-col sm:gap-1">
             {isLoadingImage && <SkeletonImage tw="min-w-[16rem]" />}
 
             <Image
@@ -36,7 +36,7 @@ const HeroBanner = ({ children, heroImageUrl, heroImageMask }) => {
    )
 }
 
-const Box = tw.div`flex flex-1 flex-col gap-2`
+const Box = tw.div`flex flex-1 flex-col`
 const Image = tw.img`aspect-square w-[16rem] rounded-lg object-cover shadow-2xl sm:w-[12rem]`
 
 export default HeroBanner

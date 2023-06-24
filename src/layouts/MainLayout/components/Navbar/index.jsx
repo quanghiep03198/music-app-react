@@ -11,7 +11,7 @@ import { Paths } from "@/configs/paths.config"
 
 const Navbar = () => {
    const { authenticated } = useSelector((state) => state.auth)
-   const { data } = useFetchUserDataQuery(undefined, { skip: !authenticated })
+   const { data } = useFetchUserDataQuery(undefined, { skip: !authenticated, refetchOnMountOrArgChange: true })
    const { pathname } = useLocation()
 
    return (

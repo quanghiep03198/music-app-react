@@ -43,10 +43,10 @@ const Layout = () => {
                         </ErrorBoundary>
                      </Suspense>
                   </Drawer.Main>
-                  <AudioPlayer />
-                  <NavBottom />
                </Drawer.Content>
             </Drawer>
+            <AudioPlayer />
+            <NavBottom />
             <CreatePlaylistModal />
             <UploadTrackModal />
             <PlaylistListModal />

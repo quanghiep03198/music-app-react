@@ -12,6 +12,8 @@ import tw from "tailwind-styled-components"
 import TrackList from "../../components/shared/Track/TrackList"
 import { AppContext } from "../../context/AppProvider"
 import DefaultThumbnail from "/images/default-thumbnail.png"
+import Typography from "@/components/customs/Typography"
+import Text from "@/components/customs/Text"
 
 const Playlist = () => {
    const { id } = useParams()
@@ -52,13 +54,19 @@ const Playlist = () => {
                   </div>
                ) : (
                   <Fragment>
-                     <small className="first-letter:uppercase">{data?.public ? "public playlist" : "private playlist"}</small>
-                     <h1 className="text-6xl font-bold sm:text-4xl md:text-4xl ">{data?.title}</h1>
-                     <p className="sm:text-sm">{data?.tracks?.length || 0} tracks</p>
-                     <p>
+                     <Text $as="small" fontWeight="normal" className="mb-0 first-letter:uppercase">
+                        {data?.public ? "public playlist" : "private playlist"}
+                     </Text>
+                     <Typography size="6xl" fontWeight="bold" className="mb-6 sm:text-4xl md:text-4xl">
+                        {data?.title}
+                     </Typography>
+                     <Text size="base" className="mb-1 sm:text-sm">
+                        {data?.tracks?.length || 0} tracks
+                     </Text>
+                     <Text size="base" className="text-neutral-content" fontWeight="normal">
                         <span>Created by </span>
                         <Link className="font-bold text-base-content hover:link">{data?.creator?.username}</Link>
-                     </p>
+                     </Text>
                   </Fragment>
                )}
             </HeroBanner>
