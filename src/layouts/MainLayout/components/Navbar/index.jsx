@@ -15,7 +15,7 @@ const Navbar = () => {
    const { pathname } = useLocation()
 
    return (
-      <NavHeader>
+      <NavHeader className="bg-opacity-0 backdrop-blur-3xl">
          <NavHeader.Item>
             <PageNavigator />
             {pathname === "/search" && <SearchBox />}
@@ -44,7 +44,8 @@ const Navbar = () => {
    )
 }
 
-const NavHeader = tw.nav`navbar justify-between items-center p-5 gap-6`
-NavHeader.Item = tw.div`flex items-center gap-4`
+const NavHeader = tw.nav`navbar justify-between items-center p-5 gap-6 backdrop-blur-3xl bg-opacity-0`
+
+NavHeader.Item = tw.div`flex items-center gap-4 bg-transparent backdrop-blur-3xl bg-opacity-0`
 
 export default Navbar

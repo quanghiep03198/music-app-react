@@ -1,5 +1,5 @@
 import { useFetchTrackCollectionQuery } from "@/providers/api/collectionApi"
-import { setCurrentPlaylist } from "@/providers/slices/queueSlice"
+import { setCurrentPlaylist } from "@/providers/reducers/queueSlice"
 import HeroBanner from "@/components/customs/HeroBanner"
 import TrackList from "@/components/shared/Track/TrackList"
 import { AppContext } from "@/context/AppProvider"

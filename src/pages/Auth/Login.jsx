@@ -1,6 +1,6 @@
 import useLocalStorage from "@/hooks/useLocalStorage"
 import { useLoginWithEmailMutation } from "@/providers/api/authApi"
-import { loginWithGoogle } from "@/providers/slices/authSlice"
+import { loginWithGoogle } from "@/providers/reducers/authSlice"
 import { useGoogleLogin } from "@react-oauth/google"
 import axios from "axios"
 import { useEffect, useRef } from "react"

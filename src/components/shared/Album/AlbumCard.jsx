@@ -1,7 +1,7 @@
 import { Figure } from "@/components/customs/Card"
 import { AppContext } from "@/context/AppProvider"
 import { useUpdateAlbumsCollectionMutation } from "@/providers/api/collectionApi"
-import { setCurrentPlaylist } from "@/providers/slices/queueSlice"
+import { setCurrentPlaylist } from "@/providers/reducers/queueSlice"
 import axios from "axios"
 import classNames from "classnames"
 import { memo, useContext, useEffect, useState } from "react"

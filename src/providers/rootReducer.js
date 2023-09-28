@@ -6,9 +6,9 @@ import collectionApi from "./api/collectionApi"
 import genreApi from "./api/genreApi"
 import playlistApi from "./api/playlistApi"
 import trackApi from "./api/trackApi"
-import authSlice from "./slices/authSlice"
-import collectionSlice from "./slices/collectionSlice"
-import queueSlice from "./slices/queueSlice"
+import authSlice from "./reducers/authSlice"
+import collectionSlice from "./reducers/collectionSlice"
+import queueSlice from "./reducers/queueSlice"
 
 const rootReducer = combineReducers({
    [trackApi.reducerPath]: trackApi.reducer,

@@ -1,4 +1,4 @@
-import { logout } from "@/providers/slices/authSlice"
+import { logout } from "@/providers/reducers/authSlice"
 import { BsPerson } from "react-icons/bs"
 import { HiLogout } from "react-icons/hi"
 import { useDispatch } from "react-redux"

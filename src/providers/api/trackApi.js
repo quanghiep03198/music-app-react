@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react"
 import axiosBaseQuery from "../axiosBaseQuery"
-import { setCurrentPlaylist } from "../slices/queueSlice"
+import { setCurrentPlaylist } from "../reducers/queueSlice"
 import store from "../store"
 
 const trackApi = createApi({

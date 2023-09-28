@@ -1,6 +1,6 @@
 import HeroBanner from "@/components/customs/HeroBanner"
 import { useDeleteUserPlaylistMutation, useFetchSinglePlaylistQuery } from "@/providers/api/playlistApi"
-import { setCurrentPlaylist } from "@/providers/slices/queueSlice"
+import { setCurrentPlaylist } from "@/providers/reducers/queueSlice"
 import { Fragment, useContext } from "react"
 import { Button, Dropdown } from "react-daisyui"
 import { BiPlus } from "react-icons/bi"

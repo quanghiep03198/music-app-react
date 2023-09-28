@@ -1,7 +1,7 @@
 import { Slide, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import ErrorBoundary from "./components/error/ErrorBoundary"
-import Router from "./router"
+import Router from "./router/Routes"
 
 function App() {
    return (

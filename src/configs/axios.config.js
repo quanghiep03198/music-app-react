@@ -1,4 +1,4 @@
-import { logout } from "@/providers/slices/authSlice"
+import { logout } from "@/providers/reducers/authSlice"
 import store from "@/providers/store"
 import checkJsonType from "@/utils/checkJsonType"
 import axios from "axios"

@@ -1,4 +1,4 @@
-import { setCurrentPlaylist } from "@/providers/slices/queueSlice"
+import { setCurrentPlaylist } from "@/providers/reducers/queueSlice"
 import { AppContext } from "@/context/AppProvider"
 import useLazyRender from "@/hooks/useLazyRender"
 import { memo, useContext, useRef, useState } from "react"
